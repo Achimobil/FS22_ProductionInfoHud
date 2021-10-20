@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<l10n>
+	<translationContributors>Achimobil</translationContributors>
+    <texts>
+		<text name="IGNORE_PRODUCTION_BUTTON" text="Produktionsbedarf ignorieren" />
+		<text name="MoreAvailable" text="weitere" />
+		<text name="textSize" text="Textgröße" />
+		<text name="input_TOGGLE_GUI" text="PIH: Anzeige umschalten" />
+		<text name="input_OPEN_GUI" text="PIH: Zeige Dialog" />
+		<text name="FactoryHeader" text="Produktion" />
+		<text name="IgnoreInputHeader" text="Eingang" />
+		<text name="SellingHeader" text="Verkauf" />
+		<text name="Hide" text="Verbergen" />
+		<text name="Show" text="Anzeigen" />
+		<text name="IGNORE_PRODUCTION_OUTPUT_SELLING" text="Produktion für Verkauf ignorieren" />
+		<text name="minSellAmount" text="Minimale Verkaufsmenge" />
+		<text name="maxFactoryLines" text="Maximal angezeigte Produktionen" />
+		<text name="productionShowHours" text="Maximal angezeigte Restlaufzeit" />
+		<text name="maxSellingLines" text="Maximal angezeigte Verkaufszeilen" />
+		<text name="NothingToSell" text="Nichts zu verkaufen" />
+		<text name="AllProductsOperativ" text="Alle Produktionen versorgt" />
+		<text name="PIHSETTINGSTITLE" text="PIH Einstellungen" />
+	</texts>
+</l10n>

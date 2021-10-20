@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<modDesc descVersion="53">
+	<title>
+		<en>Productions Info Hud</en>
+		<de>Produktionen Info Hud</de>
+	</title>
+    <description>
+        <de><![CDATA[Ein Hud zur Anzeige der Produktionen die Aufmerksamkeit benötigen
+
+Entwickelt für die NF-Marsch, ist aber kompatibel zu allen Global Company Produktionen.
+Der Mod zeigt in einem Overlay die Produktionen in einer Liste an, die...
+- keine Rohstoffe haben und somit still stehen
+- die innerhalb der nächsten 72 Stunden (Einstellbar) leer laufen und weniger als 75% Füllstand haben.
+Diese Liste ist nach Restlaufzeit sortiert. Hierbei stehen die leeren Produktionen zuerst und dann anhand der Restlaufzeit aufsteigend sortiert.
+Für die Restlaufzeit werden Produktionen die Abgeschaltet wurden durch den User oder die Voll sind nicht berücksichtigt.
+Wenn ein Rohstoff für keine aktivierte Produktionslinie benötigt wird, wird es auch nicht angezeigt.
+Angezeigt werden die ersten 10 (Einstellbar) aus der sortierten Liste.
+
+Zeigt außerdem die Verkaufsmöglichkeiten an, wo man Ware aus den Produktionen oder aus den Silos zu bestpreisen Verkaufen kann.
+Dies aber nur, wenn der Verkaufspreisauslöser installiert und aktiviert ist.
+Außerdem muss in einem Lager oder einer Produktion mindestens 100k Liter (Einstellbar) zum Verkauf bereitstehen und der im Verkaufspreisauslöser eingestellte Preis überschritten sein.
+
+Über den Einstellungsdialog (standard LShift+LCTRL+P) können die Produktionen einzeln für Warenbelieferung und Warenverkauf ignoriert werden.
+
+Erfordert:
+- Global Company.
+
+Optional:
+- Verkaufspreistrigger, wenn man die Verkaufspreise auch Anzeigen will.
+
+Erklärung zu den Einstellungen, die noch nicht über das Ingame Menü möglich sind:
+Pro inputProduct kann die minNeededAmount eingestellt werden. Der Rohstoff wird erst angezeigt, wenn mindestens so viel angeliefert werden kann.
+
+Changelog 1.0.2.1:
+- Fehlerbehebung in der Laufzeitberechnung bei Verwendung von Seasons
+- Alles bis auf die einzelnen Füllmengen und die Position ist nun im Dialog einstellbar
+- Wenn nichts erledigt ist, wird dies nun auch angezeigt
+- Titel des Dialogs ist nun auch übersetzt
+- Performanceverbesserung, da die Berechnungen jetzt nur noch alle 5 Sekunden durchgeführt werden
+- Position der Anzeige korrigiert bei Verwendung des Vehicle Inspectors, wenn kein Fahrzeug mehr angezeigt wird
+
+ ]]></de>
+		<en><![CDATA[A Hud to display the productions that need attention
+
+Developed for the NF march, but is compatible with all Global Company productions.
+The mod shows in an overlay the productions in a list that ...
+- have no raw materials and therefore stand still
+- which run empty within the next 72 hours (adjustable) and have less than 75% fill level.
+This list is sorted according to the remaining term. The empty productions are sorted first and then in ascending order based on the remaining time.
+For the remaining term, productions that have been switched off by the user or that are fully are not taken into account.
+If a raw material is not required for an activated production line, it is also not displayed.
+The first 10 (adjustable) from the sorted list are displayed.
+
+Also shows the sales possibilities, where goods from the productions or from the silos can be sold at the best prices.
+But only if the sales price trigger is installed and activated.
+In addition, at least 100k liters (adjustable) must be available for sale in a warehouse or production facility and the price set in the sales price trigger must be exceeded.
+
+Via the settings dialog (standard LShift + LCTRL + P), the productions can be ignored individually for goods deliveries and goods sales.
+
+Requires:
+- Global Company.
+
+Optional:
+- Sales price trigger, if you want to display the sales prices as well.
+
+Explanation of the settings that are not yet possible via the in-game menu:
+The minNeededAmount can be set for each inputProduct. The raw material is only displayed when at least that much can be delivered.
+
+Changelog 1.0.2.1
+- Bugfix in the runtime calculation when using Seasons
+- Everything except for the individual filling quantities and the position can now be set in the dialog
+- If nothing is done, this is now also displayed
+- The title of the dialog is now also translated
+- Improved performance as the calculations are now only carried out every 5 seconds
+- Corrected the position of the display when using the Vehicle Inspector when no more vehicle is displayed
+]]></en>
+    </description>
+    <author>Achimobil</author>
+    <contributor>Klaus_Ferrano (Icon)</contributor>
+	<version>1.0.2.1</version>
+	<iconFilename>ModIcon.dds</iconFilename>
+	<multiplayer supported="true"/>
+
+    <globalCompany minimumVersion="1.7.0.0">
+        <customClasses>
+            <customClass name="GC_ProductionInfoHud"/>
+        </customClasses>
+    </globalCompany>
+
+	<extraSourceFiles>        
+		<sourceFile filename="GC_Checker.lua"/>
+		<sourceFile filename="ProductionInfoHud.lua"/>
+		<sourceFile filename="Gui/ProductionInfoHudGui.lua" />
+    </extraSourceFiles>
+
+    <inputBinding>
+        <actionBinding action="TOGGLE_GUI">
+            <binding device="KB_MOUSE_DEFAULT" input="KEY_lctrl KEY_p" />
+        </actionBinding>  
+        <actionBinding action="OPEN_GUI">
+            <binding device="KB_MOUSE_DEFAULT" input="KEY_lctrl KEY_lshift KEY_p" />
+        </actionBinding>        
+    </inputBinding>   
+    <actions>
+        <action name="TOGGLE_GUI" />
+        <action name="OPEN_GUI" />
+    </actions>
+
+	<l10n filenamePrefix="l10n" />
+</modDesc>

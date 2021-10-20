@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<l10n>
+	<translationContributors>Achimobil, nagor</translationContributors>
+	<texts>
+		<text name="IGNORE_PRODUCTION_BUTTON" text="Требуемые ресурсы" />
+		<text name="MoreAvailable" text="ещё" />
+		<text name="textSize" text="Размер текста" />
+		<text name="input_TOGGLE_GUI" text="PIH: Переключить отображение" />
+		<text name="input_OPEN_GUI" text="PIH: Настройки" />
+		<text name="FactoryHeader" text="Производства" />
+		<text name="IgnoreInputHeader" text="Требуется" />
+		<text name="SellingHeader" text="Продажа" />
+		<text name="Hide" text="Скрыть" />
+		<text name="Show" text="Показать" />
+		<text name="IGNORE_PRODUCTION_OUTPUT_SELLING" text="Продажа продукции" />
+		<text name="minSellAmount" text="Минимальный объём продажи" />
+		<text name="maxFactoryLines" text="Минимум строк о производствах" />
+		<text name="productionShowHours" text="Оставшееся время" />
+		<text name="maxSellingLines" text="Макс показанные линии продаж" />
+		<text name="NothingToSell" text="Нечего продавать" />
+		<text name="AllProductsOperativ" text="Все производства в рабочем состоянии" />
+		<text name="PIHSETTINGSTITLE" text="PIH настройки" />
+	</texts>
+</l10n>
