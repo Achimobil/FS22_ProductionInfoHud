@@ -28,7 +28,7 @@
 		<text name="No" text="Нет" />
 		<text name="MP_SETTINGS_TEXT" text="Настройки мультиплеера" />
 		<text name="SAVE_SETTINGS_BUTTON" text="Сохранить" />
-		<text name="CENTRAL_STORAGE_TEXT" text="Суммы на центральном складе" />
-		<text name="CORRECT_CENTRAL_STORAGE_BUTTON" text="Верный" />
+		<text name="CENTRAL_STORAGE_TEXT" text="Объём на центр. складе" />
+		<text name="CORRECT_CENTRAL_STORAGE_BUTTON" text="Обновить" />
 	</texts>
 </l10n>
