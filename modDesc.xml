@@ -31,13 +31,33 @@ Optional:
 Erklärung zu den Einstellungen, die noch nicht über das Ingame Menü möglich sind:
 Pro inputProduct kann die minNeededAmount eingestellt werden. Der Rohstoff wird erst angezeigt, wenn mindestens so viel angeliefert werden kann.
 
-Changelog 1.0.2.1:
-- Fehlerbehebung in der Laufzeitberechnung bei Verwendung von Seasons
-- Alles bis auf die einzelnen Füllmengen und die Position ist nun im Dialog einstellbar
-- Wenn nichts erledigt ist, wird dies nun auch angezeigt
+Changelog 1.0.5.0
+- Für Multiplayer Clients: Im Einstellungsmenü kann man jetzt über einen Button die Einstellungen manuell speichern. Diese sollten dann beim nächsten Spielstart auch geladen werden.
+- In den Einstellungen gibt es jetzt einen Button der die Lagermengen im Zentrallager korriert für die Mengen, wo statt 5000 mal wieder 4999 von GC genutzt wurden. Dies wird nicht auf den Displays angezeigt und ist nicht getestet im Multiplayer.
+- Verkaufsempfehlung wird nun angezeigt, wenn die Gesamtmenge aller Produkte mit gutem Preis von einem Abholort zu einem Verkaufsort über der Eingestellten Menge liegt. Das Zentrallager der Marsch ist hierbei ein Abholort.
+- RU Übersetzungen aktualisiert (Danke an nagor)
+Sollten die Multiplayer Clients ein Problem mit den Einstellungen oder der Lagerkorrektur feststellen, so bitte Melden. Ich werde dann versuchen das zu beheben. Für LS19 gibt es aber für mich keine Möglichkeit das zu testen, somit bleibt es ein raten, warum es nicht funktioniert. Ich bitte hierfür um Verständniss. 
+
+Changelog 1.0.4.0
+- Anpassung der Settings so dass diese beim Multplayer Client in den modsettings Ordner gespeichert werden
+- Ausblenden der Anzeige nun auch im Global Company Produktions Menü
+- Auf vielfachen Wunsch bei der Anzeige für Verkauf das von wo mit dem was vertauscht zum besseren planung von Palettenverkäufen
+- RU Übersetzungen aktualisiert (Danke an nagor)
+- Fehler im Einstellungsdialog für volle Produktionen behoben
+
+Changelog 1.0.3.0
+- Ein paar kleinere Fehler behoben
+- RU Übersetzungen aktualisiert (Danke an nagor)
+- Volle Produktionen können nun als erstes angezeigt werden. In den Einstellungen deaktivierbar.
+- Die Position unter dem Vehicle Inspector kann jetzt in den Einstellungen gemacht werden.
+
+Changelog 1.0.2.1
+- Fehlerbehebung in der Laufzeitberechnung bei verwendung von Seasons
+- Alles bis auf die Einzelnen Füllmengen und die Position ist nun im Dialog einstellbar
+- Wenn nichts erledigt ist wird dies nun auch angezeigt
 - Titel des Dialogs ist nun auch übersetzt
-- Performanceverbesserung, da die Berechnungen jetzt nur noch alle 5 Sekunden durchgeführt werden
-- Position der Anzeige korrigiert bei Verwendung des Vehicle Inspectors, wenn kein Fahrzeug mehr angezeigt wird
+- Performanceverbesserung da die berechnungen jetzt nur noch alle 5 Sekunden durchgeführt werden
+- Position der Anzeige korrigiert beim verwendung des Vehicle Inspectors, wenn kein Fahrzeug mehr Angezeigt wird
 
  ]]></de>
 		<en><![CDATA[A Hud to display the productions that need attention
@@ -66,6 +86,26 @@ Optional:
 Explanation of the settings that are not yet possible via the in-game menu:
 The minNeededAmount can be set for each inputProduct. The raw material is only displayed when at least that much can be delivered.
 
+Changelog 1.0.5.0
+- For multiplayer clients: You can now save the settings manually using a button in the settings menu. These should then also be loaded the next time the game is started.
+- In the settings there is now a button that corrects the stock quantities in the central warehouse for the quantities where 4999 were used by GC instead of 5000. This is not shown on the displays and has not been tested in multiplayer.
+- Sales recommendation is now displayed if the total quantity of all products with a good price from a pick-up location to a sales location is above the set quantity. The central warehouse of the Marsch is a pick-up point.
+- RU translations updated (thanks to nagor)
+If the multiplayer clients discover a problem with the settings or the storage correction, please report them. I'll try to fix it then. For LS19 there is no way for me to test it, so it remains a guess why it doesn't work. I ask for your understanding.
+
+Changelog 1.0.4.0
+- Adjustment of the settings so that they are saved in the modsettings folder on the multplayer client
+- The display is now also hidden in the Global Company Production menu
+- By popular request, when displaying for sale, the from where is swapped with what for better planning of pallet sales
+- RU translations updated (thanks to nagor)
+- Fixed a bug in the settings dialog for full productions
+
+Changelog 1.0.3.0
+- Fixed a few minor bugs
+- RU translations updated (thanks to nagor)
+- Full productions can now be displayed first. Can be deactivated in the settings.
+- The position under the Vehicle Inspector can now be made in the settings.
+
 Changelog 1.0.2.1
 - Bugfix in the runtime calculation when using Seasons
 - Everything except for the individual filling quantities and the position can now be set in the dialog
@@ -77,7 +117,7 @@ Changelog 1.0.2.1
     </description>
     <author>Achimobil</author>
     <contributor>Klaus_Ferrano (Icon)</contributor>
-	<version>1.0.2.1</version>
+	<version>1.0.5.0</version>
 	<iconFilename>ModIcon.dds</iconFilename>
 	<multiplayer supported="true"/>
 

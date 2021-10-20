@@ -20,5 +20,15 @@
 		<text name="NothingToSell" text="Nothing to sell" />
 		<text name="AllProductsOperativ" text="All productions operative" />
 		<text name="PIHSETTINGSTITLE" text="PIH Settings" />
+		<text name="IgnoreFullOutputHeader" text="Full" />
+		<text name="IGNORE_PRODUCTION_OUTPUT_FULL" text="Ignore Production Output Full" />
+		<text name="showFullProductions" text="Show full Productions" />
+		<text name="positionBelowVehicleInspector" text="Position below Vehicle Inspector" />
+		<text name="Yes" text="Yes" />
+		<text name="No" text="No" />
+		<text name="MP_SETTINGS_TEXT" text="Multiplayer Settings" />
+		<text name="SAVE_SETTINGS_BUTTON" text="Save" />
+		<text name="CENTRAL_STORAGE_TEXT" text="Central warehouse amounts" />
+		<text name="CORRECT_CENTRAL_STORAGE_BUTTON" text="Correct" />
 	</texts>
 </l10n>

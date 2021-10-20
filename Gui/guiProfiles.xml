@@ -101,22 +101,29 @@
 	</Profile>
 	
 	<Profile name="pihFactorySettingsBox" extends="emptyPanel" with="lightFrame">
-        <Value name="size" value="400px 695px" />
+        <Value name="size" value="500px 700px" />
         <Value name="position" value="0px 0px" />
         <Value name="screenAlign" value="topLeft" />
         <Value name="positionOrigin" value="topLeft" />
     </Profile>
 	
 	<Profile name="pihCommonSettingsBox" extends="emptyPanel" with="lightFrame">
-        <Value name="size" value="375px 500px" />
-        <Value name="position" value="405px -5px" />
+        <Value name="size" value="375px 700px" />
+        <Value name="position" value="500px -0px" />
+        <Value name="screenAlign" value="topLeft" />
+        <Value name="positionOrigin" value="topLeft" />
+    </Profile>
+	
+	<Profile name="pihAdditionalSettingsBox" extends="emptyPanel" with="lightFrame">
+        <Value name="size" value="263px 700px" />
+        <Value name="position" value="875px -0px" />
         <Value name="screenAlign" value="topLeft" />
         <Value name="positionOrigin" value="topLeft" />
     </Profile>
 	
 	<Profile name="pihFactoryListHeader" extends="emptyPanel" with="lightFrame">
 		<Value name="imageColor" value="$preset_colorListHeaderBackground" />
-        <Value name="size" value="400px 37px" />
+        <Value name="size" value="500px 37px" />
 		<Value name="position" value="0px 0px" />
         <Value name="screenAlign" value="topLeft" />
         <Value name="positionOrigin" value="topLeft" />
@@ -133,30 +140,34 @@
     <Profile name="pihFactoryListHeaderIgnoreInput" extends="pihFactoryListHeaderFactory" with="anchorTopRight">
         <Value name="size" value="50px 20px" />
         <Value name="textAlignment" value="right" />
-        <Value name="position" value="-110px -7px" />
+        <Value name="position" value="-190px -7px" />
     </Profile>
 
     <Profile name="pihFactoryListHeaderIgnoreSelling" extends="pihFactoryListHeaderIgnoreInput" with="anchorTopRight">
+        <Value name="position" value="-100px -7px" />
+    </Profile>
+
+    <Profile name="pihFactoryListHeaderIgnoreFullOutput" extends="pihFactoryListHeaderIgnoreInput" with="anchorTopRight">
         <Value name="position" value="-10px -7px" />
     </Profile>
 	
 	<Profile name="pihListBoxArea" extends="emptyPanel" with="lightFrame">
-        <Value name="size" value="400px 492px" />
+        <Value name="size" value="500px 422px" />
         <Value name="position" value="0px -37px" />
         <Value name="screenAlign" value="topLeft" />
         <Value name="positionOrigin" value="topLeft" />
     </Profile>
 
     <Profile name="pihFactoryList" extends="list">
-        <Value name="size" value="398px 490px" />
+        <Value name="size" value="498px 420px" />
         <!-- <Value name="position" value="0px -137px" /> -->
         <Value name="selectOnScroll" value="true" />
         <Value name="screenAlign" value="topLeft" />
         <Value name="positionOrigin" value="topLeft" />
         <Value name="isHorizontalList" value="false" />
-        <Value name="itemsPerCol" value="14" />
+        <Value name="itemsPerCol" value="12" />
         <Value name="listItemHeight" value="35px" />
-        <Value name="listItemWidth" value="398px" />
+        <Value name="listItemWidth" value="498px" />
         <Value name="rowBackgroundProfile" value="pihListItem" />
         <Value name="rowBackgroundProfileAlternate" value="pihListItemAlternate" />
     </Profile>
@@ -165,7 +176,7 @@
         <Value name="imageColor" value="$preset_colorListRowBackground" />
         <Value name="imageFocusedColor" value="$preset_colorMainUI" />
         <Value name="imageSelectedColor" value="$preset_colorMainUI" />
-        <Value name="size" value="398px 35px" />
+        <Value name="size" value="498px 35px" />
         <Value name="position" value="0px 0px" />
     </Profile>
 
@@ -175,7 +186,7 @@
         <Value name="imageColor" value="$preset_colorListRowBackground" />
         <Value name="imageFocusedColor" value="$preset_colorMainUI" />
         <Value name="imageSelectedColor" value="$preset_colorMainUI" />
-        <Value name="size" value="398px 35px" />
+        <Value name="size" value="498px 35px" />
         <Value name="position" value="0px 0px" />
     </Profile>
 
@@ -190,23 +201,28 @@
 
     <Profile name="pihFactoryListItemIgnoreInput" extends="textDefault" with="anchorTopRight">
         <Value name="textSize" value="15px" />
+		<Value name="textResetSize" value="true" />
         <Value name="textResizeWidth" value="90px" />
         <Value name="textBold" value="false" />
         <Value name="size" value="50px 20px" />
         <Value name="textAlignment" value="right" />
-        <Value name="position" value="-90px -7px" />
+        <Value name="position" value="-190px -7px" />
     </Profile>
 
     <Profile name="pihFactoryListItemIgnoreSelling" extends="pihFactoryListItemIgnoreInput" with="anchorTopRight">
+        <Value name="position" value="-100px -7px" />
+    </Profile>
+
+    <Profile name="pihFactoryListItemIgnoreFullOutput" extends="pihFactoryListItemIgnoreInput" with="anchorTopRight">
         <Value name="position" value="-10px -7px" />
     </Profile>
 	
 	<Profile name="pihMenuButtonsLayout" extends="ingameMenuSettingsLayout">
-		<Value name="position" value="20px -540px" />
+		<Value name="position" value="20px -470px" />
 	</Profile>
 	
     <Profile name="pihButton1" extends="ingameMenuSettingsPauseButton">
-        <Value name="size" value="350px 48px" />
+        <Value name="size" value="450px 48px" />
         <Value name="textAlignment" value="center" />
 		<Value name="textResetSize" value="true" />
         <Value name="textResizeWidth" value="250px" />
@@ -214,6 +230,19 @@
         <Value name="margin" value="0px 10px 0px 10px" />
 		<Value name="forceFocus" value="true" />
         <Value name="positionOrigin" value="middleCenter" />
+    </Profile>
+	
+    <Profile name="pihButton2" extends="pihButton1">
+        <Value name="size" value="220px 48px" />
+        <Value name="textResizeWidth" value="220px" />
+    </Profile>
+	
+    <Profile name="pihButton2Label">
+        <Value name="size" value="210px 38px" />
+		<Value name="textResetSize" value="true" />
+        <Value name="textResizeWidth" value="210px" />
+        <Value name="textSize" value="18px" />
+        <Value name="textAlignment" value="left" />
     </Profile>
 	
 	<Profile name="pihButtonBoxDocked" extends="buttonBoxDocked">

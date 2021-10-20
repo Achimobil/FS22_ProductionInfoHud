@@ -51,10 +51,17 @@ function GC_ProductionInfoHud:initGlobalCompany(customEnvironment, baseDirectory
     GC_ProductionInfoHud.settings["display"]["minSellAmount"] = {};
     GC_ProductionInfoHud.settings["display"]["minSellAmount"].Value = 100000;
     GC_ProductionInfoHud.settings["display"]["minSellAmount"].PossbileValues = {10000,50000,100000,200000};
-    GC_ProductionInfoHud.settings["display"]["positionBelowVehicleInspector"] = false;
+    GC_ProductionInfoHud.settings["display"]["positionBelowVehicleInspector"] = {};
+    GC_ProductionInfoHud.settings["display"]["positionBelowVehicleInspector"].Value = "No";
+    GC_ProductionInfoHud.settings["display"]["positionBelowVehicleInspector"].PossbileValues = {"No","Yes"};
+    GC_ProductionInfoHud.settings["display"]["positionBelowVehicleInspector"].Translate = true;
     GC_ProductionInfoHud.settings["display"]["maxSellingLines"] = {};
     GC_ProductionInfoHud.settings["display"]["maxSellingLines"].Value = 10;
-    GC_ProductionInfoHud.settings["display"]["maxSellingLines"].PossbileValues = {5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20};
+    GC_ProductionInfoHud.settings["display"]["maxSellingLines"].PossbileValues = {5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25};
+    GC_ProductionInfoHud.settings["display"]["showFullProductions"] = {};
+    GC_ProductionInfoHud.settings["display"]["showFullProductions"].Value = "Show";
+    GC_ProductionInfoHud.settings["display"]["showFullProductions"].PossbileValues = {"Show","Hide"};
+    GC_ProductionInfoHud.settings["display"]["showFullProductions"].Translate = true;
     GC_ProductionInfoHud.settings["factory"] = {};
 
     -- config speichern, wenn savegame gespeichert wird
@@ -106,155 +113,189 @@ function GC_ProductionInfoHud:OpenGui()
 	end
 end
 
-function GC_ProductionInfoHud:loadCfg()
-    print("GC_ProductionInfoHud:loadCfg()");
+function GC_ProductionInfoHud:GetSaveGameFile()
+	local file;
 	if g_currentMission.missionInfo.savegameDirectory ~= nil then
-		local file = g_currentMission.missionInfo.savegameDirectory.. "/ProductionInfoHudSettings.xml"
-        if fileExists(file) then
-            print("GC_ProductionInfoHud: Settings loaded from file");
-            local XML = loadXMLFile("ProductionInfoHudSettings_XML", file, "ProductionInfoHudSettings")
-
-            local xmlTag = ("ProductionInfoHudSettings.display.textSize(%d)"):format(0); 
-            local value = getXMLInt(XML, xmlTag.. "#int");
-            if value ~= nil then GC_ProductionInfoHud.settings["display"]["textSize"].Value = value;end;
-            
-            xmlTag = ("ProductionInfoHudSettings.display.showType(%d)"):format(0); 
-            value = getXMLString(XML, xmlTag.. "#string");
-            if value ~= nil then GC_ProductionInfoHud.settings["display"]["showType"] = value;end;
-
-            xmlTag = ("ProductionInfoHudSettings.display.minSellAmount(%d)"):format(0); 
-            value = getXMLInt(XML, xmlTag.. "#int");
-            if value ~= nil then GC_ProductionInfoHud.settings["display"]["minSellAmount"].Value = value;end;
-
-            xmlTag = ("ProductionInfoHudSettings.display.maxSellingLines(%d)"):format(0); 
-            value = getXMLInt(XML, xmlTag.. "#int");
-            if value ~= nil then GC_ProductionInfoHud.settings["display"]["maxSellingLines"].Value = value;end;
-
-            xmlTag = ("ProductionInfoHudSettings.display.maxFactoryLines(%d)"):format(0); 
-            value = getXMLInt(XML, xmlTag.. "#int");
-            if value ~= nil then GC_ProductionInfoHud.settings["display"]["maxFactoryLines"].Value = value;end;
-
-            xmlTag = ("ProductionInfoHudSettings.display.productionShowHours(%d)"):format(0); 
-            value = getXMLInt(XML, xmlTag.. "#int");
-            if value ~= nil then GC_ProductionInfoHud.settings["display"]["productionShowHours"].Value = value;end;
-
-            xmlTag = ("ProductionInfoHudSettings.display.positionBelowVehicleInspector(%d)"):format(0); 
-            value = getXMLBool(XML, xmlTag.. "#bool");
-            if value ~= nil then GC_ProductionInfoHud.settings["display"]["positionBelowVehicleInspector"] = value;end;
-
-			for x=0,200 do
-				local groupNameTag = ("ProductionInfoHudSettings.factorys.factory(%d)"):format(x)
-				local indexName = getXMLString(XML, groupNameTag.. "#indexName")
-
-				if indexName == nil then
-					break
-				end
-
-				if GC_ProductionInfoHud.settings["factory"][indexName] == nil then
-                    GC_ProductionInfoHud.settings["factory"][indexName] = {};
-                end
-
-				local ignore = getXMLBool(XML, groupNameTag.. "#ignore")
-                if ignore ~= nil then GC_ProductionInfoHud.settings["factory"][indexName].ignore = ignore end;
-				local ignoreSelling = getXMLBool(XML, groupNameTag.. "#ignoreSelling")
-                if ignore ~= nil then GC_ProductionInfoHud.settings["factory"][indexName].ignoreSelling = ignoreSelling end;
-				
-				for y=0,50 do
-					local innerGroupNameTag = (groupNameTag.. ".inputProducts.inputProduct(%d)"):format(y);
-					local inputProductId = getXMLInt(XML, innerGroupNameTag.. "#inputProductId")
-					local minNeededAmount = getXMLInt(XML, innerGroupNameTag.. "#minNeededAmount")
-					local capacity = getXMLInt(XML, innerGroupNameTag.. "#capacity")
-					local fillTypeTitles = getXMLString(XML, innerGroupNameTag.. "#fillTypeTitles")
-					
-					if inputProductId == nil then
-						break
-					end
-					
-					if GC_ProductionInfoHud.settings["factory"][indexName].inputProducts == nil then
-						GC_ProductionInfoHud.settings["factory"][indexName].inputProducts = {};
-					end
-
-					if GC_ProductionInfoHud.settings["factory"][indexName].inputProducts[inputProductId] == nil then
-						GC_ProductionInfoHud.settings["factory"][indexName].inputProducts[inputProductId] = {};
-					end
-					
-					if minNeededAmount ~= nil then GC_ProductionInfoHud.settings["factory"][indexName].inputProducts[inputProductId].minNeededAmount = minNeededAmount end;	
-					if capacity ~= nil then GC_ProductionInfoHud.settings["factory"][indexName].inputProducts[inputProductId].capacity = capacity end;	
-					if fillTypeTitles ~= nil then GC_ProductionInfoHud.settings["factory"][indexName].inputProducts[inputProductId].fillTypeTitles = fillTypeTitles end;	
-				end
-			end
-            
-            --saveXMLFile(XML)
-        else
-            print("GC_ProductionInfoHud: No settings file found");
-        end
+		file = g_currentMission.missionInfo.savegameDirectory.. "/ProductionInfoHudSettings.xml";
+	elseif GC_ProductionInfoHud.isServer == false then
+		-- when no savegameDirectory and not isServer, then it is a client on MP or Dedi, so save the settings in modSettings folder.
+		createFolder(getUserProfileAppPath().. "modsSettings/");
+		file = getUserProfileAppPath() .. "modsSettings/ProductionInfoHudSettings.xml"
 	end
+	
+	print("GC_ProductionInfoHud: use Settingsfile - " .. file);
+	
+	return file;
+end
+
+function GC_ProductionInfoHud:loadCfg()
+
+	local saveGameFile = GC_ProductionInfoHud:GetSaveGameFile();
+		
+	if saveGameFile == nil then
+		print("GC_ProductionInfoHud: Settingsfile position not found");
+		return;
+	end
+	
+	if fileExists(saveGameFile) ~= true then
+		print("GC_ProductionInfoHud: No settings file found. Use predefines");
+		return;
+	end
+	
+	local XML = loadXMLFile("ProductionInfoHudSettings_XML", saveGameFile, "ProductionInfoHudSettings")
+
+	local xmlTag = ("ProductionInfoHudSettings.display.textSize(%d)"):format(0); 
+	local value = getXMLInt(XML, xmlTag.. "#int");
+	if value ~= nil then GC_ProductionInfoHud.settings["display"]["textSize"].Value = value;end;
+	
+	xmlTag = ("ProductionInfoHudSettings.display.showType(%d)"):format(0); 
+	value = getXMLString(XML, xmlTag.. "#string");
+	if value ~= nil then GC_ProductionInfoHud.settings["display"]["showType"] = value;end;
+
+	xmlTag = ("ProductionInfoHudSettings.display.minSellAmount(%d)"):format(0); 
+	value = getXMLInt(XML, xmlTag.. "#int");
+	if value ~= nil then GC_ProductionInfoHud.settings["display"]["minSellAmount"].Value = value;end;
+
+	xmlTag = ("ProductionInfoHudSettings.display.maxSellingLines(%d)"):format(0); 
+	value = getXMLInt(XML, xmlTag.. "#int");
+	if value ~= nil then GC_ProductionInfoHud.settings["display"]["maxSellingLines"].Value = value;end;
+
+	xmlTag = ("ProductionInfoHudSettings.display.maxFactoryLines(%d)"):format(0); 
+	value = getXMLInt(XML, xmlTag.. "#int");
+	if value ~= nil then GC_ProductionInfoHud.settings["display"]["maxFactoryLines"].Value = value;end;
+
+	xmlTag = ("ProductionInfoHudSettings.display.productionShowHours(%d)"):format(0); 
+	value = getXMLInt(XML, xmlTag.. "#int");
+	if value ~= nil then GC_ProductionInfoHud.settings["display"]["productionShowHours"].Value = value;end;
+
+	xmlTag = ("ProductionInfoHudSettings.display.showFullProductions(%d)"):format(0); 
+	value = getXMLString(XML, xmlTag.. "#string");
+	if value ~= nil then GC_ProductionInfoHud.settings["display"]["showFullProductions"].Value = value;end;
+
+	xmlTag = ("ProductionInfoHudSettings.display.positionBelowVehicleInspector(%d)"):format(0); 
+	value = getXMLString(XML, xmlTag.. "#string");
+	if value ~= nil then GC_ProductionInfoHud.settings["display"]["positionBelowVehicleInspector"].Value = value;end;
+
+	for x=0,200 do
+		local groupNameTag = ("ProductionInfoHudSettings.factorys.factory(%d)"):format(x)
+		local indexName = getXMLString(XML, groupNameTag.. "#indexName")
+
+		if indexName == nil then
+			break
+		end
+
+		if GC_ProductionInfoHud.settings["factory"][indexName] == nil then
+			GC_ProductionInfoHud.settings["factory"][indexName] = {};
+			GC_ProductionInfoHud.settings["factory"][indexName].availableInThisGame = false;
+		end
+
+		local ignore = getXMLBool(XML, groupNameTag.. "#ignore")
+		if ignore ~= nil then GC_ProductionInfoHud.settings["factory"][indexName].ignore = ignore end;
+		
+		local ignoreSelling = getXMLBool(XML, groupNameTag.. "#ignoreSelling")
+		if ignoreSelling ~= nil then GC_ProductionInfoHud.settings["factory"][indexName].ignoreSelling = ignoreSelling end;
+		
+		local ignoreFullProductions = getXMLBool(XML, groupNameTag.. "#ignoreFullProductions")
+		if ignoreFullProductions ~= nil then GC_ProductionInfoHud.settings["factory"][indexName].ignoreFullProductions = ignoreFullProductions end;
+		
+		for y=0,50 do
+			local innerGroupNameTag = (groupNameTag.. ".inputProducts.inputProduct(%d)"):format(y);
+			local inputProductId = getXMLInt(XML, innerGroupNameTag.. "#inputProductId")
+			local minNeededAmount = getXMLInt(XML, innerGroupNameTag.. "#minNeededAmount")
+			local capacity = getXMLInt(XML, innerGroupNameTag.. "#capacity")
+			local fillTypeTitles = getXMLString(XML, innerGroupNameTag.. "#fillTypeTitles")
+			
+			if inputProductId == nil then
+				break
+			end
+			
+			if GC_ProductionInfoHud.settings["factory"][indexName].inputProducts == nil then
+				GC_ProductionInfoHud.settings["factory"][indexName].inputProducts = {};
+			end
+
+			if GC_ProductionInfoHud.settings["factory"][indexName].inputProducts[inputProductId] == nil then
+				GC_ProductionInfoHud.settings["factory"][indexName].inputProducts[inputProductId] = {};
+			end
+			
+			if minNeededAmount ~= nil then GC_ProductionInfoHud.settings["factory"][indexName].inputProducts[inputProductId].minNeededAmount = minNeededAmount end;	
+			if capacity ~= nil then GC_ProductionInfoHud.settings["factory"][indexName].inputProducts[inputProductId].capacity = capacity end;	
+			if fillTypeTitles ~= nil then GC_ProductionInfoHud.settings["factory"][indexName].inputProducts[inputProductId].fillTypeTitles = fillTypeTitles end;	
+		end
+	end
+	
+	print("GC_ProductionInfoHud: loaded settings from file");
 end
 
 function GC_ProductionInfoHud:saveCfg()
-	if g_currentMission.missionInfo.savegameDirectory ~= nil then
-		local file = g_currentMission.missionInfo.savegameDirectory.. "/ProductionInfoHudSettings.xml"
-		local XML = createXMLFile("ProductionInfoHudSettings_XML", file, "ProductionInfoHudSettings")
 
-		local xmlTag = ("ProductionInfoHudSettings.display.textSize(%d)"):format(0);
-		setXMLInt(XML, xmlTag.."#int", GC_ProductionInfoHud.settings["display"]["textSize"].Value)
+	local saveGameFile = GC_ProductionInfoHud:GetSaveGameFile();
+		
+	if saveGameFile == nil then
+		print("GC_ProductionInfoHud: Settingsfile position not found");
+		return;
+	end
+	
+	local XML = createXMLFile("ProductionInfoHudSettings_XML", saveGameFile, "ProductionInfoHudSettings")
 
-		local xmlTag = ("ProductionInfoHudSettings.display.showType(%d)"):format(0);
-		setXMLString(XML, xmlTag.."#string", GC_ProductionInfoHud.settings["display"]["showType"])
+	local xmlTag = ("ProductionInfoHudSettings.display.textSize(%d)"):format(0);
+	setXMLInt(XML, xmlTag.."#int", GC_ProductionInfoHud.settings["display"]["textSize"].Value)
 
-		local xmlTag = ("ProductionInfoHudSettings.display.minSellAmount(%d)"):format(0);
-		setXMLInt(XML, xmlTag.."#int", GC_ProductionInfoHud.settings["display"]["minSellAmount"].Value);
+	local xmlTag = ("ProductionInfoHudSettings.display.showType(%d)"):format(0);
+	setXMLString(XML, xmlTag.."#string", GC_ProductionInfoHud.settings["display"]["showType"])
 
-		local xmlTag = ("ProductionInfoHudSettings.display.maxSellingLines(%d)"):format(0);
-		setXMLInt(XML, xmlTag.."#int", GC_ProductionInfoHud.settings["display"]["maxSellingLines"].Value);
+	local xmlTag = ("ProductionInfoHudSettings.display.showFullProductions(%d)"):format(0);
+	setXMLString(XML, xmlTag.."#string", GC_ProductionInfoHud.settings["display"]["showFullProductions"].Value)
 
-		local xmlTag = ("ProductionInfoHudSettings.display.maxFactoryLines(%d)"):format(0);
-		setXMLInt(XML, xmlTag.."#int", GC_ProductionInfoHud.settings["display"]["maxFactoryLines"].Value);
+	local xmlTag = ("ProductionInfoHudSettings.display.minSellAmount(%d)"):format(0);
+	setXMLInt(XML, xmlTag.."#int", GC_ProductionInfoHud.settings["display"]["minSellAmount"].Value);
 
-		local xmlTag = ("ProductionInfoHudSettings.display.productionShowHours(%d)"):format(0);
-		setXMLInt(XML, xmlTag.."#int", GC_ProductionInfoHud.settings["display"]["productionShowHours"].Value);
+	local xmlTag = ("ProductionInfoHudSettings.display.maxSellingLines(%d)"):format(0);
+	setXMLInt(XML, xmlTag.."#int", GC_ProductionInfoHud.settings["display"]["maxSellingLines"].Value);
 
-		local xmlTag = ("ProductionInfoHudSettings.display.positionBelowVehicleInspector(%d)"):format(0);
-		setXMLBool(XML, xmlTag.."#bool", GC_ProductionInfoHud.settings["display"]["positionBelowVehicleInspector"]);
+	local xmlTag = ("ProductionInfoHudSettings.display.maxFactoryLines(%d)"):format(0);
+	setXMLInt(XML, xmlTag.."#int", GC_ProductionInfoHud.settings["display"]["maxFactoryLines"].Value);
 
-		local x = 0
-		for factoryId,factory in pairs(GC_ProductionInfoHud.settings["factory"]) do
-			local groupNameTag = ("ProductionInfoHudSettings.factorys.factory(%d)"):format(x);
-			setXMLString(XML, groupNameTag.. "#indexName", factoryId)
-			setXMLBool(XML, groupNameTag.. "#ignore", factory.ignore)
-			setXMLBool(XML, groupNameTag.. "#ignoreSelling", factory.ignoreSelling)
+	local xmlTag = ("ProductionInfoHudSettings.display.productionShowHours(%d)"):format(0);
+	setXMLInt(XML, xmlTag.."#int", GC_ProductionInfoHud.settings["display"]["productionShowHours"].Value);
 
-			local y = 0
-			for inputProductId, inputProduct in pairs (factory.inputProducts) do
-				local innerGroupNameTag = (groupNameTag.. ".inputProducts.inputProduct(%d)"):format(y);
-				setXMLInt(XML, innerGroupNameTag.. "#inputProductId", inputProductId)
-				if inputProduct.capacity ~= nil then
-					setXMLInt(XML, innerGroupNameTag.. "#capacity", inputProduct.capacity)
-				end
-				if inputProduct.fillTypeTitles ~= nil then
-					setXMLString(XML, innerGroupNameTag.. "#fillTypeTitles", inputProduct.fillTypeTitles)
-				end
-				setXMLInt(XML, innerGroupNameTag.. "#minNeededAmount", inputProduct.minNeededAmount)
-				y=y+1
-			end
-			x=x+1
+	local xmlTag = ("ProductionInfoHudSettings.display.positionBelowVehicleInspector(%d)"):format(0);
+	setXMLString(XML, xmlTag.."#string", GC_ProductionInfoHud.settings["display"]["positionBelowVehicleInspector"].Value);
+
+	local x = 0
+	for factoryId,factory in pairs(GC_ProductionInfoHud.settings["factory"]) do
+		local groupNameTag = ("ProductionInfoHudSettings.factorys.factory(%d)"):format(x);
+		setXMLString(XML, groupNameTag.. "#indexName", factoryId)
+		setXMLBool(XML, groupNameTag.. "#ignore", factory.ignore)
+		setXMLBool(XML, groupNameTag.. "#ignoreSelling", factory.ignoreSelling)
+		if factory.ignoreFullProductions ~= nil then 
+			setXMLBool(XML, groupNameTag.. "#ignoreFullProductions", factory.ignoreFullProductions)
 		end
 
-
-		
-		saveXMLFile(XML)
-
-        -- output for debug
-        -- print("g_currentMission.vehicleInspector.overlays[ground]: ");
-        -- print_r(g_currentMission.vehicleInspector.overlays["ground"]);
-
+		local y = 0
+		for inputProductId, inputProduct in pairs (factory.inputProducts) do
+			local innerGroupNameTag = (groupNameTag.. ".inputProducts.inputProduct(%d)"):format(y);
+			setXMLInt(XML, innerGroupNameTag.. "#inputProductId", inputProductId)
+			if inputProduct.capacity ~= nil then
+				setXMLInt(XML, innerGroupNameTag.. "#capacity", inputProduct.capacity)
+			end
+			if inputProduct.fillTypeTitles ~= nil then
+				setXMLString(XML, innerGroupNameTag.. "#fillTypeTitles", inputProduct.fillTypeTitles)
+			end
+			setXMLInt(XML, innerGroupNameTag.. "#minNeededAmount", inputProduct.minNeededAmount)
+			y=y+1
+		end
+		x=x+1
 	end
+
+	saveXMLFile(XML)
+	
+	print("GC_ProductionInfoHud: saved settings to file");
 end
 
 function GC_ProductionInfoHud:init()
-	GC_ProductionInfoHud.isServer = g_server ~= nil;
-	GC_ProductionInfoHud.isClient = g_dedicatedServerInfo == nil;
-	GC_ProductionInfoHud.isMultiplayer = g_currentMission.missionDynamicInfo.isMultiplayer;
+	GC_ProductionInfoHud.isServer = g_currentMission:getIsServer();
+	GC_ProductionInfoHud.isClient = g_currentMission:getIsClient();
+	GC_ProductionInfoHud.isDediServer = g_dedicatedServerInfo ~= nil;
 	GC_ProductionInfoHud.FirstRun = true;
 	GC_ProductionInfoHud.TimePast = 0;
 	GC_ProductionInfoHud.overlay = Overlay:new("dataS2/menu/hud/hud_elements_2160p.png", 0, 0, 0, 0);
@@ -280,7 +321,12 @@ function GC_ProductionInfoHud:update(dt)
 	
 	GC_ProductionInfoHud.TimePast = GC_ProductionInfoHud.TimePast + dt;
 	
-	if GC_ProductionInfoHud.TimePast >= 5000 then
+	local settingsOpen = false;
+	if g_gui.currentGui ~= nil and g_gui.currentGui.name == "ProductionInfoHudGUI" then
+		settingsOpen = true;
+	end
+	
+	if GC_ProductionInfoHud.TimePast >= 5000 or settingsOpen then
 		GC_ProductionInfoHud.TimePast = 0;
 
 		if GC_ProductionInfoHud.settings["display"]["showType"] == "ALL" or string.find(GC_ProductionInfoHud.settings["display"]["showType"], "PRODUCTION") then 
@@ -325,7 +371,7 @@ function GC_ProductionInfoHud:refreshSellPriceData()
 					end
 				
 				
-                    prices[product.fillTypeIndex].storages[globalFactory.indexName] = {fillLevel=product.fillLevel, GuiName = guiName}
+                    prices[product.fillTypeIndex].storages[globalFactory.indexName] = {fillLevel=product.fillLevel, GuiName = guiName, indexName = globalFactory.indexName}
                     prices[product.fillTypeIndex].total = prices[product.fillTypeIndex].total + product.fillLevel;
                 end
             end
@@ -344,10 +390,11 @@ function GC_ProductionInfoHud:refreshSellPriceData()
         if (g_currentMission.player.farmId == storage.ownerFarmId) then
             for fillType, fillLevel in pairs(storage.fillLevels) do
                 if prices[fillType] ~= nil then
-                    if prices[fillType].storages[storageName] ~= nill then
+                    if prices[fillType].storages[storageName] ~= nil then
                         prices[fillType].storages[storageName].fillLevel=prices[fillType].storages[storageName].fillLevel + fillLevel;
                     else
-                        prices[fillType].storages[storageName] = {fillLevel=fillLevel, GuiName = storageName}
+						-- filltype hinzufügen zu storage name, damit die mengen aus dem lager nicht addiert werden
+                        prices[fillType].storages[storageName] = {fillLevel=fillLevel, GuiName = storageName, indexName = storageName .. fillType}
                     end
                     prices[fillType].total = prices[fillType].total + fillLevel;
                 end
@@ -364,7 +411,24 @@ function GC_ProductionInfoHud:refreshSellPriceData()
 			outputItem.title = sellPriceItem.info.title;
 			outputItem.fillLevel = sellPriceStorage.fillLevel;
 			outputItem.GuiName = sellPriceStorage.GuiName;
+			outputItem.indexName = sellPriceStorage.indexName;
 			table.insert(sortableOutputTable , outputItem)
+		end
+	end
+	
+	-- gesamtmenge für station und GuiName berechnen, wenn die Menge selbst nicht 0 ist
+	for a, outputItem in pairs (sortableOutputTable) do
+		outputItem.totalAmount = 0;
+		if(outputItem.fillLevel ~= 0) then
+			for b, innerItem in pairs (GC_ProductionInfoHud.sellPriceDataSorted) do
+				local sourceLocationEqual = outputItem.indexName == innerItem.indexName;
+				if string.find(outputItem.indexName, "Lagerhalle_Zentral") and string.find(innerItem.indexName, "Lagerhalle_Zentral") then
+					sourceLocationEqual = true;
+				end
+				if outputItem.station == innerItem.station and sourceLocationEqual then
+					outputItem.totalAmount = outputItem.totalAmount + innerItem.fillLevel;
+				end
+			end
 		end
 	end
 
@@ -375,7 +439,7 @@ end;
 
 function compSellingTable(w1,w2)
 	-- Zum Sortieren der Ausgabeliste nach Zeit
-    if w1.station == w2.station and w1.title < w2.title then
+    if w1.station == w2.station and w1.GuiName < w2.GuiName then
         return true
     end
     if w1.station < w2.station then
@@ -396,7 +460,11 @@ function GC_ProductionInfoHud:drawHud()
 --    --print("g_currentMission.hud.isMenuVisible : "..g_currentMission.hud.isMenuVisible);
 --end
 
-	if g_gui.currentGui ~= nil and g_gui.currentGui.name ~= "ProductionInfoHudGUI" then
+	local hideGui = g_gui:getIsGuiVisible()
+	if g_gui.currentGui ~= nil and g_gui.currentGui.name == "ProductionInfoHudGUI" then
+		hideGui = false;
+	end
+	if hideGui then
 		return;
 	end
 
@@ -410,8 +478,9 @@ function GC_ProductionInfoHud:drawHud()
     local maxTextWidth = 0;
     local additionalCounter = 0;
     local minSellAmount = GC_ProductionInfoHud.settings["display"]["minSellAmount"].Value;
-    local positionBelowVehicleInspector = GC_ProductionInfoHud.settings["display"]["positionBelowVehicleInspector"];
+    local positionBelowVehicleInspector = GC_ProductionInfoHud.settings["display"]["positionBelowVehicleInspector"].Value == "Yes";
 	local productionShowHours = GC_ProductionInfoHud.settings["display"]["productionShowHours"].Value;
+	local showFullProductions = GC_ProductionInfoHud.settings["display"]["showFullProductions"].Value;
 
     if positionBelowVehicleInspector and g_currentMission.vehicleInspector ~= nil and g_currentMission.vehicleInspector.simple.isDraw[1] and g_currentMission.vehicleInspector.overlays["ground"].y ~= nil and g_currentMission.vehicleInspector.overlays["ground"].y > 0 then
         -- position below vehicleInspector
@@ -430,7 +499,23 @@ function GC_ProductionInfoHud:drawHud()
     if GC_ProductionInfoHud.outputTable ~= nil and (GC_ProductionInfoHud.settings["display"]["showType"] == "ALL" or string.find(GC_ProductionInfoHud.settings["display"]["showType"], "PRODUCTION")) then 
         for a, outputItem in pairs (GC_ProductionInfoHud.outputTable) do
             if (outputItem.HoursLeft <= productionShowHours) then
-                if (outputItem.HoursLeft <= 0) then
+				if (outputItem.HoursLeft == -1) then
+					if (showFullProductions == "Show") then
+						if (lineCount < maxLines) then
+							lineCount = lineCount+1;
+							posY = posY - textSize;
+							local textLine = ("Full | " .. outputItem.Fabrik .. " | " .. outputItem.NeedsItem .. " | " .. math.floor(outputItem.NeedsAmount));
+							setTextColor(1,0.1,0,1);								
+							setTextBold(true);
+							totalTextHeigh = totalTextHeigh + getTextHeight(textSize, textLine)
+							local textWidth = getTextWidth(textSize, textLine);
+							if (textWidth > maxTextWidth) then maxTextWidth = textWidth; end
+							renderText(posX,posY,textSize,textLine);
+						else
+						   additionalCounter = additionalCounter + 1;
+						end
+                    end
+				elseif (outputItem.HoursLeft <= 0) then
                     -- ausgabe im Log für Debug
                     -- print(outputItem.Fabrik .. " braucht " .. outputItem.NeedsItem .. ". Platz für " .. math.floor(outputItem.NeedsAmount));
                     if (lineCount < maxLines) then
@@ -531,17 +616,19 @@ function GC_ProductionInfoHud:drawHud()
 		local lastTextPart2Width;
 		
         for a, outputItem in pairs (GC_ProductionInfoHud.sellPriceDataSorted) do
-			if outputItem.fillLevel >= minSellAmount then
+			if outputItem.totalAmount >= minSellAmount then
 				if (lineCountSellPrices == 0) then
 					posY = posY - textSize;
-					setTextColor(1,1,1,1);	
+					setTextColor(1,1,1,1);		
+					setTextBold(true);
 					renderText(posX,posY,textSize,"PriceInfo: ");
-				totalTextHeigh = totalTextHeigh + getTextHeight(textSize, "PriceInfo: ")
+					totalTextHeigh = totalTextHeigh + getTextHeight(textSize, "PriceInfo: ")	
+					setTextBold(false);
 				end
 				
 				local textPart1 = (outputItem.station);
-				local textPart2 = (" | " .. outputItem.title);
-				local textPart3 = (" | " .. outputItem.GuiName .. " (" .. math.floor(outputItem.fillLevel) .. ")");
+				local textPart2 = (" | " .. outputItem.GuiName);
+				local textPart3 = (" | " .. outputItem.title .. " (" .. math.floor(outputItem.fillLevel) .. ")");--(" .. math.floor(outputItem.totalAmount) .. ")(" .. outputItem.indexName .. ")");
 				
 				local actualPosX = posX;
 				local textLine;
@@ -626,6 +713,8 @@ function GC_ProductionInfoHud:GetSettingForFactory(globalFactory)
     end
 	local currentFactorySetting = GC_ProductionInfoHud.settings["factory"][globalFactory.indexName];
 	
+	currentFactorySetting.availableInThisGame = true;
+	
     if (currentFactorySetting.ignore == nil) then
         if (globalFactory.customEnvironment ~= "FS19_FEDmods_Ballenlager") and (globalFactory.customEnvironment ~= "FS19_AgrarSiloKDS_GC") and (globalFactory.indexName ~= "Einkauf") and (globalFactory.indexName ~= "Brueckenbau") and (globalFactory.indexName ~= "Hofladen") then
             -- standard wie vor der einstellbarkeit, wenn noch nichts eingestellt ist
@@ -637,12 +726,15 @@ function GC_ProductionInfoHud:GetSettingForFactory(globalFactory)
     if (currentFactorySetting.ignoreSelling == nil) then
 		currentFactorySetting.ignoreSelling = false;
     end
+    if (currentFactorySetting.ignoreFullProductions == nil) then
+		currentFactorySetting.ignoreFullProductions = false;
+    end
 	
-	if currentFactorySetting.inputProducts == nill then
+	if currentFactorySetting.inputProducts == nil then
 		currentFactorySetting.inputProducts = {};
 	end
 	
-	if currentFactorySetting.GuiName == nill then
+	if globalFactory.guiData.factoryTitle ~= nil then
 		currentFactorySetting.GuiName = globalFactory.guiData.factoryTitle;
 	end
 	
@@ -674,6 +766,7 @@ end
 function GC_ProductionInfoHud:refreshOutputTable()
 
     local usageList = {};
+    local fullProductsList = {};
 
     -- später aus Einstellungen laden
     local ignoreFullProductions = true;
@@ -751,7 +844,37 @@ function GC_ProductionInfoHud:refreshOutputTable()
 
             end
         end
+		-- collect full productions
+        if not(factorySetting.ignoreFullProductions) and (g_currentMission.player.farmId == globalFactory.ownerFarmId) then
+							 
+            -- Eigenen Namen benutzen, wenn gesetzt, ansonsten den FactoryTitle
+			local factoryName;
+            if (globalFactory.guiData.factoryCustomTitle ~= nil and globalFactory.guiData.factoryCustomTitle ~= "") then
+                factoryName = globalFactory.guiData.factoryCustomTitle;
+            else
+                factoryName = globalFactory.guiData.factoryTitle;
+            end
+			
+			for outputProductId, outputProduct in pairs (globalFactory.outputProducts) do
+		
+				if (outputProduct.fillLevel >= outputProduct.capacity) then
+					-- print("outputProduct : ");
+					-- DebugUtil.printTableRecursively(outputProduct,"_",0,2)
+					local outputItem = {};
+					outputItem.Fabrik = factoryName;
+					outputItem.NeedsItem = outputProduct.title;
+					outputItem.HoursLeft = -1;
+					outputItem.NeedsAmount = outputProduct.fillLevel;
+					table.insert(fullProductsList , outputItem)
+				end
+			end
+			
+			
+		end
     end;
+	
+	
+	
 
 --    print("usageList : ");
 --    tprint(usageList);
@@ -772,6 +895,11 @@ function GC_ProductionInfoHud:refreshOutputTable()
             end
         end
     end
+	
+	-- add full lines to to the output
+    for a, fullProduct in pairs (fullProductsList) do
+		table.insert(outputTable , fullProduct)
+    end
 
     table.sort(outputTable,comp)
 
@@ -786,6 +914,24 @@ function comp(w1,w2)
     if w1.HoursLeft < w2.HoursLeft then
         return true
     end
+end
+
+function GC_ProductionInfoHud:correctCentralStorage()
+	print("CorrectCentralStorage");
+    for i, globalFactory in pairs (g_company.loadedFactories) do
+		if string.find(globalFactory.indexName, "Lagerhalle_Zentral") then
+					-- print("Found:" .. globalFactory.indexName);
+					-- DebugUtil.printTableRecursively(globalFactory,"_",0,2)
+			for a, outputProduct in pairs (globalFactory.outputProducts) do
+				local rest = math.fmod(outputProduct.fillLevel, 5000);
+				local missing = 5000-rest;
+				if (rest ~= 0 and missing <= 50) then
+					print("Correct " .. outputProduct.name .. " by adding " .. missing);
+					outputProduct.fillLevel = outputProduct.fillLevel + missing;
+				end
+			end
+		end
+	end
 end
 
 -- Hilfsfunktion um sich eine table im Log an zu schauen

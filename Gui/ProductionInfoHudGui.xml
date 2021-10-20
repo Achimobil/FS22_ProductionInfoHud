@@ -13,6 +13,7 @@
 				<GuiElement type="text" onCreate="onCreateTranslateElementText" profile="pihFactoryListHeaderFactory" text="FactoryHeader" id="pihFactoryListHeaderFactory" />
 				<GuiElement type="text" onCreate="onCreateTranslateElementText" profile="pihFactoryListHeaderIgnoreInput" text="IgnoreInputHeader" id="pihFactoryListHeaderIgnoreInput" />
 				<GuiElement type="text" onCreate="onCreateTranslateElementText" profile="pihFactoryListHeaderIgnoreSelling" text="SellingHeader" id="pihFactoryListHeaderIgnoreSelling" />
+				<GuiElement type="text" onCreate="onCreateTranslateElementText" profile="pihFactoryListHeaderIgnoreFullOutput" text="IgnoreFullOutputHeader" id="pihFactoryListHeaderIgnoreFullOutput" />
 			</GuiElement>
 			<GuiElement type="empty" profile="pihListBoxArea">
 				<GuiElement type="list" profile="pihFactoryList" position="1px -1px" id="pihSettingsList" onSelectionChanged="onSelectionChangedFactoryList">
@@ -20,6 +21,7 @@
 						<GuiElement type="text" profile="pihFactoryListItemFactory" text="Factory" />
 						<GuiElement type="text" profile="pihFactoryListItemIgnoreInput" text="IgnoreInput" />
 						<GuiElement type="text" profile="pihFactoryListItemIgnoreSelling" text="IgnoreSelling" />
+						<GuiElement type="text" profile="pihFactoryListItemIgnoreFullOutput" text="IgnoreFullOutput" />
 					</GuiElement>
 				</GuiElement>
 			</GuiElement>
@@ -27,11 +29,12 @@
 			<GuiElement type="boxLayout" profile="pihMenuButtonsLayout">
 				<GuiElement type="button" onCreate="onCreateTranslateElementText" profile="pihButton1" text="IGNORE_PRODUCTION_BUTTON" id="pihIgnoreProductionInputButton" onClick="onIgnoreProductionInputButton" />
 				<GuiElement type="button" onCreate="onCreateTranslateElementText" profile="pihButton1" text="IGNORE_PRODUCTION_OUTPUT_SELLING" id="pihIgnoreProductionOutputSellingButton"  onClick="onIgnoreProductionOutputSellingButton"/>
+				<GuiElement type="button" onCreate="onCreateTranslateElementText" profile="pihButton1" text="IGNORE_PRODUCTION_OUTPUT_FULL" id="pihIgnoreProductionFullOutputButton"  onClick="onIgnoreProductionFullOutputButton"/>
 			</GuiElement>
         </GuiElement>
 	
 		<GuiElement type="empty" profile="pihCommonSettingsBox">
-			<GuiElement type="boxLayout" profile="ingameMenuSettingsLayout" position="0px 0px">
+			<GuiElement type="boxLayout" profile="ingameMenuSettingsLayout" position="0px 0px" size="375px 700px">
 			
 				<!--<GuiElement type="multiTextOption" profile="multiTextOptionSettings" onCreate="onCreatePihSetting" onClick="onOptionChange" name="textSize" toolTipElementId="ingameMenuHelpBoxText">-->
 				<GuiElement type="multiTextOption" profile="multiTextOptionSettings" onCreate="onCreateDisplaySetting" onClick="onOptionChange" name="textSize">
@@ -78,6 +81,33 @@
 					<GuiElement type="bitmap" profile="multiTextOptionSettingsBg" />
 				</GuiElement>
 				
+				<!--<GuiElement type="multiTextOption" profile="multiTextOptionSettings" onCreate="onCreatePihSetting" onClick="onOptionChange" name="textSize" toolTipElementId="ingameMenuHelpBoxText">-->
+				<GuiElement type="multiTextOption" profile="multiTextOptionSettings" onCreate="onCreateDisplaySetting" onClick="onOptionChange" name="showFullProductions">
+					<GuiElement type="button" profile="multiTextOptionSettingsLeft" />
+					<GuiElement type="button" profile="multiTextOptionSettingsRight" />
+					<GuiElement type="text" profile="multiTextOptionSettingsText" />
+					<GuiElement type="text" profile="multiTextOptionSettingsTitle" position="0px 6px" />
+					<GuiElement type="bitmap" profile="multiTextOptionSettingsBg" />
+				</GuiElement>
+				
+				<!--<GuiElement type="multiTextOption" profile="multiTextOptionSettings" onCreate="onCreatePihSetting" onClick="onOptionChange" name="textSize" toolTipElementId="ingameMenuHelpBoxText">-->
+				<GuiElement type="multiTextOption" profile="multiTextOptionSettings" onCreate="onCreateDisplaySetting" onClick="onOptionChange" name="positionBelowVehicleInspector">
+					<GuiElement type="button" profile="multiTextOptionSettingsLeft" />
+					<GuiElement type="button" profile="multiTextOptionSettingsRight" />
+					<GuiElement type="text" profile="multiTextOptionSettingsText" />
+					<GuiElement type="text" profile="multiTextOptionSettingsTitle" position="0px 6px" />
+					<GuiElement type="bitmap" profile="multiTextOptionSettingsBg" />
+				</GuiElement>
+				
+			</GuiElement>
+		</GuiElement>
+	
+		<GuiElement type="empty" profile="pihAdditionalSettingsBox">
+			<GuiElement type="boxLayout" profile="ingameMenuSettingsLayout" position="20px 0px" size="263px 700px">
+				<GuiElement type="text" onCreate="onCreateTranslateElementText" profile="pihButton2Label" text="MP_SETTINGS_TEXT" id="pihMpSeetingsText" />
+				<GuiElement type="button" onCreate="onCreateTranslateElementText" profile="pihButton2" text="SAVE_SETTINGS_BUTTON" id="pihSaveSettingsButton"  onClick="onSaveSettingsButton"/>
+				<GuiElement type="text" onCreate="onCreateTranslateElementText" profile="pihButton2Label" text="CENTRAL_STORAGE_TEXT" id="pihCentralStorageText" />
+				<GuiElement type="button" onCreate="onCreateTranslateElementText" profile="pihButton2" text="CORRECT_CENTRAL_STORAGE_BUTTON" id="pihCorrectCentralStorageButton"  onClick="onCorrectCentralStorageButton"/>
 			</GuiElement>
 		</GuiElement>
 	</GuiElement>
