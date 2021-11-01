@@ -495,8 +495,42 @@ function GC_ProductionInfoHud:drawHud()
     end
 
     local posY = posYStart;
+	local posXFirstElementWidth = 0;
 
     if GC_ProductionInfoHud.outputTable ~= nil and (GC_ProductionInfoHud.settings["display"]["showType"] == "ALL" or string.find(GC_ProductionInfoHud.settings["display"]["showType"], "PRODUCTION")) then 
+		-- reax max size of first element
+        for a, outputItem in pairs (GC_ProductionInfoHud.outputTable) do
+            if (outputItem.HoursLeft <= productionShowHours) then
+				if (outputItem.HoursLeft == -1) then
+					if (showFullProductions == "Show") then
+						if (lineCount < maxLines) then
+							lineCount = lineCount+1;
+						end
+                    end
+				elseif (outputItem.HoursLeft <= 0) then
+                    if (lineCount < maxLines) then
+                        lineCount = lineCount+1;
+                        local textLine = outputItem.Fabrik;
+                        setTextColor(1,0.3,0,1);								
+                        setTextBold(true);
+                        local textWidth = getTextWidth(textSize, textLine);
+                        if (textWidth > posXFirstElementWidth) then posXFirstElementWidth = textWidth; end
+                    end
+                else
+                    if (lineCount < maxLines) then
+                        lineCount = lineCount+1;
+						setTextColor(1,0.65,0,1);		
+						setTextBold(false);
+                        local textLine = outputItem.Fabrik;
+                        local textWidth = getTextWidth(textSize, textLine);
+                        if (textWidth > posXFirstElementWidth) then posXFirstElementWidth = textWidth; end
+                    end
+                end
+            end
+        end
+		lineCount = 0;
+		
+		-- output lines
         for a, outputItem in pairs (GC_ProductionInfoHud.outputTable) do
             if (outputItem.HoursLeft <= productionShowHours) then
 				if (outputItem.HoursLeft == -1) then
@@ -516,19 +550,20 @@ function GC_ProductionInfoHud:drawHud()
 						end
                     end
 				elseif (outputItem.HoursLeft <= 0) then
-                    -- ausgabe im Log für Debug
-                    -- print(outputItem.Fabrik .. " braucht " .. outputItem.NeedsItem .. ". Platz für " .. math.floor(outputItem.NeedsAmount));
                     if (lineCount < maxLines) then
                         lineCount = lineCount+1;
                         posY = posY - textSize;
-                        local textLine = (outputItem.Fabrik .. " | " .. outputItem.NeedsItem .. " | " .. math.floor(outputItem.NeedsAmount));
                         setTextColor(1,0.3,0,1);								
                         setTextBold(true);
-                        totalTextHeigh = totalTextHeigh + getTextHeight(textSize, textLine)
-                        local textWidth = getTextWidth(textSize, textLine);
+						
+                        local textLine1 = outputItem.Fabrik;
+                        local textLine2 = (" | " .. outputItem.NeedsItem .. " | " .. math.floor(outputItem.NeedsAmount));
+						
+                        totalTextHeigh = totalTextHeigh + getTextHeight(textSize, textLine2)
+                        local textWidth = posXFirstElementWidth + getTextWidth(textSize, textLine2);
                         if (textWidth > maxTextWidth) then maxTextWidth = textWidth; end
-                        renderText(posX,posY,textSize,textLine);
-                        --renderText(posX + getTextWidth(textSize, textLine),posY,textSize, "Test");
+                        renderText(posX,posY,textSize,textLine1);
+                        renderText(posX + posXFirstElementWidth,posY,textSize,textLine2);
                     else
                        additionalCounter = additionalCounter + 1;
                     end
@@ -556,11 +591,15 @@ function GC_ProductionInfoHud:drawHud()
                             setTextColor(1,1,1,1);		
                             setTextBold(false);
                         end	
-                        local textLine = (outputItem.Fabrik .. " | " .. outputItem.NeedsItem .. " | " .. timeString .. " | " .. math.floor(outputItem.NeedsAmount));
-                        totalTextHeigh = totalTextHeigh + getTextHeight(textSize, textLine)
-                        local textWidth = getTextWidth(textSize, textLine);
+						
+                        local textLine1 = outputItem.Fabrik;
+                        local textLine2 = (" | " .. outputItem.NeedsItem .. " | " .. timeString .. " | " .. math.floor(outputItem.NeedsAmount));
+						
+                        totalTextHeigh = totalTextHeigh + getTextHeight(textSize, textLine2)
+                        local textWidth = posXFirstElementWidth + getTextWidth(textSize, textLine2);
                         if (textWidth > maxTextWidth) then maxTextWidth = textWidth; end
-                        renderText(posX,posY,textSize,textLine);
+                        renderText(posX,posY,textSize,textLine1);
+                        renderText(posX + posXFirstElementWidth,posY,textSize,textLine2);
                     else
                        additionalCounter = additionalCounter + 1;
                     end
