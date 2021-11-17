@@ -50,7 +50,7 @@ function GC_ProductionInfoHud:initGlobalCompany(customEnvironment, baseDirectory
     GC_ProductionInfoHud.settings["display"]["showType"] = "ALL";
     GC_ProductionInfoHud.settings["display"]["minSellAmount"] = {};
     GC_ProductionInfoHud.settings["display"]["minSellAmount"].Value = 100000;
-    GC_ProductionInfoHud.settings["display"]["minSellAmount"].PossbileValues = {10000,50000,100000,200000};
+    GC_ProductionInfoHud.settings["display"]["minSellAmount"].PossbileValues = {10000,50000,100000,200000,250000};
     GC_ProductionInfoHud.settings["display"]["positionBelowVehicleInspector"] = {};
     GC_ProductionInfoHud.settings["display"]["positionBelowVehicleInspector"].Value = "No";
     GC_ProductionInfoHud.settings["display"]["positionBelowVehicleInspector"].PossbileValues = {"No","Yes"};
