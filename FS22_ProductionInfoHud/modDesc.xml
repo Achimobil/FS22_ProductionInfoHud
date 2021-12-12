@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<modDesc descVersion="61">
+    <author>Achimobil</author>
+    <version>0.1.0.0</version>
+    <title>
+		<en>Production Info Hud</en>
+		<de>Produktionen Info Hud</de>
+    </title>
+    <description>
+        <en>
+            <![CDATA[The first version of the productions Info Hud, known from the LS 19.
+
+Since the LS19 version was built on Global Company dialogues and methods, this first version now comes without setting options.
+
+The first version has the following, non-customizable properties:
+- Display of the active productions with their remaining time
+- A production is only displayed if ...
+- - it has less than 72 hours remaining
+- - it has less than 50% fill level
+- The display is sorted according to the remaining time, whichever runs empty or is empty first is shown at the top
+
+Requests and suggestions for improvement as well as error messages are always welcome.
+These can be sent to me on modhoster via comment or PN.
+
+If you don't like it, just don't use it.
+
+Publication only with original download link. NO alternative link!
+Changing or re-uploading, whether in whole or in part, is not allowed!
+]]>
+</en>
+        <de>
+            <![CDATA[Die erste Versinn des aus dem LS 19 bekannten Produktionen Info Hud.
+
+Da die LS19 Version auf Global Company Dialoge und Methoden gebaut war, kommt diese erste Version jetzt ohne Einstellungsmöglichkeiten.
+
+Die erste version hat folgende, nich anpassbare Eigenschaften:
+- Anzeige der aktiven Produktionen mit deren Restlaufzeit
+- Angezeigt wird eine Produktion nur, wenn...
+- - sie weniger als 72 Stunden Restlaufzeit hat
+- - sie weniger als 50% füllstand hat
+- Die Anzeige ist sortiert nach Restlaufzeit, was zuerst leer läuft oder leer ist steht oben
+
+Wünsche und Verbesserungsvorschläge sowie Fehlermeldungen sind immer willkommen.
+Diese können mir auf modhoster per Kommentar or PN geschickt werden.
+
+Wem es nicht gefällt, der soll es einfach nicht benutzen.
+
+Veröffentlichung nur mit Original Downloadlink. KEIN Ersatzlink!
+Das verändern sowie erneutes hochladen ob ganz oder in teilen ist nicht gestattet!
+]]>
+</de>
+    </description>
+    <iconFilename>ModIcon.dds</iconFilename>
+    <multiplayer supported="true" />
+
+	<extraSourceFiles>
+        <sourceFile filename="ProductionInfoHud.lua" />
+    </extraSourceFiles>
+</modDesc>

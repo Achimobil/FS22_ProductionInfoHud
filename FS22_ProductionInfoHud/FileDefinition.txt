@@ -1,0 +1,5 @@
+modIcon.dds
+*.i3d
+*.lua
+*.xml
+*.shapes
