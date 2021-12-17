@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="no" ?>
 <modDesc descVersion="61">
     <author>Achimobil</author>
-    <version>0.1.0.0</version>
+    <version>0.1.1.0</version>
     <title>
 		<en>Production Info Hud</en>
 		<de>Produktionen Info Hud</de>
@@ -21,12 +21,16 @@ The first version has the following, non-customizable properties:
 
 Requests and suggestions for improvement as well as error messages are always welcome.
 These can be sent to me on modhoster via comment or PN.
-These messages are also welcome on my Discord in the channel of the mod. https://discord.gg/Eknn2DjZ
+These messages are also welcome on my Discord in the channel of the mod. https://discord.gg/Va7JNnEkcW
 
 If you don't like it, just don't use it.
 
 Publication only with original download link. NO alternative link!
 Changing or re-uploading, whether in whole or in part, is not allowed!
+
+Changelog 0.1.1.0
+- Changes needed for the Giants Patch 1.2 for changed production times.
+It still showns the left ingame days, but now it shows what get empty in 2 month, which is dependent from your settings of days per month. 
 ]]>
 </en>
         <de>
@@ -43,12 +47,17 @@ Die erste version hat folgende, nich anpassbare Eigenschaften:
 
 Wünsche und Verbesserungsvorschläge sowie Fehlermeldungen sind immer willkommen.
 Diese können mir auf modhoster per Kommentar oder PN geschickt werden.
-Diese Meldungen können auch auf meinem Discord im Kanel des jeweiligen Mods gemacht werden. https://discord.gg/Eknn2DjZ
+Diese Meldungen können auch auf meinem Discord im Kanel des jeweiligen Mods gemacht werden. https://discord.gg/Va7JNnEkcW
 
 Wem es nicht gefällt, der soll es einfach nicht benutzen.
 
 Veröffentlichung nur mit Original Downloadlink. KEIN Ersatzlink!
-Das verändern sowie erneutes hochladen ob ganz oder in teilen ist nicht gestattet!
+Das verändern sowie erneutes hochladen ob ganz oder in teilen ist nicht gestattet! 
+
+Changelog 0.1.1.0
+- Anpassung auf Patch 1.2.0.0 von Giants auf die geänderten Produktionen. 
+Die Anzeige ist weiterhin in Ingame Tagen. 
+Es wird aber angezeigt was in den nächsten 2 Monaten leer läuft, abhängig von den eingestellten Tagen pro Monat ist das unterschiedlich.
 ]]>
 </de>
     </description>
