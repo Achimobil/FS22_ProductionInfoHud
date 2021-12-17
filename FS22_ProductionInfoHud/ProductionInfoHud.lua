@@ -75,10 +75,11 @@ function ProductionInfoHud:refreshProductionsTable()
                     end
 
                     if (productionItem.fillLevel ~= 0) and (productionItem.needPerHour ~= 0) then
-                        productionItem.hoursLeft = productionItem.fillLevel / productionItem.needPerHour;
+                        -- hier die anzahl der Tage pro Monat berücksichtigen
+                        productionItem.hoursLeft = productionItem.fillLevel / productionItem.needPerHour * g_currentMission.environment.daysPerPeriod;
                     end
                     
-                    if (productionItem.needPerHour > 0 and productionItem.capacityLevel <= 0.5 and productionItem.hoursLeft <= 72) then 
+                    if (productionItem.needPerHour > 0 and productionItem.capacityLevel <= 0.5 and productionItem.hoursLeft <= (48 * g_currentMission.environment.daysPerPeriod)) then 
                         table.insert(myProductions, productionItem)
                     end
                 end
