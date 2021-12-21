@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="no" ?>
 <modDesc descVersion="61">
     <author>Achimobil</author>
-    <version>0.1.1.0</version>
+    <version>0.2.0.0</version>
     <title>
 		<en>Production Info Hud</en>
 		<de>Produktionen Info Hud</de>
@@ -10,54 +10,68 @@
         <en>
             <![CDATA[The first version of the productions Info Hud, known from the LS 19.
 
-Since the LS19 version was built on Global Company dialogues and methods, this first version now comes without setting options.
+Publication on other sides only by myself, linking only with original download link. NO alternative link!
+Changing or re-uploading, whether in whole or in part, is not allowed!
 
-The first version has the following, non-customizable properties:
+Since the LS19 version was built on Global Company dialogues and methods, this version nor now comes without setting options.
+
+The current version has the following, non-customizable properties:
 - Display of the active productions with their remaining time
 - A production is only displayed if ...
-- - it has less than 72 hours remaining
+- - it has less than 2 month remaining
 - - it has less than 50% fill level
 - The display is sorted according to the remaining time, whichever runs empty or is empty first is shown at the top
+- Full productions are sortet in top of allowed
+- Only the first 5 of the sortet list are shown
 
 Requests and suggestions for improvement as well as error messages are always welcome.
-These can be sent to me on modhoster via comment or PN.
-These messages are also welcome on my Discord in the channel of the mod. https://discord.gg/Va7JNnEkcW
+These can be best done on my Discord in the channel of the mod. https://discord.gg/Va7JNnEkcW
 
 If you don't like it, just don't use it.
-
-Publication only with original download link. NO alternative link!
-Changing or re-uploading, whether in whole or in part, is not allowed!
 
 Changelog 0.1.1.0
 - Changes needed for the Giants Patch 1.2 for changed production times.
 It still showns the left ingame days, but now it shows what get empty in 2 month, which is dependent from your settings of days per month. 
+
+Changelog 0.2.0.0
+- Productions with full output storage are now shown
+- The font is now colored for full storage(red) and for missing resourced (orange)
+- The mod is now translatable, en and de already added
+- With left shift + P  you can turn on and of the display (configurable)
 ]]>
 </en>
         <de>
             <![CDATA[Die erste Versinn des aus dem LS 19 bekannten Produktionen Info Hud.
 
-Da die LS19 Version auf Global Company Dialoge und Methoden gebaut war, kommt diese erste Version jetzt ohne Einstellungsmöglichkeiten.
+Upload auf anderen Seiten nur durch mich selbst, Verlinkung nur mit Original Downloadlink. KEIN Ersatzlink!
+Das verändern sowie erneutes hochladen ob ganz oder in teilen ist nicht gestattet! 
 
-Die erste version hat folgende, nich anpassbare Eigenschaften:
+Da die LS19 Version auf Global Company Dialoge und Methoden gebaut war, kommt diese Version jetzt erstmal ohne Einstellungsmöglichkeiten.
+
+Die aktuelle Version hat folgende, nicht anpassbare Eigenschaften:
 - Anzeige der aktiven Produktionen mit deren Restlaufzeit
 - Angezeigt wird eine Produktion nur, wenn...
-- - sie weniger als 72 Stunden Restlaufzeit hat
-- - sie weniger als 50% füllstand hat
+- - sie weniger als 2 Monate Restlaufzeit hat
+- - sie weniger als 50% Füllstand hat
 - Die Anzeige ist sortiert nach Restlaufzeit, was zuerst leer läuft oder leer ist steht oben
+- Produktionen die Voll sind stehen noch darüber.
+- Angezeigt werden nur die ersten 5 aus der sortierten Liste
 
 Wünsche und Verbesserungsvorschläge sowie Fehlermeldungen sind immer willkommen.
-Diese können mir auf modhoster per Kommentar oder PN geschickt werden.
-Diese Meldungen können auch auf meinem Discord im Kanel des jeweiligen Mods gemacht werden. https://discord.gg/Va7JNnEkcW
+Diese können am besten auf meinem Discord im Kanal des jeweiligen Mods gemacht werden. https://discord.gg/Va7JNnEkcW
 
 Wem es nicht gefällt, der soll es einfach nicht benutzen.
-
-Veröffentlichung nur mit Original Downloadlink. KEIN Ersatzlink!
-Das verändern sowie erneutes hochladen ob ganz oder in teilen ist nicht gestattet! 
 
 Changelog 0.1.1.0
 - Anpassung auf Patch 1.2.0.0 von Giants auf die geänderten Produktionen. 
 Die Anzeige ist weiterhin in Ingame Tagen. 
 Es wird aber angezeigt was in den nächsten 2 Monaten leer läuft, abhängig von den eingestellten Tagen pro Monat ist das unterschiedlich.
+
+Changelog 0.2.0.0
+- Produktionen mit vollem Ausgangslager werde als erstes angezeigt
+- Die Schrift ist nun Farblich für volle Lager (rot) und für leere Eingangslager (Orange)
+- Der Mod ist jetzt übersetzbar, en und de ist bereits enthalten
+- Mit links shift + P kann die Anzeige aus un ein geschaltet werden (Einstellbar)
 ]]>
 </de>
     </description>
