@@ -13,6 +13,11 @@ ProductionInfoHud.firstRun = false;
 ProductionInfoHud.isClient = false;
 ProductionInfoHud.timePast = 0;
 ProductionInfoHud.overlay = Overlay.new(HUD.MENU_BACKGROUND_PATH, 0, 0, 0, 0);
+ProductionInfoHud.colors = {};
+ProductionInfoHud.colors.WHITE =    {1.000, 1.000, 1.000, 1}
+ProductionInfoHud.colors.ORANGE =   {0.840, 0.270, 0.020, 1}
+ProductionInfoHud.colors.RED =      {0.580, 0.040, 0.020, 1}
+ProductionInfoHud.colors.YELLOW =   {0.980, 0.420, 0.000, 1}
 
 function ProductionInfoHud:init()
     ProductionInfoHud.isClient = g_currentMission:getIsClient();
@@ -51,6 +56,7 @@ function ProductionInfoHud:refreshProductionsTable()
             for _, productionPoint in pairs(g_currentMission.productionChainManager.farmIds[farmId].productionPoints) do
 -- print("productionPoint")
 -- DebugUtil.printTableRecursively(productionPoint,"_",0,2)
+                
                 for fillTypeId, fillLevel in pairs(productionPoint.storage.fillLevels) do
                     local productionItem = {}
                     productionItem.name = productionPoint.owningPlaceable:getName();
@@ -68,7 +74,8 @@ function ProductionInfoHud:refreshProductionsTable()
                     
                     for _, production in pairs(productionPoint.activeProductions) do
                         for _, input in pairs(production.inputs) do
-                            if input.type == fillTypeId then
+                            -- status 3 = läuft nicht weil ausgang voll
+                            if input.type == fillTypeId and production.status ~= 3 then
                                 productionItem.needPerHour = productionItem.needPerHour + (production.cyclesPerHour * input.amount)
                             end
                         end
@@ -80,6 +87,12 @@ function ProductionInfoHud:refreshProductionsTable()
                     end
                     
                     if (productionItem.needPerHour > 0 and productionItem.capacityLevel <= 0.5 and productionItem.hoursLeft <= (48 * g_currentMission.environment.daysPerPeriod)) then 
+                        table.insert(myProductions, productionItem)
+                    end
+                    
+                    -- Ausgangslager voll, dann speziell eintragen
+                    if (productionItem.needPerHour == 0 and productionItem.capacityLevel >= 0.99) then 
+                        productionItem.hoursLeft = -1;
                         table.insert(myProductions, productionItem)
                     end
                 end
@@ -127,9 +140,14 @@ function ProductionInfoHud:draw()
             local productionOutputItem = {}
             productionOutputItem.productionPointName = productionData.name
             productionOutputItem.fillTypeTitle = productionData.fillTypeTitle
+            productionOutputItem.TextColor = ProductionInfoHud.colors.WHITE;
             
-            if productionData.hoursLeft <= 0 then
+            if productionData.hoursLeft == -1 then
+                productionOutputItem.TimeLeftString = "Full";
+                productionOutputItem.TextColor = ProductionInfoHud.colors.RED;
+            elseif productionData.hoursLeft == 0 then
                 productionOutputItem.TimeLeftString = "Empty";
+                productionOutputItem.TextColor = ProductionInfoHud.colors.ORANGE;
             else
                 local days = math.floor(productionData.hoursLeft / 24);
                 local hoursLeft = productionData.hoursLeft - (days * 24);
@@ -140,6 +158,8 @@ function ProductionInfoHud:draw()
                 local timeString = "";
                 if (days ~= 0) then 
                     timeString = days .. "d ";
+                else
+                    productionOutputItem.TextColor = ProductionInfoHud.colors.YELLOW;
                 end
                 timeString = timeString .. hours .. ":" .. minutes;
                 productionOutputItem.TimeLeftString = timeString;
@@ -156,7 +176,8 @@ function ProductionInfoHud:draw()
         local textWidth = getTextWidth(textSize, textLine);
         if (textWidth > maxTextWidth) then maxTextWidth = textWidth; end
         
-        setTextColor(1,1,1,1);								
+        -- farben von oben benutzen
+        setTextColor(unpack(productionOutputItem.TextColor));								
         setTextBold(false);
         renderText(posX,posY,textSize,textLine);
     end
