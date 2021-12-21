@@ -22,9 +22,41 @@ ProductionInfoHud.colors.YELLOW =   {0.980, 0.420, 0.000, 1}
 function ProductionInfoHud:init()
     ProductionInfoHud.isClient = g_currentMission:getIsClient();
     ProductionInfoHud.isInit = true;
+    
+    -- default settings einstellen
+    ProductionInfoHud.settings = {};
+    ProductionInfoHud.settings["display"] = {};
+    ProductionInfoHud.settings["display"]["showType"] = "ALL";
+    
+    -- Aufrufen nach init, da erst an isclient gesetzt ist und sonst die binding nicht aktiv ist bevor man in ein auto einsteigt
+    ProductionInfoHud:registerActionEvents()
+end
+
+function ProductionInfoHud:registerActionEvents()
+	if ProductionInfoHud.isClient then
+		_, ProductionInfoHud.eventIdToggle = g_inputBinding:registerActionEvent(InputAction.TOGGLE_GUI, ProductionInfoHud, ProductionInfoHud.ToggleGui, false, true, false, true)
+		-- _, ProductionInfoHud.eventIdOPenGui = g_inputBinding:registerActionEvent(InputAction.OPEN_GUI, ProductionInfoHud, ProductionInfoHud.OpenGui, false, true, false, true)
+	end
+end
+
+function ProductionInfoHud:ToggleGui()
+    if ProductionInfoHud.settings["display"]["showType"] == "ALL" then 
+        ProductionInfoHud.settings["display"]["showType"] = "NONE"
+    else 
+        ProductionInfoHud.settings["display"]["showType"] = "ALL"
+    end
+end
+
+
+function ProductionInfoHud:OpenGui()
+print("ProductionInfoHud:OpenGui")
+    -- hier die Einstellungen öffnen
+    
 end
 
 function ProductionInfoHud:loadMap(name)
+    -- ActionEvents registrieren
+	FSBaseMission.registerActionEvents = Utils.appendedFunction(FSBaseMission.registerActionEvents, ProductionInfoHud.registerActionEvents);
 end
 
 function ProductionInfoHud:update(dt)
@@ -122,6 +154,10 @@ function ProductionInfoHud:draw()
     if not ProductionInfoHud.isClient then return end
     if ProductionInfoHud.productionDataSorted == nil then return end
     
+    if ProductionInfoHud.settings["display"]["showType"] == "NONE" then 
+        return
+    end
+    
     local lineCount = 0;
     local maxLines = 5;
     local productionOutputTable = {}
@@ -143,10 +179,10 @@ function ProductionInfoHud:draw()
             productionOutputItem.TextColor = ProductionInfoHud.colors.WHITE;
             
             if productionData.hoursLeft == -1 then
-                productionOutputItem.TimeLeftString = "Full";
+                productionOutputItem.TimeLeftString = g_i18n:getText("Full");
                 productionOutputItem.TextColor = ProductionInfoHud.colors.RED;
             elseif productionData.hoursLeft == 0 then
-                productionOutputItem.TimeLeftString = "Empty";
+                productionOutputItem.TimeLeftString = g_i18n:getText("Empty");
                 productionOutputItem.TextColor = ProductionInfoHud.colors.ORANGE;
             else
                 local days = math.floor(productionData.hoursLeft / 24);

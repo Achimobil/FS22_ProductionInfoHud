@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<l10n>
+	<translationContributors>Achimobil</translationContributors>
+	<texts>
+		<text name="input_TOGGLE_GUI" text="PIH: Toggle display" />
+		<text name="input_OPEN_GUI" text="PIH: Show Settings" />
+		<text name="Empty" text="All used" />
+		<text name="Full" text="Outputstorage full" />
+	</texts>
+</l10n>
