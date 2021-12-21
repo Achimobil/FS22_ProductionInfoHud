@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<l10n>
+	<translationContributors>Markus33 [ITA]</translationContributors>
+	<texts>
+		<text name="input_TOGGLE_GUI" text="PIH: attiva/disattiva la visualizzazione" />
+		<text name="input_OPEN_GUI" text="PIH: Mostra impostazioni" />
+		<text name="Empty" text="Vuoto" />
+		<text name="Full" text="Pieno" />
+	</texts>
+</l10n>

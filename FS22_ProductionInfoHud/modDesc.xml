@@ -5,6 +5,7 @@
     <title>
 		<en>Production Info Hud</en>
 		<de>Produktionen Info Hud</de>
+		<it>Hud Informazioni sulle produzioni</it>
     </title>
     <description>
         <en>
@@ -74,6 +75,40 @@ Changelog 0.2.0.0
 - Mit links shift + P kann die Anzeige aus un ein geschaltet werden (Einstellbar)
 ]]>
 </de>
+<it>
+            <![CDATA[La prima versione delle produzioni Info Hud, conosciuta da LS 19.
+
+Pubblicazione su altri siti solo da me, linkando solo con link di download originale. NESSUN collegamento alternativo!
+Non è consentito modificare o ricaricare, né in tutto né in parte!
+
+Poiché la versione LS19 è stata costruita su dialoghi e metodi Global Company, questa versione ora viene fornita senza opzioni di impostazione.
+
+La versione corrente ha le seguenti proprietà non personalizzabili:
+- Visualizzazione delle produzioni attive con il loro tempo residuo
+- Una produzione viene visualizzata solo se ...
+- - ha una durata residua inferiore a 2 mesi
+- - è inferiore al 50% del livello di riempimento
+- Il display è ordinato in base al tempo rimanente, quello che è vuoto o è vuoto per primo viene mostrato in alto
+- Le produzioni che sono piene sono ancora al di sopra di esso.
+- Vengono visualizzati solo i primi 5 dell'elenco ordinato
+
+Richieste e suggerimenti di miglioramento così come messaggi di errore sono sempre ben accetti.
+Questi possono essere fatti meglio sul mio Discord nel canale della rispettiva mod. https://discord.gg/Va7JNnEkcW
+
+Se non ti piace, non usarlo.
+
+Registro delle modifiche 0.1.1.0
+- Adeguamento alla patch 1.2.0.0 da Giants alle produzioni modificate.
+Il display è ancora nei giorni di gioco.
+Tuttavia, viene visualizzato ciò che sarà vuoto nei prossimi 2 mesi, a seconda dei giorni impostati al mese, questo è diverso.
+
+Registro modifiche 0.2.0.0
+- Le produzioni con un magazzino di partenza completo vengono visualizzate per prime
+- Il carattere ora è colorato per i magazzini pieni (rosso) e per i magazzini in entrata vuoti (arancione)
+- La mod è ora traducibile, en e de è già inclusa
+- Con shift a sinistra + P il display può essere spento e acceso (regolabile)
+]]>
+</it>
     </description>
     <iconFilename>ModIcon.dds</iconFilename>
     <multiplayer supported="true" />
