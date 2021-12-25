@@ -97,6 +97,8 @@ function ProductionInfoHud:refreshProductionsTable()
                     productionItem.hoursLeft = 0
                     productionItem.fillLevel = fillLevel
                     productionItem.capacity = productionPoint.storage.capacities[fillTypeId]
+                    productionItem.isInput = false;
+                    
                     if productionItem.capacity == 0 then 
                         productionItem.capacityLevel = 0
                     else
@@ -107,8 +109,11 @@ function ProductionInfoHud:refreshProductionsTable()
                     for _, production in pairs(productionPoint.activeProductions) do
                         for _, input in pairs(production.inputs) do
                             -- status 3 = läuft nicht weil ausgang voll
-                            if input.type == fillTypeId and production.status ~= 3 then
-                                productionItem.needPerHour = productionItem.needPerHour + (production.cyclesPerHour * input.amount)
+                            if input.type == fillTypeId then
+                                productionItem.isInput = true;
+                                if production.status ~= 3 then
+                                    productionItem.needPerHour = productionItem.needPerHour + (production.cyclesPerHour * input.amount)
+                                end
                             end
                         end
                     end
@@ -123,7 +128,7 @@ function ProductionInfoHud:refreshProductionsTable()
                     end
                     
                     -- Ausgangslager voll, dann speziell eintragen
-                    if (productionItem.needPerHour == 0 and productionItem.capacityLevel >= 0.99) then 
+                    if (productionItem.needPerHour == 0 and productionItem.capacityLevel >= 0.99 and productionItem.isInput) then 
                         productionItem.hoursLeft = -1;
                         table.insert(myProductions, productionItem)
                     end
