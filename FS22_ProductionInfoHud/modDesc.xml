@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="no" ?>
 <modDesc descVersion="61">
     <author>Achimobil</author>
-    <version>0.2.0.0</version>
+    <version>0.2.1.0</version>
     <title>
 		<en>Production Info Hud</en>
 		<de>Produktionen Info Hud</de>
@@ -39,6 +39,10 @@ Changelog 0.2.0.0
 - The font is now colored for full storage(red) and for missing resourced (orange)
 - The mod is now translatable, en and de already added
 - With left shift + P  you can turn on and of the display (configurable)
+
+Changelog 0.2.1.0
+- Full input storage is not displayed as full production anymore
+- Added IT translations
 ]]>
 </en>
         <de>
@@ -73,6 +77,10 @@ Changelog 0.2.0.0
 - Die Schrift ist nun Farblich für volle Lager (rot) und für leere Eingangslager (Orange)
 - Der Mod ist jetzt übersetzbar, en und de ist bereits enthalten
 - Mit links shift + P kann die Anzeige aus un ein geschaltet werden (Einstellbar)
+
+Changelog 0.2.1.0
+- Volle Eingangslager werden nicht mehr als volle Produktionen angezeigt
+- Übersetzungen für IT hinzugefügt
 ]]>
 </de>
 <it>
