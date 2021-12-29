@@ -123,19 +123,20 @@ Registro modifiche 0.2.0.0
 
 	<extraSourceFiles>
         <sourceFile filename="ProductionInfoHud.lua" />
+		<sourceFile filename="Gui/ProductionInfoHudGui.lua" />
     </extraSourceFiles>
 
     <inputBinding>
         <actionBinding action="TOGGLE_GUI">
             <binding device="KB_MOUSE_DEFAULT" input="KEY_lctrl KEY_p" />
         </actionBinding>  
-        <!-- <actionBinding action="OPEN_GUI"> -->
-            <!-- <binding device="KB_MOUSE_DEFAULT" input="KEY_lctrl KEY_lshift KEY_p" /> -->
-        <!-- </actionBinding>         -->
+        <actionBinding action="OPEN_GUI">
+            <binding device="KB_MOUSE_DEFAULT" input="KEY_lctrl KEY_lshift KEY_p" />
+        </actionBinding>        
     </inputBinding>   
     <actions>
         <action name="TOGGLE_GUI" />
-        <!-- <action name="OPEN_GUI" /> -->
+        <action name="OPEN_GUI" />
     </actions>
 	<l10n filenamePrefix="translations/translation" />
 </modDesc>

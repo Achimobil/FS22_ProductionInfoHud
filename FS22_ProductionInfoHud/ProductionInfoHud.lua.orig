@@ -24,23 +24,10 @@ function ProductionInfoHud:init()
     ProductionInfoHud.isClient = g_currentMission:getIsClient();
     ProductionInfoHud.isInit = true;
     
-    ProductionInfoHud.messageCenter = g_messageCenter;
-    ProductionInfoHud.i18n = g_i18n;
-    ProductionInfoHud.inputManager = g_gui.inputManager;
-    
     -- default settings einstellen
     ProductionInfoHud.settings = {};
     ProductionInfoHud.settings["display"] = {};
     ProductionInfoHud.settings["display"]["showType"] = "ALL";
-       
-       
-    -- sie einstellungsseite
-    local settingsFrame = ProductionInfoHudFrame.new(ProductionInfoHud, ProductionInfoHud.i18n)
-    g_gui:loadGui(root .. "ProductionInfoHudFrame.xml", "ProductionInfoHudFrame", settingsFrame, true)
-    
-    -- Das Menü wo die seiten rein kommen
-    ProductionInfoHud.menu = ProductionInfoHudGUI:new(ProductionInfoHud.messageCenter, ProductionInfoHud.i18n, ProductionInfoHud.inputManager);
-	ProductionInfoHud.gui = g_gui:loadGui(ProductionInfoHud.modDir .. "Gui/ProductionInfoHudGui.xml", "ProductionInfoHudGUI", ProductionInfoHud.menu)
     
     -- Aufrufen nach init, da erst an isclient gesetzt ist und sonst die binding nicht aktiv ist bevor man in ein auto einsteigt
     ProductionInfoHud:registerActionEvents()
@@ -49,7 +36,7 @@ end
 function ProductionInfoHud:registerActionEvents()
 	if ProductionInfoHud.isClient then
 		_, ProductionInfoHud.eventIdToggle = g_inputBinding:registerActionEvent(InputAction.TOGGLE_GUI, ProductionInfoHud, ProductionInfoHud.ToggleGui, false, true, false, true)
-		_, ProductionInfoHud.eventIdOPenGui = g_inputBinding:registerActionEvent(InputAction.OPEN_GUI, ProductionInfoHud, ProductionInfoHud.OpenGui, false, true, false, true)
+		-- _, ProductionInfoHud.eventIdOPenGui = g_inputBinding:registerActionEvent(InputAction.OPEN_GUI, ProductionInfoHud, ProductionInfoHud.OpenGui, false, true, false, true)
 	end
 end
 
@@ -65,9 +52,6 @@ end
 function ProductionInfoHud:OpenGui()
 print("ProductionInfoHud:OpenGui")
     -- hier die Einstellungen öffnen
-	if g_gui.currentGui == nil then
-		g_gui:showGui("ProductionInfoHudGUI")
-	end
     
 end
 
@@ -145,7 +129,11 @@ function ProductionInfoHud:refreshProductionsTable()
                     end
                     
                     -- Ausgangslager voll, dann speziell eintragen
+<<<<<<< HEAD
                     if (productionItem.needPerHour == 0 and productionItem.capacityLevel >= 0.99 and not productionItem.isInput) then 
+=======
+                    if (productionItem.needPerHour == 0 and productionItem.capacityLevel >= 0.95 and productionItem.isInput) then 
+>>>>>>> b90c7b066a04a074e1b0b4234bb0de8ca0190732
                         productionItem.hoursLeft = -1;
                         table.insert(myProductions, productionItem)
                     end
