@@ -1,4 +1,5 @@
 --- Anzeige für Produktionen in einem HUD by achimobil@hotmail.com
+--- Fehlermeldungen und Verbesserungsvorschläge gerne im Discord Kanal des Mods: https://discord.gg/Va7JNnEkcW
 
 ProductionInfoHud = {}
 
@@ -218,6 +219,7 @@ function ProductionInfoHud:draw()
         if (textWidth > maxTextWidth) then maxTextWidth = textWidth; end
         
         -- farben von oben benutzen
+        setTextAlignment(RenderText.ALIGN_LEFT);
         setTextColor(unpack(productionOutputItem.TextColor));								
         setTextBold(false);
         renderText(posX,posY,textSize,textLine);
