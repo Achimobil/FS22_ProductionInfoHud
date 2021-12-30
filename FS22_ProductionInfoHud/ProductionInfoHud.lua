@@ -33,7 +33,7 @@ function ProductionInfoHud:init()
     ProductionInfoHud.settings = {};
     ProductionInfoHud.settings["display"] = {};
     ProductionInfoHud.settings["display"]["showType"] = "ALL";
-    ProductionInfoHud.settings["display"]["position"] = "TopCenter";
+    ProductionInfoHud.settings["display"]["position"] = 1;
        
     self:mergeModTranslations(ProductionInfoHud.i18n)
        
@@ -196,17 +196,35 @@ function ProductionInfoHud:draw()
         return
     end
     
-    print("CurentPosition:" .. ProductionInfoHud.settings["display"]["position"]);
-    
     local lineCount = 0;
     local maxLines = 5;
     local productionOutputTable = {}
     local posX = 0.413;
     local posY = 0.97;
-    local posYStart = posY;
     local textSize = 12/1000;
     local totalTextHeigh = 0;
     local maxTextWidth = 0;
+    
+    -- 1-"TopCenter", 2-"BelowHelp", 3-"BelowVehicleInspector"
+    -- Startpunkt setzen anhand der Einstellungen
+    if ProductionInfoHud.settings["display"]["position"] == 2 or (ProductionInfoHud.settings["display"]["position"] == 3 and g_currentMission.vehicleInspector ~= nil and not g_currentMission.vehicleInspector:getVisible()) then
+        if (g_currentMission.hud.inputHelp.overlay.visible == true) then
+            -- move under Help Dialog, when help visible or when VI is selected and not visible
+            posX = g_currentMission.hud.inputHelp.overlay.x;
+            posY = g_currentMission.hud.inputHelp.overlay.y - 0.03;
+        else
+            posX = 0.013;
+            posY = 0.95;
+        end
+    elseif ProductionInfoHud.settings["display"]["position"] == 3 and g_currentMission.vehicleInspector ~= nil and  g_currentMission.vehicleInspector:getVisible() then
+    
+            local viPosition = g_currentMission.vehicleInspector:getPosition()
+            
+            posX = viPosition.x;
+            posY = viPosition.y - g_currentMission.vehicleInspector.global.height[g_currentMission.vehicleInspector.global.viewModus];
+    end
+    
+    local posYStart = posY;
 
     for _, productionData in pairs(ProductionInfoHud.productionDataSorted) do
         if (lineCount < maxLines) then

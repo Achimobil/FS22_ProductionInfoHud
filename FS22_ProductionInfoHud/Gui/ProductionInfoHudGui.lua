@@ -52,5 +52,5 @@ function ProductionInfoHudGUI:onClickOk()
     print("Missing save, but will come after loading");
     
     local state = self.pageSettings.pihPositionElement:getState();
-    ProductionInfoHud.settings["display"]["position"] = ProductionInfoHud.PossiblePositions[state];
+    ProductionInfoHud.settings["display"]["position"] = state;
 end
