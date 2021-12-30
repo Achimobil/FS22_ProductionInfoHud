@@ -1,41 +1,9 @@
----
--- GuidanceSteeringStrategyFrame
---
--- Frame to handle the settings and to modify the current guidance data.
---
--- Copyright (c) Wopster, 2019
-
----@class ProductionInfoHudFrame
 ProductionInfoHudFrame = {}
 
 local ProductionInfoHudFrame_mt = Class(ProductionInfoHudFrame, TabbedMenuFrameElement)
 
 ProductionInfoHudFrame.CONTROLS = {
-    WIDTH_DISPLAY = "widthDisplay",
-    WIDTH_PLUS = "guidanceSteeringMinusButton",
-    WIDTH_MINUS = "guidanceSteeringPlusButton",
-    WIDTH_RESET = "guidanceSteeringResetWidthButton",
-    WIDTH_INCREMENT = "guidanceSteeringWidthIncrementElement",
-    WIDTH_TEXT = "guidanceSteeringWidthText",
-
-    OFFSET_DISPLAY = "offsetDisplay",
-    OFFSET_PLUS = "guidanceSteeringMinusOffsetButton",
-    OFFSET_MINUS = "guidanceSteeringPlusOffsetButton",
-    OFFSET_RESET = "guidanceSteeringResetOffsetButton",
-    OFFSET_INCREMENT = "guidanceSteeringOffsetIncrementElement",
-    OFFSET_TEXT = "guidanceSteeringOffsetWidthText",
-
-    HEADLAND_DISPLAY = "headlandDisplay",
-    HEADLAND_MODE = "guidanceSteeringHeadlandModeElement",
-    HEADLAND_DISTANCE = "guidanceSteeringHeadlandDistanceElement",
-
-    TOGGLE_SHOW_LINES = "guidanceSteeringShowLinesElement",
-    OFFSET_LINES = "guidanceSteeringLinesOffsetElement",
-    TOGGLE_SNAP_TERRAIN_ANGLE = "guidanceSteeringSnapAngleElement",
-    TOGGLE_ENABLE_STEERING = "guidanceSteeringEnableSteeringElement",
-    TOGGLE_AUTO_INVERT_OFFSET = "guidanceSteeringAutoInvertOffsetElement",
-
-    CONTAINER = "container",
+    POSITION_ELEMENT = "pihPositionElement",
     BOX_LAYOUT_SETTINGS = "boxLayoutSettings",
 }
 
@@ -56,5 +24,34 @@ function ProductionInfoHudFrame.new(ui, i18n)
     return self
 end
 
+function ProductionInfoHudFrame:copyAttributes(src)
+    ProductionInfoHudFrame:superClass().copyAttributes(self, src)
+
+    self.ui = src.ui
+    self.i18n = src.i18n
+end
+
 function ProductionInfoHudFrame:initialize()
+
+    local possiblePositions = {}
+    for id, position in pairs(ProductionInfoHud.PossiblePositions) do
+        table.insert(possiblePositions, self.i18n:getText(("pih_possiblePosition_%d"):format(id)))
+    end
+
+    self.pihPositionElement:setTexts(possiblePositions)
+    
+end
+
+function ProductionInfoHudFrame:onFrameOpen()
+    ProductionInfoHudFrame:superClass().onFrameOpen(self)
+    
+    self.pihPositionElement:setState(ProductionInfoHud.settings["display"]["position"]);
+
+    self.boxLayoutSettings:invalidateLayout()
+
+    if FocusManager:getFocusedElement() == nil then
+        self:setSoundSuppressed(true)
+        FocusManager:setFocus(self.boxLayoutSettings)
+        self:setSoundSuppressed(false)
+    end
 end

@@ -19,6 +19,7 @@ ProductionInfoHud.colors.WHITE =    {1.000, 1.000, 1.000, 1}
 ProductionInfoHud.colors.ORANGE =   {0.840, 0.270, 0.020, 1}
 ProductionInfoHud.colors.RED =      {0.580, 0.040, 0.020, 1}
 ProductionInfoHud.colors.YELLOW =   {0.980, 0.420, 0.000, 1}
+ProductionInfoHud.PossiblePositions = {"TopCenter", "BelowHelp", "BelowVehicleInspector"}
 
 function ProductionInfoHud:init()
     ProductionInfoHud.isClient = g_currentMission:getIsClient();
@@ -32,7 +33,9 @@ function ProductionInfoHud:init()
     ProductionInfoHud.settings = {};
     ProductionInfoHud.settings["display"] = {};
     ProductionInfoHud.settings["display"]["showType"] = "ALL";
+    ProductionInfoHud.settings["display"]["position"] = "TopCenter";
        
+    self:mergeModTranslations(ProductionInfoHud.i18n)
        
     -- sie einstellungsseite
     local settingsFrame = ProductionInfoHudFrame.new(ProductionInfoHud, ProductionInfoHud.i18n)
@@ -44,6 +47,19 @@ function ProductionInfoHud:init()
     
     -- Aufrufen nach init, da erst an isclient gesetzt ist und sonst die binding nicht aktiv ist bevor man in ein auto einsteigt
     ProductionInfoHud:registerActionEvents()
+end
+
+function ProductionInfoHud:mergeModTranslations(i18n)
+    -- We can copy all our translations to the global table because we prefix everything with guidanceSteering_
+    -- Thanks for blocking the getfenv Giants..
+    -- and my thanks to Wopster for a solution that also works for my problems, better than my solution to loop trough all elements and translater afterwards a second time
+    local modEnvMeta = getmetatable(_G)
+    local env = modEnvMeta.__index
+
+    local global = env.g_i18n.texts
+    for key, text in pairs(i18n.texts) do
+        global[key] = text
+    end
 end
 
 function ProductionInfoHud:registerActionEvents()
@@ -179,6 +195,8 @@ function ProductionInfoHud:draw()
     if ProductionInfoHud.settings["display"]["showType"] == "NONE" then 
         return
     end
+    
+    print("CurentPosition:" .. ProductionInfoHud.settings["display"]["position"]);
     
     local lineCount = 0;
     local maxLines = 5;

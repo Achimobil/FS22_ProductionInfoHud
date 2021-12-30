@@ -6,5 +6,12 @@
 		<text name="input_OPEN_GUI" text="PIH: Einstellungen" />
 		<text name="Empty" text="Alles verbraucht" />
 		<text name="Full" text="Ausgang voll" />
+        
+        
+		<text name="pih_tooltip_position" text="Hier auswählen, wo die Anzeige erscheinen soll" />
+		<text name="pihPositionElement_title" text="Position" />
+		<text name="pih_possiblePosition_1" text="Oben mittig" />
+		<text name="pih_possiblePosition_2" text="Unter Hilfe" />
+		<text name="pih_possiblePosition_3" text="Unter Vehicle Inspector" />
 	</texts>
 </l10n>

@@ -1,7 +1,7 @@
 
 ProductionInfoHudGUI = {}
 ProductionInfoHudGUI.CONTROLS = {
-    PAGE_SETTINGS = "pageSettings"
+    PAGE_SETTINGS = "pageSettings",
 }
 ProductionInfoHudGUI.overColor = {0.9,0.9,0.5,1}
 
@@ -19,8 +19,6 @@ function ProductionInfoHudGUI:new(messageCenter, i18n, inputManager)
 end
 
 function ProductionInfoHudGUI:onGuiSetupFinished()
--- print("self.pageSettings");
--- DebugUtil.printTableRecursively(self.pageSettings,"_",0,2)
 
     ProductionInfoHudGUI:superClass().onGuiSetupFinished(self)
 
@@ -29,7 +27,6 @@ function ProductionInfoHudGUI:onGuiSetupFinished()
 
     self.pageSettings:initialize()
 
-    -- self:setupPages()
     self:setupMenuButtonInfo()
 end
 
@@ -53,4 +50,7 @@ end
 
 function ProductionInfoHudGUI:onClickOk()
     print("Missing save, but will come after loading");
+    
+    local state = self.pageSettings.pihPositionElement:getState();
+    ProductionInfoHud.settings["display"]["position"] = ProductionInfoHud.PossiblePositions[state];
 end
