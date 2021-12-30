@@ -102,6 +102,9 @@ function ProductionInfoHud:refreshProductionsTable()
                     
                     if productionItem.capacity == 0 then 
                         productionItem.capacityLevel = 0
+                    elseif productionItem.capacity == nil then
+                        productionItem.capacityLevel = 0
+                        print("Error: No storage for '" .. g_currentMission.fillTypeManager.fillTypes[fillTypeId].name .. "' in productionPoint but defined to used. Has to be fixed in '" .. productionPoint.owningPlaceable.customEnvironment .."'.")
                     else
                         productionItem.capacityLevel = productionItem.fillLevel / productionItem.capacity;
                     end
