@@ -43,6 +43,13 @@ Changelog 0.2.0.0
 Changelog 0.2.1.0
 - Full input storage is not displayed as full production anymore
 - Added IT translations
+
+Changelog 0.3.0.0
+- Added PL translations
+- Full storage is shown correctly now
+- Wrong declared production points now makes no lua error but error message which production point has errors.
+- Settings dialog now available
+- Settings can be saved now
 ]]>
 </en>
         <de>
