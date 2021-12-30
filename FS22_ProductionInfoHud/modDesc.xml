@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="no" ?>
 <modDesc descVersion="61">
     <author>Achimobil</author>
-    <version>0.2.1.0</version>
+    <version>0.3.0.0</version>
     <title>
 		<en>Production Info Hud</en>
 		<de>Produktionen Info Hud</de>
@@ -81,6 +81,13 @@ Changelog 0.2.0.0
 Changelog 0.2.1.0
 - Volle Eingangslager werden nicht mehr als volle Produktionen angezeigt
 - Übersetzungen für IT hinzugefügt
+
+Changelog 0.3.0.0
+- Übersetzungen für PL hinzugefügt
+- Korrektur der Anzeige bei vollem Lager
+- Bei falscher deklaration einer Produktion wird jetzt ein Fehler angezeigt mit Angabe welche Produktion fehlerhaft ist
+- Einstellungsdialog eingefügt mit Einstellung wo die Anzeige sein soll
+- Speicherung der einstellungen in modSettings Ordner
 ]]>
 </de>
 <it>
