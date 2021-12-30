@@ -19,55 +19,24 @@ ProductionInfoHud.colors.WHITE =    {1.000, 1.000, 1.000, 1}
 ProductionInfoHud.colors.ORANGE =   {0.840, 0.270, 0.020, 1}
 ProductionInfoHud.colors.RED =      {0.580, 0.040, 0.020, 1}
 ProductionInfoHud.colors.YELLOW =   {0.980, 0.420, 0.000, 1}
-ProductionInfoHud.PossiblePositions = {"TopCenter", "BelowHelp", "BelowVehicleInspector"}
 
 function ProductionInfoHud:init()
     ProductionInfoHud.isClient = g_currentMission:getIsClient();
     ProductionInfoHud.isInit = true;
     
-    ProductionInfoHud.messageCenter = g_messageCenter;
-    ProductionInfoHud.i18n = g_i18n;
-    ProductionInfoHud.inputManager = g_gui.inputManager;
-    
     -- default settings einstellen
     ProductionInfoHud.settings = {};
     ProductionInfoHud.settings["display"] = {};
     ProductionInfoHud.settings["display"]["showType"] = "ALL";
-    ProductionInfoHud.settings["display"]["position"] = 1;
-    
-    ProductionInfoHud:LoadSettings();
-       
-    self:mergeModTranslations(ProductionInfoHud.i18n)
-       
-    -- sie einstellungsseite
-    local settingsFrame = ProductionInfoHudFrame.new(ProductionInfoHud, ProductionInfoHud.i18n)
-    g_gui:loadGui(ProductionInfoHud.modDir .. "Gui/ProductionInfoHudFrame.xml", "ProductionInfoHudFrame", settingsFrame, true)
-    
-    -- Das Menü wo die seiten rein kommen
-    ProductionInfoHud.menu = ProductionInfoHudGUI:new(ProductionInfoHud.messageCenter, ProductionInfoHud.i18n, ProductionInfoHud.inputManager);
-	ProductionInfoHud.gui = g_gui:loadGui(ProductionInfoHud.modDir .. "Gui/ProductionInfoHudGui.xml", "ProductionInfoHudGUI", ProductionInfoHud.menu)
     
     -- Aufrufen nach init, da erst an isclient gesetzt ist und sonst die binding nicht aktiv ist bevor man in ein auto einsteigt
     ProductionInfoHud:registerActionEvents()
 end
 
-function ProductionInfoHud:mergeModTranslations(i18n)
-    -- We can copy all our translations to the global table because we prefix everything with guidanceSteering_
-    -- Thanks for blocking the getfenv Giants..
-    -- and my thanks to Wopster for a solution that also works for my problems, better than my solution to loop trough all elements and translater afterwards a second time
-    local modEnvMeta = getmetatable(_G)
-    local env = modEnvMeta.__index
-
-    local global = env.g_i18n.texts
-    for key, text in pairs(i18n.texts) do
-        global[key] = text
-    end
-end
-
 function ProductionInfoHud:registerActionEvents()
 	if ProductionInfoHud.isClient then
 		_, ProductionInfoHud.eventIdToggle = g_inputBinding:registerActionEvent(InputAction.TOGGLE_GUI, ProductionInfoHud, ProductionInfoHud.ToggleGui, false, true, false, true)
-		_, ProductionInfoHud.eventIdOPenGui = g_inputBinding:registerActionEvent(InputAction.OPEN_GUI, ProductionInfoHud, ProductionInfoHud.OpenGui, false, true, false, true)
+		-- _, ProductionInfoHud.eventIdOPenGui = g_inputBinding:registerActionEvent(InputAction.OPEN_GUI, ProductionInfoHud, ProductionInfoHud.OpenGui, false, true, false, true)
 	end
 end
 
@@ -79,12 +48,10 @@ function ProductionInfoHud:ToggleGui()
     end
 end
 
+
 function ProductionInfoHud:OpenGui()
 print("ProductionInfoHud:OpenGui")
     -- hier die Einstellungen öffnen
-	if g_gui.currentGui == nil then
-		g_gui:showGui("ProductionInfoHudGUI")
-	end
     
 end
 
@@ -135,9 +102,6 @@ function ProductionInfoHud:refreshProductionsTable()
                     
                     if productionItem.capacity == 0 then 
                         productionItem.capacityLevel = 0
-                    elseif productionItem.capacity == nil then
-                        productionItem.capacityLevel = 0
-                        print("Error: No storage for '" .. g_currentMission.fillTypeManager.fillTypes[fillTypeId].name .. "' in productionPoint but defined to used. Has to be fixed in '" .. productionPoint.owningPlaceable.customEnvironment .."'.")
                     else
                         productionItem.capacityLevel = productionItem.fillLevel / productionItem.capacity;
                     end
@@ -165,7 +129,11 @@ function ProductionInfoHud:refreshProductionsTable()
                     end
                     
                     -- Ausgangslager voll, dann speziell eintragen
+<<<<<<< HEAD
                     if (productionItem.needPerHour == 0 and productionItem.capacityLevel >= 0.99 and not productionItem.isInput) then 
+=======
+                    if (productionItem.needPerHour == 0 and productionItem.capacityLevel >= 0.95 and productionItem.isInput) then 
+>>>>>>> b90c7b066a04a074e1b0b4234bb0de8ca0190732
                         productionItem.hoursLeft = -1;
                         table.insert(myProductions, productionItem)
                     end
@@ -205,30 +173,10 @@ function ProductionInfoHud:draw()
     local productionOutputTable = {}
     local posX = 0.413;
     local posY = 0.97;
+    local posYStart = posY;
     local textSize = 12/1000;
     local totalTextHeigh = 0;
     local maxTextWidth = 0;
-    
-    -- 1-"TopCenter", 2-"BelowHelp", 3-"BelowVehicleInspector"
-    -- Startpunkt setzen anhand der Einstellungen
-    if ProductionInfoHud.settings["display"]["position"] == 2 or (ProductionInfoHud.settings["display"]["position"] == 3 and g_currentMission.vehicleInspector ~= nil and not g_currentMission.vehicleInspector:getVisible()) then
-        if (g_currentMission.hud.inputHelp.overlay.visible == true) then
-            -- move under Help Dialog, when help visible or when VI is selected and not visible
-            posX = g_currentMission.hud.inputHelp.overlay.x;
-            posY = g_currentMission.hud.inputHelp.overlay.y - 0.03;
-        else
-            posX = 0.013;
-            posY = 0.95;
-        end
-    elseif ProductionInfoHud.settings["display"]["position"] == 3 and g_currentMission.vehicleInspector ~= nil and  g_currentMission.vehicleInspector:getVisible() then
-    
-            local viPosition = g_currentMission.vehicleInspector:getPosition()
-            
-            posX = viPosition.x;
-            posY = viPosition.y - g_currentMission.vehicleInspector.global.height[g_currentMission.vehicleInspector.global.viewModus];
-    end
-    
-    local posYStart = posY;
 
     for _, productionData in pairs(ProductionInfoHud.productionDataSorted) do
         if (lineCount < maxLines) then
@@ -291,46 +239,6 @@ function ProductionInfoHud:draw()
 		ProductionInfoHud.overlay:render();
 end
 
-function ProductionInfoHud:SaveSettings()
-
-    if not ProductionInfoHud.isClient then return end
-
-    createFolder(getUserProfileAppPath().. "modSettings/");
-    local file = getUserProfileAppPath() .. "modSettings/ProductionInfoHudSettings.xml"
-
-	local XML = createXMLFile("ProductionInfoHudSettings_XML", file, "ProductionInfoHudSettings")
-
-	local xmlTag = ("ProductionInfoHudSettings.display.showType(%d)"):format(0);
-	setXMLString(XML, xmlTag.."#string", ProductionInfoHud.settings["display"]["showType"])
-
-	local xmlTag = ("ProductionInfoHudSettings.display.position(%d)"):format(0);
-	setXMLInt(XML, xmlTag.."#int", ProductionInfoHud.settings["display"]["position"])
-
-	saveXMLFile(XML)
-end
-
-function ProductionInfoHud:LoadSettings()
-
-    if not ProductionInfoHud.isClient then return end
-
-    createFolder(getUserProfileAppPath().. "modSettings/");
-    local file = getUserProfileAppPath() .. "modSettings/ProductionInfoHudSettings.xml"
-    
-	if fileExists(file) ~= true then
-		print("ProductionInfoHud: No settings file found. Use predefines");
-		return;
-	end
-
-	local XML = loadXMLFile("ProductionInfoHudSettings_XML", file, "ProductionInfoHudSettings")
-
-	local xmlTag = ("ProductionInfoHudSettings.display.showType(%d)"):format(0); 
-	local value = getXMLString(XML, xmlTag.. "#string");
-	if value ~= nil then ProductionInfoHud.settings["display"]["showType"] = value;end;
-
-	xmlTag = ("ProductionInfoHudSettings.display.position(%d)"):format(0); 
-	value = getXMLInt(XML, xmlTag.. "#int");
-	if value ~= nil then ProductionInfoHud.settings["display"]["position"] = value;end;
-end
 
 -- local rX, rY, rZ = getRotation(place.node);
 -- print("place.node rX:"..rX.." rY:"..rY.." rZ:"..rZ);

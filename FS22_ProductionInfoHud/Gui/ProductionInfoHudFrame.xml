@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<GUI name="productionInfoHudSettings">
+    <GuiElement type="bitmap" profile="settingsBox" position="20px 170px" positionOrigin="bottomLeft" id="container">
+    
+        <GuiElement type="empty" profile="ingameMenuSettingsBox" size="550px 600px" id="settingsContainer" positionOrigin="bottomLeft">
+            <GuiElement type="scrollingLayout" profile="ingameMenuSettingsLayout" size="550px 600px" id="boxLayoutSettings">
+                <GuiElement type="text" profile="settingsMenuSubtitle" text="$l10n_ui_ingameMenuGameSettingsGeneral"/>
+
+                <GuiElement type="multiTextOption" profile="multiTextOptionSettings" id="pihPositionElement" size="500px 48px" margin="15px 42px 15px 16px"
+                            toolTipElementId="settingsHelpBoxText" toolTipText="$l10n_pih_tooltip_position">
+                    <GuiElement type="button" profile="multiTextOptionLeft"/>
+                    <GuiElement type="button" profile="multiTextOptionRight"/>
+                    <GuiElement type="text" profile="multiTextOptionText" textMaxWidth="350px"/>
+                    <GuiElement type="text" profile="multiTextOptionTitle" text="$l10n_pihPositionElement_title" textMaxWidth="400px"/>
+                    <GuiElement type="bitmap" profile="multiTextOptionBg" size="400px 48px"/>
+                </GuiElement>
+                
+            </GuiElement>
+        </GuiElement>
+        
+    </GuiElement>
+
+    <!-- Tool tip display -->
+    <GuiElement type="bitmap" profile="ingameMenuHelpRowBg" position="30px 90px" id="settingsHelpBox" visible="true">
+        <GuiElement type="bitmap" profile="ingameMenuHelpRowIcon"/>
+        <GuiElement type="text" profile="ingameMenuHelpRowText" id="settingsHelpBoxText" text="" onTextChanged="onToolTipBoxTextChanged"/>
+    </GuiElement>
+</GUI>

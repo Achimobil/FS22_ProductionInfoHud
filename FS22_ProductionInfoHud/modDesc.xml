@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="no" ?>
 <modDesc descVersion="61">
     <author>Achimobil</author>
-    <version>0.2.1.0</version>
+    <version>0.3.0.0</version>
     <title>
 		<en>Production Info Hud</en>
 		<de>Produktionen Info Hud</de>
@@ -81,6 +81,13 @@ Changelog 0.2.0.0
 Changelog 0.2.1.0
 - Volle Eingangslager werden nicht mehr als volle Produktionen angezeigt
 - Übersetzungen für IT hinzugefügt
+
+Changelog 0.3.0.0
+- Übersetzungen für PL hinzugefügt
+- Korrektur der Anzeige bei vollem Lager
+- Bei falscher deklaration einer Produktion wird jetzt ein Fehler angezeigt mit Angabe welche Produktion fehlerhaft ist
+- Einstellungsdialog eingefügt mit Einstellung wo die Anzeige sein soll
+- Speicherung der einstellungen in modSettings Ordner
 ]]>
 </de>
 <it>
@@ -123,19 +130,21 @@ Registro modifiche 0.2.0.0
 
 	<extraSourceFiles>
         <sourceFile filename="ProductionInfoHud.lua" />
+		<sourceFile filename="Gui/ProductionInfoHudFrame.lua" />
+		<sourceFile filename="Gui/ProductionInfoHudGui.lua" />
     </extraSourceFiles>
 
     <inputBinding>
         <actionBinding action="TOGGLE_GUI">
             <binding device="KB_MOUSE_DEFAULT" input="KEY_lctrl KEY_p" />
         </actionBinding>  
-        <!-- <actionBinding action="OPEN_GUI"> -->
-            <!-- <binding device="KB_MOUSE_DEFAULT" input="KEY_lctrl KEY_lshift KEY_p" /> -->
-        <!-- </actionBinding>         -->
+        <actionBinding action="OPEN_GUI">
+            <binding device="KB_MOUSE_DEFAULT" input="KEY_lctrl KEY_lshift KEY_p" />
+        </actionBinding>        
     </inputBinding>   
     <actions>
         <action name="TOGGLE_GUI" />
-        <!-- <action name="OPEN_GUI" /> -->
+        <action name="OPEN_GUI" />
     </actions>
 	<l10n filenamePrefix="translations/translation" />
 </modDesc>
