@@ -123,6 +123,7 @@ Registro modifiche 0.2.0.0
 
 	<extraSourceFiles>
         <sourceFile filename="ProductionInfoHud.lua" />
+		<sourceFile filename="Gui/ProductionInfoHudFrame.lua" />
 		<sourceFile filename="Gui/ProductionInfoHudGui.lua" />
     </extraSourceFiles>
 

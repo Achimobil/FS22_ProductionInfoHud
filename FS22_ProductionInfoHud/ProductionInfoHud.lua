@@ -36,7 +36,7 @@ function ProductionInfoHud:init()
        
     -- sie einstellungsseite
     local settingsFrame = ProductionInfoHudFrame.new(ProductionInfoHud, ProductionInfoHud.i18n)
-    g_gui:loadGui(root .. "ProductionInfoHudFrame.xml", "ProductionInfoHudFrame", settingsFrame, true)
+    g_gui:loadGui(ProductionInfoHud.modDir .. "Gui/ProductionInfoHudFrame.xml", "ProductionInfoHudFrame", settingsFrame, true)
     
     -- Das Menü wo die seiten rein kommen
     ProductionInfoHud.menu = ProductionInfoHudGUI:new(ProductionInfoHud.messageCenter, ProductionInfoHud.i18n, ProductionInfoHud.inputManager);
