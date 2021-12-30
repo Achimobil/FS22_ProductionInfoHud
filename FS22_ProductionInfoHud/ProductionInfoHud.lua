@@ -290,6 +290,8 @@ end
 
 function ProductionInfoHud:SaveSettings()
 
+    if not ProductionInfoHud.isClient then return end
+
     createFolder(getUserProfileAppPath().. "modSettings/");
     local file = getUserProfileAppPath() .. "modSettings/ProductionInfoHudSettings.xml"
 
@@ -305,6 +307,8 @@ function ProductionInfoHud:SaveSettings()
 end
 
 function ProductionInfoHud:LoadSettings()
+
+    if not ProductionInfoHud.isClient then return end
 
     createFolder(getUserProfileAppPath().. "modSettings/");
     local file = getUserProfileAppPath() .. "modSettings/ProductionInfoHudSettings.xml"
