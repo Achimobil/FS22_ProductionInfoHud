@@ -49,8 +49,8 @@ function ProductionInfoHudGUI:setupMenuButtonInfo()
 end
 
 function ProductionInfoHudGUI:onClickOk()
-    print("Missing save, but will come after loading");
-    
     local state = self.pageSettings.pihPositionElement:getState();
     ProductionInfoHud.settings["display"]["position"] = state;
+    
+    ProductionInfoHud:SaveSettings()
 end

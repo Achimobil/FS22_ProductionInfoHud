@@ -34,6 +34,8 @@ function ProductionInfoHud:init()
     ProductionInfoHud.settings["display"] = {};
     ProductionInfoHud.settings["display"]["showType"] = "ALL";
     ProductionInfoHud.settings["display"]["position"] = 1;
+    
+    ProductionInfoHud:LoadSettings();
        
     self:mergeModTranslations(ProductionInfoHud.i18n)
        
@@ -76,7 +78,6 @@ function ProductionInfoHud:ToggleGui()
         ProductionInfoHud.settings["display"]["showType"] = "ALL"
     end
 end
-
 
 function ProductionInfoHud:OpenGui()
 print("ProductionInfoHud:OpenGui")
@@ -287,6 +288,42 @@ function ProductionInfoHud:draw()
 		ProductionInfoHud.overlay:render();
 end
 
+function ProductionInfoHud:SaveSettings()
+
+    createFolder(getUserProfileAppPath().. "modSettings/");
+    local file = getUserProfileAppPath() .. "modSettings/ProductionInfoHudSettings.xml"
+
+	local XML = createXMLFile("ProductionInfoHudSettings_XML", file, "ProductionInfoHudSettings")
+
+	local xmlTag = ("ProductionInfoHudSettings.display.showType(%d)"):format(0);
+	setXMLString(XML, xmlTag.."#string", ProductionInfoHud.settings["display"]["showType"])
+
+	local xmlTag = ("ProductionInfoHudSettings.display.position(%d)"):format(0);
+	setXMLInt(XML, xmlTag.."#int", ProductionInfoHud.settings["display"]["position"])
+
+	saveXMLFile(XML)
+end
+
+function ProductionInfoHud:LoadSettings()
+
+    createFolder(getUserProfileAppPath().. "modSettings/");
+    local file = getUserProfileAppPath() .. "modSettings/ProductionInfoHudSettings.xml"
+    
+	if fileExists(file) ~= true then
+		print("ProductionInfoHud: No settings file found. Use predefines");
+		return;
+	end
+
+	local XML = loadXMLFile("ProductionInfoHudSettings_XML", file, "ProductionInfoHudSettings")
+
+	local xmlTag = ("ProductionInfoHudSettings.display.showType(%d)"):format(0); 
+	local value = getXMLString(XML, xmlTag.. "#string");
+	if value ~= nil then ProductionInfoHud.settings["display"]["showType"] = value;end;
+
+	xmlTag = ("ProductionInfoHudSettings.display.position(%d)"):format(0); 
+	value = getXMLInt(XML, xmlTag.. "#int");
+	if value ~= nil then ProductionInfoHud.settings["display"]["position"] = value;end;
+end
 
 -- local rX, rY, rZ = getRotation(place.node);
 -- print("place.node rX:"..rX.." rY:"..rY.." rZ:"..rZ);
