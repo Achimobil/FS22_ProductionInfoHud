@@ -14,7 +14,7 @@
 Publication on other sides only by myself, linking only with original download link. NO alternative link!
 Changing or re-uploading, whether in whole or in part, is not allowed!
 
-Since the LS19 version was built on Global Company dialogues and methods, this version nor now comes without setting options.
+Since the LS19 version was built on Global Company dialogues and methods, this version must be complete rebuilded.
 
 The current version has the following, non-customizable properties:
 - Display of the active productions with their remaining time
@@ -38,7 +38,7 @@ Changelog 0.2.0.0
 - Productions with full output storage are now shown
 - The font is now colored for full storage(red) and for missing resourced (orange)
 - The mod is now translatable, en and de already added
-- With left shift + P  you can turn on and of the display (configurable)
+- With [lctrl] + [P]  you can turn on and of the display (configurable)
 
 Changelog 0.2.1.0
 - Full input storage is not displayed as full production anymore
@@ -48,7 +48,7 @@ Changelog 0.3.0.0
 - Added PL translations
 - Full storage is shown correctly now
 - Wrong declared production points now makes no lua error but error message which production point has errors.
-- Settings dialog now available
+- Settings dialog now available with [lctrl] +[lshift] + [P]
 - Settings can be saved now
 ]]>
 </en>
@@ -58,7 +58,7 @@ Changelog 0.3.0.0
 Upload auf anderen Seiten nur durch mich selbst, Verlinkung nur mit Original Downloadlink. KEIN Ersatzlink!
 Das verändern sowie erneutes hochladen ob ganz oder in teilen ist nicht gestattet! 
 
-Da die LS19 Version auf Global Company Dialoge und Methoden gebaut war, kommt diese Version jetzt erstmal ohne Einstellungsmöglichkeiten.
+Da die LS19 Version auf Global Company Dialoge und Methoden gebaut war, musste diese komplett neu aufgebaut werden.
 
 Die aktuelle Version hat folgende, nicht anpassbare Eigenschaften:
 - Anzeige der aktiven Produktionen mit deren Restlaufzeit
@@ -83,7 +83,7 @@ Changelog 0.2.0.0
 - Produktionen mit vollem Ausgangslager werde als erstes angezeigt
 - Die Schrift ist nun Farblich für volle Lager (rot) und für leere Eingangslager (Orange)
 - Der Mod ist jetzt übersetzbar, en und de ist bereits enthalten
-- Mit links shift + P kann die Anzeige aus un ein geschaltet werden (Einstellbar)
+- Mit [lctrl] + [P] kann die Anzeige aus un ein geschaltet werden (Einstellbar)
 
 Changelog 0.2.1.0
 - Volle Eingangslager werden nicht mehr als volle Produktionen angezeigt
@@ -93,7 +93,7 @@ Changelog 0.3.0.0
 - Übersetzungen für PL hinzugefügt
 - Korrektur der Anzeige bei vollem Lager
 - Bei falscher deklaration einer Produktion wird jetzt ein Fehler angezeigt mit Angabe welche Produktion fehlerhaft ist
-- Einstellungsdialog eingefügt mit Einstellung wo die Anzeige sein soll
+- Einstellungsdialog eingefügt. Aufrufbar mit [lctrl] +[lshift] + [P]
 - Speicherung der einstellungen in modSettings Ordner
 ]]>
 </de>
