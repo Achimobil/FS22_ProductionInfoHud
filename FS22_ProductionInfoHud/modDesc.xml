@@ -97,7 +97,7 @@ Changelog 0.3.0.0
 - Speicherung der einstellungen in modSettings Ordner
 ]]>
 </de>
-<it>
+		<it>
             <![CDATA[La prima versione delle produzioni Info Hud, conosciuta da LS 19.
 
 Pubblicazione su altri siti solo da me, linkando solo con link di download originale. NESSUN collegamento alternativo!
@@ -119,16 +119,24 @@ Questi possono essere fatti meglio sul mio Discord nel canale della rispettiva m
 
 Se non ti piace, non usarlo.
 
-Registro delle modifiche 0.1.1.0
+Changelog:
+v0.1.1.0
 - Adeguamento alla patch 1.2.0.0 da Giants alle produzioni modificate.
 Il display è ancora nei giorni di gioco.
 Tuttavia, viene visualizzato ciò che sarà vuoto nei prossimi 2 mesi, a seconda dei giorni impostati al mese, questo è diverso.
 
-Registro modifiche 0.2.0.0
+v0.2.0.0
 - Le produzioni con un magazzino di partenza completo vengono visualizzate per prime
 - Il carattere ora è colorato per i magazzini pieni (rosso) e per i magazzini in entrata vuoti (arancione)
 - La mod è ora traducibile, en e de è già inclusa
 - Con shift a sinistra + P il display può essere spento e acceso (regolabile)
+
+v0.3.0.0
+- Aggiunte traduzioni per PL
+- Correzione della visualizzazione quando il magazzino è pieno
+- Se una produzione viene dichiarata in modo errato, ora viene visualizzato un errore che indica quale produzione è difettosa
+- Aggiunta la finestra di dialogo Impostazioni. Può essere chiamato con [lctrl] + [lshift] + [P]
+- Memorizzazione delle impostazioni nella cartella modSettings
 ]]>
 </it>
     </description>
