@@ -4,10 +4,10 @@
 ProductionInfoHud = {}
 
 ProductionInfoHud.metadata = {
-	title = "ProductionInfoHud",
-	notes = "Anzeige für Produktionen in einem HUD",
-	author = "Achimobil",
-	info = "Das verändern und wiederöffentlichen, auch in Teilen, ist untersagt und wird abgemahnt."
+    title = "ProductionInfoHud",
+    notes = "Anzeige für Produktionen in einem HUD",
+    author = "Achimobil",
+    info = "Das verändern und wiederöffentlichen, auch in Teilen, ist untersagt und wird abgemahnt."
 };
 ProductionInfoHud.modDir = g_currentModDirectory;
 ProductionInfoHud.firstRun = false;
@@ -45,7 +45,7 @@ function ProductionInfoHud:init()
     
     -- Das Menü wo die seiten rein kommen
     ProductionInfoHud.menu = ProductionInfoHudGUI:new(ProductionInfoHud.messageCenter, ProductionInfoHud.i18n, ProductionInfoHud.inputManager);
-	ProductionInfoHud.gui = g_gui:loadGui(ProductionInfoHud.modDir .. "Gui/ProductionInfoHudGui.xml", "ProductionInfoHudGUI", ProductionInfoHud.menu)
+    ProductionInfoHud.gui = g_gui:loadGui(ProductionInfoHud.modDir .. "Gui/ProductionInfoHudGui.xml", "ProductionInfoHudGUI", ProductionInfoHud.menu)
     
     -- Aufrufen nach init, da erst an isclient gesetzt ist und sonst die binding nicht aktiv ist bevor man in ein auto einsteigt
     ProductionInfoHud:registerActionEvents()
@@ -65,10 +65,10 @@ function ProductionInfoHud:mergeModTranslations(i18n)
 end
 
 function ProductionInfoHud:registerActionEvents()
-	if ProductionInfoHud.isClient then
-		_, ProductionInfoHud.eventIdToggle = g_inputBinding:registerActionEvent(InputAction.TOGGLE_GUI, ProductionInfoHud, ProductionInfoHud.ToggleGui, false, true, false, true)
-		_, ProductionInfoHud.eventIdOPenGui = g_inputBinding:registerActionEvent(InputAction.OPEN_GUI, ProductionInfoHud, ProductionInfoHud.OpenGui, false, true, false, true)
-	end
+    if ProductionInfoHud.isClient then
+        _, ProductionInfoHud.eventIdToggle = g_inputBinding:registerActionEvent(InputAction.TOGGLE_GUI, ProductionInfoHud, ProductionInfoHud.ToggleGui, false, true, false, true)
+        _, ProductionInfoHud.eventIdOPenGui = g_inputBinding:registerActionEvent(InputAction.OPEN_GUI, ProductionInfoHud, ProductionInfoHud.OpenGui, false, true, false, true)
+    end
 end
 
 function ProductionInfoHud:ToggleGui()
@@ -82,30 +82,30 @@ end
 function ProductionInfoHud:OpenGui()
 print("ProductionInfoHud:OpenGui")
     -- hier die Einstellungen öffnen
-	if g_gui.currentGui == nil then
-		g_gui:showGui("ProductionInfoHudGUI")
-	end
+    if g_gui.currentGui == nil then
+        g_gui:showGui("ProductionInfoHudGUI")
+    end
     
 end
 
 function ProductionInfoHud:loadMap(name)
     -- ActionEvents registrieren
-	FSBaseMission.registerActionEvents = Utils.appendedFunction(FSBaseMission.registerActionEvents, ProductionInfoHud.registerActionEvents);
+    FSBaseMission.registerActionEvents = Utils.appendedFunction(FSBaseMission.registerActionEvents, ProductionInfoHud.registerActionEvents);
 end
 
 function ProductionInfoHud:update(dt)
 
     if not ProductionInfoHud.isInit then ProductionInfoHud:init(); end
-	
+    
     if not ProductionInfoHud.isClient then return end
     
     ProductionInfoHud.timePast = ProductionInfoHud.timePast + dt;
-	
+    
     if ProductionInfoHud.timePast >= 5000 then
-		ProductionInfoHud.timePast = 0;
+        ProductionInfoHud.timePast = 0;
         ProductionInfoHud:refreshProductionsTable();
     end
-	
+    
     if not ProductionInfoHud.firstRun then
         -- print("Testoutput")
         -- DebugUtil.printTableRecursively(g_currentMission,"_",0,1)        
@@ -182,7 +182,7 @@ function ProductionInfoHud:refreshProductionsTable()
 end
 
 function compPrductionTable(w1,w2)
-	-- Zum Sortieren der Ausgabeliste nach Zeit
+    -- Zum Sortieren der Ausgabeliste nach Zeit
     if w1.hoursLeft == w2.hoursLeft and w1.name < w2.name then
         return true
     end
@@ -276,19 +276,19 @@ function ProductionInfoHud:draw()
         
         -- farben von oben benutzen
         setTextAlignment(RenderText.ALIGN_LEFT);
-        setTextColor(unpack(productionOutputItem.TextColor));								
+        setTextColor(unpack(productionOutputItem.TextColor));                                
         setTextBold(false);
         renderText(posX,posY,textSize,textLine);
     end
                 
-		
-	
-		-- overlay für produktionen
-		setOverlayColor(ProductionInfoHud.overlay.overlayId, 0, 0, 0, 0.7);
-		setOverlayUVs(ProductionInfoHud.overlay.overlayId, 0.0078125,0.990234375, 0.0078125,0.9921875, 0.009765625,0.990234375, 0.009765625,0.9921875);
-		ProductionInfoHud.overlay:setPosition(posX-0.001, posYStart - totalTextHeigh - 0.002);
-		ProductionInfoHud.overlay:setDimension(maxTextWidth+0.002, totalTextHeigh);
-		ProductionInfoHud.overlay:render();
+        
+    
+        -- overlay für produktionen
+        setOverlayColor(ProductionInfoHud.overlay.overlayId, 0, 0, 0, 0.7);
+        setOverlayUVs(ProductionInfoHud.overlay.overlayId, 0.0078125,0.990234375, 0.0078125,0.9921875, 0.009765625,0.990234375, 0.009765625,0.9921875);
+        ProductionInfoHud.overlay:setPosition(posX-0.001, posYStart - totalTextHeigh - 0.002);
+        ProductionInfoHud.overlay:setDimension(maxTextWidth+0.002, totalTextHeigh);
+        ProductionInfoHud.overlay:render();
 end
 
 function ProductionInfoHud:SaveSettings()
@@ -298,15 +298,15 @@ function ProductionInfoHud:SaveSettings()
     createFolder(getUserProfileAppPath().. "modSettings/");
     local file = getUserProfileAppPath() .. "modSettings/ProductionInfoHudSettings.xml"
 
-	local XML = createXMLFile("ProductionInfoHudSettings_XML", file, "ProductionInfoHudSettings")
+    local XML = createXMLFile("ProductionInfoHudSettings_XML", file, "ProductionInfoHudSettings")
 
-	local xmlTag = ("ProductionInfoHudSettings.display.showType(%d)"):format(0);
-	setXMLString(XML, xmlTag.."#string", ProductionInfoHud.settings["display"]["showType"])
+    local xmlTag = ("ProductionInfoHudSettings.display.showType(%d)"):format(0);
+    setXMLString(XML, xmlTag.."#string", ProductionInfoHud.settings["display"]["showType"])
 
-	local xmlTag = ("ProductionInfoHudSettings.display.position(%d)"):format(0);
-	setXMLInt(XML, xmlTag.."#int", ProductionInfoHud.settings["display"]["position"])
+    local xmlTag = ("ProductionInfoHudSettings.display.position(%d)"):format(0);
+    setXMLInt(XML, xmlTag.."#int", ProductionInfoHud.settings["display"]["position"])
 
-	saveXMLFile(XML)
+    saveXMLFile(XML)
 end
 
 function ProductionInfoHud:LoadSettings()
@@ -316,20 +316,20 @@ function ProductionInfoHud:LoadSettings()
     createFolder(getUserProfileAppPath().. "modSettings/");
     local file = getUserProfileAppPath() .. "modSettings/ProductionInfoHudSettings.xml"
     
-	if fileExists(file) ~= true then
-		print("ProductionInfoHud: No settings file found. Use predefines");
-		return;
-	end
+    if fileExists(file) ~= true then
+        print("ProductionInfoHud: No settings file found. Use predefines");
+        return;
+    end
 
-	local XML = loadXMLFile("ProductionInfoHudSettings_XML", file, "ProductionInfoHudSettings")
+    local XML = loadXMLFile("ProductionInfoHudSettings_XML", file, "ProductionInfoHudSettings")
 
-	local xmlTag = ("ProductionInfoHudSettings.display.showType(%d)"):format(0); 
-	local value = getXMLString(XML, xmlTag.. "#string");
-	if value ~= nil then ProductionInfoHud.settings["display"]["showType"] = value;end;
+    local xmlTag = ("ProductionInfoHudSettings.display.showType(%d)"):format(0); 
+    local value = getXMLString(XML, xmlTag.. "#string");
+    if value ~= nil then ProductionInfoHud.settings["display"]["showType"] = value;end;
 
-	xmlTag = ("ProductionInfoHudSettings.display.position(%d)"):format(0); 
-	value = getXMLInt(XML, xmlTag.. "#int");
-	if value ~= nil then ProductionInfoHud.settings["display"]["position"] = value;end;
+    xmlTag = ("ProductionInfoHudSettings.display.position(%d)"):format(0); 
+    value = getXMLInt(XML, xmlTag.. "#int");
+    if value ~= nil then ProductionInfoHud.settings["display"]["position"] = value;end;
 end
 
 -- local rX, rY, rZ = getRotation(place.node);
