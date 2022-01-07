@@ -49,6 +49,27 @@ function ProductionInfoHud:init()
     
     -- Aufrufen nach init, da erst an isclient gesetzt ist und sonst die binding nicht aktiv ist bevor man in ein auto einsteigt
     ProductionInfoHud:registerActionEvents()
+
+    -- overwrite the InfoMessageHUD method to move it to a good location, when it is installed    
+    if g_modIsLoaded["FS22_InfoMessageHUD"] then
+        print("Info: ProductionInfoHud override position of InfoMessageHUD");
+        local mod2 = getfenv(0)["FS22_InfoMessageHUD"];
+        ProductionInfoHud.InfoMessageHUD = mod2.InfoMessageHUD;        
+
+        function ProductionInfoHud.InfoMessageHUD:renderText(x, y, size, text, bold, colorId)
+            x = x + 0.4;
+
+            setTextColor(unpack(ProductionInfoHud.InfoMessageHUD.Colors[colorId][2]))
+            setTextBold(bold)
+            setTextAlignment(RenderText.ALIGN_LEFT)
+            renderText(x, y, size, text)
+            
+            -- Back to defaults
+            setTextBold(false)
+            setTextColor(unpack(ProductionInfoHud.InfoMessageHUD.Colors[1][2])) --Back to default color which is white
+            setTextAlignment(RenderText.ALIGN_LEFT)
+        end
+    end
 end
 
 function ProductionInfoHud:mergeModTranslations(i18n)
