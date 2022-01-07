@@ -6,6 +6,7 @@
 		<text name="input_OPEN_GUI" text="PIH: Pokaż ustawienia " />
 		<text name="Empty" text="WWszystkie używane" />
 		<text name="Full" text="Pamięć wyjściowa pełna" />
+		<text name="AllProductsOperativ" text="Wszystkie produkcje działają" />
         
 		<text name="pih_tooltip_position" text="Proszę wybrać pozycję wyświetlania" />
 		<text name="pihPositionElement_title" text="Pozycja" />

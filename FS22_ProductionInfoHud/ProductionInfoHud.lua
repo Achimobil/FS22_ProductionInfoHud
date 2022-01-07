@@ -280,15 +280,26 @@ function ProductionInfoHud:draw()
         setTextBold(false);
         renderText(posX,posY,textSize,textLine);
     end
+			
+    if (lineCount == 0) then
+        posY = posY - textSize;
+        local textLine = g_i18n:getText("AllProductsOperativ");
+        setTextColor(1,1,1,1);								
+        setTextBold(false);
+        totalTextHeigh = totalTextHeigh + getTextHeight(textSize, textLine)
+        local textWidth = getTextWidth(textSize, textLine);
+        if (textWidth > maxTextWidth) then maxTextWidth = textWidth; end
+        renderText(posX,posY,textSize,textLine);
+    end
                 
         
     
-        -- overlay für produktionen
-        setOverlayColor(ProductionInfoHud.overlay.overlayId, 0, 0, 0, 0.7);
-        setOverlayUVs(ProductionInfoHud.overlay.overlayId, 0.0078125,0.990234375, 0.0078125,0.9921875, 0.009765625,0.990234375, 0.009765625,0.9921875);
-        ProductionInfoHud.overlay:setPosition(posX-0.001, posYStart - totalTextHeigh - 0.002);
-        ProductionInfoHud.overlay:setDimension(maxTextWidth+0.002, totalTextHeigh);
-        ProductionInfoHud.overlay:render();
+    -- overlay für produktionen
+    setOverlayColor(ProductionInfoHud.overlay.overlayId, 0, 0, 0, 0.7);
+    setOverlayUVs(ProductionInfoHud.overlay.overlayId, 0.0078125,0.990234375, 0.0078125,0.9921875, 0.009765625,0.990234375, 0.009765625,0.9921875);
+    ProductionInfoHud.overlay:setPosition(posX-0.001, posYStart - totalTextHeigh - 0.002);
+    ProductionInfoHud.overlay:setDimension(maxTextWidth+0.002, totalTextHeigh);
+    ProductionInfoHud.overlay:render();
 end
 
 function ProductionInfoHud:SaveSettings()

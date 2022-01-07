@@ -6,6 +6,7 @@
 		<text name="input_OPEN_GUI" text="PIH: Show Settings" />
 		<text name="Empty" text="All used" />
 		<text name="Full" text="Outputstorage full" />
+		<text name="AllProductsOperativ" text="All productions operative" />
         
 		<text name="pih_tooltip_position" text="Please select the display position" />
 		<text name="pihPositionElement_title" text="Position" />
