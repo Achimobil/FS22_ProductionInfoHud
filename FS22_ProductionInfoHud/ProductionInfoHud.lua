@@ -215,7 +215,7 @@ function ProductionInfoHud:draw()
         if (g_currentMission.hud.inputHelp.overlay.visible == true) then
             -- move under Help Dialog, when help visible or when VI is selected and not visible
             posX = g_currentMission.hud.inputHelp.overlay.x;
-            posY = g_currentMission.hud.inputHelp.overlay.y - 0.03;
+            posY = g_currentMission.hud.inputHelp.overlay.y - 0.04;
         else
             posX = 0.013;
             posY = 0.95;
@@ -225,7 +225,7 @@ function ProductionInfoHud:draw()
             local viPosition = g_currentMission.vehicleInspector:getPosition()
             
             posX = viPosition.x;
-            posY = viPosition.y - g_currentMission.vehicleInspector.global.height[g_currentMission.vehicleInspector.global.viewModus];
+            posY = viPosition.y - g_currentMission.vehicleInspector.global.height[g_currentMission.vehicleInspector.global.viewModus]-0.01;
     end
     
     local posYStart = posY;
