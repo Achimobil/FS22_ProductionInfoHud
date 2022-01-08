@@ -15,5 +15,9 @@
 		<text name="pih_possiblePosition_3" text="Poniżej Vehicle Inspector" />
 		<text name="pih_showFullAnimals_title" text="Afficher les stalles pleines d'animaux" />
 		<text name="pih_tooltip_showFullAnimals" text="Wyświetlanie pełnych boksów dla zwierząt na liście" />
+		<text name="pih_tooltip_maxLines" text="Maksymalna liczba linii produkcyjnych do pokazania." />
+		<text name="pih_MaxLinesElement_title" text="Widoczne linie" />
+		<text name="pih_Zeilen" text="linie" />
+		<text name="MoreAvailable" text="jeszcze" />
 	</texts>
 </l10n>

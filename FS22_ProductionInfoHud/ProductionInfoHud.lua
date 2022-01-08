@@ -20,6 +20,7 @@ ProductionInfoHud.colors.ORANGE =   {0.840, 0.270, 0.020, 1}
 ProductionInfoHud.colors.RED =      {0.580, 0.040, 0.020, 1}
 ProductionInfoHud.colors.YELLOW =   {0.980, 0.420, 0.000, 1}
 ProductionInfoHud.PossiblePositions = {"TopCenter", "BelowHelp", "BelowVehicleInspector"}
+ProductionInfoHud.PossibleMaxLines = {"2", "3", "4", "5", "6", "7", "8", "9", "10"}
 
 function ProductionInfoHud:init()
     ProductionInfoHud.isClient = g_currentMission:getIsClient();
@@ -35,6 +36,7 @@ function ProductionInfoHud:init()
     ProductionInfoHud.settings["display"]["showType"] = "ALL";
     ProductionInfoHud.settings["display"]["position"] = 1;
     ProductionInfoHud.settings["display"]["showFullAnimals"] = true;
+    ProductionInfoHud.settings["display"]["maxLines"] = 5;
     
     ProductionInfoHud:LoadSettings();
        
@@ -283,7 +285,8 @@ function ProductionInfoHud:draw()
     end
     
     local lineCount = 0;
-    local maxLines = 5;
+    local maxLines = tonumber(ProductionInfoHud.PossibleMaxLines[ProductionInfoHud.settings["display"]["maxLines"]]);
+    local additionalLines = 0;
     local productionOutputTable = {}
     local posX = 0.413;
     local posY = 0.97;
@@ -345,6 +348,8 @@ function ProductionInfoHud:draw()
                 productionOutputItem.TimeLeftString = timeString;
             end
             table.insert(productionOutputTable, productionOutputItem)
+        else
+            additionalLines = additionalLines + 1;
         end
     end
         
@@ -360,6 +365,17 @@ function ProductionInfoHud:draw()
         setTextAlignment(RenderText.ALIGN_LEFT);
         setTextColor(unpack(productionOutputItem.TextColor));                                
         setTextBold(false);
+        renderText(posX,posY,textSize,textLine);
+    end
+        
+    if (additionalLines > 0) then
+        posY = posY - textSize;
+        local textLine = (additionalLines .. "  " .. g_i18n:getText("MoreAvailable"));
+        setTextColor(1,1,1,1);								
+        setTextBold(false);
+        totalTextHeigh = totalTextHeigh + getTextHeight(textSize, textLine)
+        local textWidth = getTextWidth(textSize, textLine);
+        if (textWidth > maxTextWidth) then maxTextWidth = textWidth; end
         renderText(posX,posY,textSize,textLine);
     end
 			
@@ -402,6 +418,9 @@ function ProductionInfoHud:SaveSettings()
     local xmlTag = ("ProductionInfoHudSettings.display.showFullAnimals(%d)"):format(0);
     setXMLBool(XML, xmlTag.."#bool", ProductionInfoHud.settings["display"]["showFullAnimals"])
 
+    local xmlTag = ("ProductionInfoHudSettings.display.maxLines(%d)"):format(0);
+    setXMLInt(XML, xmlTag.."#int", ProductionInfoHud.settings["display"]["maxLines"])
+
     saveXMLFile(XML)
 end
 
@@ -430,6 +449,10 @@ function ProductionInfoHud:LoadSettings()
     xmlTag = ("ProductionInfoHudSettings.display.showFullAnimals(%d)"):format(0); 
     value = getXMLBool(XML, xmlTag.. "#bool");
     if value ~= nil then ProductionInfoHud.settings["display"]["showFullAnimals"] = value;end;
+
+    xmlTag = ("ProductionInfoHudSettings.display.maxLines(%d)"):format(0); 
+    value = getXMLInt(XML, xmlTag.. "#int");
+    if value ~= nil then ProductionInfoHud.settings["display"]["maxLines"] = value;end;
 end
 
 -- local rX, rY, rZ = getRotation(place.node);

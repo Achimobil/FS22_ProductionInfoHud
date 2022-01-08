@@ -6,9 +6,8 @@ ProductionInfoHudFrame.CONTROLS = {
     POSITION_ELEMENT = "pihPositionElement",
     BOX_LAYOUT_SETTINGS = "boxLayoutSettings",
     SHOWFULLANIMALS_ELEMENT = "pihShowFullAnimalsElement",
+    MAXLINES_ELEMENT = "pihMaxLinesElement",
 }
-
-ProductionInfoHudFrame.INCREMENTS = { 0.01, 0.05, 0.1, 0.5, 1 }
 
 ---Creates a new instance of the ProductionInfoHudFrame.
 ---@return ProductionInfoHudFrame
@@ -38,8 +37,13 @@ function ProductionInfoHudFrame:initialize()
     for id, position in pairs(ProductionInfoHud.PossiblePositions) do
         table.insert(possiblePositions, self.i18n:getText(("pih_possiblePosition_%d"):format(id)))
     end
-
     self.pihPositionElement:setTexts(possiblePositions)
+    
+    local possibleCount = {}
+    for id, position in pairs(ProductionInfoHud.PossibleMaxLines) do
+        table.insert(possibleCount, position .. " " .. self.i18n:getText("pih_Zeilen"))
+    end
+    self.pihMaxLinesElement:setTexts(possibleCount)
     
 end
 
@@ -48,6 +52,7 @@ function ProductionInfoHudFrame:onFrameOpen()
     
     self.pihPositionElement:setState(ProductionInfoHud.settings["display"]["position"]);
     self.pihShowFullAnimalsElement:setIsChecked(ProductionInfoHud.settings["display"]["showFullAnimals"])
+    self.pihMaxLinesElement:setState(ProductionInfoHud.settings["display"]["maxLines"]);
 
     self.boxLayoutSettings:invalidateLayout()
 

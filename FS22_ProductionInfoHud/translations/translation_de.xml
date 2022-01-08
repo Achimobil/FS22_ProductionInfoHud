@@ -15,5 +15,9 @@
 		<text name="pih_possiblePosition_3" text="Unter Vehicle Inspector" />
 		<text name="pih_showFullAnimals_title" text="Volle Tierställe anzeigen" />
 		<text name="pih_tooltip_showFullAnimals" text="Anzeige voller Tierställe in der Liste" />
+		<text name="pih_tooltip_maxLines" text="Maximale Zeilen an Produktionen. Bei mehr kommt noch eine Infozeile hinzu." />
+		<text name="pih_MaxLinesElement_title" text="Sichtbare Zeilen" />
+		<text name="pih_Zeilen" text="Zeilen" />
+		<text name="MoreAvailable" text="weitere" />
 	</texts>
 </l10n>

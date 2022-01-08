@@ -15,5 +15,9 @@
 		<text name="pih_possiblePosition_3" text="Below Vehicle Inspector" />
 		<text name="pih_showFullAnimals_title" text="Show full animal stalls" />
 		<text name="pih_tooltip_showFullAnimals" text="Display of full animal stalls in the list" />
+		<text name="pih_tooltip_maxLines" text="Max number of lines of productsion to show." />
+		<text name="pih_MaxLinesElement_title" text="Visible lines" />
+		<text name="pih_Zeilen" text="lines" />
+		<text name="MoreAvailable" text="more" />
 	</texts>
 </l10n>

@@ -23,6 +23,15 @@
                     <GuiElement type="text" profile="multiTextOptionTitle" text="$l10n_pih_showFullAnimals_title" textMaxWidth="400px"/>
                     <GuiElement type="bitmap" profile="multiTextOptionBg" size="400px 48px"/>
                 </GuiElement>
+
+                <GuiElement type="multiTextOption" profile="multiTextOptionSettings" id="pihMaxLinesElement" size="500px 48px" margin="15px 42px 15px 16px"
+                            toolTipElementId="settingsHelpBoxText" toolTipText="$l10n_pih_tooltip_maxLines">
+                    <GuiElement type="button" profile="multiTextOptionLeft"/>
+                    <GuiElement type="button" profile="multiTextOptionRight"/>
+                    <GuiElement type="text" profile="multiTextOptionText" textMaxWidth="350px"/>
+                    <GuiElement type="text" profile="multiTextOptionTitle" text="$l10n_pih_MaxLinesElement_title" textMaxWidth="400px"/>
+                    <GuiElement type="bitmap" profile="multiTextOptionBg" size="400px 48px"/>
+                </GuiElement>
                 
             </GuiElement>
         </GuiElement>
