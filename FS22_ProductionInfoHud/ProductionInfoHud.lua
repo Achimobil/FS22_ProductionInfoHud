@@ -34,6 +34,7 @@ function ProductionInfoHud:init()
     ProductionInfoHud.settings["display"] = {};
     ProductionInfoHud.settings["display"]["showType"] = "ALL";
     ProductionInfoHud.settings["display"]["position"] = 1;
+    ProductionInfoHud.settings["display"]["showFullAnimals"] = true;
     
     ProductionInfoHud:LoadSettings();
        
@@ -228,7 +229,7 @@ function ProductionInfoHud:refreshProductionsTable()
                 end
                 
                 -- Tiere voll, also muss was verkauft werden
-                if placeable:getNumOfFreeAnimalSlots() == 0 then
+                if ProductionInfoHud.settings["display"]["showFullAnimals"] and placeable:getNumOfFreeAnimalSlots() == 0 then
                     local productionItem = {}
                     productionItem.name = placeable:getName();
                     -- productionItem.fillTypeId = fillTypeId
@@ -393,6 +394,9 @@ function ProductionInfoHud:SaveSettings()
     local xmlTag = ("ProductionInfoHudSettings.display.position(%d)"):format(0);
     setXMLInt(XML, xmlTag.."#int", ProductionInfoHud.settings["display"]["position"])
 
+    local xmlTag = ("ProductionInfoHudSettings.display.showFullAnimals(%d)"):format(0);
+    setXMLBool(XML, xmlTag.."#bool", ProductionInfoHud.settings["display"]["showFullAnimals"])
+
     saveXMLFile(XML)
 end
 
@@ -417,6 +421,10 @@ function ProductionInfoHud:LoadSettings()
     xmlTag = ("ProductionInfoHudSettings.display.position(%d)"):format(0); 
     value = getXMLInt(XML, xmlTag.. "#int");
     if value ~= nil then ProductionInfoHud.settings["display"]["position"] = value;end;
+
+    xmlTag = ("ProductionInfoHudSettings.display.showFullAnimals(%d)"):format(0); 
+    value = getXMLBool(XML, xmlTag.. "#bool");
+    if value ~= nil then ProductionInfoHud.settings["display"]["showFullAnimals"] = value;end;
 end
 
 -- local rX, rY, rZ = getRotation(place.node);

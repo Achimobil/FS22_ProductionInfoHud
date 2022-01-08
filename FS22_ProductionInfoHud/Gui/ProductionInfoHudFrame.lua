@@ -5,6 +5,7 @@ local ProductionInfoHudFrame_mt = Class(ProductionInfoHudFrame, TabbedMenuFrameE
 ProductionInfoHudFrame.CONTROLS = {
     POSITION_ELEMENT = "pihPositionElement",
     BOX_LAYOUT_SETTINGS = "boxLayoutSettings",
+    SHOWFULLANIMALS_ELEMENT = "pihShowFullAnimalsElement",
 }
 
 ProductionInfoHudFrame.INCREMENTS = { 0.01, 0.05, 0.1, 0.5, 1 }
@@ -46,6 +47,7 @@ function ProductionInfoHudFrame:onFrameOpen()
     ProductionInfoHudFrame:superClass().onFrameOpen(self)
     
     self.pihPositionElement:setState(ProductionInfoHud.settings["display"]["position"]);
+    self.pihShowFullAnimalsElement:setIsChecked(ProductionInfoHud.settings["display"]["showFullAnimals"])
 
     self.boxLayoutSettings:invalidateLayout()
 

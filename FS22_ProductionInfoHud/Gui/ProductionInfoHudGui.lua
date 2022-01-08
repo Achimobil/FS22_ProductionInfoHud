@@ -51,6 +51,7 @@ end
 function ProductionInfoHudGUI:onClickOk()
     local state = self.pageSettings.pihPositionElement:getState();
     ProductionInfoHud.settings["display"]["position"] = state;
+    ProductionInfoHud.settings["display"]["showFullAnimals"] = self.pageSettings.pihShowFullAnimalsElement:getIsChecked();
     
     ProductionInfoHud:SaveSettings()
 end
