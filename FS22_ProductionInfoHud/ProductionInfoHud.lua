@@ -193,6 +193,61 @@ function ProductionInfoHud:refreshProductionsTable()
                 end
             end
         end
+        
+        -- Tiere
+        for _, placeable in pairs(g_currentMission.husbandrySystem.placeables) do
+            if placeable.ownerFarmId == farmId then
+                
+                -- Futter der Tiere als gesamtes pro Stall
+                local productionItem = {}
+                productionItem.name = placeable:getName();
+                -- productionItem.fillTypeId = fillTypeId
+                productionItem.needPerHour = placeable.spec_husbandryFood.litersPerHour;
+                productionItem.hoursLeft = 0
+                productionItem.fillLevel = placeable:getTotalFood();
+                productionItem.capacity = placeable:getFoodCapacity();
+                productionItem.isInput = true;
+                
+                if productionItem.capacity == 0 then 
+                    productionItem.capacityLevel = 0
+                elseif productionItem.capacity == nil then
+                    productionItem.capacityLevel = 0
+                    print("Error: No storage for '" .. g_currentMission.fillTypeManager.fillTypes[fillTypeId].name .. "' in productionPoint but defined to used. Has to be fixed in '" .. productionPoint.owningPlaceable.customEnvironment .."'.")
+                else
+                    productionItem.capacityLevel = productionItem.fillLevel / productionItem.capacity;
+                end
+                productionItem.fillTypeTitle = placeable.spec_husbandryFood.info.title;
+
+                if (productionItem.fillLevel ~= 0) and (productionItem.needPerHour ~= 0) then
+                    -- hier die anzahl der Tage pro Monat berücksichtigen
+                    productionItem.hoursLeft = productionItem.fillLevel / productionItem.needPerHour * g_currentMission.environment.daysPerPeriod;
+                end
+                    
+                if (productionItem.needPerHour > 0 and productionItem.capacityLevel <= 0.5 and productionItem.hoursLeft <= (48 * g_currentMission.environment.daysPerPeriod)) then 
+                    table.insert(myProductions, productionItem)
+                end
+                
+                -- Tiere voll, also muss was verkauft werden
+                if placeable:getNumOfFreeAnimalSlots() == 0 then
+                    local productionItem = {}
+                    productionItem.name = placeable:getName();
+                    -- productionItem.fillTypeId = fillTypeId
+                    productionItem.needPerHour = 0;
+                    productionItem.hoursLeft = 0
+                    productionItem.fillLevel = 0;
+                    productionItem.capacity = 0;
+                    productionItem.isInput = false;
+                    if (placeable.spec_husbandryPallets ~= nil) then
+                        productionItem.fillTypeTitle =  placeable.spec_husbandryPallets.animalTypeName
+                    else
+                        productionItem.fillTypeTitle = g_i18n:getText("helpLine_animals") 
+                    end
+                    productionItem.capacityLevel = 0;
+                    productionItem.hoursLeft = -1;
+                    table.insert(myProductions, productionItem)
+                end
+            end
+        end
 
         table.sort(myProductions, compPrductionTable)
         
