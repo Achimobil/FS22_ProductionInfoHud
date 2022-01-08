@@ -155,6 +155,11 @@ function ProductionInfoHud:refreshProductionsTable()
                     productionItem.capacity = productionPoint.storage.capacities[fillTypeId]
                     productionItem.isInput = false;
                     
+                    -- prüfen ob input type
+                    if productionPoint.inputFillTypeIds[fillTypeId] ~= nil then
+                        productionItem.isInput = productionPoint.inputFillTypeIds[fillTypeId];
+                    end
+                    
                     if productionItem.capacity == 0 then 
                         productionItem.capacityLevel = 0
                     elseif productionItem.capacity == nil then
