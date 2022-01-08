@@ -20,7 +20,7 @@
                     <GuiElement type="button" profile="multiTextOptionLeft"/>
                     <GuiElement type="button" profile="multiTextOptionRight"/>
                     <GuiElement type="text" profile="multiTextOptionText"/>
-                    <GuiElement type="text" profile="multiTextOptionTitle" text="$l10n_showFullAnimals_title" textMaxWidth="400px"/>
+                    <GuiElement type="text" profile="multiTextOptionTitle" text="$l10n_pih_showFullAnimals_title" textMaxWidth="400px"/>
                     <GuiElement type="bitmap" profile="multiTextOptionBg" size="400px 48px"/>
                 </GuiElement>
                 

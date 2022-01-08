@@ -13,5 +13,7 @@
 		<text name="pih_possiblePosition_1" text="Top middle" />
 		<text name="pih_possiblePosition_2" text="Below Help" />
 		<text name="pih_possiblePosition_3" text="Below Vehicle Inspector" />
+		<text name="pih_showFullAnimals_title" text="Show full animal stalls" />
+		<text name="pih_tooltip_showFullAnimals" text="Display of full animal stalls in the list" />
 	</texts>
 </l10n>

@@ -13,5 +13,7 @@
 		<text name="pih_possiblePosition_1" text="In alto al centro" />
 		<text name="pih_possiblePosition_2" text="Sotto Aiuto" />
 		<text name="pih_possiblePosition_3" text="Sotto Vehicle Inspector" />
+		<text name="pih_showFullAnimals_title" text="Mostra stalle complete per animali" />
+		<text name="pih_tooltip_showFullAnimals" text="Visualizzazione di stalle complete di animali nell'elenco" />
 	</texts>
 </l10n>
