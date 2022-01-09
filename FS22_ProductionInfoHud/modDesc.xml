@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="no" ?>
 <modDesc descVersion="61">
     <author>Achimobil</author>
-    <version>0.3.0.0</version>
+    <version>0.4.0.0</version>
     <title>
 		<en>Production Info Hud</en>
 		<de>Produktionen Info Hud</de>
@@ -50,6 +50,17 @@ Changelog 0.3.0.0
 - Wrong declared production points now makes no lua error but error message which production point has errors.
 - Settings dialog now available with [lctrl] +[lshift] + [P]
 - Settings can be saved now
+
+Changelog 0.4.0.0
+- Updated translations
+- Display when everything is taken care of so that you know that the display is active
+- Better alignment under F1 and VI
+- Moves the InfoMessageHud to the center of the screen, if available, so that it does not overlay the VI
+- Animal stalls supply of feed is now displayed
+- Full animal stalls are displayed so that animals can be sold (can be switched off in the settings dialog)
+- Full inputs when production is switched off is no longer displayed as full output
+- The number of displayed lines can now be set
+- Display of the number of lines that are not displayed
 ]]>
 </en>
         <de>
@@ -95,6 +106,18 @@ Changelog 0.3.0.0
 - Bei falscher deklaration einer Produktion wird jetzt ein Fehler angezeigt mit Angabe welche Produktion fehlerhaft ist
 - Einstellungsdialog eingefügt. Aufrufbar mit [lctrl] +[lshift] + [P]
 - Speicherung der einstellungen in modSettings Ordner
+
+Changelog 0.4.0.0
+- Übersetzungen aktualisiert
+- Anzeige, wenn alles Versorgt ist, damit man weiß dass die Anzeige aktiv ist
+- Bessere Ausrichtung unter F1 und VI
+- Verschiebt das InfoMessageHud, wenn verfügbar, in die Bildschirmmitte, damit es nicht den VI überlagert
+- Tierställe Versorgung mit Futter wird jetzt angezeigt
+- Volle Tierställe werden angezeigt, damit man Tiere Verkaufen kann (Abschaltbar im Einstellungsdialog)
+- Volle Eingänge bei abgeschalteter Produktion wird jetzt nicht mehr als voller Ausgang angezeigt
+- Die Anzahl der Angezeigten Zeilen ist nun Einstellbar
+- Anzeige der Anzahl der Zeilen die nicht angezeigt werden
+
 ]]>
 </de>
 		<it>
@@ -137,6 +160,18 @@ v0.3.0.0
 - Se una produzione viene dichiarata in modo errato, ora viene visualizzato un errore che indica quale produzione è difettosa
 - Aggiunta la finestra di dialogo Impostazioni. Può essere chiamato con [lctrl] + [lshift] + [P]
 - Memorizzazione delle impostazioni nella cartella modSettings
+
+v0.4.0.0
+- Traduzioni aggiornate
+- Display quando tutto è curato in modo da sapere che il display è attivo
+- Migliore allineamento in F1 e VI
+- Sposta InfoMessageHud al centro dello schermo, se disponibile, in modo che non si sovrapponga al VI
+- Viene ora visualizzata la fornitura di mangime per le stalle degli animali
+- Vengono visualizzate le stalle complete degli animali in modo che gli animali possano essere venduti (può essere disattivato nella finestra di dialogo delle impostazioni)
+- Ingressi pieni quando la produzione è disattivata non viene più visualizzata come uscita completa
+- È ora possibile impostare il numero di righe visualizzate
+- Visualizzazione del numero di righe che non vengono visualizzate
+
 ]]>
 </it>
     </description>
