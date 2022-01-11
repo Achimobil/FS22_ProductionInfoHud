@@ -6,7 +6,7 @@
 		<text name="input_OPEN_GUI" text="PIH: Mostra impostazioni" />
 		<text name="Empty" text="Vuoto" />
 		<text name="Full" text="Pieno" />
-		<text name="AllProductsOperativ" text="Tutte le produzioni operative" />
+		<text name="AllProductsOperativ" text="Tutte le produzioni sono operative" />
         
 		<text name="pih_tooltip_position" text="Si prega di selezionare la posizione di visualizzazione" />
 		<text name="pihPositionElement_title" text="Posizione" />
