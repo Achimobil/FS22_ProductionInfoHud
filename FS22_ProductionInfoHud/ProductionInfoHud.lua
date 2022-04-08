@@ -29,6 +29,7 @@ function ProductionInfoHud:init()
     ProductionInfoHud.messageCenter = g_messageCenter;
     ProductionInfoHud.i18n = g_i18n;
     ProductionInfoHud.inputManager = g_gui.inputManager;
+    ProductionInfoHud.sellPriceDataSorted = {};
     
     -- default settings einstellen
     ProductionInfoHud.settings = {};
@@ -37,6 +38,8 @@ function ProductionInfoHud:init()
     ProductionInfoHud.settings["display"]["position"] = 1;
     ProductionInfoHud.settings["display"]["showFullAnimals"] = true;
     ProductionInfoHud.settings["display"]["maxLines"] = 5;
+    ProductionInfoHud.settings["display"]["maxSellingLines"] = 5;
+    ProductionInfoHud.settings["display"]["minSellAmount"] = 10000;
     
     ProductionInfoHud:LoadSettings();
        
@@ -96,11 +99,30 @@ function ProductionInfoHud:registerActionEvents()
 end
 
 function ProductionInfoHud:ToggleGui()
-    if ProductionInfoHud.settings["display"]["showType"] == "ALL" then 
-        ProductionInfoHud.settings["display"]["showType"] = "NONE"
-    else 
-        ProductionInfoHud.settings["display"]["showType"] = "ALL"
+    local sellPriceTriggerAvailable = true;
+    if FS22_SellPriceTrigger == nil or FS22_SellPriceTrigger.SellPriceTrigger == nil or FS22_SellPriceTrigger.SellPriceTrigger.triggers == nil then 
+        sellPriceTriggerAvailable = false; 
+    end;
+    
+    if sellPriceTriggerAvailable then
+        if ProductionInfoHud.settings["display"]["showType"] == "ALL" then 
+            ProductionInfoHud.settings["display"]["showType"] = "PRODUCTION"
+        elseif ProductionInfoHud.settings["display"]["showType"] == "PRODUCTION" then 
+            ProductionInfoHud.settings["display"]["showType"] = "SELLPRICE"
+        elseif ProductionInfoHud.settings["display"]["showType"] == "SELLPRICE" then 
+            ProductionInfoHud.settings["display"]["showType"] = "NONE"
+        else 
+            ProductionInfoHud.settings["display"]["showType"] = "ALL"
+        end
+    else
+        if ProductionInfoHud.settings["display"]["showType"] == "ALL" then 
+            ProductionInfoHud.settings["display"]["showType"] = "NONE"
+        else 
+            ProductionInfoHud.settings["display"]["showType"] = "ALL"
+        end
     end
+    
+    -- print("showType:" .. ProductionInfoHud.settings["display"]["showType"]);
 end
 
 function ProductionInfoHud:OpenGui()
@@ -127,12 +149,17 @@ function ProductionInfoHud:update(dt)
     
     if ProductionInfoHud.timePast >= 5000 then
         ProductionInfoHud.timePast = 0;
-        ProductionInfoHud:refreshProductionsTable();
+
+		if ProductionInfoHud.settings["display"]["showType"] == "ALL" or string.find(ProductionInfoHud.settings["display"]["showType"], "PRODUCTION") then 
+			ProductionInfoHud:refreshProductionsTable();
+		end
+		
+		if ProductionInfoHud.sellPriceDataSorted ~= nil and (ProductionInfoHud.settings["display"]["showType"] == "ALL" or string.find(ProductionInfoHud.settings["display"]["showType"], "SELLPRICE")) then
+			ProductionInfoHud:refreshSellPriceData();
+		end
     end
     
-    if not ProductionInfoHud.firstRun then
-        -- print("Testoutput")
-        -- DebugUtil.printTableRecursively(g_currentMission,"_",0,1)        
+    if not ProductionInfoHud.firstRun then    
         ProductionInfoHud.firstRun = true;
     end
 end
@@ -144,8 +171,6 @@ function ProductionInfoHud:refreshProductionsTable()
         
         if g_currentMission.productionChainManager.farmIds[farmId] ~= nil and g_currentMission.productionChainManager.farmIds[farmId].productionPoints ~= nil then
             for _, productionPoint in pairs(g_currentMission.productionChainManager.farmIds[farmId].productionPoints) do
--- print("productionPoint")
--- DebugUtil.printTableRecursively(productionPoint,"_",0,2)
                 
                 for fillTypeId, fillLevel in pairs(productionPoint.storage.fillLevels) do
                     local productionItem = {}
@@ -260,9 +285,123 @@ function ProductionInfoHud:refreshProductionsTable()
         table.sort(myProductions, compPrductionTable)
         
         ProductionInfoHud.productionDataSorted = myProductions;
+end
+
+function ProductionInfoHud:refreshSellPriceData()
+    if FS22_SellPriceTrigger == nil then return end;
+    if FS22_SellPriceTrigger.SellPriceTrigger == nil then return end;
+    if FS22_SellPriceTrigger.SellPriceTrigger.triggers == nil then return end;
+
+    local prices = {};
+
+    -- liste füllen mit den types, die gerade einen guten preis haben
+	for fillType,trigger in pairs(FS22_SellPriceTrigger.SellPriceTrigger.triggers) do
+        if trigger.over == true then
+            prices[fillType] = {info=trigger,storages={},total=0}
+        end
+	end
+
+    -- für alle mit gutem preis aus den produktionen die Lagerbestände sammeln
+    -- for i, globalFactory in pairs (g_company.loadedFactories) do
+		-- local factorySetting = ProductionInfoHud:GetSettingForFactory(globalFactory);
+        -- if not(factorySetting.ignoreSelling) and (g_currentMission.player.farmId == globalFactory.ownerFarmId) then
+            -- for a, product in pairs (globalFactory.outputProducts) do
+                -- if prices[product.fillTypeIndex] ~= nil then
+				
+					-- Eigenen Namen benutzen, wenn gesetzt, ansonsten den FactoryTitle
+					-- local guiName;
+					-- if (globalFactory.guiData.factoryCustomTitle ~= nil and globalFactory.guiData.factoryCustomTitle ~= "") then
+						-- guiName = globalFactory.guiData.factoryCustomTitle;
+					-- else
+						-- guiName = globalFactory.guiData.factoryTitle;
+					-- end
+				
+				
+                    -- prices[product.fillTypeIndex].storages[globalFactory.indexName] = {fillLevel=product.fillLevel, GuiName = guiName, indexName = globalFactory.indexName}
+                    -- prices[product.fillTypeIndex].total = prices[product.fillTypeIndex].total + product.fillLevel;
+                -- end
+            -- end
+        -- end
+    -- end
+
+    -- storageSystem benutzen. Storages splitten sich auf, wenn diese zu nah zusammen stehen, aber das ist in LS so und ich kann das nicht ändern.
+	local farmId = g_currentMission:getFarmId();
+    local usedStorages = {};
+    local storages = g_currentMission.storageSystem:getStorages();
+    for i, storage in pairs (storages) do
+        -- print(i.." : "..storage.indexName);
+        -- print("test");
+        -- DebugUtil.printTableRecursively(storage,"_",0,2);
+    
+        local storageName = "";
+        if usedStorages[storage] == nil and storage:getOwnerFarmId() == farmId then
+            usedStorages[storage] = true;
         
-        -- print("myProductions")
-        -- DebugUtil.printTableRecursively(myProductions,"_",0,2)
+            for j, unloadingStation in pairs (storage.unloadingStations) do
+                if storageName ~= "" then 
+                    storageName = storageName .. "-" 
+                end
+                storageName = storageName .. unloadingStation:getName();
+            end
+        
+            for fillType, fillLevel in pairs(storage.fillLevels) do
+                if prices[fillType] ~= nil then
+                    if prices[fillType].storages[storageName] ~= nil then
+                        prices[fillType].storages[storageName].fillLevel=prices[fillType].storages[storageName].fillLevel + fillLevel;
+                    else
+						-- filltype hinzufügen zu storage name, damit die mengen aus dem lager nicht addiert werden
+                        prices[fillType].storages[storageName] = {fillLevel=fillLevel, GuiName = storageName, indexName = storageName .. fillType}
+                    end
+                    prices[fillType].total = prices[fillType].total + fillLevel;
+                end
+            end
+        
+        end
+    end
+
+    -- List für Anzeige erstellen
+	local sortableOutputTable = {};
+	for a, sellPriceItem in pairs (prices) do
+		for b, sellPriceStorage in pairs (sellPriceItem.storages) do
+			local outputItem = {};
+			outputItem.station = sellPriceItem.info.station;
+			outputItem.title = sellPriceItem.info.title;
+			outputItem.fillLevel = sellPriceStorage.fillLevel;
+			outputItem.GuiName = sellPriceStorage.GuiName;
+			outputItem.indexName = sellPriceStorage.indexName;
+			table.insert(sortableOutputTable , outputItem)
+		end
+	end
+	
+	-- gesamtmenge für station und GuiName berechnen, wenn die Menge selbst nicht 0 ist
+	for a, outputItem in pairs (sortableOutputTable) do
+		outputItem.totalAmount = 0;
+		if(outputItem.fillLevel ~= 0) then
+			for b, innerItem in pairs (ProductionInfoHud.sellPriceDataSorted) do
+				local sourceLocationEqual = outputItem.indexName == innerItem.indexName;
+				if string.find(outputItem.indexName, "Lagerhalle_Zentral") and string.find(innerItem.indexName, "Lagerhalle_Zentral") then
+					sourceLocationEqual = true;
+				end
+				if outputItem.station == innerItem.station and sourceLocationEqual then
+					outputItem.totalAmount = outputItem.totalAmount + innerItem.fillLevel;
+				end
+			end
+		end
+	end
+
+    table.sort(sortableOutputTable,compSellingTable)
+
+    ProductionInfoHud.sellPriceDataSorted = sortableOutputTable;
+end;
+
+function compSellingTable(w1,w2)
+	-- Zum Sortieren der Ausgabeliste nach Zeit
+    if w1.station == w2.station and w1.GuiName < w2.GuiName then
+        return true
+    end
+    if w1.station < w2.station then
+        return true
+    end
 end
 
 function compPrductionTable(w1,w2)
@@ -293,6 +432,7 @@ function ProductionInfoHud:draw()
     local textSize = 12/1000;
     local totalTextHeigh = 0;
     local maxTextWidth = 0;
+    local spaceY = 0.01;
     
     -- 1-"TopCenter", 2-"BelowHelp", 3-"BelowVehicleInspector"
     -- Startpunkt setzen anhand der Einstellungen
@@ -315,91 +455,204 @@ function ProductionInfoHud:draw()
     
     local posYStart = posY;
 
-    for _, productionData in pairs(ProductionInfoHud.productionDataSorted) do
-        if (lineCount < maxLines) then
-            
-            lineCount = lineCount + 1;
-        
-            local productionOutputItem = {}
-            productionOutputItem.productionPointName = productionData.name
-            productionOutputItem.fillTypeTitle = productionData.fillTypeTitle
-            productionOutputItem.TextColor = ProductionInfoHud.colors.WHITE;
-            
-            if productionData.hoursLeft == -1 then
-                productionOutputItem.TimeLeftString = g_i18n:getText("Full");
-                productionOutputItem.TextColor = ProductionInfoHud.colors.RED;
-            elseif productionData.hoursLeft == 0 then
-                productionOutputItem.TimeLeftString = g_i18n:getText("Empty");
-                productionOutputItem.TextColor = ProductionInfoHud.colors.ORANGE;
-            else
-                local days = math.floor(productionData.hoursLeft / 24);
-                local hoursLeft = productionData.hoursLeft - (days * 24);
-                local hours = math.floor(hoursLeft);
-                local hoursLeft = hoursLeft - hours;
-                local minutes = math.floor(hoursLeft * 60);
-                if(minutes <= 9) then minutes = "0" .. minutes end;
-                local timeString = "";
-                if (days ~= 0) then 
-                    timeString = days .. "d ";
-                else
-                    productionOutputItem.TextColor = ProductionInfoHud.colors.YELLOW;
-                end
-                timeString = timeString .. hours .. ":" .. minutes;
-                productionOutputItem.TimeLeftString = timeString;
-            end
-            table.insert(productionOutputTable, productionOutputItem)
-        else
-            additionalLines = additionalLines + 1;
-        end
-    end
-        
-    for _, productionOutputItem in pairs(productionOutputTable) do
-        posY = posY - textSize;
-                        
-        local textLine = (productionOutputItem.productionPointName .. " - " .. productionOutputItem.fillTypeTitle .. " - " .. productionOutputItem.TimeLeftString);
-        totalTextHeigh = totalTextHeigh + getTextHeight(textSize, textLine)
-        local textWidth = getTextWidth(textSize, textLine);
-        if (textWidth > maxTextWidth) then maxTextWidth = textWidth; end
-        
-        -- farben von oben benutzen
-        setTextAlignment(RenderText.ALIGN_LEFT);
-        setTextColor(unpack(productionOutputItem.TextColor));                                
-        setTextBold(false);
-        renderText(posX,posY,textSize,textLine);
-    end
-        
-    if (additionalLines > 0) then
-        posY = posY - textSize;
-        local textLine = (additionalLines .. "  " .. g_i18n:getText("MoreAvailable"));
-        setTextAlignment(RenderText.ALIGN_LEFT);
-        setTextColor(1,1,1,1);								
-        setTextBold(false);
-        totalTextHeigh = totalTextHeigh + getTextHeight(textSize, textLine)
-        local textWidth = getTextWidth(textSize, textLine);
-        if (textWidth > maxTextWidth) then maxTextWidth = textWidth; end
-        renderText(posX,posY,textSize,textLine);
-    end
-			
-    if (lineCount == 0) then
-        posY = posY - textSize;
-        local textLine = g_i18n:getText("AllProductsOperativ");
-        setTextAlignment(RenderText.ALIGN_LEFT);
-        setTextColor(1,1,1,1);								
-        setTextBold(false);
-        totalTextHeigh = totalTextHeigh + getTextHeight(textSize, textLine)
-        local textWidth = getTextWidth(textSize, textLine);
-        if (textWidth > maxTextWidth) then maxTextWidth = textWidth; end
-        renderText(posX,posY,textSize,textLine);
-    end
+    if ProductionInfoHud.productionDataSorted ~= nil and (ProductionInfoHud.settings["display"]["showType"] == "ALL" or string.find(ProductionInfoHud.settings["display"]["showType"], "PRODUCTION")) then 
+        for _, productionData in pairs(ProductionInfoHud.productionDataSorted) do
+            if (lineCount < maxLines) then
+				if (lineCount == 0) then
+					posY = posY - textSize;
+                    setTextAlignment(RenderText.ALIGN_LEFT);
+					setTextColor(1,1,1,1);		
+					setTextBold(true);
+					renderText(posX,posY,textSize,"ProductionInfo: ");
+					totalTextHeigh = totalTextHeigh + getTextHeight(textSize, "ProductionInfo: ")	
+					setTextBold(false);
+				end
                 
-        
+                lineCount = lineCount + 1;
+            
+                local productionOutputItem = {}
+                productionOutputItem.productionPointName = productionData.name
+                productionOutputItem.fillTypeTitle = productionData.fillTypeTitle
+                productionOutputItem.TextColor = ProductionInfoHud.colors.WHITE;
+                
+                if productionData.hoursLeft == -1 then
+                    productionOutputItem.TimeLeftString = g_i18n:getText("Full");
+                    productionOutputItem.TextColor = ProductionInfoHud.colors.RED;
+                elseif productionData.hoursLeft == 0 then
+                    productionOutputItem.TimeLeftString = g_i18n:getText("Empty");
+                    productionOutputItem.TextColor = ProductionInfoHud.colors.ORANGE;
+                else
+                    local days = math.floor(productionData.hoursLeft / 24);
+                    local hoursLeft = productionData.hoursLeft - (days * 24);
+                    local hours = math.floor(hoursLeft);
+                    local hoursLeft = hoursLeft - hours;
+                    local minutes = math.floor(hoursLeft * 60);
+                    if(minutes <= 9) then minutes = "0" .. minutes end;
+                    local timeString = "";
+                    if (days ~= 0) then 
+                        timeString = days .. "d ";
+                    else
+                        productionOutputItem.TextColor = ProductionInfoHud.colors.YELLOW;
+                    end
+                    timeString = timeString .. hours .. ":" .. minutes;
+                    productionOutputItem.TimeLeftString = timeString;
+                end
+                table.insert(productionOutputTable, productionOutputItem)
+            else
+                additionalLines = additionalLines + 1;
+            end
+        end
+            
+        for _, productionOutputItem in pairs(productionOutputTable) do
+            posY = posY - textSize;
+                            
+            local textLine = (productionOutputItem.productionPointName .. " - " .. productionOutputItem.fillTypeTitle .. " - " .. productionOutputItem.TimeLeftString);
+            totalTextHeigh = totalTextHeigh + getTextHeight(textSize, textLine)
+            local textWidth = getTextWidth(textSize, textLine);
+            if (textWidth > maxTextWidth) then maxTextWidth = textWidth; end
+            
+            -- farben von oben benutzen
+            setTextAlignment(RenderText.ALIGN_LEFT);
+            setTextColor(unpack(productionOutputItem.TextColor));                                
+            setTextBold(false);
+            renderText(posX,posY,textSize,textLine);
+        end
+            
+        if (additionalLines > 0) then
+            posY = posY - textSize;
+            local textLine = (additionalLines .. "  " .. g_i18n:getText("MoreAvailable"));
+            setTextAlignment(RenderText.ALIGN_LEFT);
+            setTextColor(1,1,1,1);								
+            setTextBold(false);
+            totalTextHeigh = totalTextHeigh + getTextHeight(textSize, textLine)
+            local textWidth = getTextWidth(textSize, textLine);
+            if (textWidth > maxTextWidth) then maxTextWidth = textWidth; end
+            renderText(posX,posY,textSize,textLine);
+        end
+                
+        if (lineCount == 0) then
+            posY = posY - textSize;
+            local textLine = g_i18n:getText("AllProductsOperativ");
+            setTextAlignment(RenderText.ALIGN_LEFT);
+            setTextColor(1,1,1,1);								
+            setTextBold(false);
+            totalTextHeigh = totalTextHeigh + getTextHeight(textSize, textLine)
+            local textWidth = getTextWidth(textSize, textLine);
+            if (textWidth > maxTextWidth) then maxTextWidth = textWidth; end
+            renderText(posX,posY,textSize,textLine);
+        end
     
-    -- overlay für produktionen
-    setOverlayColor(ProductionInfoHud.overlay.overlayId, 0, 0, 0, 0.7);
-    setOverlayUVs(ProductionInfoHud.overlay.overlayId, 0.0078125,0.990234375, 0.0078125,0.9921875, 0.009765625,0.990234375, 0.009765625,0.9921875);
-    ProductionInfoHud.overlay:setPosition(posX-0.001, posYStart - totalTextHeigh - 0.002);
-    ProductionInfoHud.overlay:setDimension(maxTextWidth+0.002, totalTextHeigh);
-    ProductionInfoHud.overlay:render();
+        -- overlay für produktionen
+        setOverlayColor(ProductionInfoHud.overlay.overlayId, 0, 0, 0, 0.7);
+        setOverlayUVs(ProductionInfoHud.overlay.overlayId, 0.0078125,0.990234375, 0.0078125,0.9921875, 0.009765625,0.990234375, 0.009765625,0.9921875);
+        ProductionInfoHud.overlay:setPosition(posX-0.001, posYStart - totalTextHeigh - 0.002);
+        ProductionInfoHud.overlay:setDimension(maxTextWidth+0.002, totalTextHeigh);
+        ProductionInfoHud.overlay:render();
+		
+		-- make a space between the sale list and the production list
+		posYStart = posY - spaceY;
+		posY = posY - spaceY;
+    end
+
+	-- daten für nächsten overlay zurücksetzen
+    totalTextHeigh = 0;
+    maxTextWidth = 0;
+    local maxSellPriceLines = ProductionInfoHud.settings["display"]["maxSellingLines"];
+    local minSellAmount = ProductionInfoHud.settings["display"]["minSellAmount"];
+    local totalCountSellPrices = 0;
+    local lineCountSellPrices = 0;
+    additionalCounter = 0;
+    if ProductionInfoHud.sellPriceDataSorted ~= nil and (ProductionInfoHud.settings["display"]["showType"] == "ALL" or string.find(ProductionInfoHud.settings["display"]["showType"], "SELLPRICE")) then
+		local lastTextPart1;
+		local lastTextPart1Width;
+		local lastTextPart2;
+		local lastTextPart2Width;
+		
+        for a, outputItem in pairs (ProductionInfoHud.sellPriceDataSorted) do
+			if outputItem.totalAmount >= minSellAmount then
+				if (lineCountSellPrices == 0) then
+					posY = posY - textSize;
+                    setTextAlignment(RenderText.ALIGN_LEFT);
+					setTextColor(1,1,1,1);		
+					setTextBold(true);
+					renderText(posX,posY,textSize,"PriceInfo: ");
+					totalTextHeigh = totalTextHeigh + getTextHeight(textSize, "PriceInfo: ")	
+					setTextBold(false);
+				end
+				
+				local textPart1 = (outputItem.station);
+				local textPart2 = (" | " .. outputItem.GuiName);
+				local textPart3 = (" | " .. outputItem.title .. " (" .. math.floor(outputItem.fillLevel) .. ")");--(" .. math.floor(outputItem.totalAmount) .. ")(" .. outputItem.indexName .. ")");
+				
+				local actualPosX = posX;
+				local textLine;
+				if textPart1 == lastTextPart1 and textPart2 == lastTextPart2 then
+					actualPosX = actualPosX + lastTextPart1Width + lastTextPart2Width;
+					textLine = textPart3;
+				elseif textPart1 == lastTextPart1 then
+					actualPosX = actualPosX + lastTextPart1Width;
+					textLine = textPart2 .. textPart3;					
+				else
+					textLine = textPart1 .. textPart2 .. textPart3;
+					lineCountSellPrices = lineCountSellPrices+1;
+				end
+				
+				lastTextPart1 = textPart1;
+				lastTextPart1Width = getTextWidth(textSize, textPart1);
+				lastTextPart2 = textPart2;
+				lastTextPart2Width = getTextWidth(textSize, textPart2);
+				
+				if (lineCountSellPrices <= maxSellPriceLines) then
+					posY = posY - textSize;
+                    setTextAlignment(RenderText.ALIGN_LEFT);
+					setTextColor(1,1,1,1);		
+					setTextBold(false);
+					totalTextHeigh = totalTextHeigh + getTextHeight(textSize, textLine)
+					local textWidth = getTextWidth(textSize, textLine)+(actualPosX-posX);
+					if (textWidth > maxTextWidth) then maxTextWidth = textWidth; end
+					renderText(actualPosX,posY,textSize,textLine);
+					totalCountSellPrices = totalCountSellPrices + 1;
+				else
+				   additionalCounter = additionalCounter + 1;
+				end
+				
+				-- set max lines when totallines overdues
+				if totalCountSellPrices == maxSellPriceLines then
+					maxSellPriceLines = lineCountSellPrices;
+				end
+			end
+        end
+	
+		if (additionalCounter > 0) then
+			posY = posY - textSize;
+			local textLine = (additionalCounter .. "  " ..g_i18n:getText("MoreAvailable"));
+            setTextAlignment(RenderText.ALIGN_LEFT);
+			setTextColor(1,1,1,1);								
+			setTextBold(false);
+			totalTextHeigh = totalTextHeigh + getTextHeight(textSize, textLine)
+			local textWidth = getTextWidth(textSize, textLine);
+			if (textWidth > maxTextWidth) then maxTextWidth = textWidth; end
+			renderText(posX,posY,textSize,textLine);
+		end
+			
+		if (lineCountSellPrices == 0) then
+			posY = posY - textSize;
+			local textLine = g_i18n:getText("NothingToSell");
+            setTextAlignment(RenderText.ALIGN_LEFT);
+			setTextColor(1,1,1,1);								
+			setTextBold(false);
+			totalTextHeigh = totalTextHeigh + getTextHeight(textSize, textLine)
+			local textWidth = getTextWidth(textSize, textLine);
+			if (textWidth > maxTextWidth) then maxTextWidth = textWidth; end
+			renderText(posX,posY,textSize,textLine);
+		end
+
+        setOverlayColor(ProductionInfoHud.overlay.overlayId, 0, 0, 0, 0.7);
+        setOverlayUVs(ProductionInfoHud.overlay.overlayId, 0.0078125,0.990234375, 0.0078125,0.9921875, 0.009765625,0.990234375, 0.009765625,0.9921875);
+        ProductionInfoHud.overlay:setPosition(posX-0.001, posYStart - totalTextHeigh - 0.002);
+        ProductionInfoHud.overlay:setDimension(maxTextWidth+0.002, totalTextHeigh);
+        ProductionInfoHud.overlay:render();
+    end    
 end
 
 function ProductionInfoHud:SaveSettings()

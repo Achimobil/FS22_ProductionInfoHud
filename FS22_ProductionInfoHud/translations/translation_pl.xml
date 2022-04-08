@@ -19,5 +19,6 @@
 		<text name="pih_MaxLinesElement_title" text="Widoczne linie" />
 		<text name="pih_Zeilen" text="linie" />
 		<text name="MoreAvailable" text="jeszcze" />
+		<text name="NothingToSell" text="Нечего продавать" />
 	</texts>
 </l10n>
