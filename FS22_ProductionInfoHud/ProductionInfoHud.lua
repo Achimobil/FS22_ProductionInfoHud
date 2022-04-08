@@ -371,6 +371,7 @@ function ProductionInfoHud:draw()
     if (additionalLines > 0) then
         posY = posY - textSize;
         local textLine = (additionalLines .. "  " .. g_i18n:getText("MoreAvailable"));
+        setTextAlignment(RenderText.ALIGN_LEFT);
         setTextColor(1,1,1,1);								
         setTextBold(false);
         totalTextHeigh = totalTextHeigh + getTextHeight(textSize, textLine)
@@ -382,6 +383,7 @@ function ProductionInfoHud:draw()
     if (lineCount == 0) then
         posY = posY - textSize;
         local textLine = g_i18n:getText("AllProductsOperativ");
+        setTextAlignment(RenderText.ALIGN_LEFT);
         setTextColor(1,1,1,1);								
         setTextBold(false);
         totalTextHeigh = totalTextHeigh + getTextHeight(textSize, textLine)
