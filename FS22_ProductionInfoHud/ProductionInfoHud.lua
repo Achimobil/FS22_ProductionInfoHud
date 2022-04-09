@@ -369,7 +369,10 @@ function ProductionInfoHud:refreshSellPriceData()
 			outputItem.fillLevel = sellPriceStorage.fillLevel;
 			outputItem.GuiName = sellPriceStorage.GuiName;
 			outputItem.indexName = sellPriceStorage.indexName;
-			table.insert(sortableOutputTable , outputItem)
+            -- can be nil because sellprice trigger not nice
+			if outputItem.station ~= nil then 
+                table.insert(sortableOutputTable , outputItem)
+            end
 		end
 	end
 	
