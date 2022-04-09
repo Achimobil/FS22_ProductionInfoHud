@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="no" ?>
 <modDesc descVersion="61">
     <author>Achimobil</author>
-    <version>0.4.0.0</version>
+    <version>0.5.0.0</version>
     <title>
 		<en>Production Info Hud</en>
 		<de>Produktionen Info Hud</de>
@@ -31,6 +31,11 @@ These can be best done on my Discord in the channel of the mod. https://discord.
 If you don't like it, just don't use it.
 
 Changelog 
+0.5.0.0
+- Fixed bug with jumping display
+- Installation of VK price display from silos when SellPriceTrigger mod is active
+- Settings dialog revised
+
 0.4.0.0
 - Updated translations
 - Display when everything is taken care of so that you know that the display is active
@@ -87,6 +92,11 @@ Diese können am besten auf meinem Discord im Kanal des jeweiligen Mods gemacht 
 Wem es nicht gefällt, der soll es einfach nicht benutzen.
 
 Changelog
+0.5.0.0
+- Fehler mit verspringen der Anzeige behoben
+- Einbau der VK Preis Anzeige aus Silos, wenn SellPriceTrigger Mod aktiv ist
+- Einstellungsdialog übearbeitet
+
 0.4.0.0
 - Übersetzungen aktualisiert
 - Anzeige, wenn alles Versorgt ist, damit man weiß dass die Anzeige aktiv ist
@@ -144,6 +154,11 @@ Questi possono essere fatti meglio sul mio Discord nel canale della rispettiva m
 Se non ti piace, non usarlo.
 
 Changelog
+0.5.0.0
+- Risolto il bug con il salto del display
+- Installazione della visualizzazione del prezzo VK dai silos quando SellPriceTrigger Mod è attivo
+- Dialogo delle impostazioni rivisto
+
 0.4.0.0
 - Traduzioni aggiornate
 - Display quando tutto è curato in modo da sapere che il display è attivo
