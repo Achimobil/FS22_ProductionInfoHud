@@ -52,8 +52,12 @@ function ProductionInfoHudGUI:onClickOk()
     local state = self.pageSettings.pihPositionElement:getState();
     ProductionInfoHud.settings["display"]["position"] = state;
     ProductionInfoHud.settings["display"]["showFullAnimals"] = self.pageSettings.pihShowFullAnimalsElement:getIsChecked();
-    local state = self.pageSettings.pihMaxLinesElement:getState();
+    state = self.pageSettings.pihMaxLinesElement:getState();
     ProductionInfoHud.settings["display"]["maxLines"] = state;
+    state = self.pageSettings.pihMaxSellingLinesElement:getState();
+    ProductionInfoHud.settings["display"]["maxSellingLines"] = state;
+    state = self.pageSettings.pihMinSellAmountElement:getState();
+    ProductionInfoHud.settings["display"]["minSellAmount"] = state;
     
     ProductionInfoHud:SaveSettings()
 end

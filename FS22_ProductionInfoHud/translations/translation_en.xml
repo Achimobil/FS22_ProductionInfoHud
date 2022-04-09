@@ -20,5 +20,11 @@
 		<text name="pih_Zeilen" text="lines" />
 		<text name="MoreAvailable" text="more" />
 		<text name="NothingToSell" text="Nothing to sell" />
+        
+		<text name="pih_ingameMenuGameSettingsSellPrice" text="Sales price display" />
+		<text name="pih_tooltip_maxSellingLines" text="Maximum lines of outlets. If there are more, an info line is added." />
+		<text name="pih_MaxSellingLinesElement_title" text="Visible lines" />
+		<text name="pih_tooltip_minSellAmount" text="This amount must be at least in stock to be displayed." />
+		<text name="pih_MinSellAmountElement_title" text="Minimum sales amount" />
 	</texts>
 </l10n>

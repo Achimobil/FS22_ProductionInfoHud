@@ -20,5 +20,11 @@
 		<text name="pih_Zeilen" text="Zeilen" />
 		<text name="MoreAvailable" text="weitere" />
 		<text name="NothingToSell" text="Nichts zu verkaufen" />
+        
+		<text name="pih_ingameMenuGameSettingsSellPrice" text="Verkaufspreisanzeige" />
+		<text name="pih_tooltip_maxSellingLines" text="Maximale Zeilen an Verkaufsstellen. Bei mehr kommt noch eine Infozeile hinzu." />
+		<text name="pih_MaxSellingLinesElement_title" text="Sichtbare Zeilen" />
+		<text name="pih_tooltip_minSellAmount" text="Diese Menge muss mindestens im Lager sein um angezeigt zu werden." />
+		<text name="pih_MinSellAmountElement_title" text="Mindestverkaufsmenge" />
 	</texts>
 </l10n>

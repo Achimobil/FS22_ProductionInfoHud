@@ -3,7 +3,7 @@
     <GuiElement type="bitmap" profile="bgVignette"/>
     <GuiElement type="bitmap" profile="bgGlow" />
 
-    <GuiElement type="bitmap" profile="uiElementCenter" size="1280px 698px">
+    <GuiElement type="bitmap" profile="uiElementCenter" size="680px 698px">
         
         <GuiElement type="bitmap" profile="uiInGameMenuHeader" id="header">
             <GuiElement type="multiTextOption" profile="uiInGameMenuHeaderSelector" onClick="onClickPageSelection" id="pageSelector" soundDisabled="true">

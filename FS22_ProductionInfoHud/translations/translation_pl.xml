@@ -20,5 +20,11 @@
 		<text name="pih_Zeilen" text="linie" />
 		<text name="MoreAvailable" text="jeszcze" />
 		<text name="NothingToSell" text="Нечего продавать" />
+        
+		<text name="pih_ingameMenuGameSettingsSellPrice" text="Wyświetlanie cen sprzedaży" />
+		<text name="pih_tooltip_maxSellingLines" text="Maksymalna liczba linii wylotowych. Jeśli jest ich więcej, dodawany jest wiersz informacyjny." />
+		<text name="pih_MaxSellingLinesElement_title" text="Widoczne linie" />
+		<text name="pih_tooltip_minSellAmount" text="Aby ta ilość mogła być wyświetlana, musi być co najmniej na stanie magazynowym." />
+		<text name="pih_MinSellAmountElement_title" text="Minimalna ilość sprzedaży" />
 	</texts>
 </l10n>

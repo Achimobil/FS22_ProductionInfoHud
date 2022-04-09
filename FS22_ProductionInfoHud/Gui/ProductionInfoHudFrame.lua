@@ -7,6 +7,8 @@ ProductionInfoHudFrame.CONTROLS = {
     BOX_LAYOUT_SETTINGS = "boxLayoutSettings",
     SHOWFULLANIMALS_ELEMENT = "pihShowFullAnimalsElement",
     MAXLINES_ELEMENT = "pihMaxLinesElement",
+    MAX_SELLING_LINES_ELEMENT = "pihMaxSellingLinesElement",
+    MIN_SELL_AMOUNT_LINES_ELEMENT = "pihMinSellAmountElement",
 }
 
 ---Creates a new instance of the ProductionInfoHudFrame.
@@ -44,6 +46,13 @@ function ProductionInfoHudFrame:initialize()
         table.insert(possibleCount, position .. " " .. self.i18n:getText("pih_Zeilen"))
     end
     self.pihMaxLinesElement:setTexts(possibleCount)
+    self.pihMaxSellingLinesElement:setTexts(possibleCount)
+    
+    possibleCount = {}
+    for id, position in pairs(ProductionInfoHud.PossibleAmounts) do
+        table.insert(possibleCount, position)
+    end
+    self.pihMinSellAmountElement:setTexts(possibleCount)
     
 end
 
@@ -53,6 +62,8 @@ function ProductionInfoHudFrame:onFrameOpen()
     self.pihPositionElement:setState(ProductionInfoHud.settings["display"]["position"]);
     self.pihShowFullAnimalsElement:setIsChecked(ProductionInfoHud.settings["display"]["showFullAnimals"])
     self.pihMaxLinesElement:setState(ProductionInfoHud.settings["display"]["maxLines"]);
+    self.pihMaxSellingLinesElement:setState(ProductionInfoHud.settings["display"]["maxSellingLines"]);
+    self.pihMinSellAmountElement:setState(ProductionInfoHud.settings["display"]["minSellAmount"]);
 
     self.boxLayoutSettings:invalidateLayout()
 

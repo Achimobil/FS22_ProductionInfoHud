@@ -21,6 +21,7 @@ ProductionInfoHud.colors.RED =      {0.580, 0.040, 0.020, 1}
 ProductionInfoHud.colors.YELLOW =   {0.980, 0.420, 0.000, 1}
 ProductionInfoHud.PossiblePositions = {"TopCenter", "BelowHelp", "BelowVehicleInspector"}
 ProductionInfoHud.PossibleMaxLines = {"2", "3", "4", "5", "6", "7", "8", "9", "10"}
+ProductionInfoHud.PossibleAmounts = {"10000", "50000", "100000", "200000", "250000"}
 
 function ProductionInfoHud:init()
     ProductionInfoHud.isClient = g_currentMission:getIsClient();
@@ -39,7 +40,7 @@ function ProductionInfoHud:init()
     ProductionInfoHud.settings["display"]["showFullAnimals"] = true;
     ProductionInfoHud.settings["display"]["maxLines"] = 5;
     ProductionInfoHud.settings["display"]["maxSellingLines"] = 5;
-    ProductionInfoHud.settings["display"]["minSellAmount"] = 10000;
+    ProductionInfoHud.settings["display"]["minSellAmount"] = 1;
     
     ProductionInfoHud:LoadSettings();
        
@@ -560,8 +561,8 @@ function ProductionInfoHud:draw()
 	-- daten für nächsten overlay zurücksetzen
     totalTextHeigh = 0;
     maxTextWidth = 0;
-    local maxSellPriceLines = ProductionInfoHud.settings["display"]["maxSellingLines"];
-    local minSellAmount = ProductionInfoHud.settings["display"]["minSellAmount"];
+    local maxSellPriceLines = tonumber(ProductionInfoHud.PossibleMaxLines[ProductionInfoHud.settings["display"]["maxSellingLines"]]);
+    local minSellAmount = tonumber(ProductionInfoHud.PossibleAmounts[ProductionInfoHud.settings["display"]["minSellAmount"]]);
     local totalCountSellPrices = 0;
     local lineCountSellPrices = 0;
     additionalCounter = 0;
@@ -679,6 +680,12 @@ function ProductionInfoHud:SaveSettings()
     local xmlTag = ("ProductionInfoHudSettings.display.maxLines(%d)"):format(0);
     setXMLInt(XML, xmlTag.."#int", ProductionInfoHud.settings["display"]["maxLines"])
 
+    local xmlTag = ("ProductionInfoHudSettings.display.maxSellingLines(%d)"):format(0);
+    setXMLInt(XML, xmlTag.."#int", ProductionInfoHud.settings["display"]["maxSellingLines"])
+
+    local xmlTag = ("ProductionInfoHudSettings.display.minSellAmount(%d)"):format(0);
+    setXMLInt(XML, xmlTag.."#int", ProductionInfoHud.settings["display"]["minSellAmount"])
+
     saveXMLFile(XML)
 end
 
@@ -711,6 +718,14 @@ function ProductionInfoHud:LoadSettings()
     xmlTag = ("ProductionInfoHudSettings.display.maxLines(%d)"):format(0); 
     value = getXMLInt(XML, xmlTag.. "#int");
     if value ~= nil then ProductionInfoHud.settings["display"]["maxLines"] = value;end;
+
+    xmlTag = ("ProductionInfoHudSettings.display.maxSellingLines(%d)"):format(0); 
+    value = getXMLInt(XML, xmlTag.. "#int");
+    if value ~= nil then ProductionInfoHud.settings["display"]["maxSellingLines"] = value;end;
+
+    xmlTag = ("ProductionInfoHudSettings.display.minSellAmount(%d)"):format(0); 
+    value = getXMLInt(XML, xmlTag.. "#int");
+    if value ~= nil then ProductionInfoHud.settings["display"]["minSellAmount"] = value;end;
 end
 
 -- local rX, rY, rZ = getRotation(place.node);
