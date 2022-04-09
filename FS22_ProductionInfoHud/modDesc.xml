@@ -30,28 +30,8 @@ These can be best done on my Discord in the channel of the mod. https://discord.
 
 If you don't like it, just don't use it.
 
-Changelog 0.1.1.0
-- Changes needed for the Giants Patch 1.2 for changed production times.
-It still showns the left ingame days, but now it shows what get empty in 2 month, which is dependent from your settings of days per month. 
-
-Changelog 0.2.0.0
-- Productions with full output storage are now shown
-- The font is now colored for full storage(red) and for missing resourced (orange)
-- The mod is now translatable, en and de already added
-- With [lctrl] + [P]  you can turn on and of the display (configurable)
-
-Changelog 0.2.1.0
-- Full input storage is not displayed as full production anymore
-- Added IT translations
-
-Changelog 0.3.0.0
-- Added PL translations
-- Full storage is shown correctly now
-- Wrong declared production points now makes no lua error but error message which production point has errors.
-- Settings dialog now available with [lctrl] +[lshift] + [P]
-- Settings can be saved now
-
-Changelog 0.4.0.0
+Changelog 
+0.4.0.0
 - Updated translations
 - Display when everything is taken care of so that you know that the display is active
 - Better alignment under F1 and VI
@@ -61,6 +41,27 @@ Changelog 0.4.0.0
 - Full inputs when production is switched off is no longer displayed as full output
 - The number of displayed lines can now be set
 - Display of the number of lines that are not displayed
+
+0.3.0.0
+- Added PL translations
+- Full storage is shown correctly now
+- Wrong declared production points now makes no lua error but error message which production point has errors.
+- Settings dialog now available with [lctrl] +[lshift] + [P]
+- Settings can be saved now
+
+0.2.1.0
+- Full input storage is not displayed as full production anymore
+- Added IT translations
+
+0.2.0.0
+- Productions with full output storage are now shown
+- The font is now colored for full storage(red) and for missing resourced (orange)
+- The mod is now translatable, en and de already added
+- With [lctrl] + [P]  you can turn on and of the display (configurable)
+
+0.1.1.0
+- Changes needed for the Giants Patch 1.2 for changed production times.
+It still showns the left ingame days, but now it shows what get empty in 2 month, which is dependent from your settings of days per month.
 ]]>
 </en>
         <de>
@@ -85,29 +86,8 @@ Diese können am besten auf meinem Discord im Kanal des jeweiligen Mods gemacht 
 
 Wem es nicht gefällt, der soll es einfach nicht benutzen.
 
-Changelog 0.1.1.0
-- Anpassung auf Patch 1.2.0.0 von Giants auf die geänderten Produktionen. 
-Die Anzeige ist weiterhin in Ingame Tagen. 
-Es wird aber angezeigt was in den nächsten 2 Monaten leer läuft, abhängig von den eingestellten Tagen pro Monat ist das unterschiedlich.
-
-Changelog 0.2.0.0
-- Produktionen mit vollem Ausgangslager werde als erstes angezeigt
-- Die Schrift ist nun Farblich für volle Lager (rot) und für leere Eingangslager (Orange)
-- Der Mod ist jetzt übersetzbar, en und de ist bereits enthalten
-- Mit [lctrl] + [P] kann die Anzeige aus un ein geschaltet werden (Einstellbar)
-
-Changelog 0.2.1.0
-- Volle Eingangslager werden nicht mehr als volle Produktionen angezeigt
-- Übersetzungen für IT hinzugefügt
-
-Changelog 0.3.0.0
-- Übersetzungen für PL hinzugefügt
-- Korrektur der Anzeige bei vollem Lager
-- Bei falscher deklaration einer Produktion wird jetzt ein Fehler angezeigt mit Angabe welche Produktion fehlerhaft ist
-- Einstellungsdialog eingefügt. Aufrufbar mit [lctrl] +[lshift] + [P]
-- Speicherung der einstellungen in modSettings Ordner
-
-Changelog 0.4.0.0
+Changelog
+0.4.0.0
 - Übersetzungen aktualisiert
 - Anzeige, wenn alles Versorgt ist, damit man weiß dass die Anzeige aktiv ist
 - Bessere Ausrichtung unter F1 und VI
@@ -118,6 +98,27 @@ Changelog 0.4.0.0
 - Die Anzahl der Angezeigten Zeilen ist nun Einstellbar
 - Anzeige der Anzahl der Zeilen die nicht angezeigt werden
 
+0.3.0.0
+- Übersetzungen für PL hinzugefügt
+- Korrektur der Anzeige bei vollem Lager
+- Bei falscher deklaration einer Produktion wird jetzt ein Fehler angezeigt mit Angabe welche Produktion fehlerhaft ist
+- Einstellungsdialog eingefügt. Aufrufbar mit [lctrl] +[lshift] + [P]
+- Speicherung der einstellungen in modSettings Ordner
+
+0.2.1.0
+- Volle Eingangslager werden nicht mehr als volle Produktionen angezeigt
+- Übersetzungen für IT hinzugefügt
+
+0.2.0.0
+- Produktionen mit vollem Ausgangslager werde als erstes angezeigt
+- Die Schrift ist nun Farblich für volle Lager (rot) und für leere Eingangslager (Orange)
+- Der Mod ist jetzt übersetzbar, en und de ist bereits enthalten
+- Mit [lctrl] + [P] kann die Anzeige aus un ein geschaltet werden (Einstellbar)
+
+0.1.1.0
+- Anpassung auf Patch 1.2.0.0 von Giants auf die geänderten Produktionen. 
+Die Anzeige ist weiterhin in Ingame Tagen. 
+Es wird aber angezeigt was in den nächsten 2 Monaten leer läuft, abhängig von den eingestellten Tagen pro Monat ist das unterschiedlich.
 ]]>
 </de>
 		<it>
@@ -142,26 +143,8 @@ Questi possono essere fatti meglio sul mio Discord nel canale della rispettiva m
 
 Se non ti piace, non usarlo.
 
-Changelog:
-v0.1.1.0
-- Adeguamento alla patch 1.2.0.0 da Giants alle produzioni modificate.
-Il display è ancora nei giorni di gioco.
-Tuttavia, viene visualizzato ciò che sarà vuoto nei prossimi 2 mesi, a seconda dei giorni impostati al mese, questo è diverso.
-
-v0.2.0.0
-- Le produzioni con un magazzino di partenza completo vengono visualizzate per prime
-- Il carattere ora è colorato per i magazzini pieni (rosso) e per i magazzini in entrata vuoti (arancione)
-- La mod è ora traducibile, en e de è già inclusa
-- Con shift a sinistra + P il display può essere spento e acceso (regolabile)
-
-v0.3.0.0
-- Aggiunte traduzioni per PL
-- Correzione della visualizzazione quando il magazzino è pieno
-- Se una produzione viene dichiarata in modo errato, ora viene visualizzato un errore che indica quale produzione è difettosa
-- Aggiunta la finestra di dialogo Impostazioni. Può essere chiamato con [lctrl] + [lshift] + [P]
-- Memorizzazione delle impostazioni nella cartella modSettings
-
-v0.4.0.0
+Changelog
+0.4.0.0
 - Traduzioni aggiornate
 - Display quando tutto è curato in modo da sapere che il display è attivo
 - Migliore allineamento in F1 e VI
@@ -172,6 +155,23 @@ v0.4.0.0
 - È ora possibile impostare il numero di righe visualizzate
 - Visualizzazione del numero di righe che non vengono visualizzate
 
+0.3.0.0
+- Aggiunte traduzioni per PL
+- Correzione della visualizzazione quando il magazzino è pieno
+- Se una produzione viene dichiarata in modo errato, ora viene visualizzato un errore che indica quale produzione è difettosa
+- Aggiunta la finestra di dialogo Impostazioni. Può essere chiamato con [lctrl] + [lshift] + [P]
+- Memorizzazione delle impostazioni nella cartella modSettings
+
+0.2.0.0
+- Le produzioni con un magazzino di partenza completo vengono visualizzate per prime
+- Il carattere ora è colorato per i magazzini pieni (rosso) e per i magazzini in entrata vuoti (arancione)
+- La mod è ora traducibile, en e de è già inclusa
+- Con shift a sinistra + P il display può essere spento e acceso (regolabile)
+
+0.1.1.0
+- Adeguamento alla patch 1.2.0.0 da Giants alle produzioni modificate.
+Il display è ancora nei giorni di gioco.
+Tuttavia, viene visualizzato ciò che sarà vuoto nei prossimi 2 mesi, a seconda dei giorni impostati al mese, questo è diverso.
 ]]>
 </it>
     </description>
