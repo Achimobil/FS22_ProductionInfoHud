@@ -11,6 +11,7 @@ ProductionInfoHud.metadata = {
 };
 ProductionInfoHud.modDir = g_currentModDirectory;
 ProductionInfoHud.firstRun = false;
+ProductionInfoHud.sellPriceTriggerAvailable = true;
 ProductionInfoHud.isClient = false;
 ProductionInfoHud.timePast = 0;
 ProductionInfoHud.overlay = Overlay.new(HUD.MENU_BACKGROUND_PATH, 0, 0, 0, 0);
@@ -155,12 +156,17 @@ function ProductionInfoHud:update(dt)
 			ProductionInfoHud:refreshProductionsTable();
 		end
 		
-		if ProductionInfoHud.sellPriceDataSorted ~= nil and (ProductionInfoHud.settings["display"]["showType"] == "ALL" or string.find(ProductionInfoHud.settings["display"]["showType"], "SELLPRICE")) then
+		if ProductionInfoHud.sellPriceTriggerAvailable and (ProductionInfoHud.settings["display"]["showType"] == "ALL" or string.find(ProductionInfoHud.settings["display"]["showType"], "SELLPRICE")) then
 			ProductionInfoHud:refreshSellPriceData();
 		end
     end
     
     if not ProductionInfoHud.firstRun then    
+    
+        if FS22_SellPriceTrigger == nil or FS22_SellPriceTrigger.SellPriceTrigger == nil or FS22_SellPriceTrigger.SellPriceTrigger.triggers == nil then 
+            ProductionInfoHud.sellPriceTriggerAvailable = false;
+        end;
+        
         ProductionInfoHud.firstRun = true;
     end
 end
@@ -566,7 +572,7 @@ function ProductionInfoHud:draw()
     local totalCountSellPrices = 0;
     local lineCountSellPrices = 0;
     additionalCounter = 0;
-    if ProductionInfoHud.sellPriceDataSorted ~= nil and (ProductionInfoHud.settings["display"]["showType"] == "ALL" or string.find(ProductionInfoHud.settings["display"]["showType"], "SELLPRICE")) then
+    if ProductionInfoHud.sellPriceTriggerAvailable and (ProductionInfoHud.settings["display"]["showType"] == "ALL" or string.find(ProductionInfoHud.settings["display"]["showType"], "SELLPRICE")) then
 		local lastTextPart1;
 		local lastTextPart1Width;
 		local lastTextPart2;
