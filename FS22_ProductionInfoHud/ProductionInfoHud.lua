@@ -133,6 +133,8 @@ print("ProductionInfoHud:OpenGui")
     if g_gui.currentGui == nil then
         g_gui:showGui("ProductionInfoHudGUI")
     end
+        -- Ausgabe hier beim öffenen des menues als test
+        ProductionInfoHud:createProductionNeedingTable();
     
 end
 
@@ -171,6 +173,81 @@ function ProductionInfoHud:update(dt)
     end
 end
 
+function ProductionInfoHud:createProductionNeedingTable()
+        
+    local farmId = g_currentMission.player.farmId;
+    local myFillTypes = {} -- filltypeId is key for finding and adding, change later to sortable
+    
+    -- productions
+    if g_currentMission.productionChainManager.farmIds[farmId] ~= nil and g_currentMission.productionChainManager.farmIds[farmId].productionPoints ~= nil then
+        for _, productionPoint in pairs(g_currentMission.productionChainManager.farmIds[farmId].productionPoints) do
+            
+            for fillTypeId, fillLevel in pairs(productionPoint.storage.fillLevels) do
+                -- neu erstellen, wenn nicht da
+                if myFillTypes[fillTypeId] == nil then
+                    local fillTypeItem = {};
+                    fillTypeItem.fillTypeId = fillTypeId;
+                    fillTypeItem.usagePerMonth = 0;
+                    fillTypeItem.producedPerMonth = 0;
+                    fillTypeItem.fillTypeTitle = g_currentMission.fillTypeManager.fillTypes[fillTypeId].title;
+                    myFillTypes[fillTypeId] = fillTypeItem;
+                end
+                local fillTypeItem = myFillTypes[fillTypeId];
+                
+                for _, production in pairs(productionPoint.activeProductions) do
+                    for _, input in pairs(production.inputs) do
+                        if input.type == fillTypeId then
+                            fillTypeItem.usagePerMonth = fillTypeItem.usagePerMonth + (production.cyclesPerMonth * input.amount)
+                        end
+                    end
+                    for _, output in pairs(production.outputs) do
+                        if output.type == fillTypeId then
+                            fillTypeItem.producedPerMonth = fillTypeItem.producedPerMonth + (production.cyclesPerMonth * output.amount)
+                        end
+                    end
+                end
+                
+                --table.insert(myProductions, fillTypeItem)
+            end
+        end
+    end
+    
+    -- print("myFillTypes");
+    -- DebugUtil.printTableRecursively(myFillTypes,"_",0,2);
+    
+    -- in sortierbare Liste eintragen
+    local fillTypeResultTable = {};
+	for fillTypeId, fillTypeItem in pairs (myFillTypes) do
+        if fillTypeItem.usagePerMonth ~= 0 or fillTypeItem.producedPerMonth ~= 0 then
+            table.insert(fillTypeResultTable, fillTypeItem)
+        end
+    end
+    
+    table.sort(fillTypeResultTable, compFillTypeResultTable)
+    
+    print("fillTypeResultTable");
+    DebugUtil.printTableRecursively(fillTypeResultTable,"_",0,2);
+        
+end
+
+function compFillTypeResultTable(w1,w2)
+    -- Zum Sortieren der Ausgabeliste nach Zeit
+    if w1.fillTypeTitle == w2.fillTypeTitle and w1.fillTypeId < w2.fillTypeId then
+        return true
+    end
+    if w1.fillTypeTitle < w2.fillTypeTitle then
+        return true
+    end
+end
+
+function ProductionInfoHud:old()
+
+        table.sort(myProductions, compPrductionTable)
+        
+        ProductionInfoHud.productionDataSorted = myProductions;
+end
+
+        
 function ProductionInfoHud:refreshProductionsTable()
         
         local farmId = g_currentMission.player.farmId;
