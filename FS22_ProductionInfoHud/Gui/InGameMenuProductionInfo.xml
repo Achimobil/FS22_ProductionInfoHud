@@ -6,22 +6,22 @@
             <GuiElement type="text" profile="ingameMenuFrameHeaderText" text="$l10n_pih_ingameMenuProductionInfo"/>
         </GuiElement>
         <GuiElement type="empty" profile="ingameMenuSettingsBox" id="mainBox">
-            <GuiElement type="bitmap" profile="ingameMenuFieldCalculatorHeaderBox" id="tableHeaderBox">
-                <GuiElement type="text" profile="ingameMenuFieldCalculatorHeaderCell" position="40px 0px" size="160px 40.77px" text="$l10n_ui_goods" textAlignment="left"/>
-                <GuiElement type="text" profile="ingameMenuFieldCalculatorHeaderCell" position="200px 0px" size="200px 40.77px" text="$l10n_pih_header_sellPerMonth"/>
-                <GuiElement type="text" profile="ingameMenuFieldCalculatorHeaderCell" position="400px 0px" size="200px 40.77px" text="$l10n_pih_header_keepPerMonth"/>
-                <GuiElement type="text" profile="ingameMenuFieldCalculatorHeaderCell" position="600px 0px" size="200px 40.77px" text="$l10n_pih_header_distributePerMonth"/>
-                <GuiElement type="text" profile="ingameMenuFieldCalculatorHeaderCell" position="800px 0px" size="200px 40.77px" text="$l10n_pih_header_usagePerMonth"/>
+            <GuiElement type="bitmap" profile="ingameMenuProductionInfoHeaderBox" id="tableHeaderBox">
+                <GuiElement type="text" profile="ingameMenuProductionInfoHeaderCell" position="40px 0px" size="160px 40.77px" text="$l10n_ui_goods" textAlignment="left"/>
+                <GuiElement type="text" profile="ingameMenuProductionInfoHeaderCell" position="200px 0px" size="200px 40.77px" text="$l10n_pih_header_sellPerMonth"/>
+                <GuiElement type="text" profile="ingameMenuProductionInfoHeaderCell" position="400px 0px" size="200px 40.77px" text="$l10n_pih_header_keepPerMonth"/>
+                <GuiElement type="text" profile="ingameMenuProductionInfoHeaderCell" position="600px 0px" size="200px 40.77px" text="$l10n_pih_header_distributePerMonth"/>
+                <GuiElement type="text" profile="ingameMenuProductionInfoHeaderCell" position="800px 0px" size="200px 40.77px" text="$l10n_pih_header_usagePerMonth"/>
             </GuiElement>
-            <GuiElement type="smoothList" profile="ingameMenuFieldCalculatorList" id="fillTypeTable" focusInit="onOpen" listSectionHeader="section" position="0px 0px">
-                <GuiElement type="listItem" profile="ingameMenuFieldCalculatorListItem" name="fieldCalculatorRowTemplate" >
-                    <GuiElement type="bitmap" profile="ingameMenuFieldCalculatorRowBackground">
-                        <GuiElement type="bitmap" profile="sptFilltypeImage" name="fillTypeIcon" />
-                        <GuiElement type="text" profile="ingameMenuFieldCalculatorRowCellText" position="40px 0px" size="160px 40.77px" name="fillTypeTitle" />
-                        <GuiElement type="text" profile="ingameMenuFieldCalculatorRowCell" position="200px 0px" size="200px 40.77px" name="sellPerMonth" />
-                        <GuiElement type="text" profile="ingameMenuFieldCalculatorRowCell" position="400px 0px" size="200px 40.77px" name="keepPerMonth" />
-                        <GuiElement type="text" profile="ingameMenuFieldCalculatorRowCell" position="600px 0px" size="200px 40.77px" name="distributePerMonth" />
-                        <GuiElement type="text" profile="ingameMenuFieldCalculatorRowCell" position="800px 0px" size="200px 40.77px" name="usagePerMonth" />
+            <GuiElement type="smoothList" profile="ingameMenuProductionInfoList" id="fillTypeTable" focusInit="onOpen" listSectionHeader="section" position="0px 0px">
+                <GuiElement type="listItem" profile="ingameMenuProductionInfoListItem" name="fieldCalculatorRowTemplate" >
+                    <GuiElement type="bitmap" profile="ingameMenuProductionInfoRowBackground">
+                        <GuiElement type="bitmap" profile="ingameMenuProductionInfoFillTypeImage" name="fillTypeIcon" />
+                        <GuiElement type="text" profile="ingameMenuProductionInfoRowCellText" position="40px 0px" size="160px 40.77px" name="fillTypeTitle" />
+                        <GuiElement type="text" profile="ingameMenuProductionInfoRowCell" position="200px 0px" size="200px 40.77px" name="sellPerMonth" />
+                        <GuiElement type="text" profile="ingameMenuProductionInfoRowCell" position="400px 0px" size="200px 40.77px" name="keepPerMonth" />
+                        <GuiElement type="text" profile="ingameMenuProductionInfoRowCell" position="600px 0px" size="200px 40.77px" name="distributePerMonth" />
+                        <GuiElement type="text" profile="ingameMenuProductionInfoRowCell" position="800px 0px" size="200px 40.77px" name="usagePerMonth" />
                     </GuiElement>
                 </GuiElement>
                 <GuiElement type="listItem" profile="ingameMenuContractsListCategory" name="section">

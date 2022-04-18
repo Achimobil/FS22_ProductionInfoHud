@@ -6,12 +6,12 @@
         <Preset name="colorListHeaderBackground" value="0 0 0 0.35" />
     </Presets>
 
-    <Profile name="sptFilltypeImage" extends="baseReference">
+    <Profile name="ingameMenuProductionInfoFillTypeImage" extends="baseReference">
         <Value name="size" value="31px 31px" />
         <Value name="position" value="5px 4px" />
         <Value name="imageUVs" value="0 0 1 1" />
     </Profile>
-    <Profile name="ingameMenuFieldCalculatorRowCellText" extends="baseReference">
+    <Profile name="ingameMenuProductionInfoRowCellText" extends="baseReference">
         <Value name="textSize" value="18px"/>
         <Value name="textBold" value="false"/>
         <Value name="textUpperCase" value="false"/>
@@ -19,7 +19,7 @@
         <Value name="textAlignment" value="left"/>
         <Value name="textVerticalAlignment" value="middle"/>
     </Profile>
-    <Profile name="ingameMenuFieldCalculatorRowCell" extends="baseReference">
+    <Profile name="ingameMenuProductionInfoRowCell" extends="baseReference">
         <Value name="textSize" value="18px"/>
         <Value name="textBold" value="false"/>
         <Value name="textUpperCase" value="false"/>
@@ -27,7 +27,7 @@
         <Value name="textAlignment" value="right"/>
         <Value name="textVerticalAlignment" value="middle"/>
     </Profile>
-    <Profile name="ingameMenuFieldCalculatorHeaderCell" extends="ingameMenuFrameHeaderText" with="anchorMiddleLeft">
+    <Profile name="ingameMenuProductionInfoHeaderCell" extends="ingameMenuFrameHeaderText" with="anchorMiddleLeft">
         <Value name="textSize" value="20px"/>
         <Value name="textBold" value="false"/>
         <Value name="textUpperCase" value="false"/>
@@ -35,10 +35,10 @@
         <Value name="textAlignment" value="right"/>
         <Value name="textVerticalAlignment" value="middle"/>
     </Profile>
-    <Profile name="ingameMenuFieldCalculatorRowBackground" extends="emptyPanel" with="anchorBottomLeft"> 
+    <Profile name="ingameMenuProductionInfoRowBackground" extends="emptyPanel" with="anchorBottomLeft"> 
     
     </Profile>
-    <Profile name="ingameMenuFieldCalculatorHeaderBox" extends="emptyPanel" with="anchorTopLeft">
+    <Profile name="ingameMenuProductionInfoHeaderBox" extends="emptyPanel" with="anchorTopLeft">
         <Value name="size" value="1400px 50px"/>
         <Value name="alignmentX" value="left"/>
         <Value name="alignmentY" value="middle"/>
@@ -50,25 +50,10 @@
         <Value name="autoValidateLayout" value="true"/>
         <Value name="hasFrame" value="false"/>    
     </Profile>
-    <Profile name="ingameMenuFieldCalculatorSeedHeaderBox" extends="ingameMenuFieldCalculatorHeaderBox" with="anchorTopCenter">
-        <Value name="size" value="455px 50px"/>  
-        <Value name="position" value="0px -100px"/>  
-    </Profile>
-    <Profile name="ingameMenuFieldCalculatorSeedList" extends="ingameMenuFieldCalculatorList" with="anchorTopCenter">
-        <Value name="size" value="455px 600px"/>  
-        <Value name="position" value="0px -150px"/>  
-    </Profile>
-    <Profile name="verticalListSliderRightDockedSeed" extends="verticalListSliderRightDocked" with="anchorTopCenter">
-        <Value name="size" value="12px 756px" />
-        <Value name="position" value="240px -150px" />
-    </Profile>
-    <Profile name="ingameMenuFieldCalculatorList" extends="ingameMenuContractsList" with="anchorBottomLeft">
+    <Profile name="ingameMenuProductionInfoList" extends="ingameMenuContractsList" with="anchorBottomLeft">
         <Value name="size" value="1400px 693.09px"/>
     </Profile>
-    <Profile name="ingameMenuFieldCalculatorListItem" extends="ingameMenuContractsListItem" with="anchorBottomLeft">
+    <Profile name="ingameMenuProductionInfoListItem" extends="ingameMenuContractsListItem" with="anchorBottomLeft">
         <Value name="size" value="1400px 40.77px"/>
     </Profile> 
-    <Profile name="seedFrame" extends="dialogBg">
-        <Value name="size" value="630px 800px"/>
-    </Profile>
 </GUIProfiles>

@@ -26,18 +26,9 @@ function InGameMenuProductionInfo.new(productionInfoHud, i18n, messageCenter)
     self.backButtonInfo = {
 		inputAction = InputAction.MENU_BACK
 	}
-	self.btnShowSeedUi = {
-		text = self.i18n:getText("ui_seed_btn"),
-		inputAction = InputAction.MENU_ACTIVATE,
-        disabled = true,
-		callback = function ()
-			self:showSeedUi()
-		end
-	}    
   
     self:setMenuButtonInfo({
-        self.backButtonInfo,
-        self.btnShowSeedUi
+        self.backButtonInfo
     })
 
     return self
@@ -144,18 +135,6 @@ function InGameMenuProductionInfo:populateCellForItemInSection(list, section, in
 	cell:getAttribute("keepPerMonth"):setText(g_i18n:formatNumber(fillTypeItem.keepPerMonth, 2))
 	cell:getAttribute("distributePerMonth"):setText(g_i18n:formatNumber(fillTypeItem.distributePerMonth, 2))
 	cell:getAttribute("usagePerMonth"):setText(g_i18n:formatNumber(fillTypeItem.usagePerMonth))  
-end
-
-function InGameMenuProductionInfo:onListSelectionChanged(list, section, index)
-	local sectionFillTypes = self.sectionFillTypes[section]    
-	if sectionFillTypes ~= nil and sectionFillTypes.fillTypes[index] ~= nil then        
-        self.currentFillTypeItem = sectionFillTypes.fillTypes[index]
-        self.btnShowSeedUi.disabled = false
-        self:playSample(GuiSoundPlayer.SOUND_SAMPLES.HOVER)
-    else 
-        self.btnShowSeedUi.disabled = true
-    end
-    self:setMenuButtonInfoDirty()
 end
 
 function InGameMenuProductionInfo:showSeedUi()
