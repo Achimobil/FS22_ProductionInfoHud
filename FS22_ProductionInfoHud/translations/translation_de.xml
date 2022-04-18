@@ -31,7 +31,7 @@
 		<text name="pih_header_sellPerMonth" text="Direktverkauf" />
 		<text name="pih_header_keepPerMonth" text="Behalten" />
 		<text name="pih_header_distributePerMonth" text="Verteilen" />
-		<text name="pih_header_usagePerMonth" text="Verbauch" />
+		<text name="pih_header_usagePerMonth" text="Verbrauch" />
 		<text name="ui_listHeader_1" text="Umlauf" />
 		<text name="ui_listHeader_2" text="Keine Produktion" />
 		<text name="ui_listHeader_3" text="Kein Verbrauch" />
