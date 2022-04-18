@@ -78,6 +78,75 @@ function ProductionInfoHud:init()
             setTextAlignment(RenderText.ALIGN_LEFT)
         end
     end
+       
+    -- sie produktions seite
+    g_gui:loadProfiles(ProductionInfoHud.modDir .. "Gui/guiProfiles.xml")
+    local productionFrame = InGameMenuProductionInfo.new(ProductionInfoHud, ProductionInfoHud.i18n, ProductionInfoHud.messageCenter)
+    g_gui:loadGui(ProductionInfoHud.modDir .. "Gui/InGameMenuProductionInfo.xml", "InGameMenuProductionInfo", productionFrame, true)
+    
+	ProductionInfoHud.fixInGameMenu(productionFrame,"InGameMenuProductionInfo", {0,0,1024,1024}, 13, ProductionInfoHud:makeIsProductionInfoEnabledPredicate())
+    productionFrame:initialize()	
+    
+end
+
+function ProductionInfoHud:makeIsProductionInfoEnabledPredicate()
+	return function () return true end
+end
+
+-- from Courseplay
+function ProductionInfoHud.fixInGameMenu(frame,pageName,uvs,position,predicateFunc)
+	local inGameMenu = g_gui.screenControllers[InGameMenu]
+
+	-- remove all to avoid warnings
+	for k, v in pairs({pageName}) do
+		inGameMenu.controlIDs[v] = nil
+	end
+
+	inGameMenu:registerControls({pageName})
+
+	
+	inGameMenu[pageName] = frame
+	inGameMenu.pagingElement:addElement(inGameMenu[pageName])
+
+	inGameMenu:exposeControlsAsFields(pageName)
+
+	for i = 1, #inGameMenu.pagingElement.elements do
+		local child = inGameMenu.pagingElement.elements[i]
+		if child == inGameMenu[pageName] then
+			table.remove(inGameMenu.pagingElement.elements, i)
+			table.insert(inGameMenu.pagingElement.elements, position, child)
+			break
+		end
+	end
+
+	for i = 1, #inGameMenu.pagingElement.pages do
+		local child = inGameMenu.pagingElement.pages[i]
+		if child.element == inGameMenu[pageName] then
+			table.remove(inGameMenu.pagingElement.pages, i)
+			table.insert(inGameMenu.pagingElement.pages, position, child)
+			break
+		end
+	end
+
+	inGameMenu.pagingElement:updateAbsolutePosition()
+	inGameMenu.pagingElement:updatePageMapping()
+	
+	inGameMenu:registerPage(inGameMenu[pageName], position, predicateFunc)
+	local iconFileName = Utils.getFilename('menuIcon.dds', ProductionInfoHud.modDir)
+	inGameMenu:addPageTab(inGameMenu[pageName],iconFileName, GuiUtils.getUVs(uvs))
+	inGameMenu[pageName]:applyScreenAlignment()
+	inGameMenu[pageName]:updateAbsolutePosition()
+
+	for i = 1, #inGameMenu.pageFrames do
+		local child = inGameMenu.pageFrames[i]
+		if child == inGameMenu[pageName] then
+			table.remove(inGameMenu.pageFrames, i)
+			table.insert(inGameMenu.pageFrames, position, child)
+			break
+		end
+	end
+
+	inGameMenu:rebuildTabList()
 end
 
 function ProductionInfoHud:mergeModTranslations(i18n)
@@ -189,7 +258,12 @@ function ProductionInfoHud:createProductionNeedingTable()
                     fillTypeItem.fillTypeId = fillTypeId;
                     fillTypeItem.usagePerMonth = 0;
                     fillTypeItem.producedPerMonth = 0;
-                    fillTypeItem.fillTypeTitle = g_currentMission.fillTypeManager.fillTypes[fillTypeId].title;
+                    fillTypeItem.sellPerMonth = 0;
+                    fillTypeItem.keepPerMonth = 0;
+                    fillTypeItem.distributePerMonth = 0;
+                    local filltype = g_fillTypeManager.fillTypes[fillTypeId]
+                    fillTypeItem.fillTypeTitle = filltype.title;
+                    fillTypeItem.hudOverlayFilename = filltype.hudOverlayFilename;
                     myFillTypes[fillTypeId] = fillTypeItem;
                 end
                 local fillTypeItem = myFillTypes[fillTypeId];
@@ -201,8 +275,19 @@ function ProductionInfoHud:createProductionNeedingTable()
                         end
                     end
                     for _, output in pairs(production.outputs) do
+                        local outputMode = productionPoint:getOutputDistributionMode(fillTypeId)
+                        
                         if output.type == fillTypeId then
-                            fillTypeItem.producedPerMonth = fillTypeItem.producedPerMonth + (production.cyclesPerMonth * output.amount)
+                            local producedPerMonth = fillTypeItem.producedPerMonth + (production.cyclesPerMonth * output.amount);
+                            fillTypeItem.producedPerMonth = producedPerMonth
+                            
+                            if outputMode == ProductionPoint.OUTPUT_MODE.DIRECT_SELL then
+                                fillTypeItem.sellPerMonth = fillTypeItem.sellPerMonth + producedPerMonth;
+                            elseif outputMode == ProductionPoint.OUTPUT_MODE.AUTO_DELIVER then
+                                fillTypeItem.distributePerMonth = fillTypeItem.distributePerMonth + producedPerMonth;
+                            else
+                                fillTypeItem.keepPerMonth = fillTypeItem.keepPerMonth + producedPerMonth;
+                            end
                         end
                     end
                 end
@@ -225,9 +310,10 @@ function ProductionInfoHud:createProductionNeedingTable()
     
     table.sort(fillTypeResultTable, compFillTypeResultTable)
     
-    print("fillTypeResultTable");
-    DebugUtil.printTableRecursively(fillTypeResultTable,"_",0,2);
-        
+    -- print("fillTypeResultTable");
+    -- DebugUtil.printTableRecursively(fillTypeResultTable,"_",0,2);
+    
+    ProductionInfoHud.fillTypeResultTable = fillTypeResultTable;
 end
 
 function compFillTypeResultTable(w1,w2)
@@ -239,14 +325,6 @@ function compFillTypeResultTable(w1,w2)
         return true
     end
 end
-
-function ProductionInfoHud:old()
-
-        table.sort(myProductions, compPrductionTable)
-        
-        ProductionInfoHud.productionDataSorted = myProductions;
-end
-
         
 function ProductionInfoHud:refreshProductionsTable()
         

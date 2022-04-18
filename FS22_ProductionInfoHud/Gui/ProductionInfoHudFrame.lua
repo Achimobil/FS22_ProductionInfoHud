@@ -14,7 +14,7 @@ ProductionInfoHudFrame.CONTROLS = {
 ---Creates a new instance of the ProductionInfoHudFrame.
 ---@return ProductionInfoHudFrame
 function ProductionInfoHudFrame.new(ui, i18n)
-    local self = TabbedMenuFrameElement.new(nil, ProductionInfoHudFrame_mt)
+    local self = ProductionInfoHudFrame:superClass().new(nil, ProductionInfoHudFrame_mt)
 
     self.ui = ui
     self.i18n = i18n

@@ -197,6 +197,7 @@ Tuttavia, viene visualizzato ciò che sarà vuoto nei prossimi 2 mesi, a seconda
         <sourceFile filename="ProductionInfoHud.lua" />
 		<sourceFile filename="Gui/ProductionInfoHudFrame.lua" />
 		<sourceFile filename="Gui/ProductionInfoHudGui.lua" />
+		<sourceFile filename="Gui/InGameMenuProductionInfo.lua" />
     </extraSourceFiles>
 
     <inputBinding>
