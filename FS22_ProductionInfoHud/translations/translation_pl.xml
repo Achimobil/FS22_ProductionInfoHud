@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="no" ?>
 <l10n>
-	<translationContributors>Achimobil</translationContributors>
+	<translationContributors>deepl.com</translationContributors>
     <texts>
 		<text name="input_TOGGLE_GUI" text="PIH: Przełącz wyświetlanie" />
 		<text name="input_OPEN_GUI" text="PIH: Pokaż ustawienia " />
@@ -26,5 +26,14 @@
 		<text name="pih_MaxSellingLinesElement_title" text="Widoczne linie" />
 		<text name="pih_tooltip_minSellAmount" text="Aby ta ilość mogła być wyświetlana, musi być co najmniej na stanie magazynowym." />
 		<text name="pih_MinSellAmountElement_title" text="Minimalna ilość sprzedaży" />
+        
+		<text name="pih_ingameMenuProductionInfo" text="Informacje o produkcji na miesiąc" />
+		<text name="pih_header_sellPerMonth" text="Sprzedaż bezpośrednia" />
+		<text name="pih_header_keepPerMonth" text="Zachowaj" />
+		<text name="pih_header_distributePerMonth" text="Rozpowszechniaj" />
+		<text name="pih_header_usagePerMonth" text="Zużycie" />
+		<text name="ui_listHeader_1" text="Cyrkulacja" />
+		<text name="ui_listHeader_2" text="Brak produkcji" />
+		<text name="ui_listHeader_3" text="Brak konsumpcji" />
 	</texts>
 </l10n>

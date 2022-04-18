@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="no" ?>
 <l10n>
-	<translationContributors>Markus33 [ITA]</translationContributors>
+	<translationContributors>Markus33 [ITA], deepl.com</translationContributors>
 	<texts>
 		<text name="input_TOGGLE_GUI" text="PIH: attiva/disattiva la visualizzazione" />
 		<text name="input_OPEN_GUI" text="PIH: Mostra impostazioni" />
@@ -26,5 +26,23 @@
 		<text name="pih_MaxSellingLinesElement_title" text="Linee visibili" />
 		<text name="pih_tooltip_minSellAmount" text="Questa quantità deve essere almeno in stock per essere visualizzata." />
 		<text name="pih_MinSellAmountElement_title" text="Quantità minima di vendita" />
+        
+		<text name="pih_ingameMenuProductionInfo" text="" />
+		<text name="pih_header_sellPerMonth" text="" />
+		<text name="pih_header_keepPerMonth" text="" />
+		<text name="pih_header_distributePerMonth" text="" />
+		<text name="pih_header_usagePerMonth" text="" />
+		<text name="ui_listHeader_1" text="" />
+		<text name="ui_listHeader_2" text="" />
+		<text name="ui_listHeader_3" text="" />
+        
+		<text name="pih_ingameMenuProductionInfo" text="Informazioni sulla produzione per mese" />
+		<text name="pih_header_sellPerMonth" text="Direct Sales" />
+		<text name="pih_header_keepPerMonth" text="Keep" />
+		<text name="pih_header_distributePerMonth" text="Distribute" />
+		<text name="pih_header_usagePerMonth" text="Consumption" />
+		<text name="ui_listHeader_1" text="Circulation" />
+		<text name="ui_listHeader_2" text="No Production" />
+		<text name="ui_listHeader_3" text="No Consumption" />
 	</texts>
 </l10n>
