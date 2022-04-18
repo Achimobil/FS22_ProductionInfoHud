@@ -27,7 +27,7 @@
 		<text name="pih_tooltip_minSellAmount" text="Diese Menge muss mindestens im Lager sein um angezeigt zu werden." />
 		<text name="pih_MinSellAmountElement_title" text="Mindestverkaufsmenge" />
         
-		<text name="pih_ingameMenuProductionInfo" text="Produktionsinformation" />
+		<text name="pih_ingameMenuProductionInfo" text="Produktionsinformation pro Monat" />
 		<text name="pih_header_sellPerMonth" text="Direktverkauf" />
 		<text name="pih_header_keepPerMonth" text="Behalten" />
 		<text name="pih_header_distributePerMonth" text="Verteilen" />

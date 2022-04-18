@@ -278,8 +278,8 @@ function ProductionInfoHud:createProductionNeedingTable()
                         local outputMode = productionPoint:getOutputDistributionMode(fillTypeId)
                         
                         if output.type == fillTypeId then
-                            local producedPerMonth = fillTypeItem.producedPerMonth + (production.cyclesPerMonth * output.amount);
-                            fillTypeItem.producedPerMonth = producedPerMonth
+                            local producedPerMonth = production.cyclesPerMonth * output.amount;
+                            fillTypeItem.producedPerMonth = fillTypeItem.producedPerMonth + producedPerMonth
                             
                             if outputMode == ProductionPoint.OUTPUT_MODE.DIRECT_SELL then
                                 fillTypeItem.sellPerMonth = fillTypeItem.sellPerMonth + producedPerMonth;
