@@ -6,6 +6,23 @@
         <Preset name="colorListHeaderBackground" value="0 0 0 0.35" />
     </Presets>
 
+    <Traits>
+        <Trait name="debugging">
+            <Value name="debugEnabled" value="true" />
+        </Trait>
+
+        <!-- Often used anchors from base, because overwritten from e.G. VCA destroys UI positions -->
+        <Trait name="anchorTopLeft">
+            <Value name="anchors" value="0 0 1 1" />
+        </Trait>
+        <Trait name="anchorBottomLeft">
+            <Value name="anchors" value="0 0 0 0" />
+        </Trait>
+        <Trait name="anchorMiddleLeft">
+            <Value name="anchors" value="0 0 0.5 0.5" />
+        </Trait>
+    </Traits>
+    
     <Profile name="ingameMenuProductionInfoFillTypeImage" extends="baseReference">
         <Value name="size" value="31px 31px" />
         <Value name="position" value="5px 4px" />
