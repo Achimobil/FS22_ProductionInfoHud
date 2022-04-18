@@ -36,7 +36,7 @@
 		<text name="ui_listHeader_2" text="" />
 		<text name="ui_listHeader_3" text="" />
         
-		<text name="pih_ingameMenuProductionInfo" text="Informazioni sulla produzione per mese" />
+		<text name="pih_ingameMenuProductionInfo" text="Quantità di produzione al mese (solo linee di produzione attive)" />
 		<text name="pih_header_sellPerMonth" text="Direct Sales" />
 		<text name="pih_header_keepPerMonth" text="Keep" />
 		<text name="pih_header_distributePerMonth" text="Distribute" />

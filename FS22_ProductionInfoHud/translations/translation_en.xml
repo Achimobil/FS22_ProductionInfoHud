@@ -27,7 +27,7 @@
 		<text name="pih_tooltip_minSellAmount" text="This amount must be at least in stock to be displayed." />
 		<text name="pih_MinSellAmountElement_title" text="Minimum sales amount" />
         
-		<text name="pih_ingameMenuProductionInfo" text="Production Information per Month" />
+		<text name="pih_ingameMenuProductionInfo" text="Production quantities per month (active production lines only)" />
 		<text name="pih_header_sellPerMonth" text="Direct Sale" />
 		<text name="pih_header_keepPerMonth" text="Keep" />
 		<text name="pih_header_distributePerMonth" text="Distribute" />

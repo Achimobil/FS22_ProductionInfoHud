@@ -27,7 +27,7 @@
 		<text name="pih_tooltip_minSellAmount" text="Aby ta ilość mogła być wyświetlana, musi być co najmniej na stanie magazynowym." />
 		<text name="pih_MinSellAmountElement_title" text="Minimalna ilość sprzedaży" />
         
-		<text name="pih_ingameMenuProductionInfo" text="Informacje o produkcji na miesiąc" />
+		<text name="pih_ingameMenuProductionInfo" text="Wielkość produkcji na miesiąc (tylko aktywne linie produkcyjne)" />
 		<text name="pih_header_sellPerMonth" text="Sprzedaż bezpośrednia" />
 		<text name="pih_header_keepPerMonth" text="Zachowaj" />
 		<text name="pih_header_distributePerMonth" text="Rozpowszechniaj" />
