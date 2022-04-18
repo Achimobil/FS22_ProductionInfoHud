@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="no" ?>
 <modDesc descVersion="61">
     <author>Achimobil</author>
-    <version>0.5.0.0</version>
+    <version>0.6.0.0</version>
     <title>
 		<en>Production Info Hud</en>
 		<de>Produktionen Info Hud</de>
@@ -31,6 +31,10 @@ These can be best done on my Discord in the channel of the mod. https://discord.
 If you don't like it, just don't use it.
 
 Changelog 
+0.6.0.0
+- Sell amount 5000 added
+- Production Overview with totals per month added
+
 0.5.0.0
 - Fixed bug with jumping display
 - Installation of VK price display from silos when SellPriceTrigger mod is active
@@ -92,6 +96,10 @@ Diese können am besten auf meinem Discord im Kanal des jeweiligen Mods gemacht 
 Wem es nicht gefällt, der soll es einfach nicht benutzen.
 
 Changelog
+0.6.0.0
+- Verkaufsmenge 5000 hinzugefügt
+- Produktionsübersicht mit Summen pro Monat hinzugefügt
+
 0.5.0.0
 - Fehler mit verspringen der Anzeige behoben
 - Einbau der VK Preis Anzeige aus Silos, wenn SellPriceTrigger Mod aktiv ist
@@ -154,6 +162,10 @@ Questi possono essere fatti meglio sul mio Discord nel canale della rispettiva m
 Se non ti piace, non usarlo.
 
 Changelog
+0.6.0.0
+- Importo di vendita 5000 aggiunto
+- Aggiunta la panoramica della produzione con i totali per mese
+
 0.5.0.0
 - Risolto il bug con il salto del display
 - Installazione della visualizzazione del prezzo VK dai silos quando SellPriceTrigger Mod è attivo
