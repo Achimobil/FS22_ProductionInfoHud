@@ -592,8 +592,8 @@ function ProductionInfoHud:draw()
     local maxLines = tonumber(ProductionInfoHud.PossibleMaxLines[ProductionInfoHud.settings["display"]["maxLines"]]);
     local additionalLines = 0;
     local productionOutputTable = {}
-    local posX = 0.413;
-    local posY = 0.97;
+    local inputHelpDisplay = g_currentMission.hud.inputHelp;
+    local posX, posY = inputHelpDisplay.getBackgroundPosition()
     local textSize = 12/1000;
     local totalTextHeigh = 0;
     local maxTextWidth = 0;
@@ -604,18 +604,29 @@ function ProductionInfoHud:draw()
     if ProductionInfoHud.settings["display"]["position"] == 2 or (ProductionInfoHud.settings["display"]["position"] == 3 and g_currentMission.vehicleInspector ~= nil and not g_currentMission.vehicleInspector:getVisible()) then
         if (g_currentMission.hud.inputHelp.overlay.visible == true) then
             -- move under Help Dialog, when help visible or when VI is selected and not visible
-            posX = g_currentMission.hud.inputHelp.overlay.x;
+            posX = posX + inputHelpDisplay.entryOffsetX;
             posY = g_currentMission.hud.inputHelp.overlay.y - 0.04;
         else
-            posX = 0.013;
-            posY = 0.95;
+            posX = posX + inputHelpDisplay.entryOffsetX;
+        
+            -- fix for Precision Farming
+            posY = posY + inputHelpDisplay.frameOffsetY
+            for _, extension in pairs(inputHelpDisplay.vehicleHudExtensions) do
+                local extHeight = extension:getDisplayHeight()
+                if extHeight ~= 0 then
+                    posY = posY - extHeight - inputHelpDisplay.entryOffsetY
+                end
+            end
+
         end
     elseif ProductionInfoHud.settings["display"]["position"] == 3 and g_currentMission.vehicleInspector ~= nil and  g_currentMission.vehicleInspector:getVisible() then
-    
-            local viPosition = g_currentMission.vehicleInspector:getPosition()
-            
-            posX = viPosition.x;
-            posY = viPosition.y - g_currentMission.vehicleInspector.global.height[g_currentMission.vehicleInspector.global.viewModus]-0.01;
+        local viPosition = g_currentMission.vehicleInspector:getPosition()
+        
+        posX = viPosition.x + inputHelpDisplay.entryOffsetX;
+        posY = viPosition.y - g_currentMission.vehicleInspector.global.height[g_currentMission.vehicleInspector.global.viewModus]-0.005;
+    elseif ProductionInfoHud.settings["display"]["position"] == 1 then
+        posX = 0.413;
+        posY = 0.97;
     end
     
     local posYStart = posY;
