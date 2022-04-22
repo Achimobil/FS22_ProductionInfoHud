@@ -613,7 +613,7 @@ function ProductionInfoHud:draw()
             posY = posY + inputHelpDisplay.frameOffsetY
             for _, extension in pairs(inputHelpDisplay.vehicleHudExtensions) do
                 local extHeight = extension:getDisplayHeight()
-                if extHeight ~= 0 then
+                if extension:canDraw() and extHeight ~= 0 then
                     posY = posY - extHeight - inputHelpDisplay.entryOffsetY
                 end
             end
