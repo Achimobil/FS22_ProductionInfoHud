@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="no" ?>
 <modDesc descVersion="65">
     <author>Achimobil</author>
-    <version>0.6.2.0</version>
+    <version>0.6.3.0</version>
     <title>
 		<en>Production Info Hud</en>
 		<de>Produktionen Info Hud</de>
@@ -31,6 +31,9 @@ These can be best done on my Discord in the channel of the mod. https://discord.
 If you don't like it, just don't use it.
 
 Changelog 
+0.6.3.0
+- fix for Giants Patch 1.4 for special vehicles when F1 is closed
+
 0.6.2.0
 - fix for positon "Below Help" of Giants Patch 1.4
 
@@ -103,6 +106,9 @@ Diese können am besten auf meinem Discord im Kanal des jeweiligen Mods gemacht 
 Wem es nicht gefällt, der soll es einfach nicht benutzen.
 
 Changelog
+0.6.3.0
+- Fix für Giants Patch 1.4 für Spezialfahrzeuge, wenn F1 geschlossen ist
+
 0.6.2.0
 - Fix für die Position "Unter Hilfe" von Giants Patch 1.4
 
@@ -176,6 +182,9 @@ Questi possono essere fatti meglio sul mio Discord nel canale della rispettiva m
 Se non ti piace, non usarlo.
 
 Changelog
+0.6.3.0
+- correzione per Giants Patch 1.4 per i veicoli speciali quando F1 è chiuso
+
 0.6.2.0
 - correzione per la posizione "Sotto l'aiuto" di Giants Patch 1.4
 
