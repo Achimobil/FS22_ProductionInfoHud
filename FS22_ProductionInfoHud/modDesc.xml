@@ -3,86 +3,11 @@
     <author>Achimobil</author>
     <version>0.6.3.0</version>
     <title>
-		<en>Production Info Hud</en>
 		<de>Produktionen Info Hud</de>
+		<en>Production Info Hud</en>
 		<it>Hud Informazioni sulle produzioni</it>
     </title>
     <description>
-        <en>
-            <![CDATA[The first version of the productions Info Hud, known from the LS 19.
-
-Publication on other sides only by myself, linking only with original download link. NO alternative link!
-Changing or re-uploading, whether in whole or in part, is not allowed!
-
-Since the LS19 version was built on Global Company dialogues and methods, this version must be complete rebuilded.
-
-The current version has the following, non-customizable properties:
-- Display of the active productions with their remaining time
-- A production is only displayed if ...
-- - it has less than 2 month remaining
-- - it has less than 50% fill level
-- The display is sorted according to the remaining time, whichever runs empty or is empty first is shown at the top
-- Full productions are sortet in top of allowed
-- Only the first 5 of the sortet list are shown
-
-Requests and suggestions for improvement as well as error messages are always welcome.
-These can be best done on my Discord in the channel of the mod. https://discord.gg/Va7JNnEkcW
-
-If you don't like it, just don't use it.
-
-Changelog 
-0.6.3.0
-- fix for Giants Patch 1.4 for special vehicles when F1 is closed
-
-0.6.2.0
-- fix for positon "Below Help" of Giants Patch 1.4
-
-0.6.1.0
-- fix VCA Crap
-- correct translations
-
-0.6.0.0
-- Sell amount 5000 added
-- Production Overview with totals per month added
-
-0.5.0.0
-- Fixed bug with jumping display
-- Installation of VK price display from silos when SellPriceTrigger mod is active
-- Settings dialog revised
-
-0.4.0.0
-- Updated translations
-- Display when everything is taken care of so that you know that the display is active
-- Better alignment under F1 and VI
-- Moves the InfoMessageHud to the center of the screen, if available, so that it does not overlay the VI
-- Animal stalls supply of feed is now displayed
-- Full animal stalls are displayed so that animals can be sold (can be switched off in the settings dialog)
-- Full inputs when production is switched off is no longer displayed as full output
-- The number of displayed lines can now be set
-- Display of the number of lines that are not displayed
-
-0.3.0.0
-- Added PL translations
-- Full storage is shown correctly now
-- Wrong declared production points now makes no lua error but error message which production point has errors.
-- Settings dialog now available with [lctrl] +[lshift] + [P]
-- Settings can be saved now
-
-0.2.1.0
-- Full input storage is not displayed as full production anymore
-- Added IT translations
-
-0.2.0.0
-- Productions with full output storage are now shown
-- The font is now colored for full storage(red) and for missing resourced (orange)
-- The mod is now translatable, en and de already added
-- With [lctrl] + [P]  you can turn on and of the display (configurable)
-
-0.1.1.0
-- Changes needed for the Giants Patch 1.2 for changed production times.
-It still showns the left ingame days, but now it shows what get empty in 2 month, which is dependent from your settings of days per month.
-]]>
-</en>
         <de>
             <![CDATA[Die erste Version des aus dem LS 19 bekannten Produktionen Info Hud.
 
@@ -158,7 +83,82 @@ Changelog
 Die Anzeige ist weiterhin in Ingame Tagen. 
 Es wird aber angezeigt was in den nächsten 2 Monaten leer läuft, abhängig von den eingestellten Tagen pro Monat ist das unterschiedlich.
 ]]>
-</de>
+        </de>
+        <en>
+            <![CDATA[The first version of the productions Info Hud, known from the LS 19.
+
+Publication on other sides only by myself, linking only with original download link. NO alternative link!
+Changing or re-uploading, whether in whole or in part, is not allowed!
+
+Since the LS19 version was built on Global Company dialogues and methods, this version must be complete rebuilded.
+
+The current version has the following, non-customizable properties:
+- Display of the active productions with their remaining time
+- A production is only displayed if ...
+- - it has less than 2 month remaining
+- - it has less than 50% fill level
+- The display is sorted according to the remaining time, whichever runs empty or is empty first is shown at the top
+- Full productions are sortet in top of allowed
+- Only the first 5 of the sortet list are shown
+
+Requests and suggestions for improvement as well as error messages are always welcome.
+These can be best done on my Discord in the channel of the mod. https://discord.gg/Va7JNnEkcW
+
+If you don't like it, just don't use it.
+
+Changelog 
+0.6.3.0
+- fix for Giants Patch 1.4 for special vehicles when F1 is closed
+
+0.6.2.0
+- fix for positon "Below Help" of Giants Patch 1.4
+
+0.6.1.0
+- fix VCA Crap
+- correct translations
+
+0.6.0.0
+- Sell amount 5000 added
+- Production Overview with totals per month added
+
+0.5.0.0
+- Fixed bug with jumping display
+- Installation of VK price display from silos when SellPriceTrigger mod is active
+- Settings dialog revised
+
+0.4.0.0
+- Updated translations
+- Display when everything is taken care of so that you know that the display is active
+- Better alignment under F1 and VI
+- Moves the InfoMessageHud to the center of the screen, if available, so that it does not overlay the VI
+- Animal stalls supply of feed is now displayed
+- Full animal stalls are displayed so that animals can be sold (can be switched off in the settings dialog)
+- Full inputs when production is switched off is no longer displayed as full output
+- The number of displayed lines can now be set
+- Display of the number of lines that are not displayed
+
+0.3.0.0
+- Added PL translations
+- Full storage is shown correctly now
+- Wrong declared production points now makes no lua error but error message which production point has errors.
+- Settings dialog now available with [lctrl] +[lshift] + [P]
+- Settings can be saved now
+
+0.2.1.0
+- Full input storage is not displayed as full production anymore
+- Added IT translations
+
+0.2.0.0
+- Productions with full output storage are now shown
+- The font is now colored for full storage(red) and for missing resourced (orange)
+- The mod is now translatable, en and de already added
+- With [lctrl] + [P]  you can turn on and of the display (configurable)
+
+0.1.1.0
+- Changes needed for the Giants Patch 1.2 for changed production times.
+It still showns the left ingame days, but now it shows what get empty in 2 month, which is dependent from your settings of days per month.
+]]>
+        </en>
 		<it>
             <![CDATA[La prima versione delle produzioni Info Hud, conosciuta da LS 19.
 
