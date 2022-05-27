@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="no" ?>
 <modDesc descVersion="65">
     <author>Achimobil</author>
-    <version>0.6.3.0</version>
+    <version>0.7.0.0 Beta</version>
     <title>
 		<de>Produktionen Info Hud</de>
 		<en>Production Info Hud</en>
@@ -31,6 +31,9 @@ Diese können am besten auf meinem Discord im Kanal des jeweiligen Mods gemacht 
 Wem es nicht gefällt, der soll es einfach nicht benutzen.
 
 Changelog
+0.7.0.0
+- Bei den Verkaufsanzeigen werden jetzt auch Produktionen angezeigt
+
 0.6.3.0
 - Fix für Giants Patch 1.4 für Spezialfahrzeuge, wenn F1 geschlossen ist
 

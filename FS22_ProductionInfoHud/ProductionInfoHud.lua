@@ -454,6 +454,7 @@ function ProductionInfoHud:refreshSellPriceData()
     if FS22_SellPriceTrigger.SellPriceTrigger == nil then return end;
     if FS22_SellPriceTrigger.SellPriceTrigger.triggers == nil then return end;
 
+	local farmId = g_currentMission:getFarmId();
     local prices = {};
 
     -- liste füllen mit den types, die gerade einen guten preis haben
@@ -463,31 +464,41 @@ function ProductionInfoHud:refreshSellPriceData()
         end
 	end
 
-    -- für alle mit gutem preis aus den produktionen die Lagerbestände sammeln
-    -- for i, globalFactory in pairs (g_company.loadedFactories) do
-		-- local factorySetting = ProductionInfoHud:GetSettingForFactory(globalFactory);
-        -- if not(factorySetting.ignoreSelling) and (g_currentMission.player.farmId == globalFactory.ownerFarmId) then
-            -- for a, product in pairs (globalFactory.outputProducts) do
-                -- if prices[product.fillTypeIndex] ~= nil then
-				
-					-- Eigenen Namen benutzen, wenn gesetzt, ansonsten den FactoryTitle
-					-- local guiName;
-					-- if (globalFactory.guiData.factoryCustomTitle ~= nil and globalFactory.guiData.factoryCustomTitle ~= "") then
-						-- guiName = globalFactory.guiData.factoryCustomTitle;
-					-- else
-						-- guiName = globalFactory.guiData.factoryTitle;
-					-- end
-				
-				
-                    -- prices[product.fillTypeIndex].storages[globalFactory.indexName] = {fillLevel=product.fillLevel, GuiName = guiName, indexName = globalFactory.indexName}
-                    -- prices[product.fillTypeIndex].total = prices[product.fillTypeIndex].total + product.fillLevel;
-                -- end
-            -- end
-        -- end
-    -- end
+    
+        
+    if g_currentMission.productionChainManager.farmIds[farmId] ~= nil and g_currentMission.productionChainManager.farmIds[farmId].productionPoints ~= nil then
+        for _, productionPoint in pairs(g_currentMission.productionChainManager.farmIds[farmId].productionPoints) do
+            
+            local storageName = productionPoint.owningPlaceable:getName();
+-- print("productionPoint.outputFillTypeIds")
+-- DebugUtil.printTableRecursively(productionPoint.outputFillTypeIds,"_",0,2)
+            for fillType, fillLevel in pairs(productionPoint.storage.fillLevels) do
+            
+                local isOutput = false
+                -- prüfen ob input type
+                if productionPoint.outputFillTypeIds[fillType] ~= nil then
+                    isOutput = productionPoint.outputFillTypeIds[fillType];
+                end
+                
+                if prices[fillType] ~= nil and isOutput then
+                    if prices[fillType].storages[storageName] ~= nil then
+                        prices[fillType].storages[storageName].fillLevel=prices[fillType].storages[storageName].fillLevel + fillLevel;
+                    else
+						-- filltype hinzufügen zu storage name, damit die mengen aus dem lager nicht addiert werden
+                        prices[fillType].storages[storageName] = {fillLevel=fillLevel, GuiName = storageName, indexName = storageName .. fillType}
+                    end
+                    prices[fillType].total = prices[fillType].total + fillLevel;
+                end
+            end
+        end
+    end
+    
+    
+-- print("prices")
+-- DebugUtil.printTableRecursively(prices,"_",0,2)
+    
 
     -- storageSystem benutzen. Storages splitten sich auf, wenn diese zu nah zusammen stehen, aber das ist in LS so und ich kann das nicht ändern.
-	local farmId = g_currentMission:getFarmId();
     local usedStorages = {};
     local storages = g_currentMission.storageSystem:getStorages();
     for i, storage in pairs (storages) do
