@@ -426,7 +426,7 @@ function ProductionInfoHud:refreshProductionsTable()
 				
 				-- Wasser
 				if placeable.spec_husbandryWater ~= nil then
-					if not placeable.automaticWaterSupply then
+					if not placeable.spec_husbandryWater.automaticWaterSupply then
 						local productionItem = {}
 						productionItem.name = placeable:getName();
 						-- productionItem.fillTypeId = fillTypeId
