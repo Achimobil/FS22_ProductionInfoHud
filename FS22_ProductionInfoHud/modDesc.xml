@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8" standalone="no" ?>
 <modDesc descVersion="65">
     <author>Achimobil</author>
-    <version>0.7.0.0</version>
+    <contributor>Rodberaht</contributor>
+    <version>0.8.0.0 beta</version>
     <title>
 		<de>Produktionen Info Hud</de>
 		<en>Production Info Hud</en>

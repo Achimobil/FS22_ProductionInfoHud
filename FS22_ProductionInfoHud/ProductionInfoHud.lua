@@ -421,7 +421,109 @@ function ProductionInfoHud:refreshProductionsTable()
                 if (productionItem.needPerHour > 0 and productionItem.capacityLevel <= 0.5 and productionItem.hoursLeft <= (48 * g_currentMission.environment.daysPerPeriod)) then 
                     table.insert(myProductions, productionItem)
                 end
-                
+				
+				-- Anpassungen Rodberaht Anfang
+				
+				-- Wasser
+				if placeable.spec_husbandryWater ~= nil then
+					if not placeable.automaticWaterSupply then
+						local productionItem = {}
+						productionItem.name = placeable:getName();
+						-- productionItem.fillTypeId = fillTypeId
+						productionItem.needPerHour = placeable.spec_husbandryWater.litersPerHour;
+						productionItem.hoursLeft = 0
+						productionItem.fillLevel = placeable.spec_husbandryWater:getHusbandryFillLevel(FillType.WATER)
+						productionItem.capacity = placeable.spec_husbandryWater:getHusbandryCapacity(FillType.WATER)
+						productionItem.isInput = true;
+
+						--print(productionItem.name .. " (Wasser) needPerHour: " .. productionItem.needPerHour .. " fillLevel: " .. productionItem.fillLevel .. " capacity: " .. productionItem.capacity)
+						
+						if productionItem.capacity == 0 then 
+							productionItem.capacityLevel = 0
+						elseif productionItem.capacity == nil then
+							productionItem.capacityLevel = 0
+							print("Error: No storage for '" .. g_currentMission.fillTypeManager.fillTypes[fillTypeId].name .. "' in productionPoint but defined to used. Has to be fixed in '" .. productionPoint.owningPlaceable.customEnvironment .."'.")
+						else
+							productionItem.capacityLevel = productionItem.fillLevel / productionItem.capacity;
+						end
+						productionItem.fillTypeTitle = placeable.spec_husbandryWater.info.title;
+
+						if (productionItem.fillLevel ~= 0) and (productionItem.needPerHour ~= 0) then
+							-- hier die anzahl der Tage pro Monat berücksichtigen
+							productionItem.hoursLeft = productionItem.fillLevel / productionItem.needPerHour * g_currentMission.environment.daysPerPeriod;
+						end
+							
+						if (productionItem.needPerHour > 0 and productionItem.capacityLevel <= 0.5 and productionItem.hoursLeft <= (48 * g_currentMission.environment.daysPerPeriod)) then 
+							table.insert(myProductions, productionItem)
+						end
+					end
+				end
+				                
+				-- Stroh
+				if placeable.spec_husbandryStraw ~= nil then
+					local productionItem = {}
+					productionItem.name = placeable:getName();
+					-- productionItem.fillTypeId = fillTypeId
+					productionItem.needPerHour = placeable.spec_husbandryStraw.inputLitersPerHour;
+					productionItem.hoursLeft = 0
+					productionItem.fillLevel = placeable.spec_husbandryStraw:getHusbandryFillLevel(FillType.STRAW)
+					productionItem.capacity = placeable.spec_husbandryStraw:getHusbandryCapacity(FillType.STRAW)
+					productionItem.isInput = true;
+					
+					--print(productionItem.name .. " (Stroh) needPerHour: " .. productionItem.needPerHour .. " fillLevel: " .. productionItem.fillLevel .. " capacity: " .. productionItem.capacity)
+					
+					if productionItem.capacity == 0 then 
+						productionItem.capacityLevel = 0
+					elseif productionItem.capacity == nil then
+						productionItem.capacityLevel = 0
+						print("Error: No storage for '" .. g_currentMission.fillTypeManager.fillTypes[fillTypeId].name .. "' in productionPoint but defined to used. Has to be fixed in '" .. productionPoint.owningPlaceable.customEnvironment .."'.")
+					else
+						productionItem.capacityLevel = productionItem.fillLevel / productionItem.capacity;
+					end
+					productionItem.fillTypeTitle = placeable.spec_husbandryStraw.info.title;
+
+					if (productionItem.fillLevel ~= 0) and (productionItem.needPerHour ~= 0) then
+						-- hier die anzahl der Tage pro Monat berücksichtigen
+						productionItem.hoursLeft = productionItem.fillLevel / productionItem.needPerHour * g_currentMission.environment.daysPerPeriod;
+					end
+						
+					if (productionItem.needPerHour > 0 and productionItem.capacityLevel <= 0.5 and productionItem.hoursLeft <= (48 * g_currentMission.environment.daysPerPeriod)) then 
+						table.insert(myProductions, productionItem)
+					end
+				end
+
+				-- Milch
+				if placeable.spec_husbandryMilk ~= nil then
+					local productionItem = {}
+					productionItem.name = placeable:getName();
+					-- productionItem.fillTypeId = fillTypeId
+					productionItem.needPerHour = 0;
+					productionItem.hoursLeft = 0
+					productionItem.fillLevel = placeable.spec_husbandryMilk:getHusbandryFillLevel(FillType.MILK)
+					productionItem.capacity = placeable.spec_husbandryMilk:getHusbandryCapacity(FillType.MILK)
+					productionItem.isInput = false;
+					
+					--print(productionItem.name .. " (Milch) needPerHour: " .. productionItem.needPerHour .. " fillLevel: " .. productionItem.fillLevel .. " capacity: " .. productionItem.capacity)
+					
+					if productionItem.capacity == 0 then 
+						productionItem.capacityLevel = 0
+					elseif productionItem.capacity == nil then
+						productionItem.capacityLevel = 0
+						print("Error: No storage for '" .. g_currentMission.fillTypeManager.fillTypes[fillTypeId].name .. "' in productionPoint but defined to used. Has to be fixed in '" .. productionPoint.owningPlaceable.customEnvironment .."'.")
+					else
+						productionItem.capacityLevel = productionItem.fillLevel / productionItem.capacity;
+					end
+					productionItem.fillTypeTitle = placeable.spec_husbandryMilk.info.title;
+
+                    -- Ausgangslager voll, dann speziell eintragen
+                    if (productionItem.capacityLevel >= 0.95 and not productionItem.isInput) then 
+                        productionItem.hoursLeft = -1;
+                        table.insert(myProductions, productionItem)
+                    end
+				end
+
+				-- Anpassungen Rodberaht Ende
+				
                 -- Tiere voll, also muss was verkauft werden
                 if ProductionInfoHud.settings["display"]["showFullAnimals"] and placeable:getNumOfFreeAnimalSlots() == 0 then
                     local productionItem = {}
