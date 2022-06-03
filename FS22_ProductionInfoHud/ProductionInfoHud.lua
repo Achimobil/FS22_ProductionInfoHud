@@ -334,6 +334,7 @@ function ProductionInfoHud:refreshProductionsTable()
         if g_currentMission.productionChainManager.farmIds[farmId] ~= nil and g_currentMission.productionChainManager.farmIds[farmId].productionPoints ~= nil then
             for _, productionPoint in pairs(g_currentMission.productionChainManager.farmIds[farmId].productionPoints) do
                 
+                -- nicht mix zutaten werden hier summiert
                 for fillTypeId, fillLevel in pairs(productionPoint.storage.fillLevels) do
                     local productionItem = {}
                     productionItem.name = productionPoint.owningPlaceable:getName();
@@ -364,8 +365,13 @@ function ProductionInfoHud:refreshProductionsTable()
                             -- status 3 = läuft nicht weil ausgang voll
                             if input.type == fillTypeId then
                                 productionItem.isInput = true;
-                                if production.status ~= 3 then
-                                    productionItem.needPerHour = productionItem.needPerHour + (production.cyclesPerHour * input.amount)
+                                if input.mix == nil or input.mix == 0 then 
+                                    -- nicht mix type
+                                    if production.status ~= 3 then
+                                        productionItem.needPerHour = productionItem.needPerHour + (production.cyclesPerHour * input.amount)
+                                    end
+                                else
+                                    -- mix type hier ignorieren. müssen separat gerechnet werden
                                 end
                             end
                         end
@@ -386,6 +392,70 @@ function ProductionInfoHud:refreshProductionsTable()
                         table.insert(myProductions, productionItem)
                     end
                 end
+                
+                -- jetzt noch mal alle mix gruppen die restlaufzeit aller berechnen
+                for _, production in pairs(productionPoint.activeProductions) do
+                    for n = 1, 5 do
+                        local productionItem = {}
+                        productionItem.name = productionPoint.owningPlaceable:getName();
+                        productionItem.fillTypeTitle = production.name .. " (Mix " .. n .. ")";
+                        productionItem.hoursLeft = 0
+                        local needed = false;
+                        
+                        for _, input in pairs(production.inputs) do
+                            -- status 3 = läuft nicht weil ausgang voll
+                            if input.mix == n then 
+                                -- richtiger mix type
+                                if production.status ~= 3 then
+                                    -- wie lange läuft dieser mix mit dem input type aufrechnen.
+                                    needed = true;
+                                    local fillLevel = productionPoint:getFillLevel(input.type);
+                                    local needPerHour = (production.cyclesPerHour * input.amount);
+                                    local hoursLeft = fillLevel / needPerHour * g_currentMission.environment.daysPerPeriod;
+                                    productionItem.hoursLeft = productionItem.hoursLeft + hoursLeft;
+                                end
+                            end
+                        end
+                        
+                        if needed then
+                            table.insert(myProductions, productionItem)
+                        end
+                    end
+                    
+                    -- jeden booster separat
+                    
+                    for _, input in pairs(production.inputs) do
+                        -- status 3 = läuft nicht weil ausgang voll
+                        if input.mix == 6 then 
+                            -- richtiger mix type
+                            if production.status ~= 3 then
+                                -- wie lange läuft dieser booster?
+                                local productionItem = {}
+                                productionItem.name = productionPoint.owningPlaceable:getName();
+                                productionItem.fillTypeTitle = production.name .. " (booster " .. g_currentMission.fillTypeManager.fillTypes[input.type].title .. ")";
+                                productionItem.capacity = productionPoint.storage.capacities[input.type]
+                                productionItem.fillLevel = productionPoint:getFillLevel(input.type);
+                                
+                                if productionItem.capacity == 0 then 
+                                    productionItem.capacityLevel = 0
+                                elseif productionItem.capacity == nil then
+                                    productionItem.capacityLevel = 0
+                                    print("Error: No storage for '" .. g_currentMission.fillTypeManager.fillTypes[input.type].name .. "' in productionPoint but defined to used. Has to be fixed in '" .. productionPoint.owningPlaceable.customEnvironment .."'.")
+                                else
+                                    productionItem.capacityLevel = productionItem.fillLevel / productionItem.capacity;
+                                end
+                                
+                                local needPerHour = (production.cyclesPerHour * input.amount);
+                                productionItem.hoursLeft = productionItem.fillLevel / needPerHour * g_currentMission.environment.daysPerPeriod;
+                                
+                                if (needPerHour > 0 and productionItem.capacityLevel <= 0.5 and productionItem.hoursLeft <= (48 * g_currentMission.environment.daysPerPeriod)) then 
+                                    table.insert(myProductions, productionItem)
+                                end
+                            end
+                        end
+                    end
+                end
+                
             end
         end
         
