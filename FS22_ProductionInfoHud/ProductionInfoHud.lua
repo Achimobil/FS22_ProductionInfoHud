@@ -631,11 +631,15 @@ function ProductionInfoHud:refreshSellPriceData()
 
     -- liste füllen mit den types, die gerade einen guten preis haben
 	for fillType,trigger in pairs(FS22_SellPriceTrigger.SellPriceTrigger.triggers) do
-        if trigger.over == true then
-            prices[fillType] = {info=trigger,storages={},total=0}
+        for triggerFarmId,farmTrigger in pairs(trigger.farms) do
+            if triggerFarmId == farmId and farmTrigger.over == true then
+                prices[fillType] = {info=farmTrigger,storages={},total=0, station=trigger.station}
+            end
         end
 	end
 
+-- print("FS22_SellPriceTrigger.SellPriceTrigger.triggers")
+-- DebugUtil.printTableRecursively(FS22_SellPriceTrigger.SellPriceTrigger.triggers,"_",0,2)
     
         
     if g_currentMission.productionChainManager.farmIds[farmId] ~= nil and g_currentMission.productionChainManager.farmIds[farmId].productionPoints ~= nil then
@@ -703,14 +707,18 @@ function ProductionInfoHud:refreshSellPriceData()
         
         end
     end
+    
+-- print("prices")
+-- DebugUtil.printTableRecursively(prices,"_",0,2)
+    
 
     -- List für Anzeige erstellen
 	local sortableOutputTable = {};
-	for a, sellPriceItem in pairs (prices) do
+	for fillTypeId, sellPriceItem in pairs (prices) do
 		for b, sellPriceStorage in pairs (sellPriceItem.storages) do
 			local outputItem = {};
-			outputItem.station = sellPriceItem.info.station;
-			outputItem.title = sellPriceItem.info.title;
+			outputItem.station = sellPriceItem.station;
+			outputItem.title = g_currentMission.fillTypeManager.fillTypes[fillTypeId].title
 			outputItem.fillLevel = sellPriceStorage.fillLevel;
 			outputItem.GuiName = sellPriceStorage.GuiName;
 			outputItem.indexName = sellPriceStorage.indexName;
