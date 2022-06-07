@@ -417,7 +417,7 @@ function ProductionInfoHud:refreshProductionsTable()
                             end
                         end
                         
-                        if needed then
+                        if needed and (productionItem.hoursLeft <= (48 * g_currentMission.environment.daysPerPeriod))then
                             table.insert(myProductions, productionItem)
                         end
                     end
