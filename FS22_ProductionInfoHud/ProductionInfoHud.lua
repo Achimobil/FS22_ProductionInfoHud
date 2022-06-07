@@ -203,7 +203,7 @@ print("ProductionInfoHud:OpenGui")
         g_gui:showGui("ProductionInfoHudGUI")
     end
         -- Ausgabe hier beim öffenen des menues als test
-        ProductionInfoHud:createProductionNeedingTable();
+        -- ProductionInfoHud:createProductionNeedingTable();
     
 end
 
