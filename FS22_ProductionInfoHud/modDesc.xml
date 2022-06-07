@@ -20,16 +20,16 @@ Die aktuelle Version hat folgende, nicht anpassbare Eigenschaften:
 - Anzeige der aktiven Produktionen und der Tierställe mit deren Restlaufzeit pro Rohstoffe. Inklusive der Tierställe für Futter, Wasser und Stroh. Revamp Mix wird auch als solcher angezeigt.
 - Angezeigt wird eine Produktion nur, wenn...
 - - sie weniger als 2 Monate Restlaufzeit hat.
-- - sie weniger als 50% Füllstand hat. (Außer bei Revamp Mix eingängen, da wird das ignoriert)
+- - sie weniger als 50% Füllstand hat. (Außer bei Revamp Mix Eingängen, da wird das ignoriert)
 - - Die Produktionslinie auch aktiviert ist.
 - Die Anzeige ist sortiert nach Restlaufzeit, was zuerst leer läuft oder leer ist steht oben.
 - Produktionen die Voll sind stehen noch darüber. Volle Tierställe können in den Optionen abgeschaltet werden.
-- Wieviele Produktionen angezeigt werden kann eingestellt werden.
+- Wie viele Produktionen angezeigt werden kann eingestellt werden.
 Verkaufshilfe
 - Bei installierten Verkaufspreisauslöser wird bei gutem Preis und vorhandenem Verkaufbaren Produkten diese angezeigt. Hierbei gilt:
 - - Im Verkaufspreisauslöser muss ein VK Preis eingestellt und dieser muss überschritten sein
 - - Die Menge die in den Einstellungen eingetragen ist muss in einem Lager oder einer Produktion vorhanden sein (Keine Tierställe)
-Die Anzeige Zeigt einem was von wo geholt und nach wo verkauft werden kann.
+- Die Anzeige Zeigt einem was von wo geholt und nach wo verkauft werden kann.
 
 Wünsche und Verbesserungsvorschläge sowie Fehlermeldungen sind immer willkommen.
 Diese können am besten auf meinem Discord im Kanal des jeweiligen Mods gemacht werden. https://discord.gg/Va7JNnEkcW
@@ -42,6 +42,7 @@ Changelog
 - Bei Tierställen wird jetzt auch Milch angezeigt, wenn diese voll ist. (danke an Rodberaht)
 - Revamp Mix und Booster werden jetzt korrekt angezeigt.
 - IT aus der Beschreibung entfernt weil ich das nicht übersetzen kann. Die Übersetzungen der GUI bleiben aber drin.
+- Anpassung an neue Struktur des Verkaufspreisauslösers
 
 0.7.0.0
 - Bei den Verkaufsanzeigen werden jetzt auch Produktionen angezeigt
@@ -119,7 +120,7 @@ Sales help
 - If the sales price trigger mod is installed, it is displayed if the price is good and the products are available for sale. The following applies here:
 -- A sales price must be set in the sales price trigger and this must be exceeded.
 -- The quantity selected in the options must be available in a silo or production (no animal sheds).
-The display shows what can be fetched from where and sold to where.
+- The display shows what can be fetched from where and sold to where.
 
 Wishes and suggestions for improvement as well as error messages are always welcome.
 These can best be made on my Discord in the channel of the respective mod. https://discord.gg/Va7JNnEkcW
@@ -132,6 +133,7 @@ Changelog
 - Milk is now also displayed for animal sheds when they are full. (thanks to Rodberaht)
 - Revamp Mix and Booster are now displayed correctly.
 - Removed IT from the description because I can't translate it. But the translations of the GUI remain.
+- Adaptation to new structure of the sales price trigger
 
 0.7.0.0
 - Productions are now also displayed in the sales listings
