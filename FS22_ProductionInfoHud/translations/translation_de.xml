@@ -8,24 +8,11 @@
 		<text name="Full" text="Ausgang voll" />
 		<text name="AllProductsOperativ" text="Alle Produktionen versorgt" />
         
-		<text name="pih_tooltip_position" text="Hier auswählen, wo die Anzeige erscheinen soll" />
-		<text name="pihPositionElement_title" text="Position" />
-		<text name="pih_possiblePosition_1" text="Oben mittig" />
-		<text name="pih_possiblePosition_2" text="Unter Hilfe" />
-		<text name="pih_possiblePosition_3" text="Unter Vehicle Inspector" />
-		<text name="pih_showFullAnimals_title" text="Volle Tierställe anzeigen" />
-		<text name="pih_tooltip_showFullAnimals" text="Anzeige voller Tierställe in der Liste" />
-		<text name="pih_tooltip_maxLines" text="Maximale Zeilen an Produktionen. Bei mehr kommt noch eine Infozeile hinzu." />
-		<text name="pih_MaxLinesElement_title" text="Sichtbare Zeilen" />
 		<text name="pih_Zeilen" text="Zeilen" />
 		<text name="MoreAvailable" text="weitere" />
 		<text name="NothingToSell" text="Nichts zu verkaufen" />
         
 		<text name="pih_ingameMenuGameSettingsSellPrice" text="Verkaufspreisanzeige" />
-		<text name="pih_tooltip_maxSellingLines" text="Maximale Zeilen an Verkaufsstellen. Bei mehr kommt noch eine Infozeile hinzu." />
-		<text name="pih_MaxSellingLinesElement_title" text="Sichtbare Zeilen" />
-		<text name="pih_tooltip_minSellAmount" text="Diese Menge muss mindestens im Lager sein um angezeigt zu werden." />
-		<text name="pih_MinSellAmountElement_title" text="Mindestverkaufsmenge" />
         
 		<text name="pih_ingameMenuProductionInfo" text="Produktionsmengen pro Monat (Nur aktive Produktionslinien)" />
 		<text name="pih_header_sellPerMonth" text="Direktverkauf" />
@@ -35,5 +22,23 @@
 		<text name="ui_listHeader_1" text="Umlauf" />
 		<text name="ui_listHeader_2" text="Keine Produktion" />
 		<text name="ui_listHeader_3" text="Kein Verbrauch" />
+        
+        <!-- In neuen Einstellungen benutzt-->
+		<text name="pih_settings_title" text="Production Info Hud - Produktionen" />
+		<text name="pihPositionElement_title" text="Position" />
+		<text name="pih_tooltip_position" text="Hier auswählen, wo die Anzeige erscheinen soll" />
+		<text name="pih_possiblePosition_1" text="Oben mittig" />
+		<text name="pih_possiblePosition_2" text="Unter Hilfe" />
+		<text name="pih_possiblePosition_3" text="Unter Vehicle Inspector" />
+		<text name="pih_showFullAnimals_title" text="Volle Tierställe anzeigen" />
+		<text name="pih_tooltip_showFullAnimals" text="Anzeige voller Tierställe in der Liste" />
+		<text name="pih_MaxLinesElement_title" text="Sichtbare Zeilen" />
+		<text name="pih_tooltip_maxLines" text="Maximale Zeilen an Produktionen. Bei mehr kommt noch eine Infozeile hinzu." />
+        
+		<text name="pih_price_settings_title" text="Production Info Hud - Preisanzeige" />
+		<text name="pih_MaxSellingLinesElement_title" text="Sichtbare Zeilen" />
+		<text name="pih_tooltip_maxSellingLines" text="Maximale Zeilen an Verkaufsstellen. Bei mehr kommt noch eine Infozeile hinzu." />
+		<text name="pih_MinSellAmountElement_title" text="Mindestverkaufsmenge" />
+		<text name="pih_tooltip_minSellAmount" text="Diese Menge muss mindestens im Lager sein um angezeigt zu werden." />
 	</texts>
 </l10n>

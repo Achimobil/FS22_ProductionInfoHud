@@ -193,6 +193,7 @@ It still showns the left ingame days, but now it shows what get empty in 2 month
     <iconFilename>ModIcon.dds</iconFilename>
     <multiplayer supported="true"/>
     <extraSourceFiles>
+        <sourceFile filename="ProductionInfoHudSettings.lua"/>
         <sourceFile filename="ProductionInfoHud.lua"/>
         <sourceFile filename="Gui/ProductionInfoHudFrame.lua"/>
         <sourceFile filename="Gui/ProductionInfoHudGui.lua"/>
