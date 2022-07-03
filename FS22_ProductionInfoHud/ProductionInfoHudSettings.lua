@@ -7,8 +7,20 @@ ProductionInfoHudSettings.name = g_currentModName;
 ProductionInfoHudSettings.modDir = g_currentModDirectory
 
 function ProductionInfoHudSettings.init()
-    -- Einfach anhängen an die funktion
+
+    -- Elemente einfügen, wenn Dialog geöffnet wird
     InGameMenuGeneralSettingsFrame.onFrameOpen = Utils.appendedFunction(InGameMenuGeneralSettingsFrame.onFrameOpen, ProductionInfoHudSettings.initGuiElements);
+    
+    
+	if g_server == nil then
+    print("g_server == nil")
+        -- Speichern direkt beim schließen des dialogs, da es kein save gibt auf dem client, wenn der server speichert
+		InGameMenuGeneralSettingsFrame.onFrameClose = Utils.appendedFunction(InGameMenuGeneralSettingsFrame.onFrameClose, ProductionInfoHud.SaveSettings)
+    else
+    print("g_server != nil")
+        -- Speichern der einstellungen mit dem speichern, wenn server, dann wird von der funktion eh nichts gespeichert, SP und MP Host schon
+        FSBaseMission.saveSavegame = Utils.appendedFunction(FSBaseMission.saveSavegame, ProductionInfoHud.SaveSettings)
+	end
 end
 
 function ProductionInfoHudSettings.initGuiElements(self)
