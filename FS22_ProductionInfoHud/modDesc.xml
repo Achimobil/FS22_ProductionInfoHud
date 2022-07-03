@@ -2,7 +2,7 @@
 <modDesc descVersion="65">
     <author>Achimobil</author>
     <contributor>Rodberaht</contributor>
-    <version>0.8.0.0</version>
+    <version>0.9.0.0 beta 1</version>
     <title>
         <de>Produktionen Info Hud</de>
         <en>Production Info Hud</en>
@@ -37,6 +37,9 @@ Diese können am besten auf meinem Discord im Kanal des jeweiligen Mods gemacht 
 Wem es nicht gefällt, der soll es einfach nicht benutzen.
 
 Changelog
+0.9.0.0
+- Einstellungen in die Generellen Spieleinstellungen verlegt
+
 0.8.0.0
 - Bei Tierställen wird jetzt auch Wasser und Stroh angezeigt. (danke an Rodberaht)
 - Bei Tierställen wird jetzt auch Milch angezeigt, wenn diese voll ist. (danke an Rodberaht)
