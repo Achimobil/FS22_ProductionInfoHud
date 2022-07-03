@@ -36,7 +36,7 @@ function ProductionInfoHud:init()
     -- default settings einstellen
     ProductionInfoHud.settings = {};
     ProductionInfoHud.settings["display"] = {};
-    ProductionInfoHud.settings["display"]["showType"] = "ALL";
+    ProductionInfoHud.settings["display"]["showType"] = "NONE";
     ProductionInfoHud.settings["display"]["position"] = 1;
     ProductionInfoHud.settings["display"]["showFullAnimals"] = true;
     ProductionInfoHud.settings["display"]["maxLines"] = 5;
