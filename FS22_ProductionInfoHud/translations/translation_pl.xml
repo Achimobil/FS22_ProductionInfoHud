@@ -1,31 +1,15 @@
 <?xml version="1.0" encoding="utf-8" standalone="no" ?>
 <l10n>
 	<translationContributors>deepl.com</translationContributors>
-    <texts>
+	<texts>
 		<text name="input_TOGGLE_GUI" text="PIH: Przełącz wyświetlanie" />
-		<text name="input_OPEN_GUI" text="PIH: Pokaż ustawienia " />
 		<text name="Empty" text="WWszystkie używane" />
 		<text name="Full" text="Pamięć wyjściowa pełna" />
 		<text name="AllProductsOperativ" text="Wszystkie produkcje działają" />
         
-		<text name="pih_tooltip_position" text="Proszę wybrać pozycję wyświetlania" />
-		<text name="pihPositionElement_title" text="Pozycja" />
-		<text name="pih_possiblePosition_1" text="Górny środek" />
-		<text name="pih_possiblePosition_2" text="Poniżej Pomoc" />
-		<text name="pih_possiblePosition_3" text="Poniżej Vehicle Inspector" />
-		<text name="pih_showFullAnimals_title" text="Afficher les stalles pleines d'animaux" />
-		<text name="pih_tooltip_showFullAnimals" text="Wyświetlanie pełnych boksów dla zwierząt na liście" />
-		<text name="pih_tooltip_maxLines" text="Maksymalna liczba linii produkcyjnych do pokazania." />
-		<text name="pih_MaxLinesElement_title" text="Widoczne linie" />
 		<text name="pih_Zeilen" text="linie" />
 		<text name="MoreAvailable" text="jeszcze" />
 		<text name="NothingToSell" text="Нечего продавать" />
-        
-		<text name="pih_ingameMenuGameSettingsSellPrice" text="Wyświetlanie cen sprzedaży" />
-		<text name="pih_tooltip_maxSellingLines" text="Maksymalna liczba linii wylotowych. Jeśli jest ich więcej, dodawany jest wiersz informacyjny." />
-		<text name="pih_MaxSellingLinesElement_title" text="Widoczne linie" />
-		<text name="pih_tooltip_minSellAmount" text="Aby ta ilość mogła być wyświetlana, musi być co najmniej na stanie magazynowym." />
-		<text name="pih_MinSellAmountElement_title" text="Minimalna ilość sprzedaży" />
         
 		<text name="pih_ingameMenuProductionInfo" text="Wielkość produkcji na miesiąc (tylko aktywne linie produkcyjne)" />
 		<text name="pih_header_sellPerMonth" text="Sprzedaż bezpośrednia" />
@@ -35,5 +19,23 @@
 		<text name="ui_listHeader_1" text="Cyrkulacja" />
 		<text name="ui_listHeader_2" text="Brak produkcji" />
 		<text name="ui_listHeader_3" text="Brak konsumpcji" />
+        
+        <!-- In neuen Einstellungen benutzt-->
+		<text name="pih_settings_title" text="Production Info Hud - Productions" />
+		<text name="pihPositionElement_title" text="Pozycja" />
+		<text name="pih_tooltip_position" text="Proszę wybrać pozycję wyświetlania" />
+		<text name="pih_possiblePosition_1" text="Górny środek" />
+		<text name="pih_possiblePosition_2" text="Poniżej Pomoc" />
+		<text name="pih_possiblePosition_3" text="Poniżej Vehicle Inspector" />
+		<text name="pih_showFullAnimals_title" text="Afficher les stalles pleines d'animaux" />
+		<text name="pih_tooltip_showFullAnimals" text="Wyświetlanie pełnych boksów dla zwierząt na liście" />
+		<text name="pih_MaxLinesElement_title" text="Widoczne linie" />
+		<text name="pih_tooltip_maxLines" text="Maksymalna liczba linii produkcyjnych do pokazania." />
+        
+		<text name="pih_price_settings_title" text="Production Info Hud - Price view" />
+		<text name="pih_MaxSellingLinesElement_title" text="Widoczne linie" />
+		<text name="pih_tooltip_maxSellingLines" text="Maksymalna liczba linii wylotowych. Jeśli jest ich więcej, dodawany jest wiersz informacyjny." />
+		<text name="pih_MinSellAmountElement_title" text="Minimalna ilość sprzedaży" />
+		<text name="pih_tooltip_minSellAmount" text="Aby ta ilość mogła być wyświetlana, musi być co najmniej na stanie magazynowym." />
 	</texts>
 </l10n>

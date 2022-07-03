@@ -3,29 +3,13 @@
 	<translationContributors>Achimobil, deepl.com</translationContributors>
 	<texts>
 		<text name="input_TOGGLE_GUI" text="PIH: Toggle display" />
-		<text name="input_OPEN_GUI" text="PIH: Show Settings" />
 		<text name="Empty" text="All used" />
 		<text name="Full" text="Outputstorage full" />
 		<text name="AllProductsOperativ" text="All productions operative" />
         
-		<text name="pih_tooltip_position" text="Please select the display position" />
-		<text name="pihPositionElement_title" text="Position" />
-		<text name="pih_possiblePosition_1" text="Top middle" />
-		<text name="pih_possiblePosition_2" text="Below Help" />
-		<text name="pih_possiblePosition_3" text="Below Vehicle Inspector" />
-		<text name="pih_showFullAnimals_title" text="Show full animal stalls" />
-		<text name="pih_tooltip_showFullAnimals" text="Display of full animal stalls in the list" />
-		<text name="pih_tooltip_maxLines" text="Max number of lines of productsion to show." />
-		<text name="pih_MaxLinesElement_title" text="Visible lines" />
 		<text name="pih_Zeilen" text="lines" />
 		<text name="MoreAvailable" text="more" />
 		<text name="NothingToSell" text="Nothing to sell" />
-        
-		<text name="pih_ingameMenuGameSettingsSellPrice" text="Sales price display" />
-		<text name="pih_tooltip_maxSellingLines" text="Maximum lines of outlets. If there are more, an info line is added." />
-		<text name="pih_MaxSellingLinesElement_title" text="Visible lines" />
-		<text name="pih_tooltip_minSellAmount" text="This amount must be at least in stock to be displayed." />
-		<text name="pih_MinSellAmountElement_title" text="Minimum sales amount" />
         
 		<text name="pih_ingameMenuProductionInfo" text="Production quantities per month (active production lines only)" />
 		<text name="pih_header_sellPerMonth" text="Direct Sale" />
@@ -35,5 +19,23 @@
 		<text name="ui_listHeader_1" text="Circulation" />
 		<text name="ui_listHeader_2" text="No Production" />
 		<text name="ui_listHeader_3" text="No Consumption" />
+        
+        <!-- In neuen Einstellungen benutzt-->
+		<text name="pih_settings_title" text="Production Info Hud - Productions" />
+		<text name="pihPositionElement_title" text="Position" />
+		<text name="pih_tooltip_position" text="Please select the display position" />
+		<text name="pih_possiblePosition_1" text="Top middle" />
+		<text name="pih_possiblePosition_2" text="Below Help" />
+		<text name="pih_possiblePosition_3" text="Below Vehicle Inspector" />
+		<text name="pih_showFullAnimals_title" text="Show full animal stalls" />
+		<text name="pih_tooltip_showFullAnimals" text="Display of full animal stalls in the list" />
+		<text name="pih_MaxLinesElement_title" text="Visible lines" />       
+		<text name="pih_tooltip_maxLines" text="Max number of lines of productsion to show." /> 
+        
+		<text name="pih_price_settings_title" text="Production Info Hud - Price view" />
+		<text name="pih_MaxSellingLinesElement_title" text="Visible lines" />
+		<text name="pih_tooltip_maxSellingLines" text="Maximum lines of outlets. If there are more, an info line is added." />
+		<text name="pih_MinSellAmountElement_title" text="Minimum sales amount" />
+		<text name="pih_tooltip_minSellAmount" text="This amount must be at least in stock to be displayed." />                                         
 	</texts>
 </l10n>
