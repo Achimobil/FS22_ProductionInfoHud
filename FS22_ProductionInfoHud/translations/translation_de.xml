@@ -3,7 +3,6 @@
 	<translationContributors>Achimobil</translationContributors>
     <texts>
 		<text name="input_TOGGLE_GUI" text="PIH: Anzeige umschalten" />
-		<text name="input_OPEN_GUI" text="PIH: Einstellungen" />
 		<text name="Empty" text="Alles verbraucht" />
 		<text name="Full" text="Ausgang voll" />
 		<text name="AllProductsOperativ" text="Alle Produktionen versorgt" />
@@ -11,8 +10,6 @@
 		<text name="pih_Zeilen" text="Zeilen" />
 		<text name="MoreAvailable" text="weitere" />
 		<text name="NothingToSell" text="Nichts zu verkaufen" />
-        
-		<text name="pih_ingameMenuGameSettingsSellPrice" text="Verkaufspreisanzeige" />
         
 		<text name="pih_ingameMenuProductionInfo" text="Produktionsmengen pro Monat (Nur aktive Produktionslinien)" />
 		<text name="pih_header_sellPerMonth" text="Direktverkauf" />

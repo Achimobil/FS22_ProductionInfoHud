@@ -114,12 +114,12 @@ function ProductionInfoHudSettings:getText(key)
 end
 
 function ProductionInfoHudSettings:onClickMultiOption(state, optionElement)
-    print("Change ".. tostring(optionElement.id) .. " to " .. tostring(state))
+    -- print("Change ".. tostring(optionElement.id) .. " to " .. tostring(state))
     ProductionInfoHud.settings["display"][optionElement.id] = state;
 end
 
 function ProductionInfoHudSettings:onClickCheckbox(state, checkboxElement)
-    print("Change ".. tostring(checkboxElement.id) .. " to " .. tostring(checkboxElement:getIsChecked()))
+    -- print("Change ".. tostring(checkboxElement.id) .. " to " .. tostring(checkboxElement:getIsChecked()))
     ProductionInfoHud.settings["display"][checkboxElement.id] = checkboxElement:getIsChecked()
 end
 

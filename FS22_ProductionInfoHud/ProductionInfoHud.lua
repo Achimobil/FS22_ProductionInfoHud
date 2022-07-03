@@ -45,16 +45,6 @@ function ProductionInfoHud:init()
     
     ProductionInfoHud:LoadSettings();
        
-    self:mergeModTranslations(ProductionInfoHud.i18n)
-       
-    -- sie einstellungsseite
-    local settingsFrame = ProductionInfoHudFrame.new(ProductionInfoHud, ProductionInfoHud.i18n)
-    g_gui:loadGui(ProductionInfoHud.modDir .. "Gui/ProductionInfoHudFrame.xml", "ProductionInfoHudFrame", settingsFrame, true)
-    
-    -- Das Menü wo die seiten rein kommen
-    ProductionInfoHud.menu = ProductionInfoHudGUI:new(ProductionInfoHud.messageCenter, ProductionInfoHud.i18n, ProductionInfoHud.inputManager);
-    ProductionInfoHud.gui = g_gui:loadGui(ProductionInfoHud.modDir .. "Gui/ProductionInfoHudGui.xml", "ProductionInfoHudGUI", ProductionInfoHud.menu)
-    
     -- Aufrufen nach init, da erst an isclient gesetzt ist und sonst die binding nicht aktiv ist bevor man in ein auto einsteigt
     ProductionInfoHud:registerActionEvents()
 
@@ -149,23 +139,9 @@ function ProductionInfoHud.fixInGameMenu(frame,pageName,uvs,position,predicateFu
 	inGameMenu:rebuildTabList()
 end
 
-function ProductionInfoHud:mergeModTranslations(i18n)
-    -- We can copy all our translations to the global table because we prefix everything with guidanceSteering_
-    -- Thanks for blocking the getfenv Giants..
-    -- and my thanks to Wopster for a solution that also works for my problems, better than my solution to loop trough all elements and translater afterwards a second time
-    local modEnvMeta = getmetatable(_G)
-    local env = modEnvMeta.__index
-
-    local global = env.g_i18n.texts
-    for key, text in pairs(i18n.texts) do
-        global[key] = text
-    end
-end
-
 function ProductionInfoHud:registerActionEvents()
     if ProductionInfoHud.isClient then
         _, ProductionInfoHud.eventIdToggle = g_inputBinding:registerActionEvent(InputAction.TOGGLE_GUI, ProductionInfoHud, ProductionInfoHud.ToggleGui, false, true, false, true)
-        _, ProductionInfoHud.eventIdOPenGui = g_inputBinding:registerActionEvent(InputAction.OPEN_GUI, ProductionInfoHud, ProductionInfoHud.OpenGui, false, true, false, true)
     end
 end
 
@@ -194,17 +170,6 @@ function ProductionInfoHud:ToggleGui()
     end
     
     -- print("showType:" .. ProductionInfoHud.settings["display"]["showType"]);
-end
-
-function ProductionInfoHud:OpenGui()
-print("ProductionInfoHud:OpenGui")
-    -- hier die Einstellungen öffnen
-    if g_gui.currentGui == nil then
-        g_gui:showGui("ProductionInfoHudGUI")
-    end
-        -- Ausgabe hier beim öffenen des menues als test
-        -- ProductionInfoHud:createProductionNeedingTable();
-    
 end
 
 function ProductionInfoHud:loadMap(name)
