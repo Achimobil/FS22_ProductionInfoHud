@@ -2,7 +2,7 @@
 <modDesc descVersion="65">
     <author>Achimobil</author>
     <contributor>Rodberaht</contributor>
-    <version>0.9.0.0 beta 3</version>
+    <version>0.9.0.0</version>
     <title>
         <de>Produktionen Info Hud</de>
         <en>Production Info Hud</en>
@@ -134,6 +134,12 @@ These can best be made on my Discord in the channel of the respective mod. https
 If you don't like it, just don't use it.
 
 Changelog
+0.9.0.0
+- Moved settings to the General Game Settings.
+- Without settings the display is now hidden
+- Revamp boosters can be hidden
+- Production statistics can now be changed to hours
+
 0.8.0.0
 - Water and straw are now displayed for animal sheds. (thanks to Rodberaht)
 - Milk is now also displayed for animal sheds when they are full. (thanks to Rodberaht)
