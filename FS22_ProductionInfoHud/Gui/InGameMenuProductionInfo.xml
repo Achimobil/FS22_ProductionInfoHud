@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="no" ?>
-<GUI name="ingameMenuFieldCalculator">
+<GUI name="ingameMenuProductionInfo">
    <GuiElement type="empty" profile="uiInGameMenuFrame">
         <GuiElement type="empty" profile="ingameMenuFrameHeaderPanel">
             <GuiElement type="bitmap" profile="ingameMenuWeatherHeaderIcon" />
-            <GuiElement type="text" profile="ingameMenuFrameHeaderText" text="$l10n_pih_ingameMenuProductionInfo"/>
+            <GuiElement type="text" profile="ingameMenuFrameHeaderText" id="productionInfoTitle" text="$l10n_pih_ingameMenuProductionInfo"/>
         </GuiElement>
         <GuiElement type="empty" profile="ingameMenuSettingsBox" id="mainBox">
             <GuiElement type="bitmap" profile="ingameMenuProductionInfoHeaderBox" id="tableHeaderBox">
@@ -14,7 +14,7 @@
                 <GuiElement type="text" profile="ingameMenuProductionInfoHeaderCell" position="800px 0px" size="200px 40.77px" text="$l10n_pih_header_usagePerMonth"/>
             </GuiElement>
             <GuiElement type="smoothList" profile="ingameMenuProductionInfoList" id="fillTypeTable" focusInit="onOpen" listSectionHeader="section" position="0px 0px">
-                <GuiElement type="listItem" profile="ingameMenuProductionInfoListItem" name="fieldCalculatorRowTemplate" >
+                <GuiElement type="listItem" profile="ingameMenuProductionInfoListItem" name="productionInfoRowTemplate" >
                     <GuiElement type="bitmap" profile="ingameMenuProductionInfoRowBackground">
                         <GuiElement type="bitmap" profile="ingameMenuProductionInfoFillTypeImage" name="fillTypeIcon" />
                         <GuiElement type="text" profile="ingameMenuProductionInfoRowCellText" position="40px 0px" size="160px 40.77px" name="fillTypeTitle" />

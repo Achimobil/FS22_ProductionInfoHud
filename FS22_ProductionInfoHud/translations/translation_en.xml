@@ -11,7 +11,8 @@
 		<text name="MoreAvailable" text="more" />
 		<text name="NothingToSell" text="Nothing to sell" />
         
-		<text name="pih_ingameMenuProductionInfo" text="Production quantities per month (active production lines only)" />
+		<text name="pih_ingameMenuProductionInfo" text="Production quantities per month (Active production lines only)" />
+		<text name="pih_ingameMenuProductionInfoHour" text="Production quantities per hour (Active production lines only)" />
 		<text name="pih_header_sellPerMonth" text="Direct Sale" />
 		<text name="pih_header_keepPerMonth" text="Keep" />
 		<text name="pih_header_distributePerMonth" text="Distribute" />

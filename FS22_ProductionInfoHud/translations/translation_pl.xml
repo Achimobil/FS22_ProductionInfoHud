@@ -12,6 +12,7 @@
 		<text name="NothingToSell" text="Нечего продавать" />
         
 		<text name="pih_ingameMenuProductionInfo" text="Wielkość produkcji na miesiąc (tylko aktywne linie produkcyjne)" />
+		<text name="pih_ingameMenuProductionInfoHour" text="Production Quantities per Hour (Active Production Lines Only)" />
 		<text name="pih_header_sellPerMonth" text="Sprzedaż bezpośrednia" />
 		<text name="pih_header_keepPerMonth" text="Zachowaj" />
 		<text name="pih_header_distributePerMonth" text="Rozpowszechniaj" />

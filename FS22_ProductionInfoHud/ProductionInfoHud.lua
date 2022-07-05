@@ -208,8 +208,15 @@ function ProductionInfoHud:update(dt)
     end
 end
 
-function ProductionInfoHud:createProductionNeedingTable()
-        
+function ProductionInfoHud:createProductionNeedingTable(mode)
+   
+    local factor = 1;
+    if mode == InGameMenuProductionInfo.MODE_MONTH then
+        factor = 1;
+    elseif InGameMenuProductionInfo.MODE_HOUR then
+        factor = 1 / (24 * g_currentMission.environment.daysPerPeriod); -- tage einstellungen auslesen!!!
+    end
+
     local farmId = g_currentMission.player.farmId;
     local myFillTypes = {} -- filltypeId is key for finding and adding, change later to sortable
     
@@ -237,14 +244,14 @@ function ProductionInfoHud:createProductionNeedingTable()
                 for _, production in pairs(productionPoint.activeProductions) do
                     for _, input in pairs(production.inputs) do
                         if input.type == fillTypeId then
-                            fillTypeItem.usagePerMonth = fillTypeItem.usagePerMonth + (production.cyclesPerMonth * input.amount)
+                            fillTypeItem.usagePerMonth = fillTypeItem.usagePerMonth + (production.cyclesPerMonth * input.amount) * factor
                         end
                     end
                     for _, output in pairs(production.outputs) do
                         local outputMode = productionPoint:getOutputDistributionMode(fillTypeId)
                         
                         if output.type == fillTypeId then
-                            local producedPerMonth = production.cyclesPerMonth * output.amount;
+                            local producedPerMonth = production.cyclesPerMonth * output.amount * factor;
                             fillTypeItem.producedPerMonth = fillTypeItem.producedPerMonth + producedPerMonth
                             
                             if outputMode == ProductionPoint.OUTPUT_MODE.DIRECT_SELL then

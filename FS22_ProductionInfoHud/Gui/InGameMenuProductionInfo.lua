@@ -2,8 +2,12 @@ InGameMenuProductionInfo = {}
 InGameMenuProductionInfo._mt = Class(InGameMenuProductionInfo, TabbedMenuFrameElement)
 
 InGameMenuProductionInfo.CONTROLS = {
-	TABLE = "fillTypeTable"
+	"fillTypeTable",
+	"productionInfoTitle"
 }
+
+InGameMenuProductionInfo.MODE_MONTH = 1
+InGameMenuProductionInfo.MODE_HOUR = 2
 
 InGameMenuProductionInfoSections = {
     ALL = 1,
@@ -11,11 +15,11 @@ InGameMenuProductionInfoSections = {
     PRODUCED_ONLY = 3
 }
 
-function InGameMenuProductionInfo.new(productionInfoHud, i18n, messageCenter)
+function InGameMenuProductionInfo.new(productionInfoHud, l10n, messageCenter)
 	local self = InGameMenuProductionInfo:superClass().new(nil, InGameMenuProductionInfo._mt)
 
     self.name = "InGameMenuProductionInfo"
-    self.i18n = i18n
+    self.l10n = l10n
     self.messageCenter = messageCenter
     self.productionInfoHud = productionInfoHud
     
@@ -23,6 +27,7 @@ function InGameMenuProductionInfo.new(productionInfoHud, i18n, messageCenter)
 
     self:registerControls(InGameMenuProductionInfo.CONTROLS)
 
+	self.hasCustomMenuButtons = true
     self.backButtonInfo = {
 		inputAction = InputAction.MENU_BACK
 	}
@@ -30,6 +35,8 @@ function InGameMenuProductionInfo.new(productionInfoHud, i18n, messageCenter)
     self:setMenuButtonInfo({
         self.backButtonInfo
     })
+    
+	self.mode = InGameMenuProductionInfo.MODE_MONTH
 
     return self
 end
@@ -40,7 +47,7 @@ end
 
 function InGameMenuProductionInfo:copyAttributes(src)
     InGameMenuProductionInfo:superClass().copyAttributes(self, src)
-    self.i18n = src.i18n
+    self.l10n = src.l10n
 end
 
 function InGameMenuProductionInfo:onGuiSetupFinished()
@@ -50,10 +57,19 @@ function InGameMenuProductionInfo:onGuiSetupFinished()
 end
 
 function InGameMenuProductionInfo:initialize()
+	self.toggleModeButtonInfo = {
+		profile = "buttonActivate",
+		inputAction = InputAction.MENU_ACTIVATE,
+		text = self.l10n:getText("pih_changeTimeToMonth"),
+		callback = function ()
+			self:onButtonToggleMode()
+		end
+	}
 end
 
 function InGameMenuProductionInfo:onFrameOpen()
-	InGameMenuProductionInfo:superClass().onFrameOpen(self)   
+	InGameMenuProductionInfo:superClass().onFrameOpen(self)
+	self:setMode(self.mode)
     self:updateContent()
 	FocusManager:setFocus(self.fillTypeTable)
 end
@@ -62,9 +78,9 @@ function InGameMenuProductionInfo:onFrameClose()
 	InGameMenuProductionInfo:superClass().onFrameClose(self)   
 end
 
-function InGameMenuProductionInfo:updateContent()  
+function InGameMenuProductionInfo:updateContent()
 
-    self.productionInfoHud:createProductionNeedingTable()
+    self.productionInfoHud:createProductionNeedingTable(self.mode)
 
     self.fillTypeResultTable = ProductionInfoHud.fillTypeResultTable
         
@@ -137,9 +153,43 @@ function InGameMenuProductionInfo:populateCellForItemInSection(list, section, in
 	cell:getAttribute("usagePerMonth"):setText(g_i18n:formatNumber(fillTypeItem.usagePerMonth))  
 end
 
-function InGameMenuProductionInfo:showSeedUi()
-    local dialog = g_gui:showDialog("SeedFrame")
-    if dialog ~= nil then
-        dialog.target:setFieldData(self.currentFillTypeItem)
-    end
+function InGameMenuProductionInfo:onButtonToggleMode()
+	if self.mode == InGameMenuProductionInfo.MODE_MONTH then
+		self:setMode(InGameMenuProductionInfo.MODE_HOUR)
+	else
+		self:setMode(InGameMenuProductionInfo.MODE_MONTH)
+	end
+    self:updateContent()
+end
+
+function InGameMenuProductionInfo:setMode(mode)
+	self.mode = mode
+
+	-- self.pricesColumn:setVisible(mode == InGameMenuPricesFrame.MODE_PRICES)
+	-- self.fluctuationsColumn:setVisible(mode == InGameMenuPricesFrame.MODE_FLUCTUATIONS)
+
+	-- if mode == InGameMenuPricesFrame.MODE_FLUCTUATIONS then
+		-- FocusManager:setFocus(self.productList)
+	-- end
+
+	self:updateMenuButtons()
+end
+
+function InGameMenuProductionInfo:updateMenuButtons()
+	self.menuButtonInfo = {
+		{
+			inputAction = InputAction.MENU_BACK
+		}
+	}
+    
+	if self.mode == InGameMenuProductionInfo.MODE_MONTH then
+		self.toggleModeButtonInfo.text = self.l10n:getText("pih_changeTimeToHour")
+		self.productionInfoTitle.text = self.l10n:getText("pih_ingameMenuProductionInfo")
+	else
+		self.toggleModeButtonInfo.text = self.l10n:getText("pih_changeTimeToMonth")
+		self.productionInfoTitle.text = self.l10n:getText("pih_ingameMenuProductionInfoHour")
+	end
+
+	table.insert(self.menuButtonInfo, self.toggleModeButtonInfo)
+	self:setMenuButtonInfoDirty()
 end
