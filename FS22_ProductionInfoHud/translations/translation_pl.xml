@@ -31,6 +31,8 @@
 		<text name="pih_tooltip_showFullAnimals" text="Wyświetlanie pełnych boksów dla zwierząt na liście" />
 		<text name="pih_MaxLinesElement_title" text="Widoczne linie" />
 		<text name="pih_tooltip_maxLines" text="Maksymalna liczba linii produkcyjnych do pokazania." />
+		<text name="pih_showBooster_title" text="Show Booster" />
+		<text name="pih_showBooster_tooltip" text="Czy powinien być wyświetlany Revamp Booster" />
         
 		<text name="pih_price_settings_title" text="Production Info Hud - Price view" />
 		<text name="pih_MaxSellingLinesElement_title" text="Widoczne linie" />

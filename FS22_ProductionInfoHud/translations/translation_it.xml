@@ -31,6 +31,8 @@
 		<text name="pih_tooltip_showFullAnimals" text="Visualizzazione di stalle complete di animali nell'elenco" />
 		<text name="pih_MaxLinesElement_title" text="Linee visibili" />
 		<text name="pih_tooltip_maxLines" text="Numero massimo di linee di produzione da mostrare." />
+		<text name="pih_showBooster_title" text="Mostra Booster" />
+		<text name="pih_showBooster_tooltip" text="Deve essere visualizzato Revamp Booster" />
         
 		<text name="pih_price_settings_title" text="Production Info Hud - Price view" />
 		<text name="pih_MaxSellingLinesElement_title" text="Linee visibili" />

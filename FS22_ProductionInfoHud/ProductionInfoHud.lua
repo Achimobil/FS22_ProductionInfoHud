@@ -42,6 +42,7 @@ function ProductionInfoHud:init()
     ProductionInfoHud.settings["display"]["maxLines"] = 5;
     ProductionInfoHud.settings["display"]["maxSellingLines"] = 5;
     ProductionInfoHud.settings["display"]["minSellAmount"] = 1;
+    ProductionInfoHud.settings["display"]["showBooster"] = true;
     
     ProductionInfoHud:LoadSettings();
        
@@ -387,34 +388,35 @@ function ProductionInfoHud:refreshProductionsTable()
                         end
                     end
                     
-                    -- jeden booster separat
-                    
-                    for _, input in pairs(production.inputs) do
-                        -- status 3 = läuft nicht weil ausgang voll
-                        if input.mix == 6 then 
-                            -- richtiger mix type
-                            if production.status ~= 3 then
-                                -- wie lange läuft dieser booster?
-                                local productionItem = {}
-                                productionItem.name = productionPoint.owningPlaceable:getName();
-                                productionItem.fillTypeTitle = production.name .. " (booster " .. g_currentMission.fillTypeManager.fillTypes[input.type].title .. ")";
-                                productionItem.capacity = productionPoint.storage.capacities[input.type]
-                                productionItem.fillLevel = productionPoint:getFillLevel(input.type);
-                                
-                                if productionItem.capacity == 0 then 
-                                    productionItem.capacityLevel = 0
-                                elseif productionItem.capacity == nil then
-                                    productionItem.capacityLevel = 0
-                                    print("Error: No storage for '" .. g_currentMission.fillTypeManager.fillTypes[input.type].name .. "' in productionPoint but defined to used. Has to be fixed in '" .. productionPoint.owningPlaceable.customEnvironment .."'.")
-                                else
-                                    productionItem.capacityLevel = productionItem.fillLevel / productionItem.capacity;
-                                end
-                                
-                                local needPerHour = (production.cyclesPerHour * input.amount);
-                                productionItem.hoursLeft = productionItem.fillLevel / needPerHour * g_currentMission.environment.daysPerPeriod;
-                                
-                                if (needPerHour > 0 and productionItem.capacityLevel <= 0.5 and productionItem.hoursLeft <= (48 * g_currentMission.environment.daysPerPeriod)) then 
-                                    table.insert(myProductions, productionItem)
+                    if ProductionInfoHud.settings["display"]["showBooster"] then
+                        -- jeden booster separat
+                        for _, input in pairs(production.inputs) do
+                            -- status 3 = läuft nicht weil ausgang voll
+                            if input.mix == 6 then 
+                                -- richtiger mix type
+                                if production.status ~= 3 then
+                                    -- wie lange läuft dieser booster?
+                                    local productionItem = {}
+                                    productionItem.name = productionPoint.owningPlaceable:getName();
+                                    productionItem.fillTypeTitle = production.name .. " (booster " .. g_currentMission.fillTypeManager.fillTypes[input.type].title .. ")";
+                                    productionItem.capacity = productionPoint.storage.capacities[input.type]
+                                    productionItem.fillLevel = productionPoint:getFillLevel(input.type);
+                                    
+                                    if productionItem.capacity == 0 then 
+                                        productionItem.capacityLevel = 0
+                                    elseif productionItem.capacity == nil then
+                                        productionItem.capacityLevel = 0
+                                        print("Error: No storage for '" .. g_currentMission.fillTypeManager.fillTypes[input.type].name .. "' in productionPoint but defined to used. Has to be fixed in '" .. productionPoint.owningPlaceable.customEnvironment .."'.")
+                                    else
+                                        productionItem.capacityLevel = productionItem.fillLevel / productionItem.capacity;
+                                    end
+                                    
+                                    local needPerHour = (production.cyclesPerHour * input.amount);
+                                    productionItem.hoursLeft = productionItem.fillLevel / needPerHour * g_currentMission.environment.daysPerPeriod;
+                                    
+                                    if (needPerHour > 0 and productionItem.capacityLevel <= 0.5 and productionItem.hoursLeft <= (48 * g_currentMission.environment.daysPerPeriod)) then 
+                                        table.insert(myProductions, productionItem)
+                                    end
                                 end
                             end
                         end
@@ -1014,6 +1016,9 @@ function ProductionInfoHud:SaveSettings()
     local xmlTag = ("ProductionInfoHudSettings.display.minSellAmount(%d)"):format(0);
     setXMLInt(XML, xmlTag.."#int", ProductionInfoHud.settings["display"]["minSellAmount"])
 
+    local xmlTag = ("ProductionInfoHudSettings.display.showBooster(%d)"):format(0);
+    setXMLBool(XML, xmlTag.."#bool", ProductionInfoHud.settings["display"]["showBooster"])
+
     saveXMLFile(XML)
 end
 
@@ -1054,6 +1059,10 @@ function ProductionInfoHud:LoadSettings()
     xmlTag = ("ProductionInfoHudSettings.display.minSellAmount(%d)"):format(0); 
     value = getXMLInt(XML, xmlTag.. "#int");
     if value ~= nil then ProductionInfoHud.settings["display"]["minSellAmount"] = value;end;
+
+    xmlTag = ("ProductionInfoHudSettings.display.showBooster(%d)"):format(0); 
+    value = getXMLBool(XML, xmlTag.. "#bool");
+    if value ~= nil then ProductionInfoHud.settings["display"]["showBooster"] = value;end;
 end
 
 -- local rX, rY, rZ = getRotation(place.node);

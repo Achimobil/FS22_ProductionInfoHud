@@ -43,6 +43,8 @@ function ProductionInfoHudSettings.initGuiElements(self)
         ProductionInfoHudSettings:AddMultiElement(self, target, "maxLines", possibleMaxLines, "pih_MaxLinesElement_title", "pih_tooltip_maxLines", ProductionInfoHud.settings["display"]["maxLines"]);
         
         ProductionInfoHudSettings:AddCheckElement(self, target, "showFullAnimals", "pih_showFullAnimals_title", "pih_tooltip_showFullAnimals", ProductionInfoHud.settings["display"]["showFullAnimals"]);
+        
+        ProductionInfoHudSettings:AddCheckElement(self, target, "showBooster", "pih_showBooster_title", "pih_showBooster_tooltip", ProductionInfoHud.settings["display"]["showBooster"]);
 
 
         -- Die Verkaufspreisauslöser Einstellungen

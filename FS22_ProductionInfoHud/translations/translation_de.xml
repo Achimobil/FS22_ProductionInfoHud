@@ -31,6 +31,8 @@
 		<text name="pih_tooltip_showFullAnimals" text="Anzeige voller Tierställe in der Liste" />
 		<text name="pih_MaxLinesElement_title" text="Sichtbare Zeilen" />
 		<text name="pih_tooltip_maxLines" text="Maximale Zeilen an Produktionen. Bei mehr kommt noch eine Infozeile hinzu." />
+		<text name="pih_showBooster_title" text="Booster anzeigen" />
+		<text name="pih_showBooster_tooltip" text="Sollen Revamp Booster angezeigt werden" />
         
 		<text name="pih_price_settings_title" text="Production Info Hud - Preisanzeige" />
 		<text name="pih_MaxSellingLinesElement_title" text="Sichtbare Zeilen" />
