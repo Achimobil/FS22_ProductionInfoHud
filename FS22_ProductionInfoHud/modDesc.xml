@@ -216,7 +216,6 @@ It still showns the left ingame days, but now it shows what get empty in 2 month
     </inputBinding>
     <actions>
         <action name="TOGGLE_GUI"/>
-        <action name="OPEN_GUI"/>
     </actions>
     <l10n filenamePrefix="translations/translation"/>
 </modDesc>
