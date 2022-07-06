@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<l10n>
+	<translationContributors>nagor</translationContributors>
+    <texts>
+		<text name="input_TOGGLE_GUI" text="PIH: Переключить отображение" />
+		<text name="Empty" text="Всё использовано" />
+		<text name="Full" text="Склад заполнен" />
+		<text name="AllProductsOperativ" text="Все ресурсы доставлены" />
+        
+		<text name="pih_Zeilen" text="Строк(и)" />
+		<text name="MoreAvailable" text="ещё" />
+		<text name="NothingToSell" text="Нечего продавать" />
+        
+		<text name="pih_ingameMenuProductionInfo" text="Объёмы производства в месяц (только активные производственные линии)" />
+		<text name="pih_ingameMenuProductionInfoHour" text="Объемы производства в час (только активные производственные линии)" />
+		<text name="pih_header_sellPerMonth" text="Продано" />
+		<text name="pih_header_keepPerMonth" text="На складе" />
+		<text name="pih_header_distributePerMonth" text="Сдано" />
+		<text name="pih_header_usagePerMonth" text="Использовано" />
+		<text name="ui_listHeader_1" text="Оборот" />
+		<text name="ui_listHeader_2" text="Производство остановлено" />
+		<text name="ui_listHeader_3" text="Ресурсы не требуются" />
+		<text name="pih_changeTimeToHour" text="В час" />
+		<text name="pih_changeTimeToMonth" text="В месяц" />
+        
+        <!-- In neuen Einstellungen benutzt-->
+		<text name="pih_settings_title" text="Production Info Hud - Производства" />
+		<text name="pihPositionElement_title" text="Позиция" />
+		<text name="pih_tooltip_position" text="Выбор расположения инфодисплея" />
+		<text name="pih_possiblePosition_1" text="Вверху по центру" />
+		<text name="pih_possiblePosition_2" text="Под меню справки (F1)" />
+		<text name="pih_possiblePosition_3" text="Под Vehicle Inspector" />
+		<text name="pih_showFullAnimals_title" text="Поголовье в загонах для животных" />
+		<text name="pih_tooltip_showFullAnimals" text="В инфодисплее показывать количество животных в загонах." />
+		<text name="pih_MaxLinesElement_title" text="Количество строк" />
+		<text name="pih_tooltip_maxLines" text="Максимум строк о производствах. Если их больше, добавляется информационная строка." />
+		<text name="pih_showBooster_title" text="Показывать Booster" />
+		<text name="pih_showBooster_tooltip" text="Должны ли отображаться Booster из Revamp" />
+        
+		<text name="pih_price_settings_title" text="Production Info Hud - Цены" />
+		<text name="pih_MaxSellingLinesElement_title" text="Количество строк" />
+		<text name="pih_tooltip_maxSellingLines" text="Максимум строк о продажах. Если их больше, добавляется информационная строка." />
+		<text name="pih_MinSellAmountElement_title" text="Минимальный объём для продажи" />
+		<text name="pih_tooltip_minSellAmount" text="Такой, минимальный, объём должен быть на складе для отображения." />
+	</texts>
+</l10n>
