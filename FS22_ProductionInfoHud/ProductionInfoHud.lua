@@ -317,10 +317,15 @@ function ProductionInfoHud:refreshProductionsTable()
                     productionItem.fillLevel = fillLevel
                     productionItem.capacity = productionPoint.storage.capacities[fillTypeId]
                     productionItem.isInput = false;
+                    productionItem.isOutput = false;
                     
                     -- prüfen ob input type
                     if productionPoint.inputFillTypeIds[fillTypeId] ~= nil then
                         productionItem.isInput = productionPoint.inputFillTypeIds[fillTypeId];
+                    end
+                    -- prüfen ob input type
+                    if productionPoint.outputFillTypeIds[fillTypeId] ~= nil then
+                        productionItem.isOutput = productionPoint.outputFillTypeIds[fillTypeId];
                     end
                     
                     if productionItem.capacity == 0 then 
@@ -360,7 +365,7 @@ function ProductionInfoHud:refreshProductionsTable()
                     end
                     
                     -- Ausgangslager voll, dann speziell eintragen
-                    if (productionItem.needPerHour == 0 and productionItem.capacityLevel >= 0.99 and not productionItem.isInput) then 
+                    if (productionItem.capacityLevel >= 0.99 and productionItem.isOutput) then 
                         productionItem.hoursLeft = -1;
                         table.insert(myProductions, productionItem)
                     end
