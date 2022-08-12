@@ -470,6 +470,54 @@ function ProductionInfoHud:refreshProductionsTable()
                 if (productionItem.needPerHour > 0 and productionItem.capacityLevel <= 0.5 and productionItem.hoursLeft <= (48 * g_currentMission.environment.daysPerPeriod)) then 
                     table.insert(myProductions, productionItem)
                 end
+                
+                -- Fütterungsroboter vorhanden, dann anders die werte berechnen
+                if placeable.spec_husbandryFeedingRobot ~= nil then
+                    local feedingRobot = placeable.spec_husbandryFeedingRobot.feedingRobot;
+                    local recipe = feedingRobot.robot.recipe;
+                    
+-- print("feedingRobot")
+-- DebugUtil.printTableRecursively(feedingRobot,"_",0,2)
+                    
+                    -- Jede zutat der Rezeptes durchlaufen und dann ausrechnen wie lange das hält
+                    for _, ingredient in pairs(recipe.ingredients) do
+                    
+-- print("ingredient")
+-- DebugUtil.printTableRecursively(ingredient,"_",0,2)
+                        local fillLevel = 0
+
+                        for _, fillType in ipairs(ingredient.fillTypes) do
+                            fillLevel = fillLevel + feedingRobot:getFillLevel(fillType)
+                        end
+                        
+                        local producableWithThisIngredient = fillLevel / ingredient.ratio;
+                        local hoursLeft = producableWithThisIngredient / placeable.spec_husbandryFood.litersPerHour
+                        local spot = feedingRobot.fillTypeToUnloadingSpot[ingredient.fillTypes[1]]
+
+                        local productionItem = {}
+                        productionItem.name = placeable:getName();
+                        productionItem.needPerHour = 0;
+                        productionItem.hoursLeft = hoursLeft
+                        productionItem.fillLevel = fillLevel;
+                        productionItem.capacity = spot.capacity;
+                        productionItem.isInput = true;
+                        
+                        if productionItem.capacity == 0 then 
+                            productionItem.capacityLevel = 0
+                        elseif productionItem.capacity == nil then
+                            productionItem.capacityLevel = 0
+                        else
+                            productionItem.capacityLevel = productionItem.fillLevel / productionItem.capacity;
+                        end
+                        
+                        productionItem.fillTypeTitle = ingredient.title .. " (Robot)";
+                                            
+                        if (productionItem.capacityLevel <= 0.5 and productionItem.hoursLeft <= (48 * g_currentMission.environment.daysPerPeriod)) then 
+                            table.insert(myProductions, productionItem)
+                        end
+                    end
+                    
+                end
 				
 				-- Anpassungen Rodberaht Anfang
 				
@@ -1084,3 +1132,26 @@ end
 -- DebugUtil.printTableRecursively(loadingPattern,"_",0,2)
 
 addModEventListener(ProductionInfoHud);
+
+
+-- function ProductionInfoHud:removeFillLevel(superFunc, deltaFillLevel, fillTypeIndex)
+-- print("ProductionInfoHud:removeFillLevel deltaFillLevel:" .. tostring(deltaFillLevel) .. " - " .. tostring(fillTypeIndex))
+	-- local spot = self.fillTypeToUnloadingSpot[fillTypeIndex]
+	-- local absDelta = math.abs(deltaFillLevel)
+
+	-- if spot ~= nil then
+		-- absDelta = math.min(absDelta, spot.fillLevel)
+		-- spot.fillLevel = spot.fillLevel - absDelta
+
+		-- if self.isServer then
+			-- self:raiseDirtyFlags(self.dirtyFlagFillLevel)
+		-- end
+
+		-- self:updateUnloadingSpot(spot)
+	-- end
+
+-- print("ProductionInfoHud:removeFillLevel absDelta: " .. tostring(absDelta) .. " - " .. tostring(fillTypeIndex))
+	-- return absDelta
+-- end
+
+-- FeedingRobot.removeFillLevel = Utils.overwrittenFunction(FeedingRobot.removeFillLevel, ProductionInfoHud.removeFillLevel)
