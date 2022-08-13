@@ -741,15 +741,24 @@ function ProductionInfoHud:refreshSellPriceData()
         if usedStorages[storage] == nil and storage:getOwnerFarmId() == farmId then
             usedStorages[storage] = true;
         
+            local currentUnloadingStation = nil;
             for j, unloadingStation in pairs (storage.unloadingStations) do
                 if storageName ~= "" then 
                     storageName = storageName .. "-" 
                 end
                 storageName = storageName .. unloadingStation:getName();
+                currentUnloadingStation = unloadingStation;
             end
         
             for fillType, fillLevel in pairs(storage.fillLevels) do
-                if prices[fillType] ~= nil then
+                
+                -- bestimmte sachen überspringen
+                local skipThis = false;
+                if currentUnloadingStation ~= nil and currentUnloadingStation.owningPlaceable.spec_husbandryStraw ~= nil and fillType == FillType.STRAW then
+                    skipThis = true;
+                end
+            
+                if prices[fillType] ~= nil and not skipThis then
                     if prices[fillType].storages[storageName] ~= nil then
                         prices[fillType].storages[storageName].fillLevel=prices[fillType].storages[storageName].fillLevel + fillLevel;
                     else
