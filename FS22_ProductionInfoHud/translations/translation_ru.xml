@@ -42,5 +42,7 @@
 		<text name="pih_tooltip_maxSellingLines" text="Максимум строк о продажах. Если их больше, добавляется информационная строка." />
 		<text name="pih_MinSellAmountElement_title" text="Минимальный объём для продажи" />
 		<text name="pih_tooltip_minSellAmount" text="Такой, минимальный, объём должен быть на складе для отображения." />
+		<text name="pih_textSize_title" text="Размер шрифта" />
+		<text name="pih_textSize_tooltip" text="Размер шрифта." />
 	</texts>
 </l10n>

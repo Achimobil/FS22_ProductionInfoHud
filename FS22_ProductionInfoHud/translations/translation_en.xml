@@ -39,6 +39,8 @@
 		<text name="pih_MaxSellingLinesElement_title" text="Visible lines" />
 		<text name="pih_tooltip_maxSellingLines" text="Maximum lines of outlets. If there are more, an info line is added." />
 		<text name="pih_MinSellAmountElement_title" text="Minimum sales amount" />
-		<text name="pih_tooltip_minSellAmount" text="This amount must be at least in stock to be displayed." />                                         
+		<text name="pih_tooltip_minSellAmount" text="This amount must be at least in stock to be displayed." />    
+		<text name="pih_textSize_title" text="Font size" />
+		<text name="pih_textSize_tooltip" text="The size of the font." />                                     
 	</texts>
 </l10n>

@@ -40,5 +40,7 @@
 		<text name="pih_tooltip_maxSellingLines" text="Numero massimo di linee di uscita. Se di più, viene aggiunta una linea informativa." />
 		<text name="pih_MinSellAmountElement_title" text="Quantità minima di vendita" />
 		<text name="pih_tooltip_minSellAmount" text="Questa quantità deve essere almeno in stock per essere visualizzata." />
+		<text name="pih_textSize_title" text="Dimensione del carattere" />
+		<text name="pih_textSize_tooltip" text="La dimensione del carattere" />
 	</texts>
 </l10n>

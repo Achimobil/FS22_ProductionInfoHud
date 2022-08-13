@@ -40,5 +40,7 @@
 		<text name="pih_tooltip_maxSellingLines" text="Maksymalna liczba linii wylotowych. Jeśli jest ich więcej, dodawany jest wiersz informacyjny." />
 		<text name="pih_MinSellAmountElement_title" text="Minimalna ilość sprzedaży" />
 		<text name="pih_tooltip_minSellAmount" text="Aby ta ilość mogła być wyświetlana, musi być co najmniej na stanie magazynowym." />
+		<text name="pih_textSize_title" text="Rozmiar czcionki" />
+		<text name="pih_textSize_tooltip" text="Wielkość czcionki." />
 	</texts>
 </l10n>

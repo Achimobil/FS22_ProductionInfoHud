@@ -45,6 +45,12 @@ function ProductionInfoHudSettings.initGuiElements(self)
         ProductionInfoHudSettings:AddCheckElement(self, target, "showFullAnimals", "pih_showFullAnimals_title", "pih_tooltip_showFullAnimals", ProductionInfoHud.settings["display"]["showFullAnimals"]);
         
         ProductionInfoHudSettings:AddCheckElement(self, target, "showBooster", "pih_showBooster_title", "pih_showBooster_tooltip", ProductionInfoHud.settings["display"]["showBooster"]);
+        
+        local possibleTextSizes = {};
+        for id, position in pairs(ProductionInfoHud.PossibleTextSizes) do
+            table.insert(possibleTextSizes, position);
+        end
+        ProductionInfoHudSettings:AddMultiElement(self, target, "textSize", possibleTextSizes, "pih_textSize_title", "pih_textSize_tooltip", ProductionInfoHud.settings["display"]["textSize"]);
 
 
         -- Die Verkaufspreisauslöser Einstellungen

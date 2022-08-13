@@ -23,6 +23,7 @@ ProductionInfoHud.colors.YELLOW =   {0.980, 0.420, 0.000, 1}
 ProductionInfoHud.PossiblePositions = {"TopCenter", "BelowHelp", "BelowVehicleInspector"}
 ProductionInfoHud.PossibleMaxLines = {"2", "3", "4", "5", "6", "7", "8", "9", "10"}
 ProductionInfoHud.PossibleAmounts = {"5000", "10000", "50000", "100000", "200000", "250000"}
+ProductionInfoHud.PossibleTextSizes = {"8", "9", "10", "11", "12", "13", "14", "15"}
 
 function ProductionInfoHud:init()
     ProductionInfoHud.isClient = g_currentMission:getIsClient();
@@ -43,6 +44,7 @@ function ProductionInfoHud:init()
     ProductionInfoHud.settings["display"]["maxSellingLines"] = 5;
     ProductionInfoHud.settings["display"]["minSellAmount"] = 1;
     ProductionInfoHud.settings["display"]["showBooster"] = true;
+    ProductionInfoHud.settings["display"]["textSize"] = 5;
     
     ProductionInfoHud:LoadSettings();
        
@@ -849,7 +851,7 @@ function ProductionInfoHud:draw()
     local productionOutputTable = {}
     local inputHelpDisplay = g_currentMission.hud.inputHelp;
     local posX, posY = inputHelpDisplay.getBackgroundPosition()
-    local textSize = 12/1000;
+    local textSize = tonumber(ProductionInfoHud.PossibleTextSizes[ProductionInfoHud.settings["display"]["textSize"]])/1000;
     local totalTextHeigh = 0;
     local maxTextWidth = 0;
     local spaceY = 0.01;
@@ -1116,6 +1118,9 @@ function ProductionInfoHud:SaveSettings()
     local xmlTag = ("ProductionInfoHudSettings.display.showBooster(%d)"):format(0);
     setXMLBool(XML, xmlTag.."#bool", ProductionInfoHud.settings["display"]["showBooster"])
 
+    local xmlTag = ("ProductionInfoHudSettings.display.textSize(%d)"):format(0);
+    setXMLInt(XML, xmlTag.."#int", ProductionInfoHud.settings["display"]["textSize"])
+
     saveXMLFile(XML)
 end
 
@@ -1160,6 +1165,10 @@ function ProductionInfoHud:LoadSettings()
     xmlTag = ("ProductionInfoHudSettings.display.showBooster(%d)"):format(0); 
     value = getXMLBool(XML, xmlTag.. "#bool");
     if value ~= nil then ProductionInfoHud.settings["display"]["showBooster"] = value;end;
+
+    xmlTag = ("ProductionInfoHudSettings.display.textSize(%d)"):format(0); 
+    value = getXMLInt(XML, xmlTag.. "#int");
+    if value ~= nil then ProductionInfoHud.settings["display"]["textSize"] = value;end;
 end
 
 -- local rX, rY, rZ = getRotation(place.node);
@@ -1169,26 +1178,3 @@ end
 -- DebugUtil.printTableRecursively(loadingPattern,"_",0,2)
 
 addModEventListener(ProductionInfoHud);
-
-
--- function ProductionInfoHud:removeFillLevel(superFunc, deltaFillLevel, fillTypeIndex)
--- print("ProductionInfoHud:removeFillLevel deltaFillLevel:" .. tostring(deltaFillLevel) .. " - " .. tostring(fillTypeIndex))
-    -- local spot = self.fillTypeToUnloadingSpot[fillTypeIndex]
-    -- local absDelta = math.abs(deltaFillLevel)
-
-    -- if spot ~= nil then
-        -- absDelta = math.min(absDelta, spot.fillLevel)
-        -- spot.fillLevel = spot.fillLevel - absDelta
-
-        -- if self.isServer then
-            -- self:raiseDirtyFlags(self.dirtyFlagFillLevel)
-        -- end
-
-        -- self:updateUnloadingSpot(spot)
-    -- end
-
--- print("ProductionInfoHud:removeFillLevel absDelta: " .. tostring(absDelta) .. " - " .. tostring(fillTypeIndex))
-    -- return absDelta
--- end
-
--- FeedingRobot.removeFillLevel = Utils.overwrittenFunction(FeedingRobot.removeFillLevel, ProductionInfoHud.removeFillLevel)
