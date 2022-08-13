@@ -75,69 +75,69 @@ function ProductionInfoHud:init()
     local productionFrame = InGameMenuProductionInfo.new(ProductionInfoHud, ProductionInfoHud.i18n, ProductionInfoHud.messageCenter)
     g_gui:loadGui(ProductionInfoHud.modDir .. "Gui/InGameMenuProductionInfo.xml", "InGameMenuProductionInfo", productionFrame, true)
     
-	ProductionInfoHud.fixInGameMenu(productionFrame,"InGameMenuProductionInfo", {0,0,1024,1024}, 13, ProductionInfoHud:makeIsProductionInfoEnabledPredicate())
-    productionFrame:initialize()	
+    ProductionInfoHud.fixInGameMenu(productionFrame,"InGameMenuProductionInfo", {0,0,1024,1024}, 13, ProductionInfoHud:makeIsProductionInfoEnabledPredicate())
+    productionFrame:initialize()    
     
 end
 
 function ProductionInfoHud:makeIsProductionInfoEnabledPredicate()
-	return function () return true end
+    return function () return true end
 end
 
 -- from Courseplay
 function ProductionInfoHud.fixInGameMenu(frame,pageName,uvs,position,predicateFunc)
-	local inGameMenu = g_gui.screenControllers[InGameMenu]
+    local inGameMenu = g_gui.screenControllers[InGameMenu]
 
-	-- remove all to avoid warnings
-	for k, v in pairs({pageName}) do
-		inGameMenu.controlIDs[v] = nil
-	end
+    -- remove all to avoid warnings
+    for k, v in pairs({pageName}) do
+        inGameMenu.controlIDs[v] = nil
+    end
 
-	inGameMenu:registerControls({pageName})
+    inGameMenu:registerControls({pageName})
 
-	
-	inGameMenu[pageName] = frame
-	inGameMenu.pagingElement:addElement(inGameMenu[pageName])
+    
+    inGameMenu[pageName] = frame
+    inGameMenu.pagingElement:addElement(inGameMenu[pageName])
 
-	inGameMenu:exposeControlsAsFields(pageName)
+    inGameMenu:exposeControlsAsFields(pageName)
 
-	for i = 1, #inGameMenu.pagingElement.elements do
-		local child = inGameMenu.pagingElement.elements[i]
-		if child == inGameMenu[pageName] then
-			table.remove(inGameMenu.pagingElement.elements, i)
-			table.insert(inGameMenu.pagingElement.elements, position, child)
-			break
-		end
-	end
+    for i = 1, #inGameMenu.pagingElement.elements do
+        local child = inGameMenu.pagingElement.elements[i]
+        if child == inGameMenu[pageName] then
+            table.remove(inGameMenu.pagingElement.elements, i)
+            table.insert(inGameMenu.pagingElement.elements, position, child)
+            break
+        end
+    end
 
-	for i = 1, #inGameMenu.pagingElement.pages do
-		local child = inGameMenu.pagingElement.pages[i]
-		if child.element == inGameMenu[pageName] then
-			table.remove(inGameMenu.pagingElement.pages, i)
-			table.insert(inGameMenu.pagingElement.pages, position, child)
-			break
-		end
-	end
+    for i = 1, #inGameMenu.pagingElement.pages do
+        local child = inGameMenu.pagingElement.pages[i]
+        if child.element == inGameMenu[pageName] then
+            table.remove(inGameMenu.pagingElement.pages, i)
+            table.insert(inGameMenu.pagingElement.pages, position, child)
+            break
+        end
+    end
 
-	inGameMenu.pagingElement:updateAbsolutePosition()
-	inGameMenu.pagingElement:updatePageMapping()
-	
-	inGameMenu:registerPage(inGameMenu[pageName], position, predicateFunc)
-	local iconFileName = Utils.getFilename('menuIcon.dds', ProductionInfoHud.modDir)
-	inGameMenu:addPageTab(inGameMenu[pageName],iconFileName, GuiUtils.getUVs(uvs))
-	inGameMenu[pageName]:applyScreenAlignment()
-	inGameMenu[pageName]:updateAbsolutePosition()
+    inGameMenu.pagingElement:updateAbsolutePosition()
+    inGameMenu.pagingElement:updatePageMapping()
+    
+    inGameMenu:registerPage(inGameMenu[pageName], position, predicateFunc)
+    local iconFileName = Utils.getFilename('menuIcon.dds', ProductionInfoHud.modDir)
+    inGameMenu:addPageTab(inGameMenu[pageName],iconFileName, GuiUtils.getUVs(uvs))
+    inGameMenu[pageName]:applyScreenAlignment()
+    inGameMenu[pageName]:updateAbsolutePosition()
 
-	for i = 1, #inGameMenu.pageFrames do
-		local child = inGameMenu.pageFrames[i]
-		if child == inGameMenu[pageName] then
-			table.remove(inGameMenu.pageFrames, i)
-			table.insert(inGameMenu.pageFrames, position, child)
-			break
-		end
-	end
+    for i = 1, #inGameMenu.pageFrames do
+        local child = inGameMenu.pageFrames[i]
+        if child == inGameMenu[pageName] then
+            table.remove(inGameMenu.pageFrames, i)
+            table.insert(inGameMenu.pageFrames, position, child)
+            break
+        end
+    end
 
-	inGameMenu:rebuildTabList()
+    inGameMenu:rebuildTabList()
 end
 
 function ProductionInfoHud:registerActionEvents()
@@ -189,13 +189,13 @@ function ProductionInfoHud:update(dt)
     if ProductionInfoHud.timePast >= 5000 then
         ProductionInfoHud.timePast = 0;
 
-		if ProductionInfoHud.settings["display"]["showType"] == "ALL" or string.find(ProductionInfoHud.settings["display"]["showType"], "PRODUCTION") then 
-			ProductionInfoHud:refreshProductionsTable();
-		end
-		
-		if ProductionInfoHud.sellPriceTriggerAvailable and (ProductionInfoHud.settings["display"]["showType"] == "ALL" or string.find(ProductionInfoHud.settings["display"]["showType"], "SELLPRICE")) then
-			ProductionInfoHud:refreshSellPriceData();
-		end
+        if ProductionInfoHud.settings["display"]["showType"] == "ALL" or string.find(ProductionInfoHud.settings["display"]["showType"], "PRODUCTION") then 
+            ProductionInfoHud:refreshProductionsTable();
+        end
+        
+        if ProductionInfoHud.sellPriceTriggerAvailable and (ProductionInfoHud.settings["display"]["showType"] == "ALL" or string.find(ProductionInfoHud.settings["display"]["showType"], "SELLPRICE")) then
+            ProductionInfoHud:refreshSellPriceData();
+        end
     end
     
     if not ProductionInfoHud.firstRun then    
@@ -275,7 +275,7 @@ function ProductionInfoHud:createProductionNeedingTable(mode)
     
     -- in sortierbare Liste eintragen
     local fillTypeResultTable = {};
-	for fillTypeId, fillTypeItem in pairs (myFillTypes) do
+    for fillTypeId, fillTypeItem in pairs (myFillTypes) do
         if fillTypeItem.usagePerMonth ~= 0 or fillTypeItem.producedPerMonth ~= 0 then
             table.insert(fillTypeResultTable, fillTypeItem)
         end
@@ -518,129 +518,99 @@ function ProductionInfoHud:refreshProductionsTable()
                     end
                     
                 end
-				
-				-- Anpassungen Rodberaht Anfang
-				
-				-- Wasser
-				if placeable.spec_husbandryWater ~= nil then
-					if not placeable.spec_husbandryWater.automaticWaterSupply then
-						local productionItem = {}
-						productionItem.name = placeable:getName();
-						-- productionItem.fillTypeId = fillTypeId
-						productionItem.needPerHour = placeable.spec_husbandryWater.litersPerHour;
-						productionItem.hoursLeft = 0
-						productionItem.fillLevel = placeable.spec_husbandryWater:getHusbandryFillLevel(FillType.WATER)
-						productionItem.capacity = placeable.spec_husbandryWater:getHusbandryCapacity(FillType.WATER)
-						productionItem.isInput = true;
+                
+                -- Anpassungen Rodberaht Anfang
+                
+                -- Wasser
+                if placeable.spec_husbandryWater ~= nil then
+                    if not placeable.spec_husbandryWater.automaticWaterSupply then
+                        local productionItem = {}
+                        productionItem.name = placeable:getName();
+                        -- productionItem.fillTypeId = fillTypeId
+                        productionItem.needPerHour = placeable.spec_husbandryWater.litersPerHour;
+                        productionItem.hoursLeft = 0
+                        productionItem.fillLevel = placeable.spec_husbandryWater:getHusbandryFillLevel(FillType.WATER)
+                        productionItem.capacity = placeable.spec_husbandryWater:getHusbandryCapacity(FillType.WATER)
+                        productionItem.isInput = true;
 
-						--print(productionItem.name .. " (Wasser) needPerHour: " .. productionItem.needPerHour .. " fillLevel: " .. productionItem.fillLevel .. " capacity: " .. productionItem.capacity)
-						
-						if productionItem.capacity == 0 then 
-							productionItem.capacityLevel = 0
-						elseif productionItem.capacity == nil then
-							productionItem.capacityLevel = 0
-							print("Error: No storage for '" .. g_currentMission.fillTypeManager.fillTypes[fillTypeId].name .. "' in productionPoint but defined to used. Has to be fixed in '" .. productionPoint.owningPlaceable.customEnvironment .."'.")
-						else
-							productionItem.capacityLevel = productionItem.fillLevel / productionItem.capacity;
-						end
-						productionItem.fillTypeTitle = placeable.spec_husbandryWater.info.title;
+                        --print(productionItem.name .. " (Wasser) needPerHour: " .. productionItem.needPerHour .. " fillLevel: " .. productionItem.fillLevel .. " capacity: " .. productionItem.capacity)
+                        
+                        if productionItem.capacity == 0 then 
+                            productionItem.capacityLevel = 0
+                        elseif productionItem.capacity == nil then
+                            productionItem.capacityLevel = 0
+                            print("Error: No storage for '" .. g_currentMission.fillTypeManager.fillTypes[fillTypeId].name .. "' in productionPoint but defined to used. Has to be fixed in '" .. productionPoint.owningPlaceable.customEnvironment .."'.")
+                        else
+                            productionItem.capacityLevel = productionItem.fillLevel / productionItem.capacity;
+                        end
+                        productionItem.fillTypeTitle = placeable.spec_husbandryWater.info.title;
 
-						if (productionItem.fillLevel ~= 0) and (productionItem.needPerHour ~= 0) then
-							-- hier die anzahl der Tage pro Monat berücksichtigen
-							productionItem.hoursLeft = productionItem.fillLevel / productionItem.needPerHour * g_currentMission.environment.daysPerPeriod;
-						end
-							
-						if (productionItem.needPerHour > 0 and productionItem.capacityLevel <= 0.5 and productionItem.hoursLeft <= (48 * g_currentMission.environment.daysPerPeriod)) then 
-							table.insert(myProductions, productionItem)
-						end
-					end
-				end
-				                
-				-- Stroh
-				if placeable.spec_husbandryStraw ~= nil then
-					local productionItem = {}
-					productionItem.name = placeable:getName();
-					-- productionItem.fillTypeId = fillTypeId
-					productionItem.needPerHour = placeable.spec_husbandryStraw.inputLitersPerHour;
-					productionItem.hoursLeft = 0
-					productionItem.fillLevel = placeable.spec_husbandryStraw:getHusbandryFillLevel(FillType.STRAW)
-					productionItem.capacity = placeable.spec_husbandryStraw:getHusbandryCapacity(FillType.STRAW)
-					productionItem.isInput = true;
-					
-					--print(productionItem.name .. " (Stroh) needPerHour: " .. productionItem.needPerHour .. " fillLevel: " .. productionItem.fillLevel .. " capacity: " .. productionItem.capacity)
-					
-					if productionItem.capacity == 0 then 
-						productionItem.capacityLevel = 0
-					elseif productionItem.capacity == nil then
-						productionItem.capacityLevel = 0
-						print("Error: No storage for '" .. g_currentMission.fillTypeManager.fillTypes[fillTypeId].name .. "' in productionPoint but defined to used. Has to be fixed in '" .. productionPoint.owningPlaceable.customEnvironment .."'.")
-					else
-						productionItem.capacityLevel = productionItem.fillLevel / productionItem.capacity;
-					end
-					productionItem.fillTypeTitle = placeable.spec_husbandryStraw.info.title;
+                        if (productionItem.fillLevel ~= 0) and (productionItem.needPerHour ~= 0) then
+                            -- hier die anzahl der Tage pro Monat berücksichtigen
+                            productionItem.hoursLeft = productionItem.fillLevel / productionItem.needPerHour * g_currentMission.environment.daysPerPeriod;
+                        end
+                            
+                        if (productionItem.needPerHour > 0 and productionItem.capacityLevel <= 0.5 and productionItem.hoursLeft <= (48 * g_currentMission.environment.daysPerPeriod)) then 
+                            table.insert(myProductions, productionItem)
+                        end
+                    end
+                end
+                                
+                -- Stroh
+                if placeable.spec_husbandryStraw ~= nil then
+                    local productionItem = {}
+                    productionItem.name = placeable:getName();
+                    -- productionItem.fillTypeId = fillTypeId
+                    productionItem.needPerHour = placeable.spec_husbandryStraw.inputLitersPerHour;
+                    productionItem.hoursLeft = 0
+                    productionItem.fillLevel = placeable.spec_husbandryStraw:getHusbandryFillLevel(FillType.STRAW)
+                    productionItem.capacity = placeable.spec_husbandryStraw:getHusbandryCapacity(FillType.STRAW)
+                    productionItem.isInput = true;
+                    
+                    --print(productionItem.name .. " (Stroh) needPerHour: " .. productionItem.needPerHour .. " fillLevel: " .. productionItem.fillLevel .. " capacity: " .. productionItem.capacity)
+                    
+                    if productionItem.capacity == 0 then 
+                        productionItem.capacityLevel = 0
+                    elseif productionItem.capacity == nil then
+                        productionItem.capacityLevel = 0
+                        print("Error: No storage for '" .. g_currentMission.fillTypeManager.fillTypes[fillTypeId].name .. "' in productionPoint but defined to used. Has to be fixed in '" .. productionPoint.owningPlaceable.customEnvironment .."'.")
+                    else
+                        productionItem.capacityLevel = productionItem.fillLevel / productionItem.capacity;
+                    end
+                    productionItem.fillTypeTitle = placeable.spec_husbandryStraw.info.title;
 
-					if (productionItem.fillLevel ~= 0) and (productionItem.needPerHour ~= 0) then
-						-- hier die anzahl der Tage pro Monat berücksichtigen
-						productionItem.hoursLeft = productionItem.fillLevel / productionItem.needPerHour * g_currentMission.environment.daysPerPeriod;
-					end
-						
-					if (productionItem.needPerHour > 0 and productionItem.capacityLevel <= 0.5 and productionItem.hoursLeft <= (48 * g_currentMission.environment.daysPerPeriod)) then 
-						table.insert(myProductions, productionItem)
-					end
-				end
-
-				-- Milch
-				if placeable.spec_husbandryMilk ~= nil then
-					local productionItem = {}
-					productionItem.name = placeable:getName();
-					-- productionItem.fillTypeId = fillTypeId
-					productionItem.needPerHour = 0;
-					productionItem.hoursLeft = 0
-					productionItem.fillLevel = placeable.spec_husbandryMilk:getHusbandryFillLevel(FillType.MILK)
-					productionItem.capacity = placeable.spec_husbandryMilk:getHusbandryCapacity(FillType.MILK)
-					productionItem.isInput = false;
-					
-					--print(productionItem.name .. " (Milch) needPerHour: " .. productionItem.needPerHour .. " fillLevel: " .. productionItem.fillLevel .. " capacity: " .. productionItem.capacity)
-					
-					if productionItem.capacity == 0 then 
-						productionItem.capacityLevel = 0
-					elseif productionItem.capacity == nil then
-						productionItem.capacityLevel = 0
-						print("Error: No storage for '" .. g_currentMission.fillTypeManager.fillTypes[fillTypeId].name .. "' in productionPoint but defined to used. Has to be fixed in '" .. productionPoint.owningPlaceable.customEnvironment .."'.")
-					else
-						productionItem.capacityLevel = productionItem.fillLevel / productionItem.capacity;
-					end
-					productionItem.fillTypeTitle = placeable.spec_husbandryMilk.info.title;
-
-                    -- Ausgangslager voll, dann speziell eintragen
-                    if (productionItem.capacityLevel >= 0.95 and not productionItem.isInput) then 
-                        productionItem.hoursLeft = -1;
+                    if (productionItem.fillLevel ~= 0) and (productionItem.needPerHour ~= 0) then
+                        -- hier die anzahl der Tage pro Monat berücksichtigen
+                        productionItem.hoursLeft = productionItem.fillLevel / productionItem.needPerHour * g_currentMission.environment.daysPerPeriod;
+                    end
+                        
+                    if (productionItem.needPerHour > 0 and productionItem.capacityLevel <= 0.5 and productionItem.hoursLeft <= (48 * g_currentMission.environment.daysPerPeriod)) then 
                         table.insert(myProductions, productionItem)
                     end
-				end
-				-- Anpassungen Rodberaht Ende
+                end
 
-                if placeable.spec_husbandryLiquidManure ~= nil then
-					local productionItem = {}
-					productionItem.name = placeable:getName();
-					-- productionItem.fillTypeId = fillTypeId
-					productionItem.needPerHour = 0;
-					productionItem.hoursLeft = 0
-					productionItem.fillLevel = placeable.spec_husbandryLiquidManure:getHusbandryFillLevel(FillType.LIQUIDMANURE)
-					productionItem.capacity = placeable.spec_husbandryLiquidManure:getHusbandryCapacity(FillType.LIQUIDMANURE)
-					productionItem.isInput = false;
-					
-					--print(productionItem.name .. " (Milch) needPerHour: " .. productionItem.needPerHour .. " fillLevel: " .. productionItem.fillLevel .. " capacity: " .. productionItem.capacity)
-					
-					if productionItem.capacity == 0 then 
-						productionItem.capacityLevel = 0
-					elseif productionItem.capacity == nil then
-						productionItem.capacityLevel = 0
-						print("Error: No storage for '" .. g_currentMission.fillTypeManager.fillTypes[fillTypeId].name .. "' in productionPoint but defined to used. Has to be fixed in '" .. productionPoint.owningPlaceable.customEnvironment .."'.")
-					else
-						productionItem.capacityLevel = productionItem.fillLevel / productionItem.capacity;
-					end
-					productionItem.fillTypeTitle = placeable.spec_husbandryLiquidManure.info.title;
+                -- Milch
+                if placeable.spec_husbandryMilk ~= nil then
+                    local productionItem = {}
+                    productionItem.name = placeable:getName();
+                    -- productionItem.fillTypeId = fillTypeId
+                    productionItem.needPerHour = 0;
+                    productionItem.hoursLeft = 0
+                    productionItem.fillLevel = placeable.spec_husbandryMilk:getHusbandryFillLevel(FillType.MILK)
+                    productionItem.capacity = placeable.spec_husbandryMilk:getHusbandryCapacity(FillType.MILK)
+                    productionItem.isInput = false;
+                    
+                    --print(productionItem.name .. " (Milch) needPerHour: " .. productionItem.needPerHour .. " fillLevel: " .. productionItem.fillLevel .. " capacity: " .. productionItem.capacity)
+                    
+                    if productionItem.capacity == 0 then 
+                        productionItem.capacityLevel = 0
+                    elseif productionItem.capacity == nil then
+                        productionItem.capacityLevel = 0
+                        print("Error: No storage for '" .. g_currentMission.fillTypeManager.fillTypes[fillTypeId].name .. "' in productionPoint but defined to used. Has to be fixed in '" .. productionPoint.owningPlaceable.customEnvironment .."'.")
+                    else
+                        productionItem.capacityLevel = productionItem.fillLevel / productionItem.capacity;
+                    end
+                    productionItem.fillTypeTitle = placeable.spec_husbandryMilk.info.title;
 
                     -- Ausgangslager voll, dann speziell eintragen
                     if (productionItem.capacityLevel >= 0.95 and not productionItem.isInput) then 
@@ -648,7 +618,37 @@ function ProductionInfoHud:refreshProductionsTable()
                         table.insert(myProductions, productionItem)
                     end
                 end
-				
+                -- Anpassungen Rodberaht Ende
+
+                if placeable.spec_husbandryLiquidManure ~= nil then
+                    local productionItem = {}
+                    productionItem.name = placeable:getName();
+                    -- productionItem.fillTypeId = fillTypeId
+                    productionItem.needPerHour = 0;
+                    productionItem.hoursLeft = 0
+                    productionItem.fillLevel = placeable.spec_husbandryLiquidManure:getHusbandryFillLevel(FillType.LIQUIDMANURE)
+                    productionItem.capacity = placeable.spec_husbandryLiquidManure:getHusbandryCapacity(FillType.LIQUIDMANURE)
+                    productionItem.isInput = false;
+                    
+                    --print(productionItem.name .. " (Milch) needPerHour: " .. productionItem.needPerHour .. " fillLevel: " .. productionItem.fillLevel .. " capacity: " .. productionItem.capacity)
+                    
+                    if productionItem.capacity == 0 then 
+                        productionItem.capacityLevel = 0
+                    elseif productionItem.capacity == nil then
+                        productionItem.capacityLevel = 0
+                        print("Error: No storage for '" .. g_currentMission.fillTypeManager.fillTypes[fillTypeId].name .. "' in productionPoint but defined to used. Has to be fixed in '" .. productionPoint.owningPlaceable.customEnvironment .."'.")
+                    else
+                        productionItem.capacityLevel = productionItem.fillLevel / productionItem.capacity;
+                    end
+                    productionItem.fillTypeTitle = placeable.spec_husbandryLiquidManure.info.title;
+
+                    -- Ausgangslager voll, dann speziell eintragen
+                    if (productionItem.capacityLevel >= 0.95 and not productionItem.isInput) then 
+                        productionItem.hoursLeft = -1;
+                        table.insert(myProductions, productionItem)
+                    end
+                end
+                
                 -- Tiere voll, also muss was verkauft werden
                 if ProductionInfoHud.settings["display"]["showFullAnimals"] and placeable:getNumOfFreeAnimalSlots() == 0 then
                     local productionItem = {}
@@ -681,17 +681,17 @@ function ProductionInfoHud:refreshSellPriceData()
     if FS22_SellPriceTrigger.SellPriceTrigger == nil then return end;
     if FS22_SellPriceTrigger.SellPriceTrigger.triggers == nil then return end;
 
-	local farmId = g_currentMission:getFarmId();
+    local farmId = g_currentMission:getFarmId();
     local prices = {};
 
     -- liste füllen mit den types, die gerade einen guten preis haben
-	for fillType,trigger in pairs(FS22_SellPriceTrigger.SellPriceTrigger.triggers) do
+    for fillType,trigger in pairs(FS22_SellPriceTrigger.SellPriceTrigger.triggers) do
         for triggerFarmId,farmTrigger in pairs(trigger.farms) do
             if triggerFarmId == farmId and farmTrigger.over == true then
                 prices[fillType] = {info=farmTrigger,storages={},total=0, station=trigger.station}
             end
         end
-	end
+    end
 
 -- print("FS22_SellPriceTrigger.SellPriceTrigger.triggers")
 -- DebugUtil.printTableRecursively(FS22_SellPriceTrigger.SellPriceTrigger.triggers,"_",0,2)
@@ -715,7 +715,7 @@ function ProductionInfoHud:refreshSellPriceData()
                     if prices[fillType].storages[storageName] ~= nil then
                         prices[fillType].storages[storageName].fillLevel=prices[fillType].storages[storageName].fillLevel + fillLevel;
                     else
-						-- filltype hinzufügen zu storage name, damit die mengen aus dem lager nicht addiert werden
+                        -- filltype hinzufügen zu storage name, damit die mengen aus dem lager nicht addiert werden
                         prices[fillType].storages[storageName] = {fillLevel=fillLevel, GuiName = storageName, indexName = storageName .. fillType}
                     end
                     prices[fillType].total = prices[fillType].total + fillLevel;
@@ -753,7 +753,7 @@ function ProductionInfoHud:refreshSellPriceData()
                     if prices[fillType].storages[storageName] ~= nil then
                         prices[fillType].storages[storageName].fillLevel=prices[fillType].storages[storageName].fillLevel + fillLevel;
                     else
-						-- filltype hinzufügen zu storage name, damit die mengen aus dem lager nicht addiert werden
+                        -- filltype hinzufügen zu storage name, damit die mengen aus dem lager nicht addiert werden
                         prices[fillType].storages[storageName] = {fillLevel=fillLevel, GuiName = storageName, indexName = storageName .. fillType}
                     end
                     prices[fillType].total = prices[fillType].total + fillLevel;
@@ -768,37 +768,37 @@ function ProductionInfoHud:refreshSellPriceData()
     
 
     -- List für Anzeige erstellen
-	local sortableOutputTable = {};
-	for fillTypeId, sellPriceItem in pairs (prices) do
-		for b, sellPriceStorage in pairs (sellPriceItem.storages) do
-			local outputItem = {};
-			outputItem.station = sellPriceItem.station;
-			outputItem.title = g_currentMission.fillTypeManager.fillTypes[fillTypeId].title
-			outputItem.fillLevel = sellPriceStorage.fillLevel;
-			outputItem.GuiName = sellPriceStorage.GuiName;
-			outputItem.indexName = sellPriceStorage.indexName;
+    local sortableOutputTable = {};
+    for fillTypeId, sellPriceItem in pairs (prices) do
+        for b, sellPriceStorage in pairs (sellPriceItem.storages) do
+            local outputItem = {};
+            outputItem.station = sellPriceItem.station;
+            outputItem.title = g_currentMission.fillTypeManager.fillTypes[fillTypeId].title
+            outputItem.fillLevel = sellPriceStorage.fillLevel;
+            outputItem.GuiName = sellPriceStorage.GuiName;
+            outputItem.indexName = sellPriceStorage.indexName;
             -- can be nil because sellprice trigger not nice
-			if outputItem.station ~= nil then 
+            if outputItem.station ~= nil then 
                 table.insert(sortableOutputTable , outputItem)
             end
-		end
-	end
-	
-	-- gesamtmenge für station und GuiName berechnen, wenn die Menge selbst nicht 0 ist
-	for a, outputItem in pairs (sortableOutputTable) do
-		outputItem.totalAmount = 0;
-		if(outputItem.fillLevel ~= 0) then
-			for b, innerItem in pairs (ProductionInfoHud.sellPriceDataSorted) do
-				local sourceLocationEqual = outputItem.indexName == innerItem.indexName;
-				if string.find(outputItem.indexName, "Lagerhalle_Zentral") and string.find(innerItem.indexName, "Lagerhalle_Zentral") then
-					sourceLocationEqual = true;
-				end
-				if outputItem.station == innerItem.station and sourceLocationEqual then
-					outputItem.totalAmount = outputItem.totalAmount + innerItem.fillLevel;
-				end
-			end
-		end
-	end
+        end
+    end
+    
+    -- gesamtmenge für station und GuiName berechnen, wenn die Menge selbst nicht 0 ist
+    for a, outputItem in pairs (sortableOutputTable) do
+        outputItem.totalAmount = 0;
+        if(outputItem.fillLevel ~= 0) then
+            for b, innerItem in pairs (ProductionInfoHud.sellPriceDataSorted) do
+                local sourceLocationEqual = outputItem.indexName == innerItem.indexName;
+                if string.find(outputItem.indexName, "Lagerhalle_Zentral") and string.find(innerItem.indexName, "Lagerhalle_Zentral") then
+                    sourceLocationEqual = true;
+                end
+                if outputItem.station == innerItem.station and sourceLocationEqual then
+                    outputItem.totalAmount = outputItem.totalAmount + innerItem.fillLevel;
+                end
+            end
+        end
+    end
 
     table.sort(sortableOutputTable,compSellingTable)
 
@@ -806,7 +806,7 @@ function ProductionInfoHud:refreshSellPriceData()
 end;
 
 function compSellingTable(w1,w2)
-	-- Zum Sortieren der Ausgabeliste nach Zeit
+    -- Zum Sortieren der Ausgabeliste nach Zeit
     if w1.station == w2.station and w1.GuiName < w2.GuiName then
         return true
     end
@@ -880,15 +880,15 @@ function ProductionInfoHud:draw()
     if ProductionInfoHud.productionDataSorted ~= nil and (ProductionInfoHud.settings["display"]["showType"] == "ALL" or string.find(ProductionInfoHud.settings["display"]["showType"], "PRODUCTION")) then 
         for _, productionData in pairs(ProductionInfoHud.productionDataSorted) do
             if (lineCount < maxLines) then
-				if (lineCount == 0) then
-					posY = posY - textSize;
+                if (lineCount == 0) then
+                    posY = posY - textSize;
                     setTextAlignment(RenderText.ALIGN_LEFT);
-					setTextColor(1,1,1,1);		
-					setTextBold(true);
-					renderText(posX,posY,textSize,"ProductionInfo: ");
-					totalTextHeigh = totalTextHeigh + getTextHeight(textSize, "ProductionInfo: ")	
-					setTextBold(false);
-				end
+                    setTextColor(1,1,1,1);        
+                    setTextBold(true);
+                    renderText(posX,posY,textSize,"ProductionInfo: ");
+                    totalTextHeigh = totalTextHeigh + getTextHeight(textSize, "ProductionInfo: ")    
+                    setTextBold(false);
+                end
                 
                 lineCount = lineCount + 1;
             
@@ -944,7 +944,7 @@ function ProductionInfoHud:draw()
             posY = posY - textSize;
             local textLine = (additionalLines .. "  " .. g_i18n:getText("MoreAvailable"));
             setTextAlignment(RenderText.ALIGN_LEFT);
-            setTextColor(1,1,1,1);								
+            setTextColor(1,1,1,1);                                
             setTextBold(false);
             totalTextHeigh = totalTextHeigh + getTextHeight(textSize, textLine)
             local textWidth = getTextWidth(textSize, textLine);
@@ -956,7 +956,7 @@ function ProductionInfoHud:draw()
             posY = posY - textSize;
             local textLine = g_i18n:getText("AllProductsOperativ");
             setTextAlignment(RenderText.ALIGN_LEFT);
-            setTextColor(1,1,1,1);								
+            setTextColor(1,1,1,1);                                
             setTextBold(false);
             totalTextHeigh = totalTextHeigh + getTextHeight(textSize, textLine)
             local textWidth = getTextWidth(textSize, textLine);
@@ -970,13 +970,13 @@ function ProductionInfoHud:draw()
         ProductionInfoHud.overlay:setPosition(posX-0.001, posYStart - totalTextHeigh - 0.002);
         ProductionInfoHud.overlay:setDimension(maxTextWidth+0.002, totalTextHeigh);
         ProductionInfoHud.overlay:render();
-		
-		-- make a space between the sale list and the production list
-		posYStart = posY - spaceY;
-		posY = posY - spaceY;
+        
+        -- make a space between the sale list and the production list
+        posYStart = posY - spaceY;
+        posY = posY - spaceY;
     end
 
-	-- daten für nächsten overlay zurücksetzen
+    -- daten für nächsten overlay zurücksetzen
     totalTextHeigh = 0;
     maxTextWidth = 0;
     local maxSellPriceLines = tonumber(ProductionInfoHud.PossibleMaxLines[ProductionInfoHud.settings["display"]["maxSellingLines"]]);
@@ -985,89 +985,89 @@ function ProductionInfoHud:draw()
     local lineCountSellPrices = 0;
     additionalCounter = 0;
     if ProductionInfoHud.sellPriceTriggerAvailable and (ProductionInfoHud.settings["display"]["showType"] == "ALL" or string.find(ProductionInfoHud.settings["display"]["showType"], "SELLPRICE")) then
-		local lastTextPart1;
-		local lastTextPart1Width;
-		local lastTextPart2;
-		local lastTextPart2Width;
-		
+        local lastTextPart1;
+        local lastTextPart1Width;
+        local lastTextPart2;
+        local lastTextPart2Width;
+        
         for a, outputItem in pairs (ProductionInfoHud.sellPriceDataSorted) do
-			if outputItem.totalAmount >= minSellAmount then
-				if (lineCountSellPrices == 0) then
-					posY = posY - textSize;
+            if outputItem.totalAmount >= minSellAmount then
+                if (lineCountSellPrices == 0) then
+                    posY = posY - textSize;
                     setTextAlignment(RenderText.ALIGN_LEFT);
-					setTextColor(1,1,1,1);		
-					setTextBold(true);
-					renderText(posX,posY,textSize,"PriceInfo: ");
-					totalTextHeigh = totalTextHeigh + getTextHeight(textSize, "PriceInfo: ")	
-					setTextBold(false);
-				end
-				
-				local textPart1 = (outputItem.station);
-				local textPart2 = (" | " .. outputItem.GuiName);
-				local textPart3 = (" | " .. outputItem.title .. " (" .. math.floor(outputItem.fillLevel) .. ")");--(" .. math.floor(outputItem.totalAmount) .. ")(" .. outputItem.indexName .. ")");
-				
-				local actualPosX = posX;
-				local textLine;
-				if textPart1 == lastTextPart1 and textPart2 == lastTextPart2 then
-					actualPosX = actualPosX + lastTextPart1Width + lastTextPart2Width;
-					textLine = textPart3;
-				elseif textPart1 == lastTextPart1 then
-					actualPosX = actualPosX + lastTextPart1Width;
-					textLine = textPart2 .. textPart3;					
-				else
-					textLine = textPart1 .. textPart2 .. textPart3;
-					lineCountSellPrices = lineCountSellPrices+1;
-				end
-				
-				lastTextPart1 = textPart1;
-				lastTextPart1Width = getTextWidth(textSize, textPart1);
-				lastTextPart2 = textPart2;
-				lastTextPart2Width = getTextWidth(textSize, textPart2);
-				
-				if (lineCountSellPrices <= maxSellPriceLines) then
-					posY = posY - textSize;
+                    setTextColor(1,1,1,1);        
+                    setTextBold(true);
+                    renderText(posX,posY,textSize,"PriceInfo: ");
+                    totalTextHeigh = totalTextHeigh + getTextHeight(textSize, "PriceInfo: ")    
+                    setTextBold(false);
+                end
+                
+                local textPart1 = (outputItem.station);
+                local textPart2 = (" | " .. outputItem.GuiName);
+                local textPart3 = (" | " .. outputItem.title .. " (" .. math.floor(outputItem.fillLevel) .. ")");--(" .. math.floor(outputItem.totalAmount) .. ")(" .. outputItem.indexName .. ")");
+                
+                local actualPosX = posX;
+                local textLine;
+                if textPart1 == lastTextPart1 and textPart2 == lastTextPart2 then
+                    actualPosX = actualPosX + lastTextPart1Width + lastTextPart2Width;
+                    textLine = textPart3;
+                elseif textPart1 == lastTextPart1 then
+                    actualPosX = actualPosX + lastTextPart1Width;
+                    textLine = textPart2 .. textPart3;                    
+                else
+                    textLine = textPart1 .. textPart2 .. textPart3;
+                    lineCountSellPrices = lineCountSellPrices+1;
+                end
+                
+                lastTextPart1 = textPart1;
+                lastTextPart1Width = getTextWidth(textSize, textPart1);
+                lastTextPart2 = textPart2;
+                lastTextPart2Width = getTextWidth(textSize, textPart2);
+                
+                if (lineCountSellPrices <= maxSellPriceLines) then
+                    posY = posY - textSize;
                     setTextAlignment(RenderText.ALIGN_LEFT);
-					setTextColor(1,1,1,1);		
-					setTextBold(false);
-					totalTextHeigh = totalTextHeigh + getTextHeight(textSize, textLine)
-					local textWidth = getTextWidth(textSize, textLine)+(actualPosX-posX);
-					if (textWidth > maxTextWidth) then maxTextWidth = textWidth; end
-					renderText(actualPosX,posY,textSize,textLine);
-					totalCountSellPrices = totalCountSellPrices + 1;
-				else
-				   additionalCounter = additionalCounter + 1;
-				end
-				
-				-- set max lines when totallines overdues
-				if totalCountSellPrices == maxSellPriceLines then
-					maxSellPriceLines = lineCountSellPrices;
-				end
-			end
+                    setTextColor(1,1,1,1);        
+                    setTextBold(false);
+                    totalTextHeigh = totalTextHeigh + getTextHeight(textSize, textLine)
+                    local textWidth = getTextWidth(textSize, textLine)+(actualPosX-posX);
+                    if (textWidth > maxTextWidth) then maxTextWidth = textWidth; end
+                    renderText(actualPosX,posY,textSize,textLine);
+                    totalCountSellPrices = totalCountSellPrices + 1;
+                else
+                   additionalCounter = additionalCounter + 1;
+                end
+                
+                -- set max lines when totallines overdues
+                if totalCountSellPrices == maxSellPriceLines then
+                    maxSellPriceLines = lineCountSellPrices;
+                end
+            end
         end
-	
-		if (additionalCounter > 0) then
-			posY = posY - textSize;
-			local textLine = (additionalCounter .. "  " ..g_i18n:getText("MoreAvailable"));
+    
+        if (additionalCounter > 0) then
+            posY = posY - textSize;
+            local textLine = (additionalCounter .. "  " ..g_i18n:getText("MoreAvailable"));
             setTextAlignment(RenderText.ALIGN_LEFT);
-			setTextColor(1,1,1,1);								
-			setTextBold(false);
-			totalTextHeigh = totalTextHeigh + getTextHeight(textSize, textLine)
-			local textWidth = getTextWidth(textSize, textLine);
-			if (textWidth > maxTextWidth) then maxTextWidth = textWidth; end
-			renderText(posX,posY,textSize,textLine);
-		end
-			
-		if (lineCountSellPrices == 0) then
-			posY = posY - textSize;
-			local textLine = g_i18n:getText("NothingToSell");
+            setTextColor(1,1,1,1);                                
+            setTextBold(false);
+            totalTextHeigh = totalTextHeigh + getTextHeight(textSize, textLine)
+            local textWidth = getTextWidth(textSize, textLine);
+            if (textWidth > maxTextWidth) then maxTextWidth = textWidth; end
+            renderText(posX,posY,textSize,textLine);
+        end
+            
+        if (lineCountSellPrices == 0) then
+            posY = posY - textSize;
+            local textLine = g_i18n:getText("NothingToSell");
             setTextAlignment(RenderText.ALIGN_LEFT);
-			setTextColor(1,1,1,1);								
-			setTextBold(false);
-			totalTextHeigh = totalTextHeigh + getTextHeight(textSize, textLine)
-			local textWidth = getTextWidth(textSize, textLine);
-			if (textWidth > maxTextWidth) then maxTextWidth = textWidth; end
-			renderText(posX,posY,textSize,textLine);
-		end
+            setTextColor(1,1,1,1);                                
+            setTextBold(false);
+            totalTextHeigh = totalTextHeigh + getTextHeight(textSize, textLine)
+            local textWidth = getTextWidth(textSize, textLine);
+            if (textWidth > maxTextWidth) then maxTextWidth = textWidth; end
+            renderText(posX,posY,textSize,textLine);
+        end
 
         setOverlayColor(ProductionInfoHud.overlay.overlayId, 0, 0, 0, 0.7);
         setOverlayUVs(ProductionInfoHud.overlay.overlayId, 0.0078125,0.990234375, 0.0078125,0.9921875, 0.009765625,0.990234375, 0.009765625,0.9921875);
@@ -1164,22 +1164,22 @@ addModEventListener(ProductionInfoHud);
 
 -- function ProductionInfoHud:removeFillLevel(superFunc, deltaFillLevel, fillTypeIndex)
 -- print("ProductionInfoHud:removeFillLevel deltaFillLevel:" .. tostring(deltaFillLevel) .. " - " .. tostring(fillTypeIndex))
-	-- local spot = self.fillTypeToUnloadingSpot[fillTypeIndex]
-	-- local absDelta = math.abs(deltaFillLevel)
+    -- local spot = self.fillTypeToUnloadingSpot[fillTypeIndex]
+    -- local absDelta = math.abs(deltaFillLevel)
 
-	-- if spot ~= nil then
-		-- absDelta = math.min(absDelta, spot.fillLevel)
-		-- spot.fillLevel = spot.fillLevel - absDelta
+    -- if spot ~= nil then
+        -- absDelta = math.min(absDelta, spot.fillLevel)
+        -- spot.fillLevel = spot.fillLevel - absDelta
 
-		-- if self.isServer then
-			-- self:raiseDirtyFlags(self.dirtyFlagFillLevel)
-		-- end
+        -- if self.isServer then
+            -- self:raiseDirtyFlags(self.dirtyFlagFillLevel)
+        -- end
 
-		-- self:updateUnloadingSpot(spot)
-	-- end
+        -- self:updateUnloadingSpot(spot)
+    -- end
 
 -- print("ProductionInfoHud:removeFillLevel absDelta: " .. tostring(absDelta) .. " - " .. tostring(fillTypeIndex))
-	-- return absDelta
+    -- return absDelta
 -- end
 
 -- FeedingRobot.removeFillLevel = Utils.overwrittenFunction(FeedingRobot.removeFillLevel, ProductionInfoHud.removeFillLevel)
