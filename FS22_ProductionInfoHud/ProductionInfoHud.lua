@@ -618,8 +618,36 @@ function ProductionInfoHud:refreshProductionsTable()
                         table.insert(myProductions, productionItem)
                     end
 				end
-
 				-- Anpassungen Rodberaht Ende
+
+                if placeable.spec_husbandryLiquidManure ~= nil then
+					local productionItem = {}
+					productionItem.name = placeable:getName();
+					-- productionItem.fillTypeId = fillTypeId
+					productionItem.needPerHour = 0;
+					productionItem.hoursLeft = 0
+					productionItem.fillLevel = placeable.spec_husbandryLiquidManure:getHusbandryFillLevel(FillType.LIQUIDMANURE)
+					productionItem.capacity = placeable.spec_husbandryLiquidManure:getHusbandryCapacity(FillType.LIQUIDMANURE)
+					productionItem.isInput = false;
+					
+					--print(productionItem.name .. " (Milch) needPerHour: " .. productionItem.needPerHour .. " fillLevel: " .. productionItem.fillLevel .. " capacity: " .. productionItem.capacity)
+					
+					if productionItem.capacity == 0 then 
+						productionItem.capacityLevel = 0
+					elseif productionItem.capacity == nil then
+						productionItem.capacityLevel = 0
+						print("Error: No storage for '" .. g_currentMission.fillTypeManager.fillTypes[fillTypeId].name .. "' in productionPoint but defined to used. Has to be fixed in '" .. productionPoint.owningPlaceable.customEnvironment .."'.")
+					else
+						productionItem.capacityLevel = productionItem.fillLevel / productionItem.capacity;
+					end
+					productionItem.fillTypeTitle = placeable.spec_husbandryLiquidManure.info.title;
+
+                    -- Ausgangslager voll, dann speziell eintragen
+                    if (productionItem.capacityLevel >= 0.95 and not productionItem.isInput) then 
+                        productionItem.hoursLeft = -1;
+                        table.insert(myProductions, productionItem)
+                    end
+                end
 				
                 -- Tiere voll, also muss was verkauft werden
                 if ProductionInfoHud.settings["display"]["showFullAnimals"] and placeable:getNumOfFreeAnimalSlots() == 0 then
