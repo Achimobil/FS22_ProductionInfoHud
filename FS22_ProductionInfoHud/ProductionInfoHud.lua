@@ -241,6 +241,16 @@ function ProductionInfoHud:createProductionNeedingTable(mode)
                     local filltype = g_fillTypeManager.fillTypes[fillTypeId]
                     fillTypeItem.fillTypeTitle = filltype.title;
                     fillTypeItem.hudOverlayFilename = filltype.hudOverlayFilename;
+                    
+                    local fruitDesc = g_fruitTypeManager:getFruitTypeByFillTypeIndex(fillTypeId);
+                    if fruitDesc ~= nil and mode == InGameMenuProductionInfo.MODE_YEAR and fillTypeId ~= FillType.STRAW then
+                        if fruitDesc.windrowName == "ALFALFA_WINDROW" or fruitDesc.windrowName == "GRASS_WINDROW" then
+                            fillTypeItem.literPerSqm = g_fruitTypeManager:getFillTypeLiterPerSqm(fillTypeId, 1);
+                        else
+                            fillTypeItem.literPerSqm = fruitDesc.literPerSqm;
+                        end
+                    end
+                    
                     myFillTypes[fillTypeId] = fillTypeItem;
                 end
                 local fillTypeItem = myFillTypes[fillTypeId];
@@ -248,7 +258,7 @@ function ProductionInfoHud:createProductionNeedingTable(mode)
                 for _, production in pairs(productionPoint.activeProductions) do
                     for _, input in pairs(production.inputs) do
                         if input.type == fillTypeId then
-                            fillTypeItem.usagePerMonth = fillTypeItem.usagePerMonth + (production.cyclesPerMonth * input.amount) * factor
+                            fillTypeItem.usagePerMonth = fillTypeItem.usagePerMonth + (production.cyclesPerMonth * input.amount) * factor;
                         end
                     end
                     for _, output in pairs(production.outputs) do
@@ -281,6 +291,11 @@ function ProductionInfoHud:createProductionNeedingTable(mode)
     local fillTypeResultTable = {};
     for fillTypeId, fillTypeItem in pairs (myFillTypes) do
         if fillTypeItem.usagePerMonth ~= 0 or fillTypeItem.producedPerMonth ~= 0 then
+            -- berechnen der feldgröße
+            if fillTypeItem.literPerSqm ~= nil and fillTypeItem.usagePerMonth ~= 0 then
+                fillTypeItem.squareMeterNeeded = fillTypeItem.usagePerMonth / fillTypeItem.literPerSqm / 10000;
+            end
+        
             table.insert(fillTypeResultTable, fillTypeItem)
         end
     end

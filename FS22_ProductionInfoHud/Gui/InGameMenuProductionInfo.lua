@@ -151,7 +151,13 @@ function InGameMenuProductionInfo:populateCellForItemInSection(list, section, in
 	cell:getAttribute("sellPerMonth"):setText(g_i18n:formatNumber(fillTypeItem.sellPerMonth, 2))
 	cell:getAttribute("keepPerMonth"):setText(g_i18n:formatNumber(fillTypeItem.keepPerMonth, 2))
 	cell:getAttribute("distributePerMonth"):setText(g_i18n:formatNumber(fillTypeItem.distributePerMonth, 2))
-	cell:getAttribute("usagePerMonth"):setText(g_i18n:formatNumber(fillTypeItem.usagePerMonth))  
+    cell:getAttribute("usagePerMonth"):setText(g_i18n:formatNumber(fillTypeItem.usagePerMonth));
+    
+    local squareMeterNeededText = "";
+    if fillTypeItem.squareMeterNeeded ~= nil then
+        squareMeterNeededText = g_i18n:formatArea(fillTypeItem.squareMeterNeeded, 1, false);
+    end
+    cell:getAttribute("neededFieldSize"):setText(squareMeterNeededText);
 end
 
 function InGameMenuProductionInfo:onButtonToggleMode()

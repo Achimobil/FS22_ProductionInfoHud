@@ -12,6 +12,7 @@
                 <GuiElement type="text" profile="ingameMenuProductionInfoHeaderCell" position="400px 0px" size="200px 40.77px" text="$l10n_pih_header_keepPerMonth"/>
                 <GuiElement type="text" profile="ingameMenuProductionInfoHeaderCell" position="600px 0px" size="200px 40.77px" text="$l10n_pih_header_distributePerMonth"/>
                 <GuiElement type="text" profile="ingameMenuProductionInfoHeaderCell" position="800px 0px" size="200px 40.77px" text="$l10n_pih_header_usagePerMonth"/>
+                <GuiElement type="text" profile="ingameMenuProductionInfoHeaderCell" position="1000px 0px" size="200px 40.77px" text="$l10n_pih_header_neededFieldSize"/>
             </GuiElement>
             <GuiElement type="smoothList" profile="ingameMenuProductionInfoList" id="fillTypeTable" focusInit="onOpen" listSectionHeader="section" position="0px 0px">
                 <GuiElement type="listItem" profile="ingameMenuProductionInfoListItem" name="productionInfoRowTemplate" >
@@ -22,6 +23,7 @@
                         <GuiElement type="text" profile="ingameMenuProductionInfoRowCell" position="400px 0px" size="200px 40.77px" name="keepPerMonth" />
                         <GuiElement type="text" profile="ingameMenuProductionInfoRowCell" position="600px 0px" size="200px 40.77px" name="distributePerMonth" />
                         <GuiElement type="text" profile="ingameMenuProductionInfoRowCell" position="800px 0px" size="200px 40.77px" name="usagePerMonth" />
+                        <GuiElement type="text" profile="ingameMenuProductionInfoRowCell" position="1000px 0px" size="200px 40.77px" name="neededFieldSize" />
                     </GuiElement>
                 </GuiElement>
                 <GuiElement type="listItem" profile="ingameMenuContractsListCategory" name="section">
