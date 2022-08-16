@@ -215,8 +215,10 @@ function ProductionInfoHud:createProductionNeedingTable(mode)
     local factor = 1;
     if mode == InGameMenuProductionInfo.MODE_MONTH then
         factor = 1;
-    elseif InGameMenuProductionInfo.MODE_HOUR then
+    elseif mode == InGameMenuProductionInfo.MODE_HOUR then
         factor = 1 / (24 * g_currentMission.environment.daysPerPeriod); -- tage einstellungen auslesen!!!
+    else
+        factor = 12;
     end
 
     local farmId = g_currentMission.player.farmId;

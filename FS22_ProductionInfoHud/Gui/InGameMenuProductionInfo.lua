@@ -8,6 +8,7 @@ InGameMenuProductionInfo.CONTROLS = {
 
 InGameMenuProductionInfo.MODE_MONTH = 1
 InGameMenuProductionInfo.MODE_HOUR = 2
+InGameMenuProductionInfo.MODE_YEAR = 3
 
 InGameMenuProductionInfoSections = {
     ALL = 1,
@@ -156,6 +157,8 @@ end
 function InGameMenuProductionInfo:onButtonToggleMode()
 	if self.mode == InGameMenuProductionInfo.MODE_MONTH then
 		self:setMode(InGameMenuProductionInfo.MODE_HOUR)
+	elseif self.mode == InGameMenuProductionInfo.MODE_HOUR then
+		self:setMode(InGameMenuProductionInfo.MODE_YEAR)
 	else
 		self:setMode(InGameMenuProductionInfo.MODE_MONTH)
 	end
@@ -185,8 +188,11 @@ function InGameMenuProductionInfo:updateMenuButtons()
 	if self.mode == InGameMenuProductionInfo.MODE_MONTH then
 		self.toggleModeButtonInfo.text = self.l10n:getText("pih_changeTimeToHour")
 		self.productionInfoTitle.text = self.l10n:getText("pih_ingameMenuProductionInfo")
-	else
+	elseif self.mode == InGameMenuProductionInfo.MODE_YEAR then
 		self.toggleModeButtonInfo.text = self.l10n:getText("pih_changeTimeToMonth")
+		self.productionInfoTitle.text = self.l10n:getText("pih_ingameMenuProductionInfoYear")
+	else
+		self.toggleModeButtonInfo.text = self.l10n:getText("pih_changeTimeToYear")
 		self.productionInfoTitle.text = self.l10n:getText("pih_ingameMenuProductionInfoHour")
 	end
 

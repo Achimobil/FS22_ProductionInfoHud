@@ -13,6 +13,7 @@
         
 		<text name="pih_ingameMenuProductionInfo" text="Wielkość produkcji na miesiąc (tylko aktywne linie produkcyjne)" />
 		<text name="pih_ingameMenuProductionInfoHour" text="Production Quantities per Hour (Active Production Lines Only)" />
+		<text name="pih_ingameMenuProductionInfoYear" text="Production quantities per year (Active production lines only)" />
 		<text name="pih_header_sellPerMonth" text="Sprzedaż bezpośrednia" />
 		<text name="pih_header_keepPerMonth" text="Zachowaj" />
 		<text name="pih_header_distributePerMonth" text="Rozpowszechniaj" />
@@ -20,6 +21,9 @@
 		<text name="ui_listHeader_1" text="Cyrkulacja" />
 		<text name="ui_listHeader_2" text="Brak produkcji" />
 		<text name="ui_listHeader_3" text="Brak konsumpcji" />
+		<text name="pih_changeTimeToHour" text="Wyświetlaj na godzinę" />
+		<text name="pih_changeTimeToMonth" text="Wyświetlaj według miesiąca" />
+		<text name="pih_changeTimeToYear" text="Wyświetlaj według roku" />
         
         <!-- In neuen Einstellungen benutzt-->
 		<text name="pih_settings_title" text="Production Info Hud - Productions" />

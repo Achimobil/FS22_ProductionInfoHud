@@ -13,6 +13,7 @@
         
 		<text name="pih_ingameMenuProductionInfo" text="Объёмы производства в месяц (только активные производственные линии)" />
 		<text name="pih_ingameMenuProductionInfoHour" text="Объемы производства в час (только активные производственные линии)" />
+		<text name="pih_ingameMenuProductionInfoYear" text="Объемы производства в год (только активные производственные линии)" />
 		<text name="pih_header_sellPerMonth" text="Продано" />
 		<text name="pih_header_keepPerMonth" text="На складе" />
 		<text name="pih_header_distributePerMonth" text="Сдано" />
@@ -22,6 +23,7 @@
 		<text name="ui_listHeader_3" text="Ресурсы не требуются" />
 		<text name="pih_changeTimeToHour" text="В час" />
 		<text name="pih_changeTimeToMonth" text="В месяц" />
+		<text name="pih_changeTimeToYear" text="В год" />
         
         <!-- In neuen Einstellungen benutzt-->
 		<text name="pih_settings_title" text="Production Info Hud - Производства" />
