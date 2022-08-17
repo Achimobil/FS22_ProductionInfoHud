@@ -38,13 +38,13 @@ Wem es nicht gefällt, der soll es einfach nicht benutzen.
 
 Changelog
 0.10.0.0
-- Tilltypes die Input und Output sind wird jetzt angezeigt sobald der Füllstand 99% erreicht
+- Filltypes die Input und Output sind wird jetzt angezeigt sobald der Füllstand 99% erreicht
 - Fütterungsroboter werden jetzt angezeigt
 - Gülle wird jetzt angezeigt, wenn voll
 - Stroh aus Ställen wird nicht mehr zum Verkauf angezeigt
 - Schriftgröße ist jetzt Einstellbar im Menü
 - Produktionsübersicht jetzt umschaltbar auf pro Jahr
-- In der Jarhesansicht die benötigte Fläche ohne Bonus als Spalte hinzugefügt für Früchte
+- In der Jahresansicht die benötigte Fläche ohne Bonus als Spalte hinzugefügt für Früchte
 
 0.9.1.0
 - RU übersetzungen eingefügt
@@ -148,6 +148,15 @@ These can best be made on my Discord in the channel of the respective mod. https
 If you don't like it, just don't use it.
 
 Changelog
+0.10.0.0
+- Filltypes that are input and output are now displayed as soon as the fill level reaches 99%
+- Feeding robots are now displayed
+- Liquid Manure is now displayed when full
+- Straw from sheds is no longer displayed for sale
+- Font size is now adjustable in the menu
+- Production overview can now be switched to per year
+- In the year view, the required area without bonus is added as a column for fruits
+
 0.9.0.0
 - Moved settings to the General Game Settings.
 - Without settings the display is now hidden
