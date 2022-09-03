@@ -46,6 +46,8 @@ function ProductionInfoHud:init()
     ProductionInfoHud.settings["display"]["showBooster"] = true;
     ProductionInfoHud.settings["display"]["textSize"] = 5;
     
+    ProductionInfoHud.settings["ignoreInput"] = {};
+    
     ProductionInfoHud:LoadSettings();
        
     -- Aufrufen nach init, da erst an isclient gesetzt ist und sonst die binding nicht aktiv ist bevor man in ein auto einsteigt
@@ -328,6 +330,15 @@ function ProductionInfoHud:refreshProductionsTable()
                 
                 -- nicht mix zutaten werden hier summiert
                 for fillTypeId, fillLevel in pairs(productionPoint.storage.fillLevels) do
+                    local fillType = g_currentMission.fillTypeManager.fillTypes[fillTypeId];
+                    
+                    local ignoreInput = false;
+                    -- print("productionPoint.id:" .. tostring(productionPoint.id))
+                    -- print("fillType.name:" .. tostring(fillType.name))
+                    if self.settings["ignoreInput"][productionPoint.id] ~= nil and self.settings["ignoreInput"][productionPoint.id][fillType.name] ~= nil then
+                        ignoreInput = self.settings["ignoreInput"][productionPoint.id][fillType.name];
+                    end
+                    
                     local productionItem = {}
                     productionItem.name = productionPoint.owningPlaceable:getName();
                     productionItem.fillTypeId = fillTypeId
@@ -355,7 +366,7 @@ function ProductionInfoHud:refreshProductionsTable()
                     else
                         productionItem.capacityLevel = productionItem.fillLevel / productionItem.capacity;
                     end
-                    productionItem.fillTypeTitle = g_currentMission.fillTypeManager.fillTypes[fillTypeId].title;
+                    productionItem.fillTypeTitle = fillType.title;
                     
                     for _, production in pairs(productionPoint.activeProductions) do
                         for _, input in pairs(production.inputs) do
@@ -379,7 +390,7 @@ function ProductionInfoHud:refreshProductionsTable()
                         productionItem.hoursLeft = productionItem.fillLevel / productionItem.needPerHour * g_currentMission.environment.daysPerPeriod;
                     end
                     
-                    if (productionItem.needPerHour > 0 and productionItem.capacityLevel <= 0.5 and productionItem.hoursLeft <= (48 * g_currentMission.environment.daysPerPeriod)) then 
+                    if (not ignoreInput and productionItem.needPerHour > 0 and productionItem.capacityLevel <= 0.5 and productionItem.hoursLeft <= (48 * g_currentMission.environment.daysPerPeriod)) then 
                         table.insert(myProductions, productionItem)
                     end
                     
@@ -453,7 +464,6 @@ function ProductionInfoHud:refreshProductionsTable()
                         end
                     end
                 end
-                
             end
         end
         
@@ -1186,6 +1196,79 @@ function ProductionInfoHud:LoadSettings()
     xmlTag = ("ProductionInfoHudSettings.display.textSize(%d)"):format(0); 
     value = getXMLInt(XML, xmlTag.. "#int");
     if value ~= nil then ProductionInfoHud.settings["display"]["textSize"] = value;end;
+end
+
+--Production Revamp: MenüButten um zwischen Inaktive/Aktive/Allen Produktionen umzuschalten
+function ProductionInfoHud:updateMenuButtons(superFunc)
+    local buttonText = "pih_filltypeSettings";
+
+    local isProductionListActive = self.productionList == FocusManager:getFocusedElement()
+    local fillType, isInput = self:getSelectedStorageFillType()
+    
+    if not isProductionListActive and fillType ~= FillType.UNKNOWN and isInput then
+        table.insert(self.menuButtonInfo, {
+            profile = "buttonOk",
+            inputAction = InputAction.MENU_EXTRA_1,
+            text = self.i18n:getText(buttonText),
+            callback = function()
+                ProductionInfoHud:changeFilltypeSettings(self)
+            end
+        });
+    end
+    
+    self:setMenuButtonInfoDirty()
+end
+InGameMenuProductionFrame.updateMenuButtons = Utils.appendedFunction(InGameMenuProductionFrame.updateMenuButtons, ProductionInfoHud.updateMenuButtons)
+
+
+--Production Revamp: Callback um Inputs zu kaufen
+function ProductionInfoHud:changeFilltypeSettings(inGameMenuProductionFrame)
+    local production, productionPoint = inGameMenuProductionFrame:getSelectedProduction();
+    local fillType = inGameMenuProductionFrame:getSelectedStorageFillType();
+    local fillTypeName = g_fillTypeManager:getFillTypeByIndex(fillType).title;
+    
+    
+    if fillType ~= FillType.UNKNOWN then
+        g_gui:showYesNoDialog({
+            text =  fillTypeName,
+            title = g_i18n:getText("pih_hideThisFilltypeQuestion"),
+            callback = self.changeFilltypeSetting,
+            yesText = g_i18n:getText("pih_hideFilltype_yes"),
+            noText = g_i18n:getText("pih_hideFilltype_no"),
+            args = {
+                productionPointId = productionPoint.id, 
+                fillTypeName = g_fillTypeManager:getFillTypeByIndex(fillType).name--,
+                -- productionId = production.id
+            },
+            target = self
+        })
+    end
+end
+
+function ProductionInfoHud:changeFilltypeSetting(decission, args)
+
+print("decission: " .. tostring(decission))
+print("args")
+DebugUtil.printTableRecursively(args,"_",0,2)
+    self:changeIngoreInput(args.productionPointId, args.fillTypeName, decission);
+end
+
+function ProductionInfoHud:changeIngoreInput(productionPointId, fillTypeName, value)
+    
+-- print("ignoreInput")
+-- DebugUtil.printTableRecursively(self.settings,"_",0,2)
+
+    if self.settings["ignoreInput"][productionPointId] == nil then
+        self.settings["ignoreInput"][productionPointId] = {};
+    end
+        
+-- print("ignoreInput2")
+-- DebugUtil.printTableRecursively(self.settings,"_",0,2)
+
+    self.settings["ignoreInput"][productionPointId][fillTypeName] = value;
+    
+-- print("ignoreInput3")
+-- DebugUtil.printTableRecursively(self.settings["ignoreInput"],"_",0,2)
 end
 
 -- local rX, rY, rZ = getRotation(place.node);
