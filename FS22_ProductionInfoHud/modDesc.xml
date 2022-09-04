@@ -2,7 +2,7 @@
 <modDesc descVersion="65">
     <author>Achimobil</author>
     <contributor>Rodberaht</contributor>
-    <version>0.10.0.0</version>
+    <version>0.11.0.0_beta</version>
     <title>
         <de>Produktionen Info Hud</de>
         <en>Production Info Hud</en>
@@ -37,6 +37,9 @@ Diese können am besten auf meinem Discord im Kanal des jeweiligen Mods gemacht 
 Wem es nicht gefällt, der soll es einfach nicht benutzen.
 
 Changelog
+0.11.0.0
+- Dedi Server erstellt die Listen nun nicht mehr Serverseitig zur Verbesserung der Performance
+
 0.10.0.0
 - Filltypes die Input und Output sind wird jetzt angezeigt sobald der Füllstand 99% erreicht
 - Fütterungsroboter werden jetzt angezeigt

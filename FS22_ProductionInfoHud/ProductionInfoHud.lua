@@ -27,6 +27,11 @@ ProductionInfoHud.PossibleTextSizes = {"8", "9", "10", "11", "12", "13", "14", "
 
 function ProductionInfoHud:init()
     ProductionInfoHud.isClient = g_currentMission:getIsClient();
+    -- isClient korrektur, wenn es die dynamic info gibt
+    if g_currentMission.missionDynamicInfo ~= nil and g_currentMission.missionDynamicInfo.isClient ~= nil then
+        ProductionInfoHud.isClient = g_currentMission.missionDynamicInfo.isClient;
+    end
+    
     ProductionInfoHud.isInit = true;
     
     ProductionInfoHud.messageCenter = g_messageCenter;
