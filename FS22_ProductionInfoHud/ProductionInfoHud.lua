@@ -26,6 +26,7 @@ ProductionInfoHud.PossibleAmounts = {"5000", "10000", "50000", "100000", "200000
 ProductionInfoHud.PossibleTextSizes = {"8", "9", "10", "11", "12", "13", "14", "15"}
 
 function ProductionInfoHud:init()
+print("ProductionInfoHud:init()")
     ProductionInfoHud.isClient = g_currentMission:getIsClient();
     -- isClient korrektur, wenn es die dynamic info gibt
     if g_currentMission.missionDynamicInfo ~= nil and g_currentMission.missionDynamicInfo.isClient ~= nil then
@@ -206,7 +207,7 @@ function ProductionInfoHud:loadMap(name)
 end
 
 function ProductionInfoHud:update(dt)
-
+-- print("ProductionInfoHud:update(dt)")
     if not ProductionInfoHud.isInit then ProductionInfoHud:init(); end
     
     if not ProductionInfoHud.isClient then return end
@@ -1297,6 +1298,7 @@ function ProductionInfoHud:SetIngoreInput(simpleList)
 print("ProductionInfoHud:SetIngoreInput(ignoreInputList)")
 -- print("self.settings[ignoreInput]")
 -- DebugUtil.printTableRecursively(self.settings["ignoreInput"],"_",0,2)
+    if not ProductionInfoHud.isInit then ProductionInfoHud:init(); end
     
     for _, simleListItem in pairs(simpleList) do
         self:changeIgnoreInput(simleListItem.productionPointId, simleListItem.fillTypeName, simleListItem.value, false)
@@ -1307,12 +1309,12 @@ print("self.settings[ignoreInput]")
 DebugUtil.printTableRecursively(self.settings["ignoreInput"],"_",0,2)
 end
 
-function ProductionInfoHud:onClientJoined(connection)
-print("ProductionInfoHud:onClientJoined(connection)")
-	if next(self.collected) ~= nil then
-		connection:sendEvent(IgnoreInputSyncEvent.new(self.settings["ignoreInput"]))
-	end
-end
+-- function ProductionInfoHud:onClientJoined(connection)
+-- print("ProductionInfoHud:onClientJoined(connection)")
+	-- if next(self.collected) ~= nil then
+		-- connection:sendEvent(IgnoreInputSyncEvent.new(self.settings["ignoreInput"]))
+	-- end
+-- end
 
 --- Saves all global data, for example global settings.
 function ProductionInfoHud.saveToXMLFile(missionInfo)
@@ -1333,7 +1335,16 @@ function ProductionInfoHud.saveToXMLFile(missionInfo)
         end
     end
 end
-FSCareerMissionInfo.saveToXMLFile = Utils.prependedFunction(FSCareerMissionInfo.saveToXMLFile, ProductionInfoHud.saveToXMLFile)
+FSCareerMissionInfo.saveToXMLFile = Utils.appendedFunction(FSCareerMissionInfo.saveToXMLFile, ProductionInfoHud.saveToXMLFile)
+
+function ProductionInfoHud:sendInitialClientState(connection, user, farm)
+print("sendInitialClientState")
+    if not ProductionInfoHud.isInit then ProductionInfoHud:init(); end
+    
+-- DebugUtil.printTableRecursively(ProductionInfoHud,"_",0,2)
+    connection:sendEvent(IgnoreInputSyncEvent.new(ProductionInfoHud.settings["ignoreInput"]))
+end
+FSBaseMission.sendInitialClientState = Utils.appendedFunction(FSBaseMission.sendInitialClientState, ProductionInfoHud.sendInitialClientState)
 
 -- local rX, rY, rZ = getRotation(place.node);
 -- print("place.node rX:"..rX.." rY:"..rY.." rZ:"..rZ);
