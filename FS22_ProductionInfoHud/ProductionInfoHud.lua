@@ -1252,8 +1252,8 @@ end
 
 function ProductionInfoHud:changeFilltypeSetting(decission, args)
 
-print("decission: " .. tostring(decission))
-print("args")
+-- print("decission: " .. tostring(decission))
+-- print("args")
 DebugUtil.printTableRecursively(args,"_",0,2)
     self:changeIngoreInput(args.productionPointId, args.fillTypeName, decission);
 end
@@ -1275,6 +1275,28 @@ function ProductionInfoHud:changeIngoreInput(productionPointId, fillTypeName, va
 -- print("ignoreInput3")
 -- DebugUtil.printTableRecursively(self.settings["ignoreInput"],"_",0,2)
 end
+
+
+--- Saves all global data, for example global settings.
+function ProductionInfoHud.saveToXMLFile(missionInfo)
+    if missionInfo.isValid then 
+        local saveGamePath = missionInfo.savegameDirectory .."/";
+        local xmlFile = XMLFile.create("pihXml", saveGamePath.. "ProductionInfoHud.xml", "ProductionInfoHud")
+        if xmlFile then	
+            for productionPointId, fillTypeList in pairs(ProductionInfoHud.settings["ignoreInput"]) do 
+            
+                xmlFile:setTable("ProductionInfoHud.ignoreInputs.ignoreInput", fillTypeList, function (path, value, key)
+                    xmlFile:setInt(path .. "#productionPointId", productionPointId)
+                    xmlFile:setString(path .. "#fillTypeName", key)
+                    xmlFile:setBool(path .. "#value", value)
+                end)
+            end
+            xmlFile:save()
+            xmlFile:delete()
+        end
+    end
+end
+FSCareerMissionInfo.saveToXMLFile = Utils.prependedFunction(FSCareerMissionInfo.saveToXMLFile, ProductionInfoHud.saveToXMLFile)
 
 -- local rX, rY, rZ = getRotation(place.node);
 -- print("place.node rX:"..rX.." rY:"..rY.." rZ:"..rZ);
