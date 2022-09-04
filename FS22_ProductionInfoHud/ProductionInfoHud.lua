@@ -100,7 +100,7 @@ function ProductionInfoHud:init()
                 local value = xmlFile:getBool(key .. "#value")
                                     
                 if productionPointId ~= nil and fillTypeName ~= nil and value ~= nil then
-                    self:changeIngoreInput(productionPointId, fillTypeName, value)
+                    self:changeIgnoreInput(productionPointId, fillTypeName, value, false)
                 end
             end)
         end
@@ -1268,20 +1268,50 @@ function ProductionInfoHud:changeFilltypeSettings(inGameMenuProductionFrame)
 end
 
 function ProductionInfoHud:changeFilltypeSetting(decission, args)
-
--- print("decission: " .. tostring(decission))
--- print("args")
-DebugUtil.printTableRecursively(args,"_",0,2)
-    self:changeIngoreInput(args.productionPointId, args.fillTypeName, decission);
+    -- self:changeIgnoreInput(args.productionPointId, args.fillTypeName, decission);
+	g_client:getServerConnection():sendEvent(ChangeIgnoreInputEvent.new(args.productionPointId, args.fillTypeName, decission))
 end
 
-function ProductionInfoHud:changeIngoreInput(productionPointId, fillTypeName, value)
+function ProductionInfoHud:changeIgnoreInput(productionPointId, fillTypeName, value, sendEvent)
+print("ProductionInfoHud:changeIgnoreInput")
+-- print("productionPointId:" .. productionPointId)
+-- print("fillTypeName:" .. fillTypeName)
+-- print("value:" .. tostring(value))
+-- print("self.settings[ignoreInput]")
+-- DebugUtil.printTableRecursively(self.settings["ignoreInput"],"_",0,2)
     
     if self.settings["ignoreInput"][productionPointId] == nil then
         self.settings["ignoreInput"][productionPointId] = {};
     end
     
     self.settings["ignoreInput"][productionPointId][fillTypeName] = value;
+print("self.settings[ignoreInput]")
+DebugUtil.printTableRecursively(self.settings["ignoreInput"],"_",0,2)
+    
+    if sendEvent == nil or sendEvent then
+        g_server:broadcastEvent(IgnoreInputSyncEvent.new(self.settings["ignoreInput"]), true)
+    end
+end
+
+function ProductionInfoHud:SetIngoreInput(simpleList)
+print("ProductionInfoHud:SetIngoreInput(ignoreInputList)")
+-- print("self.settings[ignoreInput]")
+-- DebugUtil.printTableRecursively(self.settings["ignoreInput"],"_",0,2)
+    
+    for _, simleListItem in pairs(simpleList) do
+        self:changeIgnoreInput(simleListItem.productionPointId, simleListItem.fillTypeName, simleListItem.value, false)
+    end
+
+    
+print("self.settings[ignoreInput]")
+DebugUtil.printTableRecursively(self.settings["ignoreInput"],"_",0,2)
+end
+
+function ProductionInfoHud:onClientJoined(connection)
+print("ProductionInfoHud:onClientJoined(connection)")
+	if next(self.collected) ~= nil then
+		connection:sendEvent(IgnoreInputSyncEvent.new(self.settings["ignoreInput"]))
+	end
 end
 
 --- Saves all global data, for example global settings.
