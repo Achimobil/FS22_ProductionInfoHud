@@ -87,6 +87,24 @@ function ProductionInfoHud:init()
     ProductionInfoHud.fixInGameMenu(productionFrame,"InGameMenuProductionInfo", {0,0,1024,1024}, 13, ProductionInfoHud:makeIsProductionInfoEnabledPredicate())
     productionFrame:initialize()    
     
+    -- load ignoreInput, wenn vorhanden
+    if g_currentMission.missionInfo.savegameDirectory ~= nil then
+        local saveGamePath = g_currentMission.missionInfo.savegameDirectory .."/";
+        local filePath = saveGamePath .. "ProductionInfoHud.xml";
+        local xmlFile = XMLFile.load("pihXml", filePath);
+        
+        if xmlFile ~= nil then        
+            xmlFile:iterate("ProductionInfoHud.ignoreInputs.ignoreInput", function (_, key)
+                local productionPointId = xmlFile:getInt(key .. "#productionPointId")
+                local fillTypeName = xmlFile:getString(key .. "#fillTypeName")
+                local value = xmlFile:getBool(key .. "#value")
+                                    
+                if productionPointId ~= nil and fillTypeName ~= nil and value ~= nil then
+                    self:changeIngoreInput(productionPointId, fillTypeName, value)
+                end
+            end)
+        end
+    end
 end
 
 function ProductionInfoHud:makeIsProductionInfoEnabledPredicate()
@@ -1225,7 +1243,6 @@ function ProductionInfoHud:updateMenuButtons(superFunc)
 end
 InGameMenuProductionFrame.updateMenuButtons = Utils.appendedFunction(InGameMenuProductionFrame.updateMenuButtons, ProductionInfoHud.updateMenuButtons)
 
-
 --Production Revamp: Callback um Inputs zu kaufen
 function ProductionInfoHud:changeFilltypeSettings(inGameMenuProductionFrame)
     local production, productionPoint = inGameMenuProductionFrame:getSelectedProduction();
@@ -1260,29 +1277,19 @@ end
 
 function ProductionInfoHud:changeIngoreInput(productionPointId, fillTypeName, value)
     
--- print("ignoreInput")
--- DebugUtil.printTableRecursively(self.settings,"_",0,2)
-
     if self.settings["ignoreInput"][productionPointId] == nil then
         self.settings["ignoreInput"][productionPointId] = {};
     end
-        
--- print("ignoreInput2")
--- DebugUtil.printTableRecursively(self.settings,"_",0,2)
-
-    self.settings["ignoreInput"][productionPointId][fillTypeName] = value;
     
--- print("ignoreInput3")
--- DebugUtil.printTableRecursively(self.settings["ignoreInput"],"_",0,2)
+    self.settings["ignoreInput"][productionPointId][fillTypeName] = value;
 end
-
 
 --- Saves all global data, for example global settings.
 function ProductionInfoHud.saveToXMLFile(missionInfo)
     if missionInfo.isValid then 
         local saveGamePath = missionInfo.savegameDirectory .."/";
         local xmlFile = XMLFile.create("pihXml", saveGamePath.. "ProductionInfoHud.xml", "ProductionInfoHud")
-        if xmlFile then	
+        if xmlFile then    
             for productionPointId, fillTypeList in pairs(ProductionInfoHud.settings["ignoreInput"]) do 
             
                 xmlFile:setTable("ProductionInfoHud.ignoreInputs.ignoreInput", fillTypeList, function (path, value, key)
