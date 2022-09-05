@@ -39,6 +39,7 @@ Wem es nicht gefällt, der soll es einfach nicht benutzen.
 Changelog
 0.11.0.0
 - Dedi Server erstellt die Listen nun nicht mehr Serverseitig zur Verbesserung der Performance
+- Jeder Input filltype kann pro produktion einzeln ignoriert werden
 
 0.10.0.0
 - Filltypes die Input und Output sind wird jetzt angezeigt sobald der Füllstand 99% erreicht
@@ -151,6 +152,10 @@ These can best be made on my Discord in the channel of the respective mod. https
 If you don't like it, just don't use it.
 
 Changelog
+0.11.0.0
+- Dedi Server no longer creates the lists on the server side to improve performance.
+- Each input filltype can be ignored individually per production
+
 0.10.0.0
 - Filltypes that are input and output are now displayed as soon as the fill level reaches 99%
 - Feeding robots are now displayed
