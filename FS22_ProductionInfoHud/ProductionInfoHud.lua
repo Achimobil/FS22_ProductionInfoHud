@@ -26,7 +26,6 @@ ProductionInfoHud.PossibleAmounts = {"5000", "10000", "50000", "100000", "200000
 ProductionInfoHud.PossibleTextSizes = {"8", "9", "10", "11", "12", "13", "14", "15"}
 
 function ProductionInfoHud:init()
-print("ProductionInfoHud:init()")
     ProductionInfoHud.isClient = g_currentMission:getIsClient();
     -- isClient korrektur, wenn es die dynamic info gibt
     if g_currentMission.missionDynamicInfo ~= nil and g_currentMission.missionDynamicInfo.isClient ~= nil then
@@ -338,8 +337,8 @@ function ProductionInfoHud:refreshProductionsTable()
                     local ignoreInput = false;
                     -- print("productionPoint.id:" .. tostring(productionPoint.id))
                     -- print("fillType.name:" .. tostring(fillType.name))
-                    if self.settings["ignoreInput"][productionPoint.id] ~= nil and self.settings["ignoreInput"][productionPoint.id][fillType.name] ~= nil then
-                        ignoreInput = self.settings["ignoreInput"][productionPoint.id][fillType.name];
+                    if productionPoint.inputFillTypeIdsIgnorePih ~= nil and productionPoint.inputFillTypeIdsIgnorePih[fillTypeId] ~= nil then
+                        ignoreInput = productionPoint.inputFillTypeIdsIgnorePih[fillTypeId];
                     end
                     
                     local productionItem = {}
@@ -1203,18 +1202,27 @@ end
 
 --Production Revamp: MenüButten um zwischen Inaktive/Aktive/Allen Produktionen umzuschalten
 function ProductionInfoHud:updateMenuButtons(superFunc)
-    local buttonText = "pih_filltypeSettings";
+    local buttonText = "pih_setFilltypeToIgnore";
+    local currentValue = false;
 
     local isProductionListActive = self.productionList == FocusManager:getFocusedElement()
-    local fillType, isInput = self:getSelectedStorageFillType()
+    local fillTypeId, isInput = self:getSelectedStorageFillType()
     
-    if not isProductionListActive and fillType ~= FillType.UNKNOWN and isInput then
+    if not isProductionListActive and fillTypeId ~= FillType.UNKNOWN and isInput then
+        local production, productionPoint = self:getSelectedProduction();
+        if productionPoint.inputFillTypeIdsIgnorePih ~= nil and productionPoint.inputFillTypeIdsIgnorePih[fillTypeId] ~= nil then
+            if productionPoint.inputFillTypeIdsIgnorePih[fillTypeId] then
+                buttonText = "pih_setFilltypeToNotIgnore";
+            end
+            currentValue = productionPoint.inputFillTypeIdsIgnorePih[fillTypeId];
+        end
+    
         table.insert(self.menuButtonInfo, {
             profile = "buttonOk",
             inputAction = InputAction.MENU_EXTRA_1,
             text = self.i18n:getText(buttonText),
             callback = function()
-                ProductionInfoHud:changeFilltypeSettings(self)
+                ProductionInfoHud:changeFilltypeSettings(self, not currentValue)
             end
         });
     end
@@ -1224,31 +1232,27 @@ end
 InGameMenuProductionFrame.updateMenuButtons = Utils.appendedFunction(InGameMenuProductionFrame.updateMenuButtons, ProductionInfoHud.updateMenuButtons)
 
 --Production Revamp: Callback um Inputs zu kaufen
-function ProductionInfoHud:changeFilltypeSettings(inGameMenuProductionFrame)
+function ProductionInfoHud:changeFilltypeSettings(inGameMenuProductionFrame, newValue)
+-- print("changeFilltypeSettings")
     local production, productionPoint = inGameMenuProductionFrame:getSelectedProduction();
-    local fillType = inGameMenuProductionFrame:getSelectedStorageFillType();
-    local fillTypeName = g_fillTypeManager:getFillTypeByIndex(fillType).title;
+    local fillTypeId = inGameMenuProductionFrame:getSelectedStorageFillType();
+    -- local fillTypeName = g_fillTypeManager:getFillTypeByIndex(fillType).name;
+-- print("fillTypeName:" .. fillTypeName)
     
-    
-    if fillType ~= FillType.UNKNOWN then
-        g_gui:showYesNoDialog({
-            text =  fillTypeName,
-            title = g_i18n:getText("pih_hideThisFilltypeQuestion"),
-            callback = self.changeFilltypeSetting,
-            yesText = g_i18n:getText("pih_hideFilltype_yes"),
-            noText = g_i18n:getText("pih_hideFilltype_no"),
-            args = {
-                productionPoint = productionPoint, 
-                fillTypeName = g_fillTypeManager:getFillTypeByIndex(fillType).name--,
-                -- productionId = production.id
-            },
-            target = self
-        })
-    end
+    productionPoint:setInputIgnorePih(fillTypeId, newValue);
 end
 
-function ProductionInfoHud:changeFilltypeSetting(decission, args)
-	-- g_client:getServerConnection():sendEvent(ChangeIgnoreInputEvent.new(args.productionPoint, args.fillTypeName, decission))
+function ProductionPoint:setInputIgnorePih(outputFillTypeId, ignoreInput, noEventSend)
+    if self.inputFillTypeIdsIgnorePih == nil then
+        self.inputFillTypeIdsIgnorePih = {}
+    end
+    
+    self.inputFillTypeIdsIgnorePih[outputFillTypeId] = ignoreInput;
+    
+-- print("setInputIgnorePih")
+-- DebugUtil.printTableRecursively(self,"_",0,2)
+    
+    ProductionPointInputIgnorePihEvent.sendEvent(self, outputFillTypeId, ignoreInput, noEventSend)
 end
 
 -- local rX, rY, rZ = getRotation(place.node);
