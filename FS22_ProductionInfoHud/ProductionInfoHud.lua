@@ -1253,6 +1253,32 @@ function ProductionInfoHud:loadFromXMLFileProductionPoint(xmlFile, key)
 end
 ProductionPoint.loadFromXMLFile = Utils.appendedFunction(ProductionPoint.loadFromXMLFile, ProductionInfoHud.loadFromXMLFileProductionPoint)
 
+function ProductionInfoHud:readStreamProductionPoint(streamId, connection)
+    if self.inputFillTypeIdsIgnorePih == nil then
+        self.inputFillTypeIdsIgnorePih = {};
+    end
+	if connection:getIsServer() then
+		for i = 1, streamReadUInt8(streamId) do
+			self:setInputIgnorePih(streamReadUIntN(streamId, FillTypeManager.SEND_NUM_BITS), true)
+		end
+	end
+end
+ProductionPoint.readStream = Utils.appendedFunction(ProductionPoint.readStream, ProductionInfoHud.readStreamProductionPoint)
+
+function ProductionInfoHud:writeStreamProductionPoint(streamId, connection)
+    if self.inputFillTypeIdsIgnorePih == nil then
+        self.inputFillTypeIdsIgnorePih = {};
+    end
+	if not connection:getIsServer() then
+		streamWriteUInt8(streamId, table.size(self.inputFillTypeIdsIgnorePih))
+
+		for inputFillTypeIdIgnorePih in pairs(self.inputFillTypeIdsIgnorePih) do
+			streamWriteUIntN(streamId, inputFillTypeIdIgnorePih, FillTypeManager.SEND_NUM_BITS)
+		end
+	end
+end
+ProductionPoint.writeStream = Utils.appendedFunction(ProductionPoint.writeStream, ProductionInfoHud.writeStreamProductionPoint)
+
 addModEventListener(ProductionInfoHud);
 
 -- local rX, rY, rZ = getRotation(place.node);
