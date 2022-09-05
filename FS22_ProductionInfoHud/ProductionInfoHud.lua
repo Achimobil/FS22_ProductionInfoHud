@@ -175,8 +175,6 @@ function ProductionInfoHud:ToggleGui()
             ProductionInfoHud.settings["display"]["showType"] = "ALL"
         end
     end
-    
-    -- print("showType:" .. ProductionInfoHud.settings["display"]["showType"]);
 end
 
 function ProductionInfoHud:loadMap(name)
@@ -185,7 +183,6 @@ function ProductionInfoHud:loadMap(name)
 end
 
 function ProductionInfoHud:update(dt)
--- print("ProductionInfoHud:update(dt)")
     if not ProductionInfoHud.isInit then ProductionInfoHud:init(); end
     
     if not ProductionInfoHud.isClient then return end
@@ -282,14 +279,9 @@ function ProductionInfoHud:createProductionNeedingTable(mode)
                         end
                     end
                 end
-                
-                --table.insert(myProductions, fillTypeItem)
             end
         end
     end
-    
-    -- print("myFillTypes");
-    -- DebugUtil.printTableRecursively(myFillTypes,"_",0,2);
     
     -- in sortierbare Liste eintragen
     local fillTypeResultTable = {};
@@ -305,9 +297,6 @@ function ProductionInfoHud:createProductionNeedingTable(mode)
     end
     
     table.sort(fillTypeResultTable, compFillTypeResultTable)
-    
-    -- print("fillTypeResultTable");
-    -- DebugUtil.printTableRecursively(fillTypeResultTable,"_",0,2);
     
     ProductionInfoHud.fillTypeResultTable = fillTypeResultTable;
 end
@@ -335,8 +324,6 @@ function ProductionInfoHud:refreshProductionsTable()
                     local fillType = g_currentMission.fillTypeManager.fillTypes[fillTypeId];
                     
                     local ignoreInput = false;
-                    -- print("productionPoint.id:" .. tostring(productionPoint.id))
-                    -- print("fillType.name:" .. tostring(fillType.name))
                     if productionPoint.inputFillTypeIdsIgnorePih ~= nil and productionPoint.inputFillTypeIdsIgnorePih[fillTypeId] ~= nil then
                         ignoreInput = productionPoint.inputFillTypeIdsIgnorePih[fillTypeId];
                     end
@@ -364,7 +351,6 @@ function ProductionInfoHud:refreshProductionsTable()
                         productionItem.capacityLevel = 0
                     elseif productionItem.capacity == nil then
                         productionItem.capacityLevel = 0
-                        -- print("Error: No storage for '" .. g_currentMission.fillTypeManager.fillTypes[fillTypeId].name .. "' in productionPoint but defined to used. Has to be fixed in '" .. productionPoint.owningPlaceable.customEnvironment .."'.")
                     else
                         productionItem.capacityLevel = productionItem.fillLevel / productionItem.capacity;
                     end
@@ -507,14 +493,8 @@ function ProductionInfoHud:refreshProductionsTable()
                     local feedingRobot = placeable.spec_husbandryFeedingRobot.feedingRobot;
                     local recipe = feedingRobot.robot.recipe;
                     
--- print("feedingRobot")
--- DebugUtil.printTableRecursively(feedingRobot,"_",0,2)
-                    
                     -- Jede zutat der Rezeptes durchlaufen und dann ausrechnen wie lange das hält
                     for _, ingredient in pairs(recipe.ingredients) do
-                    
--- print("ingredient")
--- DebugUtil.printTableRecursively(ingredient,"_",0,2)
                         local fillLevel = 0
 
                         for _, fillType in ipairs(ingredient.fillTypes) do
@@ -564,8 +544,6 @@ function ProductionInfoHud:refreshProductionsTable()
                         productionItem.capacity = placeable.spec_husbandryWater:getHusbandryCapacity(FillType.WATER)
                         productionItem.isInput = true;
 
-                        --print(productionItem.name .. " (Wasser) needPerHour: " .. productionItem.needPerHour .. " fillLevel: " .. productionItem.fillLevel .. " capacity: " .. productionItem.capacity)
-                        
                         if productionItem.capacity == 0 then 
                             productionItem.capacityLevel = 0
                         elseif productionItem.capacity == nil then
@@ -598,8 +576,6 @@ function ProductionInfoHud:refreshProductionsTable()
                     productionItem.capacity = placeable.spec_husbandryStraw:getHusbandryCapacity(FillType.STRAW)
                     productionItem.isInput = true;
                     
-                    --print(productionItem.name .. " (Stroh) needPerHour: " .. productionItem.needPerHour .. " fillLevel: " .. productionItem.fillLevel .. " capacity: " .. productionItem.capacity)
-                    
                     if productionItem.capacity == 0 then 
                         productionItem.capacityLevel = 0
                     elseif productionItem.capacity == nil then
@@ -631,8 +607,6 @@ function ProductionInfoHud:refreshProductionsTable()
                     productionItem.capacity = placeable.spec_husbandryMilk:getHusbandryCapacity(FillType.MILK)
                     productionItem.isInput = false;
                     
-                    --print(productionItem.name .. " (Milch) needPerHour: " .. productionItem.needPerHour .. " fillLevel: " .. productionItem.fillLevel .. " capacity: " .. productionItem.capacity)
-                    
                     if productionItem.capacity == 0 then 
                         productionItem.capacityLevel = 0
                     elseif productionItem.capacity == nil then
@@ -660,8 +634,6 @@ function ProductionInfoHud:refreshProductionsTable()
                     productionItem.fillLevel = placeable.spec_husbandryLiquidManure:getHusbandryFillLevel(FillType.LIQUIDMANURE)
                     productionItem.capacity = placeable.spec_husbandryLiquidManure:getHusbandryCapacity(FillType.LIQUIDMANURE)
                     productionItem.isInput = false;
-                    
-                    --print(productionItem.name .. " (Milch) needPerHour: " .. productionItem.needPerHour .. " fillLevel: " .. productionItem.fillLevel .. " capacity: " .. productionItem.capacity)
                     
                     if productionItem.capacity == 0 then 
                         productionItem.capacityLevel = 0
@@ -724,16 +696,10 @@ function ProductionInfoHud:refreshSellPriceData()
         end
     end
 
--- print("FS22_SellPriceTrigger.SellPriceTrigger.triggers")
--- DebugUtil.printTableRecursively(FS22_SellPriceTrigger.SellPriceTrigger.triggers,"_",0,2)
-    
-        
     if g_currentMission.productionChainManager.farmIds[farmId] ~= nil and g_currentMission.productionChainManager.farmIds[farmId].productionPoints ~= nil then
         for _, productionPoint in pairs(g_currentMission.productionChainManager.farmIds[farmId].productionPoints) do
             
             local storageName = productionPoint.owningPlaceable:getName();
--- print("productionPoint.outputFillTypeIds")
--- DebugUtil.printTableRecursively(productionPoint.outputFillTypeIds,"_",0,2)
             for fillType, fillLevel in pairs(productionPoint.storage.fillLevels) do
             
                 local isOutput = false
@@ -755,18 +721,10 @@ function ProductionInfoHud:refreshSellPriceData()
         end
     end
     
-    
--- print("prices")
--- DebugUtil.printTableRecursively(prices,"_",0,2)
-    
-
     -- storageSystem benutzen. Storages splitten sich auf, wenn diese zu nah zusammen stehen, aber das ist in LS so und ich kann das nicht ändern.
     local usedStorages = {};
     local storages = g_currentMission.storageSystem:getStorages();
     for i, storage in pairs (storages) do
-        -- print(i.." : "..storage.indexName);
-        -- print("test");
-        -- DebugUtil.printTableRecursively(storage,"_",0,2);
     
         local storageName = "";
         if usedStorages[storage] == nil and storage:getOwnerFarmId() == farmId then
@@ -803,10 +761,6 @@ function ProductionInfoHud:refreshSellPriceData()
         end
     end
     
--- print("prices")
--- DebugUtil.printTableRecursively(prices,"_",0,2)
-    
-
     -- List für Anzeige erstellen
     local sortableOutputTable = {};
     for fillTypeId, sellPriceItem in pairs (prices) do
@@ -1233,13 +1187,12 @@ InGameMenuProductionFrame.updateMenuButtons = Utils.appendedFunction(InGameMenuP
 
 --Production Revamp: Callback um Inputs zu kaufen
 function ProductionInfoHud:changeFilltypeSettings(inGameMenuProductionFrame, newValue)
--- print("changeFilltypeSettings")
     local production, productionPoint = inGameMenuProductionFrame:getSelectedProduction();
     local fillTypeId = inGameMenuProductionFrame:getSelectedStorageFillType();
-    -- local fillTypeName = g_fillTypeManager:getFillTypeByIndex(fillType).name;
--- print("fillTypeName:" .. fillTypeName)
     
     productionPoint:setInputIgnorePih(fillTypeId, newValue);
+    
+	inGameMenuProductionFrame:updateMenuButtons()
 end
 
 function ProductionPoint:setInputIgnorePih(outputFillTypeId, ignoreInput, noEventSend)
@@ -1247,18 +1200,54 @@ function ProductionPoint:setInputIgnorePih(outputFillTypeId, ignoreInput, noEven
         self.inputFillTypeIdsIgnorePih = {}
     end
     
-    self.inputFillTypeIdsIgnorePih[outputFillTypeId] = ignoreInput;
-    
--- print("setInputIgnorePih")
--- DebugUtil.printTableRecursively(self,"_",0,2)
+    if ignoreInput then
+        self.inputFillTypeIdsIgnorePih[outputFillTypeId] = ignoreInput;
+    else
+        if self.inputFillTypeIdsIgnorePih[outputFillTypeId] ~= nil then
+            self.inputFillTypeIdsIgnorePih[outputFillTypeId] = nil;
+        end
+    end
     
     ProductionPointInputIgnorePihEvent.sendEvent(self, outputFillTypeId, ignoreInput, noEventSend)
 end
+
+function ProductionInfoHud.registerSavegameXMLPathsProductionPoint(schema, basePath)
+	schema:register(XMLValueType.STRING, basePath .. ".ignoreInputPihFillType(?)", "fillType currently configured to not be shown in Production Info Hud")
+	Storage.registerSavegameXMLPaths(schema, basePath .. ".storage")
+end
+ProductionPoint.registerSavegameXMLPaths = Utils.appendedFunction(ProductionPoint.registerSavegameXMLPaths, ProductionInfoHud.registerSavegameXMLPathsProductionPoint)
+
+
+function ProductionInfoHud:saveToXMLFileProductionPoint(xmlFile, key, usedModNames)
+    if self.inputFillTypeIdsIgnorePih ~= nil then
+        xmlFile:setTable(key .. ".ignoreInputPihFillType", self.inputFillTypeIdsIgnorePih, function (fillTypeKey, _, fillTypeId)
+            local fillType = g_fillTypeManager:getFillTypeNameByIndex(fillTypeId)
+
+            xmlFile:setValue(fillTypeKey, fillType)
+        end)
+    end
+end
+ProductionPoint.saveToXMLFile = Utils.appendedFunction(ProductionPoint.saveToXMLFile, ProductionInfoHud.saveToXMLFileProductionPoint)
+
+
+
+function ProductionInfoHud:loadFromXMLFileProductionPoint(xmlFile, key)
+	xmlFile:iterate(key .. ".ignoreInputPihFillType", function (index, ignoreInputKey)
+		local fillType = g_fillTypeManager:getFillTypeIndexByName(xmlFile:getValue(ignoreInputKey))
+
+		if fillType then
+			self:setInputIgnorePih(fillType, true)
+		end
+	end)
+
+	return true
+end
+ProductionPoint.loadFromXMLFile = Utils.appendedFunction(ProductionPoint.loadFromXMLFile, ProductionInfoHud.loadFromXMLFileProductionPoint)
+
+addModEventListener(ProductionInfoHud);
 
 -- local rX, rY, rZ = getRotation(place.node);
 -- print("place.node rX:"..rX.." rY:"..rY.." rZ:"..rZ);
 
 -- print("loadingPattern")
 -- DebugUtil.printTableRecursively(loadingPattern,"_",0,2)
-
-addModEventListener(ProductionInfoHud);
