@@ -46,6 +46,10 @@
 		<text name="pih_MinSellAmountElement_title" text="Minimum sales amount" />
 		<text name="pih_tooltip_minSellAmount" text="This amount must be at least in stock to be displayed." />    
 		<text name="pih_textSize_title" text="Font size" />
-		<text name="pih_textSize_tooltip" text="The size of the font." />                                     
+		<text name="pih_textSize_tooltip" text="The size of the font." />
+        
+        <!-- In Produktionsmenü -->
+		<text name="pih_setFilltypeToIgnore" text="PIH: Hide Input" />
+		<text name="pih_setFilltypeToNotIgnore" text="PIH: Show Input" />
 	</texts>
 </l10n>

@@ -1174,7 +1174,7 @@ function ProductionInfoHud:updateMenuButtons(superFunc)
         table.insert(self.menuButtonInfo, {
             profile = "buttonOk",
             inputAction = InputAction.MENU_EXTRA_1,
-            text = self.i18n:getText(buttonText),
+            text = g_i18n:getText(buttonText),
             callback = function()
                 ProductionInfoHud:changeFilltypeSettings(self, not currentValue)
             end
