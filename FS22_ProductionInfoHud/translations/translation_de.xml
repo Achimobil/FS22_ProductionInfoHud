@@ -47,5 +47,9 @@
 		<text name="pih_tooltip_minSellAmount" text="Diese Menge muss mindestens im Lager sein um angezeigt zu werden." />
 		<text name="pih_textSize_title" text="Schriftgröße" />
 		<text name="pih_textSize_tooltip" text="Die Größe der Schrift." />
+        
+        <!-- In Produktionsmenü -->
+		<text name="pih_setFilltypeToIgnore" text="PIH: Input ausblenden" />
+		<text name="pih_setFilltypeToNotIgnore" text="PIH: Input einblenden" />
 	</texts>
 </l10n>
