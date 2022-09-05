@@ -52,8 +52,6 @@ print("ProductionInfoHud:init()")
     ProductionInfoHud.settings["display"]["showBooster"] = true;
     ProductionInfoHud.settings["display"]["textSize"] = 5;
     
-    ProductionInfoHud.settings["ignoreInput"] = {};
-    
     ProductionInfoHud:LoadSettings();
        
     -- Aufrufen nach init, da erst an isclient gesetzt ist und sonst die binding nicht aktiv ist bevor man in ein auto einsteigt
@@ -86,26 +84,7 @@ print("ProductionInfoHud:init()")
     g_gui:loadGui(ProductionInfoHud.modDir .. "Gui/InGameMenuProductionInfo.xml", "InGameMenuProductionInfo", productionFrame, true)
     
     ProductionInfoHud.fixInGameMenu(productionFrame,"InGameMenuProductionInfo", {0,0,1024,1024}, 13, ProductionInfoHud:makeIsProductionInfoEnabledPredicate())
-    productionFrame:initialize()    
-    
-    -- load ignoreInput, wenn vorhanden
-    if g_currentMission.missionInfo.savegameDirectory ~= nil then
-        local saveGamePath = g_currentMission.missionInfo.savegameDirectory .."/";
-        local filePath = saveGamePath .. "ProductionInfoHud.xml";
-        local xmlFile = XMLFile.load("pihXml", filePath);
-        
-        if xmlFile ~= nil then        
-            xmlFile:iterate("ProductionInfoHud.ignoreInputs.ignoreInput", function (_, key)
-                local productionPointId = xmlFile:getInt(key .. "#productionPointId")
-                local fillTypeName = xmlFile:getString(key .. "#fillTypeName")
-                local value = xmlFile:getBool(key .. "#value")
-                                    
-                if productionPointId ~= nil and fillTypeName ~= nil and value ~= nil then
-                    self:changeIgnoreInput(productionPointId, fillTypeName, value, false)
-                end
-            end)
-        end
-    end
+    productionFrame:initialize()
 end
 
 function ProductionInfoHud:makeIsProductionInfoEnabledPredicate()
@@ -1259,7 +1238,7 @@ function ProductionInfoHud:changeFilltypeSettings(inGameMenuProductionFrame)
             yesText = g_i18n:getText("pih_hideFilltype_yes"),
             noText = g_i18n:getText("pih_hideFilltype_no"),
             args = {
-                productionPointId = productionPoint.id, 
+                productionPoint = productionPoint, 
                 fillTypeName = g_fillTypeManager:getFillTypeByIndex(fillType).name--,
                 -- productionId = production.id
             },
@@ -1269,82 +1248,8 @@ function ProductionInfoHud:changeFilltypeSettings(inGameMenuProductionFrame)
 end
 
 function ProductionInfoHud:changeFilltypeSetting(decission, args)
-    -- self:changeIgnoreInput(args.productionPointId, args.fillTypeName, decission);
-	g_client:getServerConnection():sendEvent(ChangeIgnoreInputEvent.new(args.productionPointId, args.fillTypeName, decission))
+	-- g_client:getServerConnection():sendEvent(ChangeIgnoreInputEvent.new(args.productionPoint, args.fillTypeName, decission))
 end
-
-function ProductionInfoHud:changeIgnoreInput(productionPointId, fillTypeName, value, sendEvent)
-print("ProductionInfoHud:changeIgnoreInput")
--- print("productionPointId:" .. productionPointId)
--- print("fillTypeName:" .. fillTypeName)
--- print("value:" .. tostring(value))
--- print("self.settings[ignoreInput]")
--- DebugUtil.printTableRecursively(self.settings["ignoreInput"],"_",0,2)
-    
-    if self.settings["ignoreInput"][productionPointId] == nil then
-        self.settings["ignoreInput"][productionPointId] = {};
-    end
-    
-    self.settings["ignoreInput"][productionPointId][fillTypeName] = value;
-print("self.settings[ignoreInput]")
-DebugUtil.printTableRecursively(self.settings["ignoreInput"],"_",0,2)
-    
-    if sendEvent == nil or sendEvent then
-        g_server:broadcastEvent(IgnoreInputSyncEvent.new(self.settings["ignoreInput"]), true)
-    end
-end
-
-function ProductionInfoHud:SetIngoreInput(simpleList)
-print("ProductionInfoHud:SetIngoreInput(ignoreInputList)")
--- print("self.settings[ignoreInput]")
--- DebugUtil.printTableRecursively(self.settings["ignoreInput"],"_",0,2)
-    if not ProductionInfoHud.isInit then ProductionInfoHud:init(); end
-    
-    for _, simleListItem in pairs(simpleList) do
-        self:changeIgnoreInput(simleListItem.productionPointId, simleListItem.fillTypeName, simleListItem.value, false)
-    end
-
-    
-print("self.settings[ignoreInput]")
-DebugUtil.printTableRecursively(self.settings["ignoreInput"],"_",0,2)
-end
-
--- function ProductionInfoHud:onClientJoined(connection)
--- print("ProductionInfoHud:onClientJoined(connection)")
-	-- if next(self.collected) ~= nil then
-		-- connection:sendEvent(IgnoreInputSyncEvent.new(self.settings["ignoreInput"]))
-	-- end
--- end
-
---- Saves all global data, for example global settings.
-function ProductionInfoHud.saveToXMLFile(missionInfo)
-    if missionInfo.isValid then 
-        local saveGamePath = missionInfo.savegameDirectory .."/";
-        local xmlFile = XMLFile.create("pihXml", saveGamePath.. "ProductionInfoHud.xml", "ProductionInfoHud")
-        if xmlFile then    
-            for productionPointId, fillTypeList in pairs(ProductionInfoHud.settings["ignoreInput"]) do 
-            
-                xmlFile:setTable("ProductionInfoHud.ignoreInputs.ignoreInput", fillTypeList, function (path, value, key)
-                    xmlFile:setInt(path .. "#productionPointId", productionPointId)
-                    xmlFile:setString(path .. "#fillTypeName", key)
-                    xmlFile:setBool(path .. "#value", value)
-                end)
-            end
-            xmlFile:save()
-            xmlFile:delete()
-        end
-    end
-end
-FSCareerMissionInfo.saveToXMLFile = Utils.appendedFunction(FSCareerMissionInfo.saveToXMLFile, ProductionInfoHud.saveToXMLFile)
-
-function ProductionInfoHud:sendInitialClientState(connection, user, farm)
-print("sendInitialClientState")
-    if not ProductionInfoHud.isInit then ProductionInfoHud:init(); end
-    
--- DebugUtil.printTableRecursively(ProductionInfoHud,"_",0,2)
-    connection:sendEvent(IgnoreInputSyncEvent.new(ProductionInfoHud.settings["ignoreInput"]))
-end
-FSBaseMission.sendInitialClientState = Utils.appendedFunction(FSBaseMission.sendInitialClientState, ProductionInfoHud.sendInitialClientState)
 
 -- local rX, rY, rZ = getRotation(place.node);
 -- print("place.node rX:"..rX.." rY:"..rY.." rZ:"..rZ);
