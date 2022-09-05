@@ -401,6 +401,12 @@ function ProductionInfoHud:refreshProductionsTable()
                         for _, input in pairs(production.inputs) do
                             -- status 3 = läuft nicht weil ausgang voll
                             if input.mix == n then 
+                    
+                                local ignoreInput = false;
+                                if productionPoint.inputFillTypeIdsIgnorePih ~= nil and productionPoint.inputFillTypeIdsIgnorePih[input.type] ~= nil then
+                                    ignoreInput = productionPoint.inputFillTypeIdsIgnorePih[input.type];
+                                end
+                                
                                 -- richtiger mix type
                                 if production.status ~= 3 then
                                     -- wie lange läuft dieser mix mit dem input type aufrechnen.
@@ -423,8 +429,14 @@ function ProductionInfoHud:refreshProductionsTable()
                         for _, input in pairs(production.inputs) do
                             -- status 3 = läuft nicht weil ausgang voll
                             if input.mix == 6 then 
+                    
+                                local ignoreInput = false;
+                                if productionPoint.inputFillTypeIdsIgnorePih ~= nil and productionPoint.inputFillTypeIdsIgnorePih[input.type] ~= nil then
+                                    ignoreInput = productionPoint.inputFillTypeIdsIgnorePih[input.type];
+                                end
+                                
                                 -- richtiger mix type
-                                if production.status ~= 3 then
+                                if production.status ~= 3 and not ignoreInput then
                                     -- wie lange läuft dieser booster?
                                     local productionItem = {}
                                     productionItem.name = productionPoint.owningPlaceable:getName();
@@ -1217,7 +1229,6 @@ function ProductionInfoHud.registerSavegameXMLPathsProductionPoint(schema, baseP
 end
 ProductionPoint.registerSavegameXMLPaths = Utils.appendedFunction(ProductionPoint.registerSavegameXMLPaths, ProductionInfoHud.registerSavegameXMLPathsProductionPoint)
 
-
 function ProductionInfoHud:saveToXMLFileProductionPoint(xmlFile, key, usedModNames)
     if self.inputFillTypeIdsIgnorePih ~= nil then
         xmlFile:setTable(key .. ".ignoreInputPihFillType", self.inputFillTypeIdsIgnorePih, function (fillTypeKey, _, fillTypeId)
@@ -1228,8 +1239,6 @@ function ProductionInfoHud:saveToXMLFileProductionPoint(xmlFile, key, usedModNam
     end
 end
 ProductionPoint.saveToXMLFile = Utils.appendedFunction(ProductionPoint.saveToXMLFile, ProductionInfoHud.saveToXMLFileProductionPoint)
-
-
 
 function ProductionInfoHud:loadFromXMLFileProductionPoint(xmlFile, key)
 	xmlFile:iterate(key .. ".ignoreInputPihFillType", function (index, ignoreInputKey)
