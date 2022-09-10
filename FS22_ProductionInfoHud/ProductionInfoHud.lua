@@ -383,7 +383,7 @@ function ProductionInfoHud:refreshProductionsTable()
                     end
                     
                     -- Ausgangslager voll, dann speziell eintragen
-                    if (productionItem.capacityLevel >= 0.99 and productionItem.isOutput) then 
+                    if (productionItem.capacityLevel >= 0.95 and productionItem.isOutput) then 
                         productionItem.hoursLeft = -1;
                         table.insert(myProductions, productionItem)
                     end

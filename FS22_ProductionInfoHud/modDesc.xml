@@ -2,7 +2,7 @@
 <modDesc descVersion="65">
     <author>Achimobil</author>
     <contributor>Rodberaht</contributor>
-    <version>0.11.0.0_beta</version>
+    <version>0.11.0.0_beta_2</version>
     <title>
         <de>Produktionen Info Hud</de>
         <en>Production Info Hud</en>
@@ -40,6 +40,7 @@ Changelog
 0.11.0.0
 - Dedi Server erstellt die Listen nun nicht mehr Serverseitig zur Verbesserung der Performance
 - Jeder Input filltype kann pro produktion einzeln ignoriert werden
+- Ausgangsprodukte werden jetzt ab 95% als voll angezeigt
 
 0.10.0.0
 - Filltypes die Input und Output sind wird jetzt angezeigt sobald der Füllstand 99% erreicht
