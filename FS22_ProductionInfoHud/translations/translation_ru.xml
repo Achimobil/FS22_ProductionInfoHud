@@ -49,7 +49,7 @@
 		<text name="pih_textSize_tooltip" text="Размер шрифта." />
         
         <!-- In Produktionsmenü -->
-		<text name="pih_setFilltypeToIgnore" text="PIH: Скрыть ввод" />
-		<text name="pih_setFilltypeToNotIgnore" text="PIH: Show Input" />
+		<text name="pih_setFilltypeToIgnore" text="PIH: Скрывать в требуемых" />
+		<text name="pih_setFilltypeToNotIgnore" text="PIH: Показывать в требуемых" />
 	</texts>
 </l10n>
