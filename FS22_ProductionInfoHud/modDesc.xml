@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8" standalone="no" ?>
-<modDesc descVersion="65">
+<modDesc descVersion="68">
     <author>Achimobil</author>
     <contributor>Rodberaht</contributor>
-    <version>0.11.0.0_beta_2</version>
+    <version>0.11.0.0</version>
     <title>
         <de>Produktionen Info Hud</de>
         <en>Production Info Hud</en>
@@ -156,6 +156,7 @@ Changelog
 0.11.0.0
 - Dedi Server no longer creates the lists on the server side to improve performance.
 - Each input filltype can be ignored individually per production
+- Output filltypes are now shown as full on 95% fill level
 
 0.10.0.0
 - Filltypes that are input and output are now displayed as soon as the fill level reaches 99%
