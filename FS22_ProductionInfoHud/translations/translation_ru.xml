@@ -14,14 +14,16 @@
 		<text name="pih_ingameMenuProductionInfo" text="Объёмы производства в месяц (только активные производственные линии)" />
 		<text name="pih_ingameMenuProductionInfoHour" text="Объемы производства в час (только активные производственные линии)" />
 		<text name="pih_ingameMenuProductionInfoYear" text="Объемы производства в год (только активные производственные линии)" />
-		<text name="pih_header_sellPerMonth" text="Продано" />
-		<text name="pih_header_keepPerMonth" text="На складе" />
-		<text name="pih_header_distributePerMonth" text="Сдано" />
-		<text name="pih_header_usagePerMonth" text="Использовано" />
-		<text name="pih_header_neededFieldSize" text="Площадь культивации" />
-		<text name="ui_listHeader_1" text="Оборот" />
-		<text name="ui_listHeader_2" text="Производство остановлено" />
-		<text name="ui_listHeader_3" text="Ресурсы не требуются" />
+		<text name="pih_header_sellPerMonth" text="Продаётся" />
+		<text name="pih_header_keepPerMonth" text="Складируется" />
+		<text name="pih_header_distributePerMonth" text="Распределяется" />
+		<text name="pih_header_usagePerMonth" text="Требуется" />
+		<text name="pih_header_neededFieldSize" text="Площадь требуемая
+для выращивания" />
+		<text name="ui_listHeader_1" text="Используется на производствах" />
+		<text name="ui_listHeader_2" text="Не производится 
+Не с производств" />
+		<text name="ui_listHeader_3" text="Не требуется на производствах" />
 		<text name="pih_changeTimeToHour" text="В час" />
 		<text name="pih_changeTimeToMonth" text="В месяц" />
 		<text name="pih_changeTimeToYear" text="В год" />
@@ -29,7 +31,7 @@
         <!-- In neuen Einstellungen benutzt-->
 		<text name="pih_settings_title" text="Production Info Hud - Производства" />
 		<text name="pihPositionElement_title" text="Позиция" />
-		<text name="pih_tooltip_position" text="Выбор расположения инфодисплея" />
+		<text name="pih_tooltip_position" text="Выбор расположения инфодисплея." />
 		<text name="pih_possiblePosition_1" text="Вверху по центру" />
 		<text name="pih_possiblePosition_2" text="Под меню справки (F1)" />
 		<text name="pih_possiblePosition_3" text="Под Vehicle Inspector" />
@@ -38,7 +40,7 @@
 		<text name="pih_MaxLinesElement_title" text="Количество строк" />
 		<text name="pih_tooltip_maxLines" text="Максимум строк о производствах. Если их больше, добавляется информационная строка." />
 		<text name="pih_showBooster_title" text="Показывать Booster" />
-		<text name="pih_showBooster_tooltip" text="Должны ли отображаться Booster из Revamp" />
+		<text name="pih_showBooster_tooltip" text="Должны ли отображаться Booster из Revamp." />
         
 		<text name="pih_price_settings_title" text="Production Info Hud - Цены" />
 		<text name="pih_MaxSellingLinesElement_title" text="Количество строк" />
