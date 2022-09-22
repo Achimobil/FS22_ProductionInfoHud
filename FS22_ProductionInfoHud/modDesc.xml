@@ -14,7 +14,7 @@
 Da die LS19 Version auf Global Company Dialoge und Methoden gebaut war, musste diese komplett neu aufgebaut werden.
 
 Die aktuelle Version hat folgende Möglichkeiten:
-- Anzeige der aktiven Produktionen und der Tierställe mit deren Restlaufzeit pro Rohstoffe. Inklusive der Tierställe für Futter, Wasser und Stroh. Revamp Mix wird auch als solcher angezeigt.
+- Anzeige der aktiven Produktionen und der Tierställe mit deren Restlaufzeit pro Rohstoff. Inklusive der Tierställe für Futter, Wasser und Stroh. Revamp Mix wird auch als solcher angezeigt.
 - Angezeigt wird eine Produktion nur, wenn...
 - - sie weniger als 2 Monate Restlaufzeit hat.
 - - sie weniger als 50% Füllstand hat. (Außer bei Revamp Mix Eingängen, da wird das ignoriert)
@@ -27,26 +27,26 @@ Die aktuelle Version hat folgende Möglichkeiten:
 - Die Position ist Einstellbar auf oben mittig, Unter F1 Menü oder unter Vehicle Inspector Mod Anzeige.
 - In den Produktionen können Input Filltypes für die Anzeige deaktiviert werden. Nützlich für Revamp Booster die man nicht anliefern will.
 - Revamp Booster können in den Einstellung auch komplett dektiviert werden.
-- Die Liste wird alle 5 sekunden aktualisiert.
+- Die Liste wird alle 5 Sekunden aktualisiert.
 
-Produktionsübersicht
+Produktionsübersicht:
 - In dieser werden alle Filltypes angezeigt und wieviel davon benötigt wird.
-- die Übersicht kann umgestellt werden auf pro Jahr, Monat oder Stunde
+- Die Übersicht kann umgestellt werden auf pro Jahr, Monat oder Stunde
 - Bei der Jahresansicht wird die geschätzte Anbaufläche angezeigt, die für Feldfrüchte benötigt wird (ohne PF oder Bonis)
 
-Verkaufshilfe
-- Bei installierten Verkaufspreisauslöser von Tunis wird bei gutem Preis und vorhandenem verkaufbaren Produkten diese angezeigt.
+Verkaufshilfe:
+- Wenn der Verkaufspreis-Trigger-Mod installiert ist, wird er angezeigt, wenn der Preis gut ist und die Produkte zum Verkauf angeboten werden.
 Hierbei gilt:
-- - Im Verkaufspreisauslöser muss ein VK Preis eingestellt und dieser muss überschritten sein
+- - Im Verkaufspreis-Trigger muss ein VK Preis eingestellt und dieser muss überschritten sein
 - - Die Menge die in den Einstellungen eingetragen ist muss in einem Lager oder einer Produktion vorhanden sein (Keine Tierställe)
 - Die Anzeige zeigt einem was von wo geholt und nach wo verkauft werden kann.
 
-Wünsche und Verbesserungsvorschläge sowie Fehlermeldungen sind immer willkommen.
+Wünsche, Verbesserungsvorschläge sowie Fehlermeldungen sind immer willkommen.
 Diese können am besten auf meinem Discord im Kanal des jeweiligen Mods gemacht werden.
-Adresse findet im Gleichnamigen User im Giants Forum.
+Adresse findet im gleichnamigen User im Giants Forum.
 
 Upload auf anderen Seiten nur durch mich selbst, Verlinkung nur mit Original Downloadlink. KEIN Ersatzlink!
-Das verändern sowie erneutes hochladen ob ganz oder in teilen ist nicht gestattet! 
+Das verändern oder erneutes hochladen, ob ganz oder in Teilen ist nicht gestattet!
 ]]></de>
         <en>
             <![CDATA[Here is the LS22 version of the production info hud of mine known from LS 19.
@@ -56,9 +56,9 @@ Since the LS19 version was built on Global Company dialogues and methods, it had
 The current version has the following possibilities:
 - Display of active productions and animal sheds with their remaining time per resource. Including the animal sheds for feed, water and straw. Revamp Mix is also displayed as such.
 - A production is only displayed if...
-- - it has less than 2 months remaining runtime.
-- - it has less than 50% fill level. (Except for Revamp Mix inputs, where this is ignored).
-- - The production line is activated.
+-- it has less than 2 months remaining runtime.
+-- it has less than 50% fill level. (Except for Revamp Mix inputs, where this is ignored).
+-- The production line is activated.
 - The display is sorted by remaining runtime, whichever runs empty or is empty first is at the top.
 - Productions that are full are still above. These are displayed from a fill level of 95% so that they can be run down before the production comes to a stop.
 - Full animal houses can be switched off in the options.
@@ -69,12 +69,12 @@ The current version has the following possibilities:
 - Revamp boosters can also be completely deactivated in the settings.
 - The list is updated every 5 seconds.
 
-Production overview
+Production overview:
 - This shows all fill types and how much of them is needed.
 - The overview can be switched to per year, month or hour.
 - The yearly view shows the estimated acreage needed for crops (without PF or bonuses).
 
-Sales help
+Sales help:
 - If the sales price trigger mod is installed, it is displayed if the price is good and the products are available for sale. The following applies here:
 -- A sales price must be set in the sales price trigger and this must be exceeded.
 -- The quantity selected in the options must be available in a silo or production (no animal sheds).
@@ -85,7 +85,7 @@ These can best be made on my Discord in the channel of the respective mod.
 Address can be found in the user of the same name in the Giants Forum.
 
 Upload on other sites only by myself, linking only with original download link. NO substitute link!
-Modifying and re-uploading in whole or in part is not allowed! 
+Modifying and re-uploading in whole or in part is not allowed!
 ]]></en>
     </description>
     <iconFilename>ModIcon.dds</iconFilename>
