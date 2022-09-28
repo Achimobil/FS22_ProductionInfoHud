@@ -1240,7 +1240,9 @@ function ProductionInfoHud:saveToXMLFileProductionPoint(xmlFile, key, usedModNam
 end
 ProductionPoint.saveToXMLFile = Utils.appendedFunction(ProductionPoint.saveToXMLFile, ProductionInfoHud.saveToXMLFileProductionPoint)
 
-function ProductionInfoHud:loadFromXMLFileProductionPoint(xmlFile, key)
+function ProductionInfoHud:loadFromXMLFileProductionPoint(superFunc, xmlFile, key)
+	local success = superFunc(self, xmlFile, key);
+	
 	xmlFile:iterate(key .. ".ignoreInputPihFillType", function (index, ignoreInputKey)
 		local fillType = g_fillTypeManager:getFillTypeIndexByName(xmlFile:getValue(ignoreInputKey))
 
@@ -1249,9 +1251,9 @@ function ProductionInfoHud:loadFromXMLFileProductionPoint(xmlFile, key)
 		end
 	end)
 
-	return true
+	return success
 end
-ProductionPoint.loadFromXMLFile = Utils.appendedFunction(ProductionPoint.loadFromXMLFile, ProductionInfoHud.loadFromXMLFileProductionPoint)
+ProductionPoint.loadFromXMLFile = Utils.overwrittenFunction(ProductionPoint.loadFromXMLFile, ProductionInfoHud.loadFromXMLFileProductionPoint)
 
 function ProductionInfoHud:readStreamProductionPoint(streamId, connection)
     if self.inputFillTypeIdsIgnorePih == nil then
