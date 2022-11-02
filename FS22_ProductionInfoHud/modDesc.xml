@@ -51,6 +51,7 @@ Das verändern oder erneutes hochladen, ob ganz oder in Teilen ist nicht gestatt
 Changelog 
 1.1.0.0 beta 1
 - Produktionsmengen in der Übersicht werden jetzt mit aktivem Booster angezeigt (Zahl ist orange)
+- Ausgang voll nur anzeigen, wenn Produktion aktiv ist
 
 1.0.0.1
 - Fix für Pumps N' Hoses Kompatibilität

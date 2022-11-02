@@ -363,7 +363,7 @@ function ProductionInfoHud:refreshProductionsTable()
 					if productionPoint.inputFillTypeIds[fillTypeId] ~= nil then
 						productionItem.isInput = productionPoint.inputFillTypeIds[fillTypeId];
 					end
-					-- prüfen ob input type
+					-- prüfen ob output type
 					if productionPoint.outputFillTypeIds[fillTypeId] ~= nil then
 						productionItem.isOutput = productionPoint.outputFillTypeIds[fillTypeId];
 					end
@@ -405,8 +405,20 @@ function ProductionInfoHud:refreshProductionsTable()
 					
 					-- Ausgangslager voll, dann speziell eintragen
 					if (productionItem.capacityLevel >= 0.95 and productionItem.isOutput) then 
-						productionItem.hoursLeft = -1;
-						table.insert(myProductions, productionItem)
+						-- prüfen ob output einer aktivierten produktion, nicht einer aktiven, soll ja angezeigt werden, wenn die Produktion eingeschaltet ist, aber auch wenn sie nicht läuft weil ganz voll
+						local oneProductionWithOutputActive = false;
+						for _, production in pairs(productionPoint.productions) do
+							for _, output in pairs(production.outputs) do
+								if output.type == fillTypeId and production.status ~= ProductionPoint.PROD_STATUS.INACTIVE then
+									oneProductionWithOutputActive = true;
+								end
+							end
+						end
+						
+						if oneProductionWithOutputActive then
+							productionItem.hoursLeft = -1;
+							table.insert(myProductions, productionItem)
+						end
 					end
 				end
 				
