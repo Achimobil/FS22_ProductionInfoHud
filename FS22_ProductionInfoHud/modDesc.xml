@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8" standalone="no" ?>
 <modDesc descVersion="71">
-    <author>Achimobil</author>
-    <contributor>Rodberaht</contributor>
-    <version>1.1.0.0 beta 1</version>
-    <title>
-        <de>Produktionen Info Hud</de>
-        <en>Production Info Hud</en>
-    </title>
-    <description>
-        <de>
-            <![CDATA[Hier die LS22 Version des aus dem LS 19 bekannten Produktionen Info Hud von mir.
+	<author>Achimobil</author>
+	<contributor>Rodberaht</contributor>
+	<version>1.1.0.0 beta 1</version>
+	<title>
+		<de>Produktionen Info Hud</de>
+		<en>Production Info Hud</en>
+	</title>
+	<description>
+		<de>
+			<![CDATA[Hier die LS22 Version des aus dem LS 19 bekannten Produktionen Info Hud von mir.
 
 Da die LS19 Version auf Global Company Dialoge und Methoden gebaut war, musste diese komplett neu aufgebaut werden.
 
@@ -55,8 +55,8 @@ Changelog
 1.0.0.1
 - Fix für Pumps N' Hoses Kompatibilität
 ]]></de>
-        <en>
-            <![CDATA[Here is the LS22 version of the production info hud of mine known from LS 19.
+		<en>
+			<![CDATA[Here is the LS22 version of the production info hud of mine known from LS 19.
 
 Since the LS19 version was built on Global Company dialogues and methods, it had to be completely rebuilt.
 
@@ -97,22 +97,22 @@ Modifying and re-uploading in whole or in part is not allowed!
 Changelog 1.0.0.1
 - Fix for Pumps N' Hoses compatibility
 ]]></en>
-    </description>
-    <iconFilename>ModIcon.dds</iconFilename>
-    <multiplayer supported="true"/>
-    <extraSourceFiles>
-        <sourceFile filename="ProductionPointInputIgnorePihEvent.lua"/>
-        <sourceFile filename="ProductionInfoHud.lua"/>
-        <sourceFile filename="ProductionInfoHudSettings.lua"/>
-        <sourceFile filename="Gui/InGameMenuProductionInfo.lua"/>
-    </extraSourceFiles>
-    <inputBinding>
-        <actionBinding action="TOGGLE_GUI">
-            <binding device="KB_MOUSE_DEFAULT" input="KEY_lctrl KEY_p"/>
-        </actionBinding>
-    </inputBinding>
-    <actions>
-        <action name="TOGGLE_GUI"/>
-    </actions>
-    <l10n filenamePrefix="translations/translation"/>
+	</description>
+	<iconFilename>ModIcon.dds</iconFilename>
+	<multiplayer supported="true"/>
+	<extraSourceFiles>
+		<sourceFile filename="ProductionPointInputIgnorePihEvent.lua"/>
+		<sourceFile filename="ProductionInfoHud.lua"/>
+		<sourceFile filename="ProductionInfoHudSettings.lua"/>
+		<sourceFile filename="Gui/InGameMenuProductionInfo.lua"/>
+	</extraSourceFiles>
+	<inputBinding>
+		<actionBinding action="TOGGLE_GUI">
+			<binding device="KB_MOUSE_DEFAULT" input="KEY_lctrl KEY_p"/>
+		</actionBinding>
+	</inputBinding>
+	<actions>
+		<action name="TOGGLE_GUI"/>
+	</actions>
+	<l10n filenamePrefix="translations/translation"/>
 </modDesc>

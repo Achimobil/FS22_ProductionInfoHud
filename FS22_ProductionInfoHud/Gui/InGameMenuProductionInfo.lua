@@ -11,35 +11,35 @@ InGameMenuProductionInfo.MODE_HOUR = 2
 InGameMenuProductionInfo.MODE_YEAR = 3
 
 InGameMenuProductionInfoSections = {
-    ALL = 1,
-    USED_ONLY = 2,
-    PRODUCED_ONLY = 3
+	ALL = 1,
+	USED_ONLY = 2,
+	PRODUCED_ONLY = 3
 }
 
 function InGameMenuProductionInfo.new(productionInfoHud, l10n, messageCenter)
 	local self = InGameMenuProductionInfo:superClass().new(nil, InGameMenuProductionInfo._mt)
 
-    self.name = "InGameMenuProductionInfo"
-    self.l10n = l10n
-    self.messageCenter = messageCenter
-    self.productionInfoHud = productionInfoHud
-    
+	self.name = "InGameMenuProductionInfo"
+	self.l10n = l10n
+	self.messageCenter = messageCenter
+	self.productionInfoHud = productionInfoHud
+	
 	self.dataBindings = {}
 
-    self:registerControls(InGameMenuProductionInfo.CONTROLS)
+	self:registerControls(InGameMenuProductionInfo.CONTROLS)
 
 	self.hasCustomMenuButtons = true
-    self.backButtonInfo = {
+	self.backButtonInfo = {
 		inputAction = InputAction.MENU_BACK
 	}
   
-    self:setMenuButtonInfo({
-        self.backButtonInfo
-    })
-    
+	self:setMenuButtonInfo({
+		self.backButtonInfo
+	})
+	
 	self.mode = InGameMenuProductionInfo.MODE_MONTH
 
-    return self
+	return self
 end
 
 function InGameMenuProductionInfo:delete()
@@ -47,8 +47,8 @@ function InGameMenuProductionInfo:delete()
 end
 
 function InGameMenuProductionInfo:copyAttributes(src)
-    InGameMenuProductionInfo:superClass().copyAttributes(self, src)
-    self.l10n = src.l10n
+	InGameMenuProductionInfo:superClass().copyAttributes(self, src)
+	self.l10n = src.l10n
 end
 
 function InGameMenuProductionInfo:onGuiSetupFinished()
@@ -71,7 +71,7 @@ end
 function InGameMenuProductionInfo:onFrameOpen()
 	InGameMenuProductionInfo:superClass().onFrameOpen(self)
 	self:setMode(self.mode)
-    self:updateContent()
+	self:updateContent()
 	FocusManager:setFocus(self.fillTypeTable)
 end
 
@@ -81,54 +81,54 @@ end
 
 function InGameMenuProductionInfo:updateContent()
 
-    self.productionInfoHud:createProductionNeedingTable(self.mode)
+	self.productionInfoHud:createProductionNeedingTable(self.mode)
 
-    self.fillTypeResultTable = ProductionInfoHud.fillTypeResultTable
-        
+	self.fillTypeResultTable = ProductionInfoHud.fillTypeResultTable
+		
 	self:sortList()
-	self.fillTypeTable:reloadData()    
+	self.fillTypeTable:reloadData()	
 end
 
 function InGameMenuProductionInfo:sortList()
-    local sectionList = {};
-    sectionList[InGameMenuProductionInfoSections.ALL] = 
-        {
+	local sectionList = {};
+	sectionList[InGameMenuProductionInfoSections.ALL] = 
+		{
 			title = g_i18n:getText("ui_listHeader_" .. InGameMenuProductionInfoSections.ALL),
 			fillTypes = {}
 		}
-    sectionList[InGameMenuProductionInfoSections.USED_ONLY] = 
-        {
+	sectionList[InGameMenuProductionInfoSections.USED_ONLY] = 
+		{
 			title = g_i18n:getText("ui_listHeader_" .. InGameMenuProductionInfoSections.USED_ONLY),
 			fillTypes = {}
 		}
-    sectionList[InGameMenuProductionInfoSections.PRODUCED_ONLY] = 
-        {
+	sectionList[InGameMenuProductionInfoSections.PRODUCED_ONLY] = 
+		{
 			title = g_i18n:getText("ui_listHeader_" .. InGameMenuProductionInfoSections.PRODUCED_ONLY),
 			fillTypes = {}
 		}
-        
+		
 	for _, fillTypeItem in ipairs(self.fillTypeResultTable) do
-        if fillTypeItem.usagePerMonth == 0 then
-            if fillTypeItem.producedPerMonth == 0 then
-                -- nothing, not existing
-            else
-                table.insert(sectionList[InGameMenuProductionInfoSections.PRODUCED_ONLY].fillTypes, fillTypeItem)
-            end
-        else
-            if fillTypeItem.producedPerMonth == 0 then
-                table.insert(sectionList[InGameMenuProductionInfoSections.USED_ONLY].fillTypes, fillTypeItem)
-            else
-                table.insert(sectionList[InGameMenuProductionInfoSections.ALL].fillTypes, fillTypeItem)
-            end
-        end
-        
-    end
-    
-    self.sectionFillTypes = {}
+		if fillTypeItem.usagePerMonth == 0 then
+			if fillTypeItem.producedPerMonth == 0 then
+				-- nothing, not existing
+			else
+				table.insert(sectionList[InGameMenuProductionInfoSections.PRODUCED_ONLY].fillTypes, fillTypeItem)
+			end
+		else
+			if fillTypeItem.producedPerMonth == 0 then
+				table.insert(sectionList[InGameMenuProductionInfoSections.USED_ONLY].fillTypes, fillTypeItem)
+			else
+				table.insert(sectionList[InGameMenuProductionInfoSections.ALL].fillTypes, fillTypeItem)
+			end
+		end
+		
+	end
+	
+	self.sectionFillTypes = {}
 
-    for _,e in pairs(sectionList) do
-        table.insert(self.sectionFillTypes, e)
-    end
+	for _,e in pairs(sectionList) do
+		table.insert(self.sectionFillTypes, e)
+	end
 end
 
 function InGameMenuProductionInfo:getNumberOfSections()
@@ -175,13 +175,13 @@ function InGameMenuProductionInfo:populateCellForItemInSection(list, section, in
 	formatCell(cell:getAttribute("sellPerMonth"), fillTypeItem.sellPerMonth, fillTypeItem.sellPerMonthWithBooster)
 	formatCell(cell:getAttribute("keepPerMonth"), fillTypeItem.keepPerMonth, fillTypeItem.keepPerMonthWithBooster)
 	formatCell(cell:getAttribute("distributePerMonth"), fillTypeItem.distributePerMonth, fillTypeItem.distributePerMonthWithBooster)
-    cell:getAttribute("usagePerMonth"):setText(g_i18n:formatNumber(fillTypeItem.usagePerMonth));
-    
-    local squareMeterNeededText = "";
-    if fillTypeItem.squareMeterNeeded ~= nil then
-        squareMeterNeededText = g_i18n:formatArea(fillTypeItem.squareMeterNeeded, 1, false);
-    end
-    cell:getAttribute("neededFieldSize"):setText(squareMeterNeededText);
+	cell:getAttribute("usagePerMonth"):setText(g_i18n:formatNumber(fillTypeItem.usagePerMonth));
+	
+	local squareMeterNeededText = "";
+	if fillTypeItem.squareMeterNeeded ~= nil then
+		squareMeterNeededText = g_i18n:formatArea(fillTypeItem.squareMeterNeeded, 1, false);
+	end
+	cell:getAttribute("neededFieldSize"):setText(squareMeterNeededText);
 end
 
 function InGameMenuProductionInfo:onButtonToggleMode()
@@ -192,7 +192,7 @@ function InGameMenuProductionInfo:onButtonToggleMode()
 	else
 		self:setMode(InGameMenuProductionInfo.MODE_MONTH)
 	end
-    self:updateContent()
+	self:updateContent()
 end
 
 function InGameMenuProductionInfo:setMode(mode)
@@ -214,7 +214,7 @@ function InGameMenuProductionInfo:updateMenuButtons()
 			inputAction = InputAction.MENU_BACK
 		}
 	}
-    
+	
 	if self.mode == InGameMenuProductionInfo.MODE_MONTH then
 		self.toggleModeButtonInfo.text = self.l10n:getText("pih_changeTimeToHour")
 		self.productionInfoTitle.text = self.l10n:getText("pih_ingameMenuProductionInfo")
