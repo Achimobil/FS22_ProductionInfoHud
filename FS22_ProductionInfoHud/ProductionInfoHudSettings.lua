@@ -13,11 +13,11 @@ function ProductionInfoHudSettings.init()
     
     
 	if g_server == nil then
-    print("g_server == nil")
+    -- print("g_server == nil")
         -- Speichern direkt beim schließen des dialogs, da es kein save gibt auf dem client, wenn der server speichert
 		InGameMenuGeneralSettingsFrame.onFrameClose = Utils.appendedFunction(InGameMenuGeneralSettingsFrame.onFrameClose, ProductionInfoHud.SaveSettings)
     else
-    print("g_server != nil")
+    -- print("g_server != nil")
         -- Speichern der einstellungen mit dem speichern, wenn server, dann wird von der funktion eh nichts gespeichert, SP und MP Host schon
         FSBaseMission.saveSavegame = Utils.appendedFunction(FSBaseMission.saveSavegame, ProductionInfoHud.SaveSettings)
 	end

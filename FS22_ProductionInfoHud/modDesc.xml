@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8" standalone="no" ?>
-<modDesc descVersion="68">
+<modDesc descVersion="69">
     <author>Achimobil</author>
     <contributor>Rodberaht</contributor>
-    <version>0.11.0.0</version>
+    <version>1.0.0.1</version>
     <title>
         <de>Produktionen Info Hud</de>
         <en>Production Info Hud</en>
@@ -11,228 +11,87 @@
         <de>
             <![CDATA[Hier die LS22 Version des aus dem LS 19 bekannten Produktionen Info Hud von mir.
 
-Upload auf anderen Seiten nur durch mich selbst, Verlinkung nur mit Original Downloadlink. KEIN Ersatzlink!
-Das verändern sowie erneutes hochladen ob ganz oder in teilen ist nicht gestattet! 
-
 Da die LS19 Version auf Global Company Dialoge und Methoden gebaut war, musste diese komplett neu aufgebaut werden.
 
-Die aktuelle Version hat folgende, nicht anpassbare Eigenschaften:
-- Anzeige der aktiven Produktionen und der Tierställe mit deren Restlaufzeit pro Rohstoffe. Inklusive der Tierställe für Futter, Wasser und Stroh. Revamp Mix wird auch als solcher angezeigt.
+Die aktuelle Version hat folgende Möglichkeiten:
+- Anzeige der aktiven Produktionen und der Tierställe mit deren Restlaufzeit pro Rohstoff. Inklusive der Tierställe für Futter, Wasser und Stroh. Revamp Mix wird auch als solcher angezeigt.
 - Angezeigt wird eine Produktion nur, wenn...
 - - sie weniger als 2 Monate Restlaufzeit hat.
 - - sie weniger als 50% Füllstand hat. (Außer bei Revamp Mix Eingängen, da wird das ignoriert)
 - - Die Produktionslinie auch aktiviert ist.
 - Die Anzeige ist sortiert nach Restlaufzeit, was zuerst leer läuft oder leer ist steht oben.
-- Produktionen die Voll sind stehen noch darüber. Volle Tierställe können in den Optionen abgeschaltet werden.
-- Wie viele Produktionen angezeigt werden kann eingestellt werden.
-Verkaufshilfe
-- Bei installierten Verkaufspreisauslöser wird bei gutem Preis und vorhandenem Verkaufbaren Produkten diese angezeigt. Hierbei gilt:
-- - Im Verkaufspreisauslöser muss ein VK Preis eingestellt und dieser muss überschritten sein
+- Produktionen die Voll sind stehen noch darüber. Diese werden ab einem Füllstand von 95% angezeigt damit man diese Abfahren kann bevor die Produktion zum stehen kommt.
+- Volle Tierställe können in den Optionen abgeschaltet werden.
+- Wie viele Produktionen angezeigt werden ist einstellbar.
+- Die Schriftgröße ist Einstellbar.
+- Die Position ist Einstellbar auf oben mittig, Unter F1 Menü oder unter Vehicle Inspector Mod Anzeige.
+- In den Produktionen können Input Filltypes für die Anzeige deaktiviert werden. Nützlich für Revamp Booster die man nicht anliefern will.
+- Revamp Booster können in den Einstellung auch komplett deaktiviert werden.
+- Die Liste wird alle 5 Sekunden aktualisiert.
+
+Produktionsübersicht:
+- In dieser werden alle Filltypes angezeigt und wieviel davon benötigt wird.
+- Die Übersicht kann umgestellt werden auf pro Jahr, Monat oder Stunde
+- Bei der Jahresansicht wird die geschätzte Anbaufläche angezeigt, die für Feldfrüchte benötigt wird (ohne PF oder Bonis)
+
+Verkaufshilfe:
+- Wenn der Verkaufspreis-Trigger-Mod installiert ist, wird er angezeigt, wenn der Preis gut ist und die Produkte zum Verkauf angeboten werden.
+Hierbei gilt:
+- - Im Verkaufspreis-Trigger muss ein VK Preis eingestellt und dieser muss überschritten sein
 - - Die Menge die in den Einstellungen eingetragen ist muss in einem Lager oder einer Produktion vorhanden sein (Keine Tierställe)
-- Die Anzeige Zeigt einem was von wo geholt und nach wo verkauft werden kann.
+- Die Anzeige zeigt einem was von wo geholt und nach wo verkauft werden kann.
 
-Wünsche und Verbesserungsvorschläge sowie Fehlermeldungen sind immer willkommen.
-Diese können am besten auf meinem Discord im Kanal des jeweiligen Mods gemacht werden. https://discord.gg/Va7JNnEkcW
+Wünsche, Verbesserungsvorschläge sowie Fehlermeldungen sind immer willkommen.
+Diese können am besten auf meinem Discord im Kanal des jeweiligen Mods gemacht werden.
+Adresse findet im gleichnamigen User im Giants Forum.
 
-Wem es nicht gefällt, der soll es einfach nicht benutzen.
+Upload auf anderen Seiten nur durch mich selbst, Verlinkung nur mit Original Downloadlink. KEIN Ersatzlink!
+Das verändern oder erneutes hochladen, ob ganz oder in Teilen ist nicht gestattet!
 
-Changelog
-0.11.0.0
-- Dedi Server erstellt die Listen nun nicht mehr Serverseitig zur Verbesserung der Performance
-- Jeder Input filltype kann pro produktion einzeln ignoriert werden
-- Ausgangsprodukte werden jetzt ab 95% als voll angezeigt
-
-0.10.0.0
-- Filltypes die Input und Output sind wird jetzt angezeigt sobald der Füllstand 99% erreicht
-- Fütterungsroboter werden jetzt angezeigt
-- Gülle wird jetzt angezeigt, wenn voll
-- Stroh aus Ställen wird nicht mehr zum Verkauf angezeigt
-- Schriftgröße ist jetzt Einstellbar im Menü
-- Produktionsübersicht jetzt umschaltbar auf pro Jahr
-- In der Jahresansicht die benötigte Fläche ohne Bonus als Spalte hinzugefügt für Früchte
-
-0.9.1.0
-- RU übersetzungen eingefügt
-- OPEN_GUI Warnung behoben
-- Fehler bei nutzung von Revamp mit fillTypeCategories behoben 
-
-0.9.0.0
-- Einstellungen in die Generellen Spieleinstellungen verlegt
-- Ohne Einstellungen ist die Anzeige nun ausgeblendet
-- Revamp Booster können ausgeblendet werden
-- Produktionstatistik kann jetzt auf Stunde umgestellt werden
-
-0.8.0.0
-- Bei Tierställen wird jetzt auch Wasser und Stroh angezeigt. (danke an Rodberaht)
-- Bei Tierställen wird jetzt auch Milch angezeigt, wenn diese voll ist. (danke an Rodberaht)
-- Revamp Mix und Booster werden jetzt korrekt angezeigt.
-- IT aus der Beschreibung entfernt weil ich das nicht übersetzen kann. Die Übersetzungen der GUI bleiben aber drin.
-- Anpassung an neue Struktur des Verkaufspreisauslösers
-
-0.7.0.0
-- Bei den Verkaufsanzeigen werden jetzt auch Produktionen angezeigt
-
-0.6.3.0
-- Fix für Giants Patch 1.4 für Spezialfahrzeuge, wenn F1 geschlossen ist
-
-0.6.2.0
-- Fix für die Position "Unter Hilfe" von Giants Patch 1.4
-
-0.6.1.0
-- VCA Scheiß behoben
-- Übersetzungen korrigiert
-
-0.6.0.0
-- Verkaufsmenge 5000 hinzugefügt
-- Produktionsübersicht mit Summen pro Monat hinzugefügt
-
-0.5.0.0
-- Fehler mit verspringen der Anzeige behoben
-- Einbau der VK Preis Anzeige aus Silos, wenn SellPriceTrigger Mod aktiv ist
-- Einstellungsdialog überarbeitet
-
-0.4.0.0
-- Übersetzungen aktualisiert
-- Anzeige, wenn alles Versorgt ist, damit man weiß dass die Anzeige aktiv ist
-- Bessere Ausrichtung unter F1 und VI
-- Verschiebt das InfoMessageHud, wenn verfügbar, in die Bildschirmmitte, damit es nicht den VI überlagert
-- Tierställe Versorgung mit Futter wird jetzt angezeigt
-- Volle Tierställe werden angezeigt, damit man Tiere Verkaufen kann (Abschaltbar im Einstellungsdialog)
-- Volle Eingänge bei abgeschalteter Produktion wird jetzt nicht mehr als voller Ausgang angezeigt
-- Die Anzahl der Angezeigten Zeilen ist nun Einstellbar
-- Anzeige der Anzahl der Zeilen die nicht angezeigt werden
-
-0.3.0.0
-- Übersetzungen für PL hinzugefügt
-- Korrektur der Anzeige bei vollem Lager
-- Bei falscher deklaration einer Produktion wird jetzt ein Fehler angezeigt mit Angabe welche Produktion fehlerhaft ist
-- Einstellungsdialog eingefügt. Aufrufbar mit [lctrl] +[lshift] + [P]
-- Speicherung der einstellungen in modSettings Ordner
-
-0.2.1.0
-- Volle Eingangslager werden nicht mehr als volle Produktionen angezeigt
-- Übersetzungen für IT hinzugefügt
-
-0.2.0.0
-- Produktionen mit vollem Ausgangslager werde als erstes angezeigt
-- Die Schrift ist nun Farblich für volle Lager (rot) und für leere Eingangslager (Orange)
-- Der Mod ist jetzt übersetzbar, en und de ist bereits enthalten
-- Mit [lctrl] + [P] kann die Anzeige aus un ein geschaltet werden (Einstellbar)
-
-0.1.1.0
-- Anpassung auf Patch 1.2.0.0 von Giants auf die geänderten Produktionen. 
-Die Anzeige ist weiterhin in Ingame Tagen. 
-Es wird aber angezeigt was in den nächsten 2 Monaten leer läuft, abhängig von den eingestellten Tagen pro Monat ist das unterschiedlich.
+Changelog 1.0.0.1
+- Fix für Pumps N' Hoses Kompatibilität
 ]]></de>
         <en>
-            <![CDATA[Here is the LS22 version of the well-known LS 19 production info hud by me.
+            <![CDATA[Here is the LS22 version of the production info hud of mine known from LS 19.
 
-Publication on other sites only by myself, linking only with original download link. NO alternative link!
-Changing or re-uploading, whether in whole or in part, is not allowed!
+Since the LS19 version was built on Global Company dialogues and methods, it had to be completely rebuilt.
 
-Since the LS19 version was built on Global Company dialogues and methods, this version must be complete rebuilded.
-
-The current version has the following, non-customizable properties:
+The current version has the following possibilities:
 - Display of active productions and animal sheds with their remaining time per resource. Including the animal sheds for feed, water and straw. Revamp Mix is also displayed as such.
-- A production is only displayed if ...
+- A production is only displayed if...
 -- it has less than 2 months remaining runtime.
 -- it has less than 50% fill level. (Except for Revamp Mix inputs, where this is ignored).
 -- The production line is activated.
 - The display is sorted by remaining runtime, whichever runs empty or is empty first is at the top.
-- Productions that are full are still above. Full animal sheds can be deactivated in the options.
+- Productions that are full are still above. These are displayed from a fill level of 95% so that they can be run down before the production comes to a stop.
+- Full animal houses can be switched off in the options.
 - How many productions are displayed can be set in the options.
-Sales help
+- The font size is adjustable.
+- The position can be set to top centre, under F1 menu or under Vehicle Inspector Mod display.
+- Input Filltypes can be deactivated for display in the productions. Useful for Revamp Boosters that are not to be delivered.
+- Revamp boosters can also be completely deactivated in the settings.
+- The list is updated every 5 seconds.
+
+Production overview:
+- This shows all fill types and how much of them is needed.
+- The overview can be switched to per year, month or hour.
+- The yearly view shows the estimated acreage needed for crops (without PF or bonuses).
+
+Sales help:
 - If the sales price trigger mod is installed, it is displayed if the price is good and the products are available for sale. The following applies here:
 -- A sales price must be set in the sales price trigger and this must be exceeded.
 -- The quantity selected in the options must be available in a silo or production (no animal sheds).
 - The display shows what can be fetched from where and sold to where.
 
 Wishes and suggestions for improvement as well as error messages are always welcome.
-These can best be made on my Discord in the channel of the respective mod. https://discord.gg/Va7JNnEkcW
+These can best be made on my Discord in the channel of the respective mod.
+Address can be found in the user of the same name in the Giants Forum.
 
-If you don't like it, just don't use it.
+Upload on other sites only by myself, linking only with original download link. NO substitute link!
+Modifying and re-uploading in whole or in part is not allowed!
 
-Changelog
-0.11.0.0
-- Dedi Server no longer creates the lists on the server side to improve performance.
-- Each input filltype can be ignored individually per production
-- Output filltypes are now shown as full on 95% fill level
-
-0.10.0.0
-- Filltypes that are input and output are now displayed as soon as the fill level reaches 99%
-- Feeding robots are now displayed
-- Liquid Manure is now displayed when full
-- Straw from sheds is no longer displayed for sale
-- Font size is now adjustable in the menu
-- Production overview can now be switched to per year
-- In the year view, the required area without bonus is added as a column for fruits
-
-0.9.0.0
-- Moved settings to the General Game Settings.
-- Without settings the display is now hidden
-- Revamp boosters can be hidden
-- Production statistics can now be changed to hours
-
-0.8.0.0
-- Water and straw are now displayed for animal sheds. (thanks to Rodberaht)
-- Milk is now also displayed for animal sheds when they are full. (thanks to Rodberaht)
-- Revamp Mix and Booster are now displayed correctly.
-- Removed IT from the description because I can't translate it. But the translations of the GUI remain.
-- Adaptation to new structure of the sales price trigger
-
-0.7.0.0
-- Productions are now also displayed in the sales listings
-
-0.6.3.0
-- fix for Giants Patch 1.4 for special vehicles when F1 is closed
-
-0.6.2.0
-- fix for positon "Below Help" of Giants Patch 1.4
-
-0.6.1.0
-- fix VCA Crap
-- correct translations
-
-0.6.0.0
-- Sell amount 5000 added
-- Production Overview with totals per month added
-
-0.5.0.0
-- Fixed bug with jumping display
-- Installation of VK price display from silos when SellPriceTrigger mod is active
-- Settings dialog revised
-
-0.4.0.0
-- Updated translations
-- Display when everything is taken care of so that you know that the display is active
-- Better alignment under F1 and VI
-- Moves the InfoMessageHud to the center of the screen, if available, so that it does not overlay the VI
-- Animal stalls supply of feed is now displayed
-- Full animal stalls are displayed so that animals can be sold (can be switched off in the settings dialog)
-- Full inputs when production is switched off is no longer displayed as full output
-- The number of displayed lines can now be set
-- Display of the number of lines that are not displayed
-
-0.3.0.0
-- Added PL translations
-- Full storage is shown correctly now
-- Wrong declared production points now makes no lua error but error message which production point has errors.
-- Settings dialog now available with [lctrl] +[lshift] + [P]
-- Settings can be saved now
-
-0.2.1.0
-- Full input storage is not displayed as full production anymore
-- Added IT translations
-
-0.2.0.0
-- Productions with full output storage are now shown
-- The font is now colored for full storage(red) and for missing resourced (orange)
-- The mod is now translatable, en and de already added
-- With [lctrl] + [P]  you can turn on and of the display (configurable)
-
-0.1.1.0
-- Changes needed for the Giants Patch 1.2 for changed production times.
-It still showns the left ingame days, but now it shows what get empty in 2 month, which is dependent from your settings of days per month.
+Changelog 1.0.0.1
+- Fix for Pumps N' Hoses compatibility
 ]]></en>
     </description>
     <iconFilename>ModIcon.dds</iconFilename>
