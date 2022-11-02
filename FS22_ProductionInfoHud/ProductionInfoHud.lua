@@ -236,9 +236,13 @@ function ProductionInfoHud:createProductionNeedingTable(mode)
                     fillTypeItem.fillTypeId = fillTypeId;
                     fillTypeItem.usagePerMonth = 0;
                     fillTypeItem.producedPerMonth = 0;
+                    fillTypeItem.producedPerMonthWithBooster = 0;
                     fillTypeItem.sellPerMonth = 0;
+                    fillTypeItem.sellPerMonthWithBooster = 0;
                     fillTypeItem.keepPerMonth = 0;
+                    fillTypeItem.keepPerMonthWithBooster = 0;
                     fillTypeItem.distributePerMonth = 0;
+                    fillTypeItem.distributePerMonthWithBooster = 0;
                     local filltype = g_fillTypeManager.fillTypes[fillTypeId]
                     fillTypeItem.fillTypeTitle = filltype.title;
                     fillTypeItem.hudOverlayFilename = filltype.hudOverlayFilename;
@@ -267,14 +271,31 @@ function ProductionInfoHud:createProductionNeedingTable(mode)
                         
                         if output.type == fillTypeId then
                             local producedPerMonth = production.cyclesPerMonth * output.amount * factor;
+							
+							-- aktive Booster berechnen
+							local boostFactor = 1;
+							for _, input in pairs(production.inputs) do
+								if input.mix ~= nil and input.mix == 6 then
+									-- ist ein booster
+									if productionPoint:getFillLevel(fillTypeId) > 1 then
+										boostFactor = boostFactor + input.boostfactor;
+									end
+								end
+							end
+							
+							local producedPerMonthWithBooster = (producedPerMonth*boostFactor);
                             fillTypeItem.producedPerMonth = fillTypeItem.producedPerMonth + producedPerMonth
+                            fillTypeItem.producedPerMonthWithBooster = fillTypeItem.producedPerMonthWithBooster + producedPerMonthWithBooster
                             
                             if outputMode == ProductionPoint.OUTPUT_MODE.DIRECT_SELL then
                                 fillTypeItem.sellPerMonth = fillTypeItem.sellPerMonth + producedPerMonth;
+                                fillTypeItem.sellPerMonthWithBooster = fillTypeItem.sellPerMonthWithBooster + producedPerMonthWithBooster;
                             elseif outputMode == ProductionPoint.OUTPUT_MODE.AUTO_DELIVER then
                                 fillTypeItem.distributePerMonth = fillTypeItem.distributePerMonth + producedPerMonth;
+                                fillTypeItem.distributePerMonthWithBooster = fillTypeItem.distributePerMonthWithBooster + producedPerMonthWithBooster;
                             else
                                 fillTypeItem.keepPerMonth = fillTypeItem.keepPerMonth + producedPerMonth;
+                                fillTypeItem.keepPerMonthWithBooster = fillTypeItem.keepPerMonthWithBooster + producedPerMonthWithBooster;
                             end
                         end
                     end

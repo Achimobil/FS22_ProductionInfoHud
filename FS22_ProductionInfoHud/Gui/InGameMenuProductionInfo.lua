@@ -143,14 +143,38 @@ function InGameMenuProductionInfo:getTitleForSectionHeader(list, section)
 	return self.sectionFillTypes[section].title
 end
 
+
+InGameMenuProductionInfo.COLOR = {
+	NORMAL = { 1, 1, 1, 1},
+	BOOSTER = { 0.9157, 0.1420, 0.0002, 1 }
+}
+
 function InGameMenuProductionInfo:populateCellForItemInSection(list, section, index, cell)
-	local fillTypeItem = self.sectionFillTypes[section].fillTypes[index]    
-	-- cell:getAttribute("field"):setText(fillTypeItem.fieldId)
+	local function formatAmounts(amount, amountWithBooster)
+		local text = g_i18n:formatNumber(amount, 2);
+		if amount ~= amountWithBooster then
+			text = text .. "(" .. g_i18n:formatNumber(amountWithBooster, 2) .. ")";
+		end
+		return text;
+	end;
+	
+	local function formatCell(cell, amount, amountWithBooster)
+		local text = g_i18n:formatNumber(amount, 2);
+		local color = InGameMenuProductionInfo.COLOR.NORMAL;
+		if amount ~= amountWithBooster then
+			text = g_i18n:formatNumber(amountWithBooster, 2);
+			color = InGameMenuProductionInfo.COLOR.BOOSTER;
+		end
+		cell:setText(text);
+		cell:setTextColor(unpack(color))
+	end;
+	
+	local fillTypeItem = self.sectionFillTypes[section].fillTypes[index]
 	cell:getAttribute("fillTypeIcon"):setImageFilename(fillTypeItem.hudOverlayFilename)
 	cell:getAttribute("fillTypeTitle"):setText(fillTypeItem.fillTypeTitle)
-	cell:getAttribute("sellPerMonth"):setText(g_i18n:formatNumber(fillTypeItem.sellPerMonth, 2))
-	cell:getAttribute("keepPerMonth"):setText(g_i18n:formatNumber(fillTypeItem.keepPerMonth, 2))
-	cell:getAttribute("distributePerMonth"):setText(g_i18n:formatNumber(fillTypeItem.distributePerMonth, 2))
+	formatCell(cell:getAttribute("sellPerMonth"), fillTypeItem.sellPerMonth, fillTypeItem.sellPerMonthWithBooster)
+	formatCell(cell:getAttribute("keepPerMonth"), fillTypeItem.keepPerMonth, fillTypeItem.keepPerMonthWithBooster)
+	formatCell(cell:getAttribute("distributePerMonth"), fillTypeItem.distributePerMonth, fillTypeItem.distributePerMonthWithBooster)
     cell:getAttribute("usagePerMonth"):setText(g_i18n:formatNumber(fillTypeItem.usagePerMonth));
     
     local squareMeterNeededText = "";
