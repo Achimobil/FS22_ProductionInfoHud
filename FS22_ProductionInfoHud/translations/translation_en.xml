@@ -5,6 +5,7 @@
 		<text name="input_TOGGLE_GUI" text="PIH: Toggle display" />
 		<text name="Empty" text="All used" />
 		<text name="Full" text="Outputstorage full" />
+		<text name="NearlyFull" text="Outputstorage nearly full" />
 		<text name="AllProductsOperativ" text="All productions operative" />
         
 		<text name="pih_Zeilen" text="lines" />

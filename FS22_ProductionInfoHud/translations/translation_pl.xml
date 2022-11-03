@@ -5,6 +5,7 @@
 		<text name="input_TOGGLE_GUI" text="PIH: Przełącz wyświetlanie" />
 		<text name="Empty" text="WWszystkie używane" />
 		<text name="Full" text="Pamięć wyjściowa pełna" />
+		<text name="NearlyFull" text="Pamięć wyjściowa pełny" />
 		<text name="AllProductsOperativ" text="Wszystkie produkcje działają" />
         
 		<text name="pih_Zeilen" text="linie" />

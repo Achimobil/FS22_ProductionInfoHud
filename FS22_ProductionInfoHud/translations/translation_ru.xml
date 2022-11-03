@@ -5,6 +5,7 @@
 		<text name="input_TOGGLE_GUI" text="PIH: Переключить отображение" />
 		<text name="Empty" text="Всё использовано" />
 		<text name="Full" text="Нет места" />
+		<text name="NearlyFull" text="Выходное хранилище почти заполнено" />
 		<text name="AllProductsOperativ" text="Все ресурсы доставлены" />
         
 		<text name="pih_Zeilen" text="Строк(и)" />

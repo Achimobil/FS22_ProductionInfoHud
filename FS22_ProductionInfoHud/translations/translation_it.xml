@@ -5,6 +5,7 @@
 		<text name="input_TOGGLE_GUI" text="PIH: attiva/disattiva la visualizzazione" />
 		<text name="Empty" text="Vuoto" />
 		<text name="Full" text="Pieno" />
+		<text name="NearlyFull" text="Outputstorage quasi pieno" />
 		<text name="AllProductsOperativ" text="Tutte le produzioni sono operative" />
         
 		<text name="pih_Zeilen" text="Linee" />

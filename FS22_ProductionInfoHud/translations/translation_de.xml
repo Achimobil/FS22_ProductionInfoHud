@@ -5,6 +5,7 @@
 		<text name="input_TOGGLE_GUI" text="PIH: Anzeige umschalten" />
 		<text name="Empty" text="Alles verbraucht" />
 		<text name="Full" text="Ausgang voll" />
+		<text name="NearlyFull" text="Ausgang fast voll" />
 		<text name="AllProductsOperativ" text="Alle Produktionen versorgt" />
         
 		<text name="pih_Zeilen" text="Zeilen" />

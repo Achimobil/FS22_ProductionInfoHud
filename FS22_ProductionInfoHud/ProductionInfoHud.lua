@@ -416,7 +416,11 @@ function ProductionInfoHud:refreshProductionsTable()
 						end
 						
 						if oneProductionWithOutputActive then
-							productionItem.hoursLeft = -1;
+							if productionItem.capacityLevel >= 0.99 then
+								productionItem.hoursLeft = -1;
+							else
+								productionItem.hoursLeft = -2;
+							end
 							table.insert(myProductions, productionItem)
 						end
 					end
@@ -939,6 +943,9 @@ function ProductionInfoHud:draw()
 				if productionData.hoursLeft == -1 then
 					productionOutputItem.TimeLeftString = g_i18n:getText("Full");
 					productionOutputItem.TextColor = ProductionInfoHud.colors.RED;
+				elseif productionData.hoursLeft == -2 then
+					productionOutputItem.TimeLeftString = g_i18n:getText("NearlyFull");
+					productionOutputItem.TextColor = ProductionInfoHud.colors.ORANGE;
 				elseif productionData.hoursLeft == 0 then
 					productionOutputItem.TimeLeftString = g_i18n:getText("Empty");
 					productionOutputItem.TextColor = ProductionInfoHud.colors.ORANGE;
