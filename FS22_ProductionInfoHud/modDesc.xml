@@ -53,6 +53,7 @@ Changelog
 - Produktionsmengen in der Übersicht werden jetzt mit aktivem Booster angezeigt (Zahl ist orange)
 - Ausgang voll nur anzeigen, wenn Produktion aktiv ist
 - Ausgänge können sind jetzt fast voll (>95%) oder voll (>99%)
+- Anpassung an geänderte l10n texte vom Basegame
 
 1.0.0.1
 - Fix für Pumps N' Hoses Kompatibilität

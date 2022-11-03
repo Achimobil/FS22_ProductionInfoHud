@@ -714,7 +714,7 @@ function ProductionInfoHud:refreshProductionsTable()
 					if (placeable.spec_husbandryPallets ~= nil) then
 						productionItem.fillTypeTitle =  placeable.spec_husbandryPallets.animalTypeName
 					else
-						productionItem.fillTypeTitle = g_i18n:getText("helpLine_animals") 
+						productionItem.fillTypeTitle = g_i18n:getText("helpLine_Animals") 
 					end
 					productionItem.capacityLevel = 0;
 					productionItem.hoursLeft = -1;
