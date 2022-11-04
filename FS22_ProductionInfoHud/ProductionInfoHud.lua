@@ -417,9 +417,9 @@ function ProductionInfoHud:refreshProductionsTable()
 						
 						if oneProductionWithOutputActive then
 							if productionItem.capacityLevel >= 0.99 then
-								productionItem.hoursLeft = -1;
-							else
 								productionItem.hoursLeft = -2;
+							else
+								productionItem.hoursLeft = -1;
 							end
 							table.insert(myProductions, productionItem)
 						end
@@ -668,7 +668,7 @@ function ProductionInfoHud:refreshProductionsTable()
 
 					-- Ausgangslager voll, dann speziell eintragen
 					if (productionItem.capacityLevel >= 0.95 and not productionItem.isInput) then 
-						productionItem.hoursLeft = -1;
+						productionItem.hoursLeft = -2;
 						table.insert(myProductions, productionItem)
 					end
 				end
@@ -696,7 +696,7 @@ function ProductionInfoHud:refreshProductionsTable()
 
 					-- Ausgangslager voll, dann speziell eintragen
 					if (productionItem.capacityLevel >= 0.95 and not productionItem.isInput) then 
-						productionItem.hoursLeft = -1;
+						productionItem.hoursLeft = -2;
 						table.insert(myProductions, productionItem)
 					end
 				end
@@ -717,7 +717,7 @@ function ProductionInfoHud:refreshProductionsTable()
 						productionItem.fillTypeTitle = g_i18n:getText("helpLine_Animals") 
 					end
 					productionItem.capacityLevel = 0;
-					productionItem.hoursLeft = -1;
+					productionItem.hoursLeft = -2;
 					table.insert(myProductions, productionItem)
 				end
 			end
@@ -940,10 +940,10 @@ function ProductionInfoHud:draw()
 				productionOutputItem.fillTypeTitle = productionData.fillTypeTitle
 				productionOutputItem.TextColor = ProductionInfoHud.colors.WHITE;
 				
-				if productionData.hoursLeft == -1 then
+				if productionData.hoursLeft == -2 then
 					productionOutputItem.TimeLeftString = g_i18n:getText("Full");
 					productionOutputItem.TextColor = ProductionInfoHud.colors.RED;
-				elseif productionData.hoursLeft == -2 then
+				elseif productionData.hoursLeft == -1 then
 					productionOutputItem.TimeLeftString = g_i18n:getText("NearlyFull");
 					productionOutputItem.TextColor = ProductionInfoHud.colors.ORANGE;
 				elseif productionData.hoursLeft == 0 then
