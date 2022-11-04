@@ -643,6 +643,40 @@ function ProductionInfoHud:refreshProductionsTable()
 					if (productionItem.needPerHour > 0 and productionItem.capacityLevel <= 0.5 and productionItem.hoursLeft <= (48 * g_currentMission.environment.daysPerPeriod)) then 
 						table.insert(myProductions, productionItem)
 					end
+				end	
+				
+				-- Mistlager
+				if placeable.spec_husbandryStraw ~= nil then
+					local productionItem = {}
+					productionItem.name = placeable:getName();
+					-- productionItem.fillTypeId = fillTypeId
+					productionItem.needPerHour = 0;
+					productionItem.hoursLeft = 0
+					productionItem.fillLevel = placeable.spec_husbandryStraw:getHusbandryFillLevel(FillType.MANURE)
+					productionItem.capacity = placeable.spec_husbandryStraw:getHusbandryCapacity(FillType.MANURE)
+					productionItem.isInput = false;
+					
+					if productionItem.capacity == 0 then 
+						productionItem.capacityLevel = 0
+					elseif productionItem.capacity == nil then
+						productionItem.capacityLevel = 0
+					else
+						productionItem.capacityLevel = productionItem.fillLevel / productionItem.capacity;
+					end
+					productionItem.fillTypeTitle = g_i18n:getText("fillType_manure");
+
+					-- Ausgangslager voll, dann speziell eintragen
+					if (productionItem.capacityLevel >= 0.95) then 
+						
+						-- if oneProductionWithOutputActive then
+							if productionItem.capacityLevel >= 0.99 then
+								productionItem.hoursLeft = -2;
+							else
+								productionItem.hoursLeft = -1;
+							end
+							table.insert(myProductions, productionItem)
+						-- end
+					end
 				end
 
 				-- Milch

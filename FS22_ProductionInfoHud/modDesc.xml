@@ -54,6 +54,7 @@ Changelog
 - Ausgang voll nur anzeigen, wenn Produktion aktiv ist
 - Ausgänge können sind jetzt fast voll (>95%) oder voll (>99%)
 - Anpassung an geänderte l10n texte vom Basegame
+- Misthaufen an Tierställen werden jetzt auch angezeigt, wenn diese voll bzw. fast voll sind
 
 1.0.0.1
 - Fix für Pumps N' Hoses Kompatibilität
