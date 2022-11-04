@@ -25,12 +25,18 @@ ProductionInfoHud.PossibleMaxLines = {"2", "3", "4", "5", "6", "7", "8", "9", "1
 ProductionInfoHud.PossibleAmounts = {"5000", "10000", "50000", "100000", "200000", "250000"}
 ProductionInfoHud.PossibleTextSizes = {"8", "9", "10", "11", "12", "13", "14", "15"}
 
+local function isDedi()
+  local result = g_currentMission:getIsServer() and g_currentMission.connectedToDedicatedServer == true;
+  -- print("isDedi: " .. tostring(result));
+  return result;
+end
+
 function ProductionInfoHud:init()
-	ProductionInfoHud.isClient = g_currentMission:getIsClient();
+	ProductionInfoHud.isClient = not isDedi();
 	-- isClient korrektur, wenn es die dynamic info gibt
-	if g_currentMission.missionDynamicInfo ~= nil and g_currentMission.missionDynamicInfo.isClient ~= nil then
-		ProductionInfoHud.isClient = g_currentMission.missionDynamicInfo.isClient;
-	end
+	-- if g_currentMission.missionDynamicInfo ~= nil and g_currentMission.missionDynamicInfo.isClient ~= nil then
+		-- ProductionInfoHud.isClient = g_currentMission.missionDynamicInfo.isClient;
+	-- end
 	
 	ProductionInfoHud.isInit = true;
 	
