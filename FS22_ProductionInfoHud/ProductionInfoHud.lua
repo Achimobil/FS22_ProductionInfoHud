@@ -544,7 +544,7 @@ function ProductionInfoHud:refreshProductionsTable()
 				end
 				
 				-- Fütterungsroboter vorhanden, dann anders die werte berechnen
-				if placeable.spec_husbandryFeedingRobot ~= nil then
+				if placeable.spec_husbandryFeedingRobot ~= nil and placeable.spec_husbandryFeedingRobot.feedingRobot ~= nil then
 					local feedingRobot = placeable.spec_husbandryFeedingRobot.feedingRobot;
 					local recipe = feedingRobot.robot.recipe;
 					
