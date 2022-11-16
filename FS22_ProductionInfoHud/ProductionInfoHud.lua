@@ -284,7 +284,7 @@ function ProductionInfoHud:createProductionNeedingTable(mode)
 								if input.mix ~= nil and input.mix == 6 then
 									-- ist ein booster
 									if productionPoint:getFillLevel(fillTypeId) > 1 then
-										boostFactor = boostFactor + input.boostfactor;
+										boostFactor = boostFactor + Utils.getNoNil(input.boostfactor, input.boostFactor);
 									end
 								end
 							end
