@@ -234,6 +234,7 @@ function ProductionInfoHud:createProductionNeedingTable(mode)
 	-- productions
 	if g_currentMission.productionChainManager.farmIds[farmId] ~= nil and g_currentMission.productionChainManager.farmIds[farmId].productionPoints ~= nil then
 		for _, productionPoint in pairs(g_currentMission.productionChainManager.farmIds[farmId].productionPoints) do
+			local numActiveProductions = #productionPoint.activeProductions
 			
 			for fillTypeId, fillLevel in pairs(productionPoint.storage.fillLevels) do
 				-- neu erstellen, wenn nicht da
@@ -269,14 +270,14 @@ function ProductionInfoHud:createProductionNeedingTable(mode)
 				for _, production in pairs(productionPoint.activeProductions) do
 					for _, input in pairs(production.inputs) do
 						if input.type == fillTypeId then
-							fillTypeItem.usagePerMonth = fillTypeItem.usagePerMonth + (production.cyclesPerMonth * input.amount) * factor;
+							fillTypeItem.usagePerMonth = fillTypeItem.usagePerMonth + (production.cyclesPerMonth * input.amount) * factor / (productionPoint.sharedThroughputCapacity and numActiveProductions or 1);
 						end
 					end
 					for _, output in pairs(production.outputs) do
 						local outputMode = productionPoint:getOutputDistributionMode(fillTypeId)
 						
 						if output.type == fillTypeId then
-							local producedPerMonth = production.cyclesPerMonth * output.amount * factor;
+							local producedPerMonth = production.cyclesPerMonth * output.amount * factor / (productionPoint.sharedThroughputCapacity and numActiveProductions or 1);
 							
 							-- aktive Booster berechnen
 							local boostFactor = 1;

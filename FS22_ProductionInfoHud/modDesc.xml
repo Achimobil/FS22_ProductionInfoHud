@@ -52,6 +52,7 @@ Changelog
 1.1.1.0 beta 1
 - Fehler mit revamp 1.3.5.5 behoben
 - BR Übersetungen eingefügt
+- Geteilte Produktionslinen werden jetzt korrekt berechnet in der Produktionsübersicht
 
 1.1.0.0
 - Produktionsmengen in der Übersicht werden jetzt mit aktivem Booster angezeigt (Zahl ist orange)
