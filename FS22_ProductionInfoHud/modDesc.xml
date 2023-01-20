@@ -53,6 +53,7 @@ Changelog
 - Fehler mit revamp 1.3.5.5 behoben
 - BR Übersetungen eingefügt
 - Geteilte Produktionslinen werden jetzt korrekt berechnet in der Produktionsübersicht
+- Produktionsübersicht zeigt nun bei Boostern die Menge ohne Booster und in Klammern dahinter die Menge mit allen Boostern an
 
 1.1.0.0
 - Produktionsmengen in der Übersicht werden jetzt mit aktivem Booster angezeigt (Zahl ist orange)

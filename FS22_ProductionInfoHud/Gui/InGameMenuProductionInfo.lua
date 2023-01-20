@@ -159,10 +159,10 @@ function InGameMenuProductionInfo:populateCellForItemInSection(list, section, in
 	end;
 	
 	local function formatCell(cell, amount, amountWithBooster)
-		local text = g_i18n:formatNumber(amount, 2);
+		local text = g_i18n:formatNumber(amount, 1);
 		local color = InGameMenuProductionInfo.COLOR.NORMAL;
 		if amount ~= amountWithBooster then
-			text = g_i18n:formatNumber(amountWithBooster, 2);
+			text = text .. "(" .. g_i18n:formatNumber(amountWithBooster, 1) .. ")";
 			color = InGameMenuProductionInfo.COLOR.BOOSTER;
 		end
 		cell:setText(text);
@@ -175,7 +175,7 @@ function InGameMenuProductionInfo:populateCellForItemInSection(list, section, in
 	formatCell(cell:getAttribute("sellPerMonth"), fillTypeItem.sellPerMonth, fillTypeItem.sellPerMonthWithBooster)
 	formatCell(cell:getAttribute("keepPerMonth"), fillTypeItem.keepPerMonth, fillTypeItem.keepPerMonthWithBooster)
 	formatCell(cell:getAttribute("distributePerMonth"), fillTypeItem.distributePerMonth, fillTypeItem.distributePerMonthWithBooster)
-	cell:getAttribute("usagePerMonth"):setText(g_i18n:formatNumber(fillTypeItem.usagePerMonth));
+	cell:getAttribute("usagePerMonth"):setText(g_i18n:formatNumber(fillTypeItem.usagePerMonth, 1));
 	
 	local squareMeterNeededText = "";
 	if fillTypeItem.squareMeterNeeded ~= nil then
