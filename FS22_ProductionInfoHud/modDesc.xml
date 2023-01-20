@@ -126,7 +126,7 @@ Changelog
 - Fix for Pumps N' Hoses compatibility
 ]]></en>
 	</description>
-	<iconFilename>ModIcon.dds</iconFilename>
+	<iconFilename>icon_prodcutionInfoHud.dds</iconFilename>
 	<multiplayer supported="true"/>
 	<extraSourceFiles>
 		<sourceFile filename="ProductionPointInputIgnorePihEvent.lua"/>
