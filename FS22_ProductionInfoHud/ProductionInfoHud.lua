@@ -44,6 +44,7 @@ function ProductionInfoHud:init()
 	ProductionInfoHud.i18n = g_i18n;
 	ProductionInfoHud.inputManager = g_gui.inputManager;
 	ProductionInfoHud.sellPriceDataSorted = {};
+	ProductionInfoHud.productionDataSorted = {};
 	
 	-- default settings einstellen
 	ProductionInfoHud.settings = {};
