@@ -64,7 +64,7 @@ function ProductionInfoHud:init()
 	ProductionInfoHud:registerActionEvents()
 
 	-- overwrite the InfoMessageHUD method to move it to a good location, when it is installed	
-	if g_modIsLoaded["FS22_InfoMessageHUD"] then
+	if g_modIsLoaded["FS22_InfoMessageHUD"] then ---by HappyLooser Info das solltest du anders lösen
 		print("Info: ProductionInfoHud override position of InfoMessageHUD");
 		local mod2 = getfenv(0)["FS22_InfoMessageHUD"];
 		ProductionInfoHud.InfoMessageHUD = mod2.InfoMessageHUD;		
@@ -187,12 +187,22 @@ end
 function ProductionInfoHud:loadMap(name)
 	-- ActionEvents registrieren
 	FSBaseMission.registerActionEvents = Utils.appendedFunction(FSBaseMission.registerActionEvents, ProductionInfoHud.registerActionEvents);
+	if not ProductionInfoHud:getServer() then Mission00.onStartMission = Utils.appendedFunction(Mission00.onStartMission, ProductionInfoHud.onStartMission);end; --new by HappyLooser
 end
 
 function ProductionInfoHud:update(dt)
+	if not ProductionInfoHud:getServer() then --new by HappyLooser
+		if ProductionInfoHud.moh ~= nil and ProductionInfoHud.moh.found and ProductionInfoHud.moh.outputCmdActive then --new by HappyLooser for MOH Features, solltest du aufrufen egal wie dein showType Status gesetzt ist
+			--hier alles laden was du den spielern anzeigen lassen willst oder was du brauchst, nutze einfach deinen vorhandene table und schiebe das hier dann um
+			--du kannst ruhig alles laden und es später dann in der pihOutputForMoh.lua aussortieren was du den Spielern anzeigen lassen willst, zusätzlich hast du dann auch die möglichkeit dem spieler mit zu teilen das irgend eine produktion nicht läuft, wenn er den MOH Slot gerade nicht offen hat
+			--muss nur auf client ausgeführt werden
+		end;
+	end;
+	
 	if not ProductionInfoHud.isInit then ProductionInfoHud:init(); end
 	
 	if not ProductionInfoHud.isClient then return end
+	
 	
 	ProductionInfoHud.timePast = ProductionInfoHud.timePast + dt;
 	
@@ -911,8 +921,9 @@ function compPrductionTable(w1,w2)
 end
 
 function ProductionInfoHud:draw()
-
-	if not ProductionInfoHud.isClient then return end
+		
+	if not ProductionInfoHud.isClient then return end	
+	
 	if ProductionInfoHud.productionDataSorted == nil then return end
 	
 	if ProductionInfoHud.settings["display"]["showType"] == "NONE" then 
@@ -1362,6 +1373,38 @@ function ProductionInfoHud:writeStreamProductionPoint(streamId, connection)
 	end
 end
 ProductionPoint.writeStream = Utils.appendedFunction(ProductionPoint.writeStream, ProductionInfoHud.writeStreamProductionPoint)
+
+
+-----------new by HappyLooser-----------
+function ProductionInfoHud:onStartMission() --new by HappyLooser
+	if ProductionInfoHud:getServer() then return;end; --new by HappyLooser		
+	ProductionInfoHud.hl = g_currentMission.hl ~= nil; --new by HappyLooser /for HL Script	
+	ProductionInfoHud.moh = {found=false, outputCmdActive=true}; --outputCmdActive hat keine funtion momentan, müssen wir schauen wie deine normale Anzeige dann deaktiviert wird !! Idee !!
+	ProductionInfoHud:searchOtherMods();			
+	if ProductionInfoHud.moh.found then
+		source(ProductionInfoHud.modDir.."mohFeatures/pihSetGetForMoh.lua");
+		source(ProductionInfoHud.modDir.."mohFeatures/pihOutputForMoh.lua");
+		pihSetGetForMoh:onStartLoad();
+	end;	
+end;
+
+function ProductionInfoHud:searchOtherMods() 
+	local env = getfenv(0);		
+	if env["MultiOverlayV4"] ~= nil and env["MultiOverlayV4"]["MultiOverlayV4"] ~= nil then
+		ProductionInfoHud.moh.mod = env["MultiOverlayV4"];		
+	end;
+	if g_currentMission.multiOverlayV4 ~= nil then ProductionInfoHud.moh.found = true;end;
+end;
+
+function ProductionInfoHud:getServer()	
+	return g_server ~= nil and g_client ~= nil and g_dedicatedServer ~= nil;	
+end;
+
+function ProductionInfoHud:getHostServer()	
+	if g_currentMission.missionDynamicInfo == nil then return false;end;
+	return g_server ~= nil and g_client ~= nil and g_dedicatedServer == nil and g_currentMission.missionDynamicInfo.isMultiplayer;	
+end;
+-----------new by HappyLooser-----------
 
 addModEventListener(ProductionInfoHud);
 
