@@ -393,7 +393,8 @@ function ProductionInfoHud:refreshProductionsTable()
 								if input.mix == nil or input.mix == 0 then 
 									-- nicht mix type
 									if production.status ~= 3 then
-										productionItem.needPerHour = productionItem.needPerHour + (production.cyclesPerHour * input.amount)
+										-- mit cyclesPerMonth rechnen, da diese durch die Stundenweise öffnung in Revamp korrigiert wird.
+										productionItem.needPerHour = productionItem.needPerHour + (production.cyclesPerMonth / 24 * input.amount)
 									end
 								else
 									-- mix type hier ignorieren. müssen separat gerechnet werden
@@ -401,6 +402,8 @@ function ProductionInfoHud:refreshProductionsTable()
 							end
 						end
 					end
+					
+					
 
 					if (productionItem.fillLevel ~= 0) and (productionItem.needPerHour ~= 0) then
 						-- hier die anzahl der Tage pro Monat berücksichtigen
@@ -457,7 +460,8 @@ function ProductionInfoHud:refreshProductionsTable()
 									-- wie lange läuft dieser mix mit dem input type aufrechnen.
 									needed = true;
 									local fillLevel = productionPoint:getFillLevel(input.type);
-									local needPerHour = (production.cyclesPerHour * input.amount);
+									-- mit cyclesPerMonth rechnen, da diese durch die Stundenweise öffnung in Revamp korrigiert wird.
+									local needPerHour = (production.cyclesPerMonth / 24 * input.amount);
 									local hoursLeft = fillLevel / needPerHour * g_currentMission.environment.daysPerPeriod;
 									productionItem.hoursLeft = productionItem.hoursLeft + hoursLeft;
 								end
@@ -498,7 +502,8 @@ function ProductionInfoHud:refreshProductionsTable()
 										productionItem.capacityLevel = productionItem.fillLevel / productionItem.capacity;
 									end
 									
-									local needPerHour = (production.cyclesPerHour * input.amount);
+									-- mit cyclesPerMonth rechnen, da diese durch die Stundenweise öffnung in Revamp korrigiert wird.
+									local needPerHour = (production.cyclesPerMonth / 24 * input.amount);
 									productionItem.hoursLeft = productionItem.fillLevel / needPerHour * g_currentMission.environment.daysPerPeriod;
 									
 									if (needPerHour > 0 and productionItem.capacityLevel <= 0.5 and productionItem.hoursLeft <= (48 * g_currentMission.environment.daysPerPeriod)) then 
