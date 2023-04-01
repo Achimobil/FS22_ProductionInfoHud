@@ -366,6 +366,7 @@ function ProductionInfoHud:refreshProductionsTable()
 					productionItem.capacity = productionPoint.storage.capacities[fillTypeId]
 					productionItem.isInput = false;
 					productionItem.isOutput = false;
+					productionItem.timeAdjustment = 1;
 					
 					-- prüfen ob input type
 					if productionPoint.inputFillTypeIds[fillTypeId] ~= nil then
@@ -393,13 +394,15 @@ function ProductionInfoHud:refreshProductionsTable()
 								if input.mix == nil or input.mix == 0 then 
 									-- nicht mix type
 									if production.status ~= 3 then
-										-- mit cyclesPerMonth rechnen, da diese durch die Stundenweise öffnung in Revamp korrigiert wird.
-										productionItem.needPerHour = productionItem.needPerHour + (production.cyclesPerMonth / 24 * input.amount)
+										productionItem.needPerHour = productionItem.needPerHour + (production.cyclesPerHour * input.amount)
 									end
 								else
 									-- mix type hier ignorieren. müssen separat gerechnet werden
 								end
 							end
+						end
+						if production.activeHours ~= nil then
+							productionItem.timeAdjustment = productionItem.timeAdjustment * (production.activeHours / 24)
 						end
 					end
 					
@@ -410,7 +413,7 @@ function ProductionInfoHud:refreshProductionsTable()
 						productionItem.hoursLeft = productionItem.fillLevel / productionItem.needPerHour * g_currentMission.environment.daysPerPeriod;
 					end
 					
-					if (not ignoreInput and productionItem.needPerHour > 0 and productionItem.capacityLevel <= 0.5 and productionItem.hoursLeft <= (48 * g_currentMission.environment.daysPerPeriod)) then 
+					if (not ignoreInput and productionItem.needPerHour > 0 and productionItem.capacityLevel <= 0.5 and productionItem.hoursLeft <= (48 * g_currentMission.environment.daysPerPeriod * productionItem.timeAdjustment)) then 
 						table.insert(myProductions, productionItem)
 					end
 					
@@ -444,6 +447,11 @@ function ProductionInfoHud:refreshProductionsTable()
 						productionItem.name = productionPoint.owningPlaceable:getName();
 						productionItem.fillTypeTitle = production.name .. " (Mix " .. n .. ")";
 						productionItem.hoursLeft = 0
+						productionItem.timeAdjustment = 1;
+						if production.activeHours ~= nil then
+							productionItem.timeAdjustment = productionItem.timeAdjustment * (production.activeHours / 24)
+						end
+						
 						local needed = false;
 						
 						for _, input in pairs(production.inputs) do
@@ -460,15 +468,14 @@ function ProductionInfoHud:refreshProductionsTable()
 									-- wie lange läuft dieser mix mit dem input type aufrechnen.
 									needed = true;
 									local fillLevel = productionPoint:getFillLevel(input.type);
-									-- mit cyclesPerMonth rechnen, da diese durch die Stundenweise öffnung in Revamp korrigiert wird.
-									local needPerHour = (production.cyclesPerMonth / 24 * input.amount);
+									local needPerHour = (production.cyclesPerHour * input.amount);
 									local hoursLeft = fillLevel / needPerHour * g_currentMission.environment.daysPerPeriod;
 									productionItem.hoursLeft = productionItem.hoursLeft + hoursLeft;
 								end
 							end
 						end
 						
-						if needed and (productionItem.hoursLeft <= (48 * g_currentMission.environment.daysPerPeriod))then
+						if needed and (productionItem.hoursLeft <= (48 * g_currentMission.environment.daysPerPeriod * productionItem.timeAdjustment))then
 							table.insert(myProductions, productionItem)
 						end
 					end
@@ -492,6 +499,7 @@ function ProductionInfoHud:refreshProductionsTable()
 									productionItem.fillTypeTitle = production.name .. " (booster " .. g_currentMission.fillTypeManager.fillTypes[input.type].title .. ")";
 									productionItem.capacity = productionPoint.storage.capacities[input.type]
 									productionItem.fillLevel = productionPoint:getFillLevel(input.type);
+									productionItem.timeAdjustment = 1;
 									
 									if productionItem.capacity == 0 then 
 										productionItem.capacityLevel = 0
@@ -503,10 +511,13 @@ function ProductionInfoHud:refreshProductionsTable()
 									end
 									
 									-- mit cyclesPerMonth rechnen, da diese durch die Stundenweise öffnung in Revamp korrigiert wird.
-									local needPerHour = (production.cyclesPerMonth / 24 * input.amount);
+									local needPerHour = (production.cyclesPerHour * input.amount);
+									if production.activeHours ~= nil then
+										productionItem.timeAdjustment = productionItem.timeAdjustment * (production.activeHours / 24)
+									end
 									productionItem.hoursLeft = productionItem.fillLevel / needPerHour * g_currentMission.environment.daysPerPeriod;
 									
-									if (needPerHour > 0 and productionItem.capacityLevel <= 0.5 and productionItem.hoursLeft <= (48 * g_currentMission.environment.daysPerPeriod)) then 
+									if (needPerHour > 0 and productionItem.capacityLevel <= 0.5 and productionItem.hoursLeft <= (48 * g_currentMission.environment.daysPerPeriod * productionItem.timeAdjustment)) then 
 										table.insert(myProductions, productionItem)
 									end
 								end

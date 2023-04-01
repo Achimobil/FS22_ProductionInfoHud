@@ -50,7 +50,7 @@ Das verändern oder erneutes hochladen, ob ganz oder in Teilen ist nicht gestatt
 
 Changelog
 1.1.2.0
-- Anpassung der Restberechnung, so dass Öffnungszeiten von Produktionen in durchschnitt berücksichtigt werden.
+- Bei Produktionen mit Öffnungszeiten wird die Restlaufzeit während der Öffnung angezeigt und deshalb werden diese jetzt früher als 2 Tage schon ausgeblendet
 
 1.1.1.0
 - Fehler mit revamp 1.3.5.5 behoben
@@ -111,7 +111,7 @@ Modifying and re-uploading in whole or in part is not allowed!
 
 Changelog
 1.1.2.0
-- Adjustment of the residual calculation so that opening hours of productions in average are taken into account.
+- For productions with opening hours, the remaining time is displayed during the opening and therefore these are now already hidden earlier than 2 days
 
 1.1.1.0
 - Fixed bug with revamp 1.3.5.5
