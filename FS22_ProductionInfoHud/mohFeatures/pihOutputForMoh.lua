@@ -5,28 +5,31 @@ function pihOutputForMoh:load(cmdTable, slotTable) --cmdTable ist dein hinterleg
 	local playerFarmId = g_currentMission.player.farmId;
 	local cmdRegName = cmdTable.regName;
 	
+-- print("cmdTable")
+-- DebugUtil.printTableRecursively(cmdTable,"_",0,2)
+-- print("slotTable")
+-- DebugUtil.printTableRecursively(slotTable,"_",0,2)
 	
 	
-	
-	pihOutputForMoh:loadTest(cmdTable, slotTable); --zum testen eingerichtet, kannste deaktivieren dann
+	-- pihOutputForMoh:loadTest(cmdTable, slotTable); --zum testen eingerichtet, kannste deaktivieren dann
 	
 		
 	-----------------die Überschrift habe ich dir mal schon vorgefertigst----------------	
-	--local lineTable = {line={}};
-	--function setSeparator()
-	--	lineTable.line[#lineTable.line+1] = {};
-	--	isLineTable = lineTable.line[#lineTable.line];
-	--	isLineTable.txt = {};
-	--	isLineTable.txt[1] = {};
-	--	isLineTable.txt[1].slotColor = "txtOutputTitle";
-	--	isLineTable.txt[1].bold = true;
-	--	isLineTable.txt[1].txt = "----";
-	--	isLineTable.txt[2] = {};
-	--	isLineTable.txt[2].slotColor = "txtOutputTitle";
-	--	isLineTable.txt[2].bold = true;
-	--	isLineTable.txt[2].txt = "----";
-	--	isLineTable.txt[2].alignment = 3;
-	--end;
+	local lineTable = {line={}};
+	function setSeparator()
+		lineTable.line[#lineTable.line+1] = {};
+		isLineTable = lineTable.line[#lineTable.line];
+		isLineTable.txt = {};
+		isLineTable.txt[1] = {};
+		isLineTable.txt[1].slotColor = "txtOutputTitle";
+		isLineTable.txt[1].bold = true;
+		isLineTable.txt[1].txt = "----";
+		isLineTable.txt[2] = {};
+		isLineTable.txt[2].slotColor = "txtOutputTitle";
+		isLineTable.txt[2].bold = true;
+		isLineTable.txt[2].txt = "----";
+		isLineTable.txt[2].alignment = 3;
+	end;
 	--lineTable.line[#lineTable.line+1] = {};
 	--local isLineTable = lineTable.line[#lineTable.line];
 	--isLineTable.txt = {};
@@ -41,7 +44,62 @@ function pihOutputForMoh:load(cmdTable, slotTable) --cmdTable ist dein hinterleg
 	
 	------hier kommen deine restlichen Daten rein die du an den MultiOverlayV4 übergibst-----
 	
-	--pihOutputForMoh[cmdRegName] = {output=lineTable}; --musste dann aktivieren wenn der test deaktiviert ist
+	for _, productionData in pairs(ProductionInfoHud.productionDataSorted) do
+		lineTable.line[#lineTable.line+1] = {};
+		local isLineTable = lineTable.line[#lineTable.line];
+		isLineTable.txt = {};
+
+		isLineTable.txt[1] = {};
+		isLineTable.txt[1].slotColor = "txtOutputTitle";
+		isLineTable.txt[1].bold = true;
+		isLineTable.txt[1].txt = tostring(productionData.name); --der txt der in der ersten spalte angezeigt werden soll, ! solltest du immer als string hinterlegen das spart fehlermeldungen ! also keine Int,Float,table etc.
+		isLineTable.txt[1].callback = pihOutputForMoh.testClickFirstLineString; --Callback für den txt[1] String -Beispiel
+		isLineTable.txt[1].ownTable = productionData; --diese table wird mit übergeben, zum beispiel von einem Object die node.id um einen teleport zu ermöglichen oder was auch immer
+		isLineTable.txt[1].alignment = 1; --1,2 oder 3, default ist immer 1 also links bündig, 2 ist mittig und 3 ist rechts bündig !immer an die breite der spalte angelegt!
+		isLineTable.txt[1].width = 50; --damit legst du fest das er die erste spalte nur 60 breit macht und die zweite würde 40 sein oder wenn du drei spalten hast dann zweite spalte 20 und dritte spalte 20, ansonst musst du in jeder txt[x].width einen wert selbst hinterlegen, wenn dann überall hinterlegen das spart rechen zeit,also wenn du bei txt[x].width was hinterlegt dann hinterlege auch in der zeile bei den anderen txt[x] die werte
+
+
+		isLineTable.txt[2] = {};
+		isLineTable.txt[2].txt = tostring(productionData.fillTypeTitle);
+		isLineTable.txt[2].alignment = 1;
+		isLineTable.txt[2].width = 35;	
+
+		local timeLeftString = nil;
+		local timeColor = 1; --als int, prozent color farbe der schrift fest hinterlegt in dem _hl.lua script welches alle meine mods haben --> 1="white", 2="green", 3="yellowGreen", 4="yellow", 5="orange", 6="orangeRed", 7="red"};
+		if productionData.hoursLeft == -2 then
+			timeLeftString = g_i18n:getText("Full");
+			timeColor = 7;
+		elseif productionData.hoursLeft == -1 then
+			timeLeftString = g_i18n:getText("NearlyFull");
+			timeColor = 5;
+		elseif productionData.hoursLeft == 0 then
+			timeLeftString = g_i18n:getText("Empty");
+			timeColor = 6;
+		else
+			local days = math.floor(productionData.hoursLeft / 24);
+			local hoursLeft = productionData.hoursLeft - (days * 24);
+			local hours = math.floor(hoursLeft);
+			local hoursLeft = hoursLeft - hours;
+			local minutes = math.floor(hoursLeft * 60);
+			if(minutes <= 9) then minutes = "0" .. minutes end;
+			local timeString = "";
+			if (days ~= 0) then 
+				timeString = days .. "d ";
+			else
+				timeColor = 4;
+			end
+			timeString = timeString .. hours .. ":" .. minutes;
+			timeLeftString = timeString;
+		end
+				
+		isLineTable.txt[3] = {};
+		isLineTable.txt[3].txt = tostring(timeLeftString);
+		isLineTable.txt[3].alignment = 3;
+		isLineTable.txt[3].width = 15;
+		isLineTable.txt[3].prozentColor = timeColor;
+	end
+	
+	pihOutputForMoh[cmdRegName] = {output=lineTable}; --musste dann aktivieren wenn der test deaktiviert ist
 end;
 
 function pihOutputForMoh.giveOutputTable(args)
@@ -156,13 +214,16 @@ function pihOutputForMoh.testClickFirstLineString(args) --Callback für Strings 
 	if args == nil or type(args) ~= "table" and args.ownTable == nil then return false;end; --Info, du hast einen wert bei ownTable hinterlegt den du unbedingt brauchst in diesem callback, dann vorher prüfen args.ownTable[1] oder wie du es dort auch hinterlegt hast
 	--if args == nil or type(args) ~= "table" then return;end;	--Info, ohne ownTable prüfung
 	if args.mouseClick == "MOUSE_BUTTON_LEFT" and args.isDown then	--welche Mousetaste hat der Spieler geklickt, so kannst du auf verschieden klicks reagieren, die freigabe dafür wird in deinem hinterlegten Cmd festgelegt (pihSetGetForMoh.loadCmds)
-		if args.ownTable[1] ~= nil then
+		if args.ownTable ~= nil then
 			--mach was
-			g_currentMission:showBlinkingWarning("Click Line 1 Mouse Left", 2000);
+			if args.ownTable.productionPoint ~= nil and args.ownTable.productionPoint.openMenu ~= nil then
+				args.ownTable.productionPoint:openMenu();
+			end
+			-- g_currentMission:showBlinkingWarning("Click Line 1 Mouse Left", 2000);
 		end;
 	elseif args.mouseClick == "MOUSE_BUTTON_RIGHT" then
 		--mach was anderes
-		g_currentMission:showBlinkingWarning("Click Line 1 Mouse Right", 2000);
+		-- g_currentMission:showBlinkingWarning("Click Line 1 Mouse Right", 2000);
 	end;
 end;
 

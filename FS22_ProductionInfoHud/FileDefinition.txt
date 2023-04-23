@@ -5,3 +5,4 @@
 *.shapes
 translations/*.*
 Gui/*.*
+mohFeatures/*.*

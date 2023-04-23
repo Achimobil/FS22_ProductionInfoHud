@@ -191,11 +191,13 @@ function ProductionInfoHud:loadMap(name)
 end
 
 function ProductionInfoHud:update(dt)
+	local mohFound = false;
 	if not ProductionInfoHud:getServer() then --new by HappyLooser
 		if ProductionInfoHud.moh ~= nil and ProductionInfoHud.moh.found and ProductionInfoHud.moh.outputCmdActive then --new by HappyLooser for MOH Features, solltest du aufrufen egal wie dein showType Status gesetzt ist
 			--hier alles laden was du den spielern anzeigen lassen willst oder was du brauchst, nutze einfach deinen vorhandene table und schiebe das hier dann um
 			--du kannst ruhig alles laden und es später dann in der pihOutputForMoh.lua aussortieren was du den Spielern anzeigen lassen willst, zusätzlich hast du dann auch die möglichkeit dem spieler mit zu teilen das irgend eine produktion nicht läuft, wenn er den MOH Slot gerade nicht offen hat
 			--muss nur auf client ausgeführt werden
+			mohFound = true;
 		end;
 	end;
 	
@@ -209,7 +211,7 @@ function ProductionInfoHud:update(dt)
 	if ProductionInfoHud.timePast >= 5000 then
 		ProductionInfoHud.timePast = 0;
 
-		if ProductionInfoHud.settings["display"]["showType"] == "ALL" or string.find(ProductionInfoHud.settings["display"]["showType"], "PRODUCTION") then 
+		if ProductionInfoHud.settings["display"]["showType"] == "ALL" or string.find(ProductionInfoHud.settings["display"]["showType"], "PRODUCTION") or mohFound then 
 			ProductionInfoHud:refreshProductionsTable();
 		end
 		
@@ -226,6 +228,12 @@ function ProductionInfoHud:update(dt)
 		
 		ProductionInfoHud.firstRun = true;
 	end
+	
+	-- if mohFound then
+		-- local cmdTable = {regName = "ProductionInfoHudDataTable"}
+		-- local slotTable = nil
+		-- pihOutputForMoh:load(ProductionInfoHud.productionDataSorted, slotTable)
+	-- end
 end
 
 function ProductionInfoHud:createProductionNeedingTable(mode)
@@ -377,6 +385,7 @@ function ProductionInfoHud:refreshProductionsTable()
 					productionItem.isInput = false;
 					productionItem.isOutput = false;
 					productionItem.timeAdjustment = 1;
+					productionItem.productionPoint = productionPoint;
 					
 					-- prüfen ob input type
 					if productionPoint.inputFillTypeIds[fillTypeId] ~= nil then
@@ -458,6 +467,7 @@ function ProductionInfoHud:refreshProductionsTable()
 						productionItem.fillTypeTitle = production.name .. " (Mix " .. n .. ")";
 						productionItem.hoursLeft = 0
 						productionItem.timeAdjustment = 1;
+						productionItem.productionPoint = productionPoint;
 						if production.activeHours ~= nil then
 							productionItem.timeAdjustment = productionItem.timeAdjustment * (production.activeHours / 24)
 						end
@@ -510,6 +520,7 @@ function ProductionInfoHud:refreshProductionsTable()
 									productionItem.capacity = productionPoint.storage.capacities[input.type]
 									productionItem.fillLevel = productionPoint:getFillLevel(input.type);
 									productionItem.timeAdjustment = 1;
+									productionItem.productionPoint = productionPoint;
 									
 									if productionItem.capacity == 0 then 
 										productionItem.capacityLevel = 0
