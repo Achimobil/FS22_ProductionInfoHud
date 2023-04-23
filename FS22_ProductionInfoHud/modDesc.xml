@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8" standalone="no" ?>
-<modDesc descVersion="72">
+<modDesc descVersion="73">
 	<author>Achimobil</author>
 	<contributor>Rodberaht</contributor>
-	<version>1.1.1.0</version>
+	<version>1.1.2.0</version>
 	<title>
 		<de>Produktionen Info Hud</de>
 		<en>Production Info Hud</en>
@@ -48,7 +48,10 @@ Adresse findet im gleichnamigen User im Giants Forum.
 Upload auf anderen Seiten nur durch mich selbst, Verlinkung nur mit Original Downloadlink. KEIN Ersatzlink!
 Das verändern oder erneutes hochladen, ob ganz oder in Teilen ist nicht gestattet!
 
-Changelog 
+Changelog
+1.1.2.0
+- Bei Produktionen mit Öffnungszeiten wird die Restlaufzeit während der Öffnung angezeigt und deshalb werden diese jetzt früher als 2 Tage schon ausgeblendet
+
 1.1.1.0
 - Fehler mit revamp 1.3.5.5 behoben
 - BR Übersetzungen eingefügt
@@ -107,6 +110,9 @@ Upload on other sites only by myself, linking only with original download link. 
 Modifying and re-uploading in whole or in part is not allowed!
 
 Changelog
+1.1.2.0
+- For productions with opening hours, the remaining time is displayed during the opening and therefore these are now already hidden earlier than 2 days
+
 1.1.1.0
 - Fixed bug with revamp 1.3.5.5
 - BR translations added
