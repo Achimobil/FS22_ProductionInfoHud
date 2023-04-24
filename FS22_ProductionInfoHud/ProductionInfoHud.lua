@@ -432,7 +432,7 @@ function ProductionInfoHud:refreshProductionsTable()
 						productionItem.hoursLeft = productionItem.fillLevel / productionItem.needPerHour * g_currentMission.environment.daysPerPeriod;
 					end
 					
-					if (not ignoreInput and productionItem.needPerHour > 0 and productionItem.hoursLeft <= (48 * g_currentMission.environment.daysPerPeriod * productionItem.timeAdjustment)) then 
+					if (not ignoreInput and productionItem.needPerHour > 0) then 
 						table.insert(myProductions, productionItem)
 					end
 					
@@ -495,7 +495,7 @@ function ProductionInfoHud:refreshProductionsTable()
 							end
 						end
 						
-						if needed and (productionItem.hoursLeft <= (48 * g_currentMission.environment.daysPerPeriod * productionItem.timeAdjustment))then
+						if needed then
 							table.insert(myProductions, productionItem)
 						end
 					end
@@ -538,7 +538,7 @@ function ProductionInfoHud:refreshProductionsTable()
 									end
 									productionItem.hoursLeft = productionItem.fillLevel / needPerHour * g_currentMission.environment.daysPerPeriod;
 									
-									if (needPerHour > 0 and productionItem.hoursLeft <= (48 * g_currentMission.environment.daysPerPeriod * productionItem.timeAdjustment)) then 
+									if (needPerHour > 0) then 
 										table.insert(myProductions, productionItem)
 									end
 								end
@@ -578,7 +578,7 @@ function ProductionInfoHud:refreshProductionsTable()
 					productionItem.hoursLeft = productionItem.fillLevel / productionItem.needPerHour * g_currentMission.environment.daysPerPeriod;
 				end
 					
-				if (productionItem.needPerHour > 0 and productionItem.hoursLeft <= (48 * g_currentMission.environment.daysPerPeriod)) then 
+				if (productionItem.needPerHour > 0) then 
 					table.insert(myProductions, productionItem)
 				end
 				
@@ -616,8 +616,8 @@ function ProductionInfoHud:refreshProductionsTable()
 						end
 						
 						productionItem.fillTypeTitle = ingredient.title .. " (Robot)";
-											
-						if (productionItem.hoursLeft <= (48 * g_currentMission.environment.daysPerPeriod)) then 
+						
+						if (placeable.spec_husbandryFood.litersPerHour > 0) then 
 							table.insert(myProductions, productionItem)
 						end
 					end
@@ -653,7 +653,7 @@ function ProductionInfoHud:refreshProductionsTable()
 							productionItem.hoursLeft = productionItem.fillLevel / productionItem.needPerHour * g_currentMission.environment.daysPerPeriod;
 						end
 							
-						if (productionItem.needPerHour > 0 and productionItem.hoursLeft <= (48 * g_currentMission.environment.daysPerPeriod)) then 
+						if (productionItem.needPerHour > 0) then 
 							table.insert(myProductions, productionItem)
 						end
 					end
@@ -685,7 +685,7 @@ function ProductionInfoHud:refreshProductionsTable()
 						productionItem.hoursLeft = productionItem.fillLevel / productionItem.needPerHour * g_currentMission.environment.daysPerPeriod;
 					end
 						
-					if (productionItem.needPerHour > 0 and productionItem.hoursLeft <= (48 * g_currentMission.environment.daysPerPeriod)) then 
+					if (productionItem.needPerHour > 0) then 
 						table.insert(myProductions, productionItem)
 					end
 				end	
@@ -1006,6 +1006,15 @@ function ProductionInfoHud:draw()
 			local skip = false
 			if productionData.capacityLevel ~= nil and productionData.capacityLevel > 0.5 then
 				skip = true;
+			end
+			if productionData.hoursLeft ~= nil then
+				local compareValue = 48 * g_currentMission.environment.daysPerPeriod;
+				if productionData.timeAdjustment ~= nil then
+					compareValue = compareValue * productionData.timeAdjustment
+				end
+				if productionData.hoursLeft > compareValue then
+					skip = true;
+				end
 			end
 			
 			if (lineCount < maxLines and not skip) then
