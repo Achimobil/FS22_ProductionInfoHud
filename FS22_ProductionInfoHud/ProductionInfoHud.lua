@@ -432,7 +432,7 @@ function ProductionInfoHud:refreshProductionsTable()
 						productionItem.hoursLeft = productionItem.fillLevel / productionItem.needPerHour * g_currentMission.environment.daysPerPeriod;
 					end
 					
-					if (not ignoreInput and productionItem.needPerHour > 0 and productionItem.capacityLevel <= 0.5 and productionItem.hoursLeft <= (48 * g_currentMission.environment.daysPerPeriod * productionItem.timeAdjustment)) then 
+					if (not ignoreInput and productionItem.needPerHour > 0 and productionItem.hoursLeft <= (48 * g_currentMission.environment.daysPerPeriod * productionItem.timeAdjustment)) then 
 						table.insert(myProductions, productionItem)
 					end
 					
@@ -538,7 +538,7 @@ function ProductionInfoHud:refreshProductionsTable()
 									end
 									productionItem.hoursLeft = productionItem.fillLevel / needPerHour * g_currentMission.environment.daysPerPeriod;
 									
-									if (needPerHour > 0 and productionItem.capacityLevel <= 0.5 and productionItem.hoursLeft <= (48 * g_currentMission.environment.daysPerPeriod * productionItem.timeAdjustment)) then 
+									if (needPerHour > 0 and productionItem.hoursLeft <= (48 * g_currentMission.environment.daysPerPeriod * productionItem.timeAdjustment)) then 
 										table.insert(myProductions, productionItem)
 									end
 								end
@@ -578,7 +578,7 @@ function ProductionInfoHud:refreshProductionsTable()
 					productionItem.hoursLeft = productionItem.fillLevel / productionItem.needPerHour * g_currentMission.environment.daysPerPeriod;
 				end
 					
-				if (productionItem.needPerHour > 0 and productionItem.capacityLevel <= 0.5 and productionItem.hoursLeft <= (48 * g_currentMission.environment.daysPerPeriod)) then 
+				if (productionItem.needPerHour > 0 and productionItem.hoursLeft <= (48 * g_currentMission.environment.daysPerPeriod)) then 
 					table.insert(myProductions, productionItem)
 				end
 				
@@ -617,7 +617,7 @@ function ProductionInfoHud:refreshProductionsTable()
 						
 						productionItem.fillTypeTitle = ingredient.title .. " (Robot)";
 											
-						if (productionItem.capacityLevel <= 0.5 and productionItem.hoursLeft <= (48 * g_currentMission.environment.daysPerPeriod)) then 
+						if (productionItem.hoursLeft <= (48 * g_currentMission.environment.daysPerPeriod)) then 
 							table.insert(myProductions, productionItem)
 						end
 					end
@@ -653,7 +653,7 @@ function ProductionInfoHud:refreshProductionsTable()
 							productionItem.hoursLeft = productionItem.fillLevel / productionItem.needPerHour * g_currentMission.environment.daysPerPeriod;
 						end
 							
-						if (productionItem.needPerHour > 0 and productionItem.capacityLevel <= 0.5 and productionItem.hoursLeft <= (48 * g_currentMission.environment.daysPerPeriod)) then 
+						if (productionItem.needPerHour > 0 and productionItem.hoursLeft <= (48 * g_currentMission.environment.daysPerPeriod)) then 
 							table.insert(myProductions, productionItem)
 						end
 					end
@@ -685,7 +685,7 @@ function ProductionInfoHud:refreshProductionsTable()
 						productionItem.hoursLeft = productionItem.fillLevel / productionItem.needPerHour * g_currentMission.environment.daysPerPeriod;
 					end
 						
-					if (productionItem.needPerHour > 0 and productionItem.capacityLevel <= 0.5 and productionItem.hoursLeft <= (48 * g_currentMission.environment.daysPerPeriod)) then 
+					if (productionItem.needPerHour > 0 and productionItem.hoursLeft <= (48 * g_currentMission.environment.daysPerPeriod)) then 
 						table.insert(myProductions, productionItem)
 					end
 				end	
@@ -1002,7 +1002,13 @@ function ProductionInfoHud:draw()
 
 	if ProductionInfoHud.productionDataSorted ~= nil and (ProductionInfoHud.settings["display"]["showType"] == "ALL" or string.find(ProductionInfoHud.settings["display"]["showType"], "PRODUCTION")) then 
 		for _, productionData in pairs(ProductionInfoHud.productionDataSorted) do
-			if (lineCount < maxLines) then
+			-- new place to filter the data
+			local skip = false
+			if productionData.capacityLevel ~= nil and productionData.capacityLevel > 0.5 then
+				skip = true;
+			end
+			
+			if (lineCount < maxLines and not skip) then
 				if (lineCount == 0) then
 					posY = posY - textSize;
 					setTextAlignment(RenderText.ALIGN_LEFT);
@@ -1047,7 +1053,9 @@ function ProductionInfoHud:draw()
 				end
 				table.insert(productionOutputTable, productionOutputItem)
 			else
-				additionalLines = additionalLines + 1;
+				if not skip then
+					additionalLines = additionalLines + 1;
+				end
 			end
 		end
 			
