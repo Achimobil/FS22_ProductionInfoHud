@@ -62,7 +62,7 @@ function pihOutputForMoh:load(cmdTable, slotTable) --cmdTable ist dein hinterleg
 		isLineTable.txt[2] = {};
 		isLineTable.txt[2].txt = tostring(productionData.fillTypeTitle);
 		isLineTable.txt[2].alignment = 1;
-		isLineTable.txt[2].width = 35;	
+		isLineTable.txt[2].width = 30;	
 
 		local timeLeftString = nil;
 		local timeColor = 1; --als int, prozent color farbe der schrift fest hinterlegt in dem _hl.lua script welches alle meine mods haben --> 1="white", 2="green", 3="yellowGreen", 4="yellow", 5="orange", 6="orangeRed", 7="red"};
@@ -84,7 +84,7 @@ function pihOutputForMoh:load(cmdTable, slotTable) --cmdTable ist dein hinterleg
 			if(minutes <= 9) then minutes = "0" .. minutes end;
 			local timeString = "";
 			if (days ~= 0) then 
-				timeString = days .. "d ";
+				timeString = g_i18n:formatNumDay(days) .. " ";
 			else
 				timeColor = 4;
 			end
@@ -95,7 +95,7 @@ function pihOutputForMoh:load(cmdTable, slotTable) --cmdTable ist dein hinterleg
 		isLineTable.txt[3] = {};
 		isLineTable.txt[3].txt = tostring(timeLeftString);
 		isLineTable.txt[3].alignment = 3;
-		isLineTable.txt[3].width = 15;
+		isLineTable.txt[3].width = 20;
 		isLineTable.txt[3].prozentColor = timeColor;
 	end
 	

@@ -1038,7 +1038,7 @@ function ProductionInfoHud:draw()
 					if(minutes <= 9) then minutes = "0" .. minutes end;
 					local timeString = "";
 					if (days ~= 0) then 
-						timeString = days .. "d ";
+						timeString = g_i18n:formatNumDay(days) .. " ";
 					else
 						productionOutputItem.TextColor = ProductionInfoHud.colors.YELLOW;
 					end
