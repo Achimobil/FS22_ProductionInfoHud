@@ -53,8 +53,8 @@ function pihOutputForMoh:load(cmdTable, slotTable) --cmdTable ist dein hinterleg
 		isLineTable.txt[1].slotColor = "txtOutputTitle";
 		isLineTable.txt[1].bold = true;
 		isLineTable.txt[1].txt = tostring(productionData.name); --der txt der in der ersten spalte angezeigt werden soll, ! solltest du immer als string hinterlegen das spart fehlermeldungen ! also keine Int,Float,table etc.
-		isLineTable.txt[1].callback = pihOutputForMoh.testClickFirstLineString; --Callback für den txt[1] String -Beispiel
-		isLineTable.txt[1].ownTable = productionData; --diese table wird mit übergeben, zum beispiel von einem Object die node.id um einen teleport zu ermöglichen oder was auch immer
+		isLineTable.txt[1].callback = pihOutputForMoh.testClickFirstLineString;
+		isLineTable.txt[1].ownTable = productionData;
 		isLineTable.txt[1].alignment = 1; --1,2 oder 3, default ist immer 1 also links bündig, 2 ist mittig und 3 ist rechts bündig !immer an die breite der spalte angelegt!
 		isLineTable.txt[1].width = 50; --damit legst du fest das er die erste spalte nur 60 breit macht und die zweite würde 40 sein oder wenn du drei spalten hast dann zweite spalte 20 und dritte spalte 20, ansonst musst du in jeder txt[x].width einen wert selbst hinterlegen, wenn dann überall hinterlegen das spart rechen zeit,also wenn du bei txt[x].width was hinterlegt dann hinterlege auch in der zeile bei den anderen txt[x] die werte
 
@@ -66,7 +66,13 @@ function pihOutputForMoh:load(cmdTable, slotTable) --cmdTable ist dein hinterleg
 
 		local timeLeftString = nil;
 		local timeColor = 1; --als int, prozent color farbe der schrift fest hinterlegt in dem _hl.lua script welches alle meine mods haben --> 1="white", 2="green", 3="yellowGreen", 4="yellow", 5="orange", 6="orangeRed", 7="red"};
-		if productionData.hoursLeft == -2 then
+		if cmdTable.ownTable.showMissingAmount then
+			if productionData.capacity ~= nil and productionData.fillLevel ~= nil then
+				timeLeftString = g_i18n:formatVolume(productionData.capacity - productionData.fillLevel, 0)
+			else
+				timeLeftString = "";
+			end
+		elseif productionData.hoursLeft == -2 then
 			timeLeftString = g_i18n:getText("Full");
 			timeColor = 7;
 		elseif productionData.hoursLeft == -1 then
@@ -94,6 +100,7 @@ function pihOutputForMoh:load(cmdTable, slotTable) --cmdTable ist dein hinterleg
 				
 		isLineTable.txt[3] = {};
 		isLineTable.txt[3].txt = tostring(timeLeftString);
+		isLineTable.txt[3].callback = pihOutputForMoh.clickOnTimeColumn;
 		isLineTable.txt[3].alignment = 3;
 		isLineTable.txt[3].width = 20;
 		isLineTable.txt[3].prozentColor = timeColor;
@@ -106,6 +113,13 @@ function pihOutputForMoh.giveOutputTable(args)
 	if args == nil or type(args) ~= "table" then return false;end;	
 	pihOutputForMoh:load(args.cmdTable, args.slotTable);
 	return pihOutputForMoh[args.cmdTable.regName].output;	
+end;
+
+function pihOutputForMoh.clickOnTimeColumn(args)
+	if args == nil or type(args) ~= "table" then return;end;
+	if args.mouseClick == "MOUSE_BUTTON_LEFT" and args.isDown then
+		args.cmdTable.ownTable.showMissingAmount = not args.cmdTable.ownTable.showMissingAmount;
+	end;
 end;
 
 
@@ -219,6 +233,8 @@ function pihOutputForMoh.testClickFirstLineString(args) --Callback für Strings 
 			if args.ownTable.productionPoint ~= nil and args.ownTable.productionPoint.openMenu ~= nil then
 				args.ownTable.productionPoint:openMenu();
 			end
+-- print("args")
+-- DebugUtil.printTableRecursively(args,"_",0,2)
 			-- g_currentMission:showBlinkingWarning("Click Line 1 Mouse Left", 2000);
 		end;
 	elseif args.mouseClick == "MOUSE_BUTTON_RIGHT" then
