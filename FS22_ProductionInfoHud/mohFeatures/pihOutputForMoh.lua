@@ -45,24 +45,40 @@ function pihOutputForMoh:load(cmdTable, slotTable) --cmdTable ist dein hinterleg
 	------hier kommen deine restlichen Daten rein die du an den MultiOverlayV4 übergibst-----
 	
 	for _, productionData in pairs(ProductionInfoHud.productionDataSorted) do
+		if cmdTable.ownTable.filterForProduction ~= nil and cmdTable.ownTable.filterForProduction ~= tostring(productionData.name) then
+			goto continue
+		end
+		if cmdTable.ownTable.filterForFillType ~= nil and cmdTable.ownTable.filterForFillType ~= tostring(productionData.fillTypeTitle) then
+			goto continue
+		end
+	
 		lineTable.line[#lineTable.line+1] = {};
 		local isLineTable = lineTable.line[#lineTable.line];
 		isLineTable.txt = {};
 
 		isLineTable.txt[1] = {};
-		isLineTable.txt[1].slotColor = "txtOutputTitle";
 		isLineTable.txt[1].bold = true;
-		isLineTable.txt[1].txt = tostring(productionData.name); --der txt der in der ersten spalte angezeigt werden soll, ! solltest du immer als string hinterlegen das spart fehlermeldungen ! also keine Int,Float,table etc.
-		isLineTable.txt[1].callback = pihOutputForMoh.testClickFirstLineString;
+		isLineTable.txt[1].txt = tostring(productionData.name);
+		isLineTable.txt[1].callback = pihOutputForMoh.clickOnProductionColumn;
 		isLineTable.txt[1].ownTable = productionData;
-		isLineTable.txt[1].alignment = 1; --1,2 oder 3, default ist immer 1 also links bündig, 2 ist mittig und 3 ist rechts bündig !immer an die breite der spalte angelegt!
-		isLineTable.txt[1].width = 50; --damit legst du fest das er die erste spalte nur 60 breit macht und die zweite würde 40 sein oder wenn du drei spalten hast dann zweite spalte 20 und dritte spalte 20, ansonst musst du in jeder txt[x].width einen wert selbst hinterlegen, wenn dann überall hinterlegen das spart rechen zeit,also wenn du bei txt[x].width was hinterlegt dann hinterlege auch in der zeile bei den anderen txt[x] die werte
+		isLineTable.txt[1].alignment = 1;
+		isLineTable.txt[1].width = 45;
+		if cmdTable.ownTable.filterForProduction ~= nil then
+			isLineTable.txt[1].prozentColor = 2;
+		else
+			isLineTable.txt[1].slotColor = "txtOutputTitle";
+		end
 
 
 		isLineTable.txt[2] = {};
 		isLineTable.txt[2].txt = tostring(productionData.fillTypeTitle);
+		isLineTable.txt[2].callback = pihOutputForMoh.clickOnFillTypeColumn;
+		isLineTable.txt[2].ownTable = productionData;
 		isLineTable.txt[2].alignment = 1;
-		isLineTable.txt[2].width = 30;	
+		isLineTable.txt[2].width = 35;
+		if cmdTable.ownTable.filterForFillType ~= nil then
+			isLineTable.txt[2].prozentColor = 2;
+		end
 
 		local timeLeftString = nil;
 		local timeColor = 1; --als int, prozent color farbe der schrift fest hinterlegt in dem _hl.lua script welches alle meine mods haben --> 1="white", 2="green", 3="yellowGreen", 4="yellow", 5="orange", 6="orangeRed", 7="red"};
@@ -104,6 +120,8 @@ function pihOutputForMoh:load(cmdTable, slotTable) --cmdTable ist dein hinterleg
 		isLineTable.txt[3].alignment = 3;
 		isLineTable.txt[3].width = 20;
 		isLineTable.txt[3].prozentColor = timeColor;
+		
+		::continue::
 	end
 	
 	pihOutputForMoh[cmdRegName] = {output=lineTable}; --musste dann aktivieren wenn der test deaktiviert ist
@@ -117,11 +135,39 @@ end;
 
 function pihOutputForMoh.clickOnTimeColumn(args)
 	if args == nil or type(args) ~= "table" then return;end;
-	if args.mouseClick == "MOUSE_BUTTON_LEFT" and args.isDown then
+	if args.mouseClick == "MOUSE_BUTTON_RIGHT" and args.isDown then
 		args.cmdTable.ownTable.showMissingAmount = not args.cmdTable.ownTable.showMissingAmount;
 	end;
 end;
 
+function pihOutputForMoh.clickOnFillTypeColumn(args)
+	if args == nil or type(args) ~= "table" then return;end;
+	if args.mouseClick == "MOUSE_BUTTON_RIGHT" and args.isDown then
+		if args.cmdTable.ownTable.filterForFillType == nil then
+			args.cmdTable.ownTable.filterForFillType = tostring(args.ownTable.fillTypeTitle);
+		else
+			args.cmdTable.ownTable.filterForFillType = nil;
+		end
+	end;
+end;
+
+function pihOutputForMoh.clickOnProductionColumn(args) --Callback für Strings -Beispiel
+	if args == nil or type(args) ~= "table" and args.ownTable == nil then return false;end;
+	if args.mouseClick == "MOUSE_BUTTON_LEFT" and args.isDown then
+		if args.ownTable ~= nil then
+			--mach was
+			if args.ownTable.productionPoint ~= nil and args.ownTable.productionPoint.openMenu ~= nil then
+				args.ownTable.productionPoint:openMenu();
+			end
+		end;
+	elseif args.mouseClick == "MOUSE_BUTTON_RIGHT" then
+		if args.cmdTable.ownTable.filterForProduction == nil then
+			args.cmdTable.ownTable.filterForProduction = tostring(args.ownTable.name);
+		else
+			args.cmdTable.ownTable.filterForProduction = nil;
+		end
+	end;
+end;
 
 
 
