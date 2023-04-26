@@ -9,9 +9,7 @@
 	</title>
 	<description>
 		<de>
-			<![CDATA[Hier die LS22 Version des aus dem LS 19 bekannten Produktionen Info Hud von mir.
-
-Da die LS19 Version auf Global Company Dialoge und Methoden gebaut war, musste diese komplett neu aufgebaut werden.
+			<![CDATA[HUD Anzeige für Produktionen die Aufmerksamkeit benötigen.
 
 Die aktuelle Version hat folgende Möglichkeiten:
 - Anzeige der aktiven Produktionen und der Tierställe mit deren Restlaufzeit pro Rohstoff. Inklusive der Tierställe für Futter, Wasser und Stroh. Revamp Mix wird auch als solcher angezeigt.
@@ -77,9 +75,7 @@ Changelog
 - Fix für Pumps N' Hoses Kompatibilität
 ]]></de>
 		<en>
-			<![CDATA[Here is the LS22 version of the production info hud of mine known from LS 19.
-
-Since the LS19 version was built on Global Company dialogues and methods, it had to be completely rebuilt.
+			<![CDATA[HUD display for productions that need attention.
 
 The current version has the following possibilities:
 - Display of active productions and animal sheds with their remaining time per resource. Including the animal sheds for feed, water and straw. Revamp Mix is also displayed as such.
