@@ -64,7 +64,7 @@ function ProductionInfoHud:init()
 	ProductionInfoHud:registerActionEvents()
 
 	-- overwrite the InfoMessageHUD method to move it to a good location, when it is installed	
-	if g_modIsLoaded["FS22_InfoMessageHUD"] then
+	if g_modIsLoaded["FS22_InfoMessageHUD"] then ---by HappyLooser Info das solltest du anders lösen
 		print("Info: ProductionInfoHud override position of InfoMessageHUD");
 		local mod2 = getfenv(0)["FS22_InfoMessageHUD"];
 		ProductionInfoHud.InfoMessageHUD = mod2.InfoMessageHUD;		
@@ -187,19 +187,31 @@ end
 function ProductionInfoHud:loadMap(name)
 	-- ActionEvents registrieren
 	FSBaseMission.registerActionEvents = Utils.appendedFunction(FSBaseMission.registerActionEvents, ProductionInfoHud.registerActionEvents);
+	if not ProductionInfoHud:getServer() then Mission00.onStartMission = Utils.appendedFunction(Mission00.onStartMission, ProductionInfoHud.onStartMission);end; --new by HappyLooser
 end
 
 function ProductionInfoHud:update(dt)
+	local mohFound = false;
+	if not ProductionInfoHud:getServer() then --new by HappyLooser
+		if ProductionInfoHud.moh ~= nil and ProductionInfoHud.moh.found and ProductionInfoHud.moh.outputCmdActive then --new by HappyLooser for MOH Features, solltest du aufrufen egal wie dein showType Status gesetzt ist
+			--hier alles laden was du den spielern anzeigen lassen willst oder was du brauchst, nutze einfach deinen vorhandene table und schiebe das hier dann um
+			--du kannst ruhig alles laden und es später dann in der pihOutputForMoh.lua aussortieren was du den Spielern anzeigen lassen willst, zusätzlich hast du dann auch die möglichkeit dem spieler mit zu teilen das irgend eine produktion nicht läuft, wenn er den MOH Slot gerade nicht offen hat
+			--muss nur auf client ausgeführt werden
+			mohFound = true;
+		end;
+	end;
+	
 	if not ProductionInfoHud.isInit then ProductionInfoHud:init(); end
 	
 	if not ProductionInfoHud.isClient then return end
+	
 	
 	ProductionInfoHud.timePast = ProductionInfoHud.timePast + dt;
 	
 	if ProductionInfoHud.timePast >= 5000 then
 		ProductionInfoHud.timePast = 0;
 
-		if ProductionInfoHud.settings["display"]["showType"] == "ALL" or string.find(ProductionInfoHud.settings["display"]["showType"], "PRODUCTION") then 
+		if ProductionInfoHud.settings["display"]["showType"] == "ALL" or string.find(ProductionInfoHud.settings["display"]["showType"], "PRODUCTION") or mohFound then 
 			ProductionInfoHud:refreshProductionsTable();
 		end
 		
@@ -216,6 +228,12 @@ function ProductionInfoHud:update(dt)
 		
 		ProductionInfoHud.firstRun = true;
 	end
+	
+	-- if mohFound then
+		-- local cmdTable = {regName = "ProductionInfoHudDataTable"}
+		-- local slotTable = nil
+		-- pihOutputForMoh:load(ProductionInfoHud.productionDataSorted, slotTable)
+	-- end
 end
 
 function ProductionInfoHud:createProductionNeedingTable(mode)
@@ -367,6 +385,7 @@ function ProductionInfoHud:refreshProductionsTable()
 					productionItem.isInput = false;
 					productionItem.isOutput = false;
 					productionItem.timeAdjustment = 1;
+					productionItem.productionPoint = productionPoint;
 					
 					-- prüfen ob input type
 					if productionPoint.inputFillTypeIds[fillTypeId] ~= nil then
@@ -413,7 +432,7 @@ function ProductionInfoHud:refreshProductionsTable()
 						productionItem.hoursLeft = productionItem.fillLevel / productionItem.needPerHour * g_currentMission.environment.daysPerPeriod;
 					end
 					
-					if (not ignoreInput and productionItem.needPerHour > 0 and productionItem.capacityLevel <= 0.5 and productionItem.hoursLeft <= (48 * g_currentMission.environment.daysPerPeriod * productionItem.timeAdjustment)) then 
+					if (not ignoreInput and productionItem.needPerHour > 0) then 
 						table.insert(myProductions, productionItem)
 					end
 					
@@ -448,6 +467,7 @@ function ProductionInfoHud:refreshProductionsTable()
 						productionItem.fillTypeTitle = production.name .. " (Mix " .. n .. ")";
 						productionItem.hoursLeft = 0
 						productionItem.timeAdjustment = 1;
+						productionItem.productionPoint = productionPoint;
 						if production.activeHours ~= nil then
 							productionItem.timeAdjustment = productionItem.timeAdjustment * (production.activeHours / 24)
 						end
@@ -475,7 +495,7 @@ function ProductionInfoHud:refreshProductionsTable()
 							end
 						end
 						
-						if needed and (productionItem.hoursLeft <= (48 * g_currentMission.environment.daysPerPeriod * productionItem.timeAdjustment))then
+						if needed then
 							table.insert(myProductions, productionItem)
 						end
 					end
@@ -500,6 +520,7 @@ function ProductionInfoHud:refreshProductionsTable()
 									productionItem.capacity = productionPoint.storage.capacities[input.type]
 									productionItem.fillLevel = productionPoint:getFillLevel(input.type);
 									productionItem.timeAdjustment = 1;
+									productionItem.productionPoint = productionPoint;
 									
 									if productionItem.capacity == 0 then 
 										productionItem.capacityLevel = 0
@@ -517,7 +538,7 @@ function ProductionInfoHud:refreshProductionsTable()
 									end
 									productionItem.hoursLeft = productionItem.fillLevel / needPerHour * g_currentMission.environment.daysPerPeriod;
 									
-									if (needPerHour > 0 and productionItem.capacityLevel <= 0.5 and productionItem.hoursLeft <= (48 * g_currentMission.environment.daysPerPeriod * productionItem.timeAdjustment)) then 
+									if (needPerHour > 0) then 
 										table.insert(myProductions, productionItem)
 									end
 								end
@@ -557,7 +578,7 @@ function ProductionInfoHud:refreshProductionsTable()
 					productionItem.hoursLeft = productionItem.fillLevel / productionItem.needPerHour * g_currentMission.environment.daysPerPeriod;
 				end
 					
-				if (productionItem.needPerHour > 0 and productionItem.capacityLevel <= 0.5 and productionItem.hoursLeft <= (48 * g_currentMission.environment.daysPerPeriod)) then 
+				if (productionItem.needPerHour > 0) then 
 					table.insert(myProductions, productionItem)
 				end
 				
@@ -595,8 +616,8 @@ function ProductionInfoHud:refreshProductionsTable()
 						end
 						
 						productionItem.fillTypeTitle = ingredient.title .. " (Robot)";
-											
-						if (productionItem.capacityLevel <= 0.5 and productionItem.hoursLeft <= (48 * g_currentMission.environment.daysPerPeriod)) then 
+						
+						if (placeable.spec_husbandryFood.litersPerHour > 0) then 
 							table.insert(myProductions, productionItem)
 						end
 					end
@@ -632,7 +653,7 @@ function ProductionInfoHud:refreshProductionsTable()
 							productionItem.hoursLeft = productionItem.fillLevel / productionItem.needPerHour * g_currentMission.environment.daysPerPeriod;
 						end
 							
-						if (productionItem.needPerHour > 0 and productionItem.capacityLevel <= 0.5 and productionItem.hoursLeft <= (48 * g_currentMission.environment.daysPerPeriod)) then 
+						if (productionItem.needPerHour > 0) then 
 							table.insert(myProductions, productionItem)
 						end
 					end
@@ -664,7 +685,7 @@ function ProductionInfoHud:refreshProductionsTable()
 						productionItem.hoursLeft = productionItem.fillLevel / productionItem.needPerHour * g_currentMission.environment.daysPerPeriod;
 					end
 						
-					if (productionItem.needPerHour > 0 and productionItem.capacityLevel <= 0.5 and productionItem.hoursLeft <= (48 * g_currentMission.environment.daysPerPeriod)) then 
+					if (productionItem.needPerHour > 0) then 
 						table.insert(myProductions, productionItem)
 					end
 				end	
@@ -927,8 +948,9 @@ function compPrductionTable(w1,w2)
 end
 
 function ProductionInfoHud:draw()
-
-	if not ProductionInfoHud.isClient then return end
+		
+	if not ProductionInfoHud.isClient then return end	
+	
 	if ProductionInfoHud.productionDataSorted == nil then return end
 	
 	if ProductionInfoHud.settings["display"]["showType"] == "NONE" then 
@@ -980,7 +1002,22 @@ function ProductionInfoHud:draw()
 
 	if ProductionInfoHud.productionDataSorted ~= nil and (ProductionInfoHud.settings["display"]["showType"] == "ALL" or string.find(ProductionInfoHud.settings["display"]["showType"], "PRODUCTION")) then 
 		for _, productionData in pairs(ProductionInfoHud.productionDataSorted) do
-			if (lineCount < maxLines) then
+			-- new place to filter the data
+			local skip = false
+			if productionData.capacityLevel ~= nil and productionData.capacityLevel > 0.5 then
+				skip = true;
+			end
+			if productionData.hoursLeft ~= nil then
+				local compareValue = 48 * g_currentMission.environment.daysPerPeriod;
+				if productionData.timeAdjustment ~= nil then
+					compareValue = compareValue * productionData.timeAdjustment
+				end
+				if productionData.hoursLeft > compareValue then
+					skip = true;
+				end
+			end
+			
+			if (lineCount < maxLines and not skip) then
 				if (lineCount == 0) then
 					posY = posY - textSize;
 					setTextAlignment(RenderText.ALIGN_LEFT);
@@ -1016,7 +1053,7 @@ function ProductionInfoHud:draw()
 					if(minutes <= 9) then minutes = "0" .. minutes end;
 					local timeString = "";
 					if (days ~= 0) then 
-						timeString = days .. "d ";
+						timeString = g_i18n:formatNumDay(days) .. " ";
 					else
 						productionOutputItem.TextColor = ProductionInfoHud.colors.YELLOW;
 					end
@@ -1025,7 +1062,9 @@ function ProductionInfoHud:draw()
 				end
 				table.insert(productionOutputTable, productionOutputItem)
 			else
-				additionalLines = additionalLines + 1;
+				if not skip then
+					additionalLines = additionalLines + 1;
+				end
 			end
 		end
 			
@@ -1378,6 +1417,38 @@ function ProductionInfoHud:writeStreamProductionPoint(streamId, connection)
 	end
 end
 ProductionPoint.writeStream = Utils.appendedFunction(ProductionPoint.writeStream, ProductionInfoHud.writeStreamProductionPoint)
+
+
+-----------new by HappyLooser-----------
+function ProductionInfoHud:onStartMission() --new by HappyLooser
+	if ProductionInfoHud:getServer() then return;end; --new by HappyLooser		
+	ProductionInfoHud.hl = g_currentMission.hl ~= nil; --new by HappyLooser /for HL Script	
+	ProductionInfoHud.moh = {found=false, outputCmdActive=true}; --outputCmdActive hat keine funtion momentan, müssen wir schauen wie deine normale Anzeige dann deaktiviert wird !! Idee !!
+	ProductionInfoHud:searchOtherMods();			
+	if ProductionInfoHud.moh.found then
+		source(ProductionInfoHud.modDir.."mohFeatures/pihSetGetForMoh.lua");
+		source(ProductionInfoHud.modDir.."mohFeatures/pihOutputForMoh.lua");
+		pihSetGetForMoh:onStartLoad();
+	end;	
+end;
+
+function ProductionInfoHud:searchOtherMods() 
+	local env = getfenv(0);		
+	if env["MultiOverlayV4"] ~= nil and env["MultiOverlayV4"]["MultiOverlayV4"] ~= nil then
+		ProductionInfoHud.moh.mod = env["MultiOverlayV4"];		
+	end;
+	if g_currentMission.multiOverlayV4 ~= nil then ProductionInfoHud.moh.found = true;end;
+end;
+
+function ProductionInfoHud:getServer()	
+	return g_server ~= nil and g_client ~= nil and g_dedicatedServer ~= nil;	
+end;
+
+function ProductionInfoHud:getHostServer()	
+	if g_currentMission.missionDynamicInfo == nil then return false;end;
+	return g_server ~= nil and g_client ~= nil and g_dedicatedServer == nil and g_currentMission.missionDynamicInfo.isMultiplayer;	
+end;
+-----------new by HappyLooser-----------
 
 addModEventListener(ProductionInfoHud);
 

@@ -3,9 +3,9 @@
 	<translationContributors>Achimobil</translationContributors>
     <texts>
 		<text name="input_TOGGLE_GUI" text="PIH: Anzeige umschalten" />
-		<text name="Empty" text="Alles verbraucht" />
-		<text name="Full" text="Ausgang voll" />
-		<text name="NearlyFull" text="Ausgang fast voll" />
+		<text name="Empty" text="Leer" />
+		<text name="Full" text="Voll" />
+		<text name="NearlyFull" text="Fast voll" />
 		<text name="AllProductsOperativ" text="Alle Produktionen versorgt" />
         
 		<text name="pih_Zeilen" text="Zeilen" />
