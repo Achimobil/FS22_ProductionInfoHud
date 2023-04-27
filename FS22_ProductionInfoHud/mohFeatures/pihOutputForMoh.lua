@@ -158,9 +158,9 @@ function pihOutputForMoh:load(cmdTable, slotTable) --cmdTable ist dein hinterleg
 		
 		-- zusätzliche infos anzeigen
 		if cmdTable.ownTable.openProductions[productionName] ~= nil and cmdTable.ownTable.openProductions[productionName] == true and productionData.additionalProductionData ~= nil then
-		
+			local innerIsShown = false;
 			for _, productionDataInner in pairs(productionData.additionalProductionData) do
-			
+				innerIsShown = true;
 			
 				lineTable.line[#lineTable.line+1] = {};
 				local isLineTable = lineTable.line[#lineTable.line];
@@ -218,6 +218,9 @@ function pihOutputForMoh:load(cmdTable, slotTable) --cmdTable ist dein hinterleg
 				isLineTable.txt[3].alignment = 3;
 				isLineTable.txt[3].width = 20;
 				isLineTable.txt[3].prozentColor = timeColor;
+			end
+			if innerIsShown then
+				setSeparator();
 			end
 		end
 		
