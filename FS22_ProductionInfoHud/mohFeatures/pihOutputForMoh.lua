@@ -68,6 +68,27 @@ function pihOutputForMoh:load(cmdTable, slotTable) --cmdTable ist dein hinterleg
 	------hier kommen deine restlichen Daten rein die du an den MultiOverlayV4 übergibst-----
 	
 	for _, productionData in pairs(dataForMoh) do
+		pihOutputForMoh.CreateLineTable(cmdTable, slotTable, lineTable, productionData, true);
+		
+		-- zusätzliche infos anzeigen
+		local productionName = tostring(productionData.name)
+		if cmdTable.ownTable.openProductions[productionName] ~= nil and cmdTable.ownTable.openProductions[productionName] == true and productionData.additionalProductionData ~= nil and not viewIsFiltered then
+			local innerIsShown = false;
+			for _, productionDataInner in pairs(productionData.additionalProductionData) do
+				innerIsShown = true;
+			
+				pihOutputForMoh.CreateLineTable(cmdTable, slotTable, lineTable, productionDataInner, false);
+			end
+			if innerIsShown then
+				setSeparator();
+			end
+		end
+	end
+	
+	pihOutputForMoh[cmdRegName] = {output=lineTable}; --musste dann aktivieren wenn der test deaktiviert ist
+end;
+
+function pihOutputForMoh.CreateLineTable(cmdTable, slotTable, lineTable, productionData, isMainLine)
 		local productionName = tostring(productionData.name)
 		if cmdTable.ownTable.filterForProduction ~= nil and cmdTable.ownTable.filterForProduction ~= productionName then
 			goto continue;
@@ -75,45 +96,39 @@ function pihOutputForMoh:load(cmdTable, slotTable) --cmdTable ist dein hinterleg
 		if cmdTable.ownTable.filterForFillType ~= nil and cmdTable.ownTable.filterForFillType ~= tostring(productionData.fillTypeTitle) then
 			goto continue;
 		end
+		
+		local viewIsFiltered = cmdTable.ownTable.filterForProduction ~= nil or cmdTable.ownTable.filterForFillType ~= nil;
 	
 		lineTable.line[#lineTable.line+1] = {};
 		local isLineTable = lineTable.line[#lineTable.line];
 		isLineTable.txt = {};
 
 		isLineTable.txt[1] = {};
-		isLineTable.txt[1].bold = true;
-		isLineTable.txt[1].txt = productionName;
-		isLineTable.txt[1].callback = pihOutputForMoh.clickOnProductionColumn;
-		isLineTable.txt[1].ownTable = productionData;
 		isLineTable.txt[1].alignment = 1;
 		isLineTable.txt[1].width = 45;
-		if cmdTable.ownTable.filterForProduction ~= nil then
-			isLineTable.txt[1].prozentColor = 2;
-		else
-			isLineTable.txt[1].slotColor = "txtOutputTitle";
+		if isMainLine then
+			isLineTable.txt[1].bold = true;
+			isLineTable.txt[1].txt = productionName;
+			isLineTable.txt[1].callback = pihOutputForMoh.clickOnProductionColumn;
+			isLineTable.txt[1].ownTable = productionData;
+			if cmdTable.ownTable.filterForProduction ~= nil then
+				isLineTable.txt[1].prozentColor = 2;
+			else
+				isLineTable.txt[1].slotColor = "txtOutputTitle";
+			end
 		end
 		
 		-- icon zum auf und zu klappen wie bei HappyLoosers Produktionen
 		local viewProductionInfo = cmdTable.ownTable.openProductions[productionName] ~= nil and cmdTable.ownTable.openProductions[productionName] == true;
-		if g_currentMission.hl.isMouseCursor and not viewIsFiltered then
+		if g_currentMission.hl.isMouseCursor and not viewIsFiltered and isMainLine then
 			iconColor = "gray";
 			buttonName = "buttonDown";
 			if viewProductionInfo then iconColor = "green";buttonName = "buttonUp";end;				
-			if #productionData.additionalProductionData == 0 then iconColor = "green";buttonName = "free";end;				
+			if productionData.additionalProductionData ~= nil and #productionData.additionalProductionData == 0 then iconColor = "green";buttonName = "free";end;				
 			isLineTable.txt[1].icon = {before={},after={},behindTxt={}};
 			isLineTable.txt[1].icon.before[1] = {name=buttonName, color=iconColor, settingButton=true, callback={[1]=pihOutputForMoh.clickViewProductionInfo}, ownTable={productionName}, infoTxt="Production Info"};
 		end;
-
-
-		isLineTable.txt[2] = {};
-		isLineTable.txt[2].txt = tostring(productionData.fillTypeTitle);
-		isLineTable.txt[2].callback = pihOutputForMoh.clickOnFillTypeColumn;
-		isLineTable.txt[2].ownTable = productionData;
-		isLineTable.txt[2].alignment = 1;
-		isLineTable.txt[2].width = 35;
-		if cmdTable.ownTable.filterForFillType ~= nil then
-			isLineTable.txt[2].prozentColor = 2;
-		end
+		
 
 		local timeLeftString = nil;
 		local timeColor = 1; --als int, prozent color farbe der schrift fest hinterlegt in dem _hl.lua script welches alle meine mods haben --> 1="white", 2="green", 3="yellowGreen", 4="yellow", 5="orange", 6="orangeRed", 7="red"};
@@ -148,6 +163,17 @@ function pihOutputForMoh:load(cmdTable, slotTable) --cmdTable ist dein hinterleg
 			timeString = timeString .. hours .. ":" .. minutes;
 			timeLeftString = timeString;
 		end
+
+		isLineTable.txt[2] = {};
+		isLineTable.txt[2].txt = tostring(productionData.fillTypeTitle);
+		isLineTable.txt[2].callback = pihOutputForMoh.clickOnFillTypeColumn;
+		isLineTable.txt[2].ownTable = productionData;
+		isLineTable.txt[2].alignment = 1;
+		isLineTable.txt[2].width = 35;
+		isLineTable.txt[2].prozentColor = timeColor;
+		if cmdTable.ownTable.filterForFillType ~= nil then
+			isLineTable.txt[2].prozentColor = 2;
+		end
 				
 		isLineTable.txt[3] = {};
 		isLineTable.txt[3].txt = tostring(timeLeftString);
@@ -156,79 +182,8 @@ function pihOutputForMoh:load(cmdTable, slotTable) --cmdTable ist dein hinterleg
 		isLineTable.txt[3].width = 20;
 		isLineTable.txt[3].prozentColor = timeColor;
 		
-		-- zusätzliche infos anzeigen
-		if cmdTable.ownTable.openProductions[productionName] ~= nil and cmdTable.ownTable.openProductions[productionName] == true and productionData.additionalProductionData ~= nil then
-			local innerIsShown = false;
-			for _, productionDataInner in pairs(productionData.additionalProductionData) do
-				innerIsShown = true;
-			
-				lineTable.line[#lineTable.line+1] = {};
-				local isLineTable = lineTable.line[#lineTable.line];
-				isLineTable.txt = {};isLineTable.txt[2] = {};
-
-				isLineTable.txt[1] = {};
-				isLineTable.txt[1].txt = "";
-				isLineTable.txt[1].alignment = 1;
-				isLineTable.txt[1].width = 45;
-				
-				isLineTable.txt[2] = {};
-				isLineTable.txt[2].txt = tostring(productionDataInner.fillTypeTitle);
-				isLineTable.txt[2].callback = pihOutputForMoh.clickOnFillTypeColumn;
-				isLineTable.txt[2].ownTable = productionDataInner;
-				isLineTable.txt[2].alignment = 1;
-				isLineTable.txt[2].width = 35;
-				
-				local timeLeftString = nil;
-				local timeColor = 1; --als int, prozent color farbe der schrift fest hinterlegt in dem _hl.lua script welches alle meine mods haben --> 1="white", 2="green", 3="yellowGreen", 4="yellow", 5="orange", 6="orangeRed", 7="red"};
-				if cmdTable.ownTable.showMissingAmount then
-					if productionDataInner.capacity ~= nil and productionDataInner.fillLevel ~= nil then
-						timeLeftString = g_i18n:formatVolume(productionDataInner.capacity - productionDataInner.fillLevel, 0)
-					else
-						timeLeftString = "";
-					end
-				elseif productionDataInner.hoursLeft == -2 then
-					timeLeftString = g_i18n:getText("Full");
-					timeColor = 7;
-				elseif productionDataInner.hoursLeft == -1 then
-					timeLeftString = g_i18n:getText("NearlyFull");
-					timeColor = 5;
-				elseif productionDataInner.hoursLeft == 0 then
-					timeLeftString = g_i18n:getText("Empty");
-					timeColor = 6;
-				else
-					local days = math.floor(productionDataInner.hoursLeft / 24);
-					local hoursLeft = productionDataInner.hoursLeft - (days * 24);
-					local hours = math.floor(hoursLeft);
-					local hoursLeft = hoursLeft - hours;
-					local minutes = math.floor(hoursLeft * 60);
-					if(minutes <= 9) then minutes = "0" .. minutes end;
-					local timeString = "";
-					if (days ~= 0) then 
-						timeString = g_i18n:formatNumDay(days) .. " ";
-					else
-						timeColor = 4;
-					end
-					timeString = timeString .. hours .. ":" .. minutes;
-					timeLeftString = timeString;
-				end
-						
-				isLineTable.txt[3] = {};
-				isLineTable.txt[3].txt = tostring(timeLeftString);
-				isLineTable.txt[3].callback = pihOutputForMoh.clickOnTimeColumn;
-				isLineTable.txt[3].alignment = 3;
-				isLineTable.txt[3].width = 20;
-				isLineTable.txt[3].prozentColor = timeColor;
-			end
-			if innerIsShown then
-				setSeparator();
-			end
-		end
-		
 		::continue::
-	end
-	
-	pihOutputForMoh[cmdRegName] = {output=lineTable}; --musste dann aktivieren wenn der test deaktiviert ist
-end;
+end
 
 function pihOutputForMoh.giveOutputTable(args)
 	if args == nil or type(args) ~= "table" then return false;end;	
