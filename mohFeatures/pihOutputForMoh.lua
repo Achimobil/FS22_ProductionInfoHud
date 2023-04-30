@@ -30,13 +30,24 @@ function pihOutputForMoh:load(cmdTable, slotTable) --cmdTable ist dein hinterleg
 		isLineTable.txt[2].txt = "----";
 		isLineTable.txt[2].alignment = 3;
 	end;
+	
+	
 	lineTable.line[#lineTable.line+1] = {};
 	local isLineTable = lineTable.line[#lineTable.line];
 	isLineTable.txt = {};
 	isLineTable.txt[1] = {};
 	isLineTable.txt[1].alignment = 1;
 	isLineTable.txt[1].width = 20;
-	-- isLineTable.txt[1].txt = tostring(cmdTable.ownTable.capacityLevelFilter * 100) .. "%";
+	isLineTable.txt[1].txt = tostring(g_i18n:formatNumDay(cmdTable.ownTable.daysLeftFilter));
+	isLineTable.txt[1].prozentColor = 3;
+	
+	-- +/- davor und dahinter clickbar
+	if g_currentMission.hl.isMouseCursor then
+		local iconColor = "yellow";
+		if isLineTable.txt[1].icon == nil then isLineTable.txt[1].icon = {before={},after={},behindTxt={}};end;
+		isLineTable.txt[1].icon.before[#isLineTable.txt[1].icon.before+1] = {name="buttonMinus", color=iconColor, settingButton=true, callback={[1]=pihOutputForMoh.clickDaysMinus}, infoTxt="Zeige später an"};
+		isLineTable.txt[1].icon.after[#isLineTable.txt[1].icon.after+1] = {name="buttonPlus", color=iconColor, settingButton=true, callback={[1]=pihOutputForMoh.clickDaysPlus}, infoTxt="Zeige früher an"};
+	end
 	
 	isLineTable.txt[2] = {};
 	isLineTable.txt[2].slotColor = "txtOutputTitle";
@@ -48,16 +59,19 @@ function pihOutputForMoh:load(cmdTable, slotTable) --cmdTable ist dein hinterleg
 		isLineTable.txt[2].icon.before[1] = {name="buttonHelp", color="yellow", settingButton=true, callback={[1]=pihOutputForMoh.clickIconHelpTxt}};
 	end;
 	isLineTable.txt[3] = {};
-	isLineTable.txt[3].alignment = 1;
+	isLineTable.txt[3].alignment = 3;
 	isLineTable.txt[3].width = 20;
 	isLineTable.txt[3].txt = tostring(cmdTable.ownTable.capacityLevelFilter * 100) .. "%";
 	isLineTable.txt[3].prozentColor = 3;
+	
 	-- +/- davor und dahinter clickbar
-	local iconColor = "gray";
-	if isLineTable.txt[3].icon == nil then isLineTable.txt[3].icon = {before={},after={},behindTxt={}};end;
-	isLineTable.txt[3].icon.before[#isLineTable.txt[3].icon.before+1] = {name="buttonMinus", color=iconColor, settingButton=true, callback={[1]=pihOutputForMoh.clickCapacityLevelMinus}, infoTxt="Zeige später an"};
-	isLineTable.txt[3].icon.after[#isLineTable.txt[3].icon.after+1] = {name="buttonPlus", color=iconColor, settingButton=true, callback={[1]=pihOutputForMoh.clickCapacityLevelPlus}, infoTxt="Zeige früher an"};
-	-- setSeparator()
+	if g_currentMission.hl.isMouseCursor then
+		local iconColor = "yellow";
+		if isLineTable.txt[3].icon == nil then isLineTable.txt[3].icon = {before={},after={},behindTxt={}};end;
+		isLineTable.txt[3].icon.before[#isLineTable.txt[3].icon.before+1] = {name="buttonMinus", color=iconColor, settingButton=true, callback={[1]=pihOutputForMoh.clickCapacityLevelMinus}, infoTxt="Zeige später an"};
+		isLineTable.txt[3].icon.after[#isLineTable.txt[3].icon.after+1] = {name="buttonPlus", color=iconColor, settingButton=true, callback={[1]=pihOutputForMoh.clickCapacityLevelPlus}, infoTxt="Zeige früher an"};
+	end
+	
 	-----------------die Überschrift habe ich dir mal schon vorgefertigst----------------	
 	
 	-- Gruppieren nach Produktion. also alles was es sonst noch gibt für eine Produktion in die erste rein schieben
@@ -72,6 +86,16 @@ function pihOutputForMoh:load(cmdTable, slotTable) --cmdTable ist dein hinterleg
 			local productionName = tostring(productionData.name);
 			if productionData.capacityLevel ~= nil and productionData.capacityLevel > cmdTable.ownTable.capacityLevelFilter then
 				goto skipProductionData;
+			end
+			
+			if productionData.hoursLeft ~= nil then
+				local compareValue = 24 * cmdTable.ownTable.daysLeftFilter;
+				if productionData.timeAdjustment ~= nil then
+					compareValue = compareValue * productionData.timeAdjustment;
+				end
+				if productionData.hoursLeft > compareValue then
+					goto skipProductionData;
+				end
 			end
 			
 			if dataForMohNameToId[productionName] == nil then
@@ -212,19 +236,36 @@ function pihOutputForMoh.giveOutputTable(args)
 	return pihOutputForMoh[args.cmdTable.regName].output;	
 end;
 
+function pihOutputForMoh.clickDaysMinus(args)
+
+-- print("args")
+-- DebugUtil.printTableRecursively(args,"_",0,2)
+	if args == nil or type(args) ~= "table" then return;end;
+	if args.mouseClick == "MOUSE_BUTTON_LEFT" and args.isDown and args.cmdTable.ownTable.daysLeftFilter > 1 then
+		args.cmdTable.ownTable.daysLeftFilter = args.cmdTable.ownTable.daysLeftFilter - 1;
+	end;
+end;
+
+function pihOutputForMoh.clickDaysPlus(args)
+	if args == nil or type(args) ~= "table" then return;end;
+	if args.mouseClick == "MOUSE_BUTTON_LEFT" and args.isDown and args.cmdTable.ownTable.daysLeftFilter < 10 then
+		args.cmdTable.ownTable.daysLeftFilter = args.cmdTable.ownTable.daysLeftFilter + 1;
+	end;
+end;
+
 function pihOutputForMoh.clickCapacityLevelMinus(args)
 
 -- print("args")
 -- DebugUtil.printTableRecursively(args,"_",0,2)
 	if args == nil or type(args) ~= "table" then return;end;
-	if args.mouseClick == "MOUSE_BUTTON_LEFT" and args.isDown then
+	if args.mouseClick == "MOUSE_BUTTON_LEFT" and args.isDown and args.cmdTable.ownTable.capacityLevelFilter > 0.05 then
 		args.cmdTable.ownTable.capacityLevelFilter = args.cmdTable.ownTable.capacityLevelFilter - 0.05;
 	end;
 end;
 
 function pihOutputForMoh.clickCapacityLevelPlus(args)
 	if args == nil or type(args) ~= "table" then return;end;
-	if args.mouseClick == "MOUSE_BUTTON_LEFT" and args.isDown then
+	if args.mouseClick == "MOUSE_BUTTON_LEFT" and args.isDown and args.cmdTable.ownTable.capacityLevelFilter < 1 then
 		args.cmdTable.ownTable.capacityLevelFilter = args.cmdTable.ownTable.capacityLevelFilter + 0.05;
 	end;
 end;
