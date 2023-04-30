@@ -34,14 +34,29 @@ function pihOutputForMoh:load(cmdTable, slotTable) --cmdTable ist dein hinterleg
 	local isLineTable = lineTable.line[#lineTable.line];
 	isLineTable.txt = {};
 	isLineTable.txt[1] = {};
-	isLineTable.txt[1].slotColor = "txtOutputTitle";
-	isLineTable.txt[1].txt = "ProductionInfo Hud";
-	isLineTable.txt[1].bold = true;
-	isLineTable.txt[1].alignment = 2;
+	isLineTable.txt[1].alignment = 1;
+	isLineTable.txt[1].width = 20;
+	-- isLineTable.txt[1].txt = tostring(cmdTable.ownTable.capacityLevelFilter * 100) .. "%";
+	
+	isLineTable.txt[2] = {};
+	isLineTable.txt[2].slotColor = "txtOutputTitle";
+	isLineTable.txt[2].txt = "ProductionInfo Hud";
+	isLineTable.txt[2].bold = true;
+	isLineTable.txt[2].alignment = 2;
 	if slotTable ~= nil and slotTable.help.outputOn then
-		isLineTable.txt[1].icon = {before={},after={}};
-		isLineTable.txt[1].icon.before[1] = {name="buttonHelp", color="yellow", settingButton=true, callback={[1]=pihOutputForMoh.clickIconHelpTxt}};
+		isLineTable.txt[2].icon = {before={},after={}};
+		isLineTable.txt[2].icon.before[1] = {name="buttonHelp", color="yellow", settingButton=true, callback={[1]=pihOutputForMoh.clickIconHelpTxt}};
 	end;
+	isLineTable.txt[3] = {};
+	isLineTable.txt[3].alignment = 1;
+	isLineTable.txt[3].width = 20;
+	isLineTable.txt[3].txt = tostring(cmdTable.ownTable.capacityLevelFilter * 100) .. "%";
+	isLineTable.txt[3].prozentColor = 3;
+	-- +/- davor und dahinter clickbar
+	local iconColor = "gray";
+	if isLineTable.txt[3].icon == nil then isLineTable.txt[3].icon = {before={},after={},behindTxt={}};end;
+	isLineTable.txt[3].icon.before[#isLineTable.txt[3].icon.before+1] = {name="buttonMinus", color=iconColor, settingButton=true, callback={[1]=pihOutputForMoh.clickCapacityLevelMinus}, infoTxt="Zeige später an"};
+	isLineTable.txt[3].icon.after[#isLineTable.txt[3].icon.after+1] = {name="buttonPlus", color=iconColor, settingButton=true, callback={[1]=pihOutputForMoh.clickCapacityLevelPlus}, infoTxt="Zeige früher an"};
 	-- setSeparator()
 	-----------------die Überschrift habe ich dir mal schon vorgefertigst----------------	
 	
@@ -55,6 +70,10 @@ function pihOutputForMoh:load(cmdTable, slotTable) --cmdTable ist dein hinterleg
 	else
 		for _, productionData in ipairs(ProductionInfoHud.productionDataSorted) do
 			local productionName = tostring(productionData.name);
+			if productionData.capacityLevel ~= nil and productionData.capacityLevel > cmdTable.ownTable.capacityLevelFilter then
+				goto skipProductionData;
+			end
+			
 			if dataForMohNameToId[productionName] == nil then
 				productionData.additionalProductionData = {};
 				table.insert(dataForMoh, productionData);
@@ -62,6 +81,8 @@ function pihOutputForMoh:load(cmdTable, slotTable) --cmdTable ist dein hinterleg
 			else
 				table.insert(dataForMoh[dataForMohNameToId[productionName]].additionalProductionData, productionData);
 			end
+			
+			::skipProductionData::
 		end
 	end
 		
@@ -121,8 +142,8 @@ function pihOutputForMoh.CreateLineTable(cmdTable, slotTable, lineTable, product
 		-- icon zum auf und zu klappen wie bei HappyLoosers Produktionen
 		local viewProductionInfo = cmdTable.ownTable.openProductions[productionName] ~= nil and cmdTable.ownTable.openProductions[productionName] == true;
 		if g_currentMission.hl.isMouseCursor and not viewIsFiltered and isMainLine then
-			iconColor = "gray";
-			buttonName = "buttonDown";
+			local iconColor = "gray";
+			local buttonName = "buttonDown";
 			if viewProductionInfo then iconColor = "green";buttonName = "buttonUp";end;				
 			if productionData.additionalProductionData ~= nil and #productionData.additionalProductionData == 0 then iconColor = "green";buttonName = "free";end;				
 			isLineTable.txt[1].icon = {before={},after={},behindTxt={}};
@@ -189,6 +210,23 @@ function pihOutputForMoh.giveOutputTable(args)
 	if args == nil or type(args) ~= "table" then return false;end;	
 	pihOutputForMoh:load(args.cmdTable, args.slotTable);
 	return pihOutputForMoh[args.cmdTable.regName].output;	
+end;
+
+function pihOutputForMoh.clickCapacityLevelMinus(args)
+
+-- print("args")
+-- DebugUtil.printTableRecursively(args,"_",0,2)
+	if args == nil or type(args) ~= "table" then return;end;
+	if args.mouseClick == "MOUSE_BUTTON_LEFT" and args.isDown then
+		args.cmdTable.ownTable.capacityLevelFilter = args.cmdTable.ownTable.capacityLevelFilter - 0.05;
+	end;
+end;
+
+function pihOutputForMoh.clickCapacityLevelPlus(args)
+	if args == nil or type(args) ~= "table" then return;end;
+	if args.mouseClick == "MOUSE_BUTTON_LEFT" and args.isDown then
+		args.cmdTable.ownTable.capacityLevelFilter = args.cmdTable.ownTable.capacityLevelFilter + 0.05;
+	end;
 end;
 
 function pihOutputForMoh.clickOnTimeColumn(args)
