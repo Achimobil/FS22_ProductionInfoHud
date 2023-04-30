@@ -38,6 +38,7 @@ function pihOutputForMoh:load(cmdTable, slotTable) --cmdTable ist dein hinterleg
 	isLineTable.txt[1] = {};
 	isLineTable.txt[1].alignment = 1;
 	isLineTable.txt[1].width = 20;
+	isLineTable.txt[1].callback = pihOutputForMoh.clickDaysMinus;
 	isLineTable.txt[1].txt = tostring(g_i18n:formatNumDay(cmdTable.ownTable.daysLeftFilter));
 	isLineTable.txt[1].prozentColor = 3;
 	
@@ -45,13 +46,13 @@ function pihOutputForMoh:load(cmdTable, slotTable) --cmdTable ist dein hinterleg
 	if g_currentMission.hl.isMouseCursor then
 		local iconColor = "yellow";
 		if isLineTable.txt[1].icon == nil then isLineTable.txt[1].icon = {before={},after={},behindTxt={}};end;
-		isLineTable.txt[1].icon.before[#isLineTable.txt[1].icon.before+1] = {name="buttonMinus", color=iconColor, settingButton=true, callback={[1]=pihOutputForMoh.clickDaysMinus}, infoTxt="Zeige später an"};
-		isLineTable.txt[1].icon.after[#isLineTable.txt[1].icon.after+1] = {name="buttonPlus", color=iconColor, settingButton=true, callback={[1]=pihOutputForMoh.clickDaysPlus}, infoTxt="Zeige früher an"};
+		isLineTable.txt[1].icon.behindTxt[#isLineTable.txt[1].icon.behindTxt+1] = {name="buttonUpDown", color=iconColor, settingButton=true, callback={[1]=pihOutputForMoh.clickDaysMinus}, infoTxt="Left for down, right for up"};
 	end
 	
 	isLineTable.txt[2] = {};
 	isLineTable.txt[2].slotColor = "txtOutputTitle";
 	isLineTable.txt[2].txt = "ProductionInfo Hud";
+	isLineTable.txt[2].width = 60;
 	isLineTable.txt[2].bold = true;
 	isLineTable.txt[2].alignment = 2;
 	if slotTable ~= nil and slotTable.help.outputOn then
@@ -61,6 +62,7 @@ function pihOutputForMoh:load(cmdTable, slotTable) --cmdTable ist dein hinterleg
 	isLineTable.txt[3] = {};
 	isLineTable.txt[3].alignment = 3;
 	isLineTable.txt[3].width = 20;
+	isLineTable.txt[3].callback = pihOutputForMoh.clickCapacityLevelMinus;
 	isLineTable.txt[3].txt = tostring(cmdTable.ownTable.capacityLevelFilter * 100) .. "%";
 	isLineTable.txt[3].prozentColor = 3;
 	
@@ -68,8 +70,7 @@ function pihOutputForMoh:load(cmdTable, slotTable) --cmdTable ist dein hinterleg
 	if g_currentMission.hl.isMouseCursor then
 		local iconColor = "yellow";
 		if isLineTable.txt[3].icon == nil then isLineTable.txt[3].icon = {before={},after={},behindTxt={}};end;
-		isLineTable.txt[3].icon.before[#isLineTable.txt[3].icon.before+1] = {name="buttonMinus", color=iconColor, settingButton=true, callback={[1]=pihOutputForMoh.clickCapacityLevelMinus}, infoTxt="Zeige später an"};
-		isLineTable.txt[3].icon.after[#isLineTable.txt[3].icon.after+1] = {name="buttonPlus", color=iconColor, settingButton=true, callback={[1]=pihOutputForMoh.clickCapacityLevelPlus}, infoTxt="Zeige früher an"};
+		isLineTable.txt[3].icon.after[#isLineTable.txt[3].icon.after+1] = {name="buttonUpDown", color=iconColor, settingButton=true, callback={[1]=pihOutputForMoh.clickCapacityLevelMinus}, infoTxt="Left for down, right for up"};
 	end
 	
 	-----------------die Überschrift habe ich dir mal schon vorgefertigst----------------	
@@ -244,11 +245,7 @@ function pihOutputForMoh.clickDaysMinus(args)
 	if args.mouseClick == "MOUSE_BUTTON_LEFT" and args.isDown and args.cmdTable.ownTable.daysLeftFilter > 1 then
 		args.cmdTable.ownTable.daysLeftFilter = args.cmdTable.ownTable.daysLeftFilter - 1;
 	end;
-end;
-
-function pihOutputForMoh.clickDaysPlus(args)
-	if args == nil or type(args) ~= "table" then return;end;
-	if args.mouseClick == "MOUSE_BUTTON_LEFT" and args.isDown and args.cmdTable.ownTable.daysLeftFilter < 10 then
+	if args.mouseClick == "MOUSE_BUTTON_RIGHT" and args.isDown and args.cmdTable.ownTable.daysLeftFilter < 10 then
 		args.cmdTable.ownTable.daysLeftFilter = args.cmdTable.ownTable.daysLeftFilter + 1;
 	end;
 end;
@@ -261,11 +258,7 @@ function pihOutputForMoh.clickCapacityLevelMinus(args)
 	if args.mouseClick == "MOUSE_BUTTON_LEFT" and args.isDown and args.cmdTable.ownTable.capacityLevelFilter > 0.05 then
 		args.cmdTable.ownTable.capacityLevelFilter = args.cmdTable.ownTable.capacityLevelFilter - 0.05;
 	end;
-end;
-
-function pihOutputForMoh.clickCapacityLevelPlus(args)
-	if args == nil or type(args) ~= "table" then return;end;
-	if args.mouseClick == "MOUSE_BUTTON_LEFT" and args.isDown and args.cmdTable.ownTable.capacityLevelFilter < 1 then
+	if args.mouseClick == "MOUSE_BUTTON_RIGHT" and args.isDown and args.cmdTable.ownTable.capacityLevelFilter < 1 then
 		args.cmdTable.ownTable.capacityLevelFilter = args.cmdTable.ownTable.capacityLevelFilter + 0.05;
 	end;
 end;
