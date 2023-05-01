@@ -1,2 +1,0 @@
-"C:\Program Files\7-Zip\7z.exe" a -tzip "D:\Achim\Documents\My Games\FarmingSimulator2022\mods\FS22_ProductionInfoHud.zip" @FileDefinition.txt
-"E:\Program Files (x86)\Farming Simulator 2022\FarmingSimulator2022.exe" -autoStartSavegameId 1 
