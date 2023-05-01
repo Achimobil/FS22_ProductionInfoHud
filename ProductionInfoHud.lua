@@ -1426,6 +1426,7 @@ function ProductionInfoHud:onStartMission() --new by HappyLooser
 	ProductionInfoHud.moh = {found=false, outputCmdActive=true}; --outputCmdActive hat keine funtion momentan, müssen wir schauen wie deine normale Anzeige dann deaktiviert wird !! Idee !!
 	ProductionInfoHud:searchOtherMods();			
 	if ProductionInfoHud.moh.found then
+		source(ProductionInfoHud.modDir.."mohFeatures/pihConfigForMoh.lua");
 		source(ProductionInfoHud.modDir.."mohFeatures/pihSetGetForMoh.lua");
 		source(ProductionInfoHud.modDir.."mohFeatures/pihOutputForMoh.lua");
 		pihSetGetForMoh:onStartLoad();

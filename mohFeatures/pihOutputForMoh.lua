@@ -39,7 +39,7 @@ function pihOutputForMoh:load(cmdTable, slotTable) --cmdTable ist dein hinterleg
 	isLineTable.txt[1].alignment = 1;
 	isLineTable.txt[1].width = 20;
 	isLineTable.txt[1].callback = pihOutputForMoh.clickDaysMinus;
-	isLineTable.txt[1].txt = tostring(g_i18n:formatNumDay(cmdTable.ownTable.daysLeftFilter));
+	isLineTable.txt[1].txt = tostring(g_i18n:formatNumDay(pihConfigForMoh.values.daysLeftFilter));
 	isLineTable.txt[1].prozentColor = 3;
 	
 	-- +/- davor und dahinter clickbar
@@ -63,7 +63,7 @@ function pihOutputForMoh:load(cmdTable, slotTable) --cmdTable ist dein hinterleg
 	isLineTable.txt[3].alignment = 3;
 	isLineTable.txt[3].width = 20;
 	isLineTable.txt[3].callback = pihOutputForMoh.clickCapacityLevelMinus;
-	isLineTable.txt[3].txt = tostring(cmdTable.ownTable.capacityLevelFilter * 100) .. "%";
+	isLineTable.txt[3].txt = tostring(pihConfigForMoh.values.capacityLevelFilter * 100) .. "%";
 	isLineTable.txt[3].prozentColor = 3;
 	
 	-- +/- davor und dahinter clickbar
@@ -85,12 +85,12 @@ function pihOutputForMoh:load(cmdTable, slotTable) --cmdTable ist dein hinterleg
 	else
 		for _, productionData in ipairs(ProductionInfoHud.productionDataSorted) do
 			local productionName = tostring(productionData.name);
-			if productionData.capacityLevel ~= nil and productionData.capacityLevel > cmdTable.ownTable.capacityLevelFilter then
+			if productionData.capacityLevel ~= nil and productionData.capacityLevel > pihConfigForMoh.values.capacityLevelFilter then
 				goto skipProductionData;
 			end
 			
 			if productionData.hoursLeft ~= nil then
-				local compareValue = 24 * cmdTable.ownTable.daysLeftFilter;
+				local compareValue = 24 * pihConfigForMoh.values.daysLeftFilter;
 				if productionData.timeAdjustment ~= nil then
 					compareValue = compareValue * productionData.timeAdjustment;
 				end
@@ -242,11 +242,13 @@ function pihOutputForMoh.clickDaysMinus(args)
 -- print("args")
 -- DebugUtil.printTableRecursively(args,"_",0,2)
 	if args == nil or type(args) ~= "table" then return;end;
-	if args.mouseClick == "MOUSE_BUTTON_LEFT" and args.isDown and args.cmdTable.ownTable.daysLeftFilter > 1 then
-		args.cmdTable.ownTable.daysLeftFilter = args.cmdTable.ownTable.daysLeftFilter - 1;
+	if args.mouseClick == "MOUSE_BUTTON_LEFT" and args.isDown and pihConfigForMoh.values.daysLeftFilter > 1 then
+		pihConfigForMoh.values.daysLeftFilter = pihConfigForMoh.values.daysLeftFilter - 1;
+		g_currentMission.hlGui.setGet:setUnSave();	
 	end;
-	if args.mouseClick == "MOUSE_BUTTON_RIGHT" and args.isDown and args.cmdTable.ownTable.daysLeftFilter < 10 then
-		args.cmdTable.ownTable.daysLeftFilter = args.cmdTable.ownTable.daysLeftFilter + 1;
+	if args.mouseClick == "MOUSE_BUTTON_RIGHT" and args.isDown and pihConfigForMoh.values.daysLeftFilter < 10 then
+		pihConfigForMoh.values.daysLeftFilter = pihConfigForMoh.values.daysLeftFilter + 1;
+		g_currentMission.hlGui.setGet:setUnSave();	
 	end;
 end;
 
@@ -255,11 +257,13 @@ function pihOutputForMoh.clickCapacityLevelMinus(args)
 -- print("args")
 -- DebugUtil.printTableRecursively(args,"_",0,2)
 	if args == nil or type(args) ~= "table" then return;end;
-	if args.mouseClick == "MOUSE_BUTTON_LEFT" and args.isDown and args.cmdTable.ownTable.capacityLevelFilter > 0.05 then
-		args.cmdTable.ownTable.capacityLevelFilter = args.cmdTable.ownTable.capacityLevelFilter - 0.05;
+	if args.mouseClick == "MOUSE_BUTTON_LEFT" and args.isDown and pihConfigForMoh.values.capacityLevelFilter > 0.05 then
+		pihConfigForMoh.values.capacityLevelFilter = pihConfigForMoh.values.capacityLevelFilter - 0.05;
+		g_currentMission.hlGui.setGet:setUnSave();	
 	end;
-	if args.mouseClick == "MOUSE_BUTTON_RIGHT" and args.isDown and args.cmdTable.ownTable.capacityLevelFilter < 1 then
-		args.cmdTable.ownTable.capacityLevelFilter = args.cmdTable.ownTable.capacityLevelFilter + 0.05;
+	if args.mouseClick == "MOUSE_BUTTON_RIGHT" and args.isDown and pihConfigForMoh.values.capacityLevelFilter < 1 then
+		pihConfigForMoh.values.capacityLevelFilter = pihConfigForMoh.values.capacityLevelFilter + 0.05;
+		g_currentMission.hlGui.setGet:setUnSave();	
 	end;
 end;
 
