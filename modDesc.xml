@@ -55,6 +55,7 @@ Changelog
 1.2.0.0
 - Bei Produktionen mit Öffnungszeiten wird die Restlaufzeit während der Öffnung angezeigt und deshalb werden diese jetzt früher als 2 Tage schon ausgeblendet
 - Unterstützung einer ungefilterten Anzeige der Produktionsdaten im MultiOverlayV4 Hud (HappyLooser)
+- In der Produktionsübersicht wird nun bei der Jahresansicht berücksichtigt, wenn eine Produktion nur Seasonal oder Monatsweise läuft
 
 1.1.1.0
 - Fehler mit revamp 1.3.5.5 behoben

@@ -287,16 +287,30 @@ function ProductionInfoHud:createProductionNeedingTable(mode)
 				local fillTypeItem = myFillTypes[fillTypeId];
 				
 				for _, production in pairs(productionPoint.activeProductions) do
-					for _, input in pairs(production.inputs) do
-						if input.type == fillTypeId then
-							fillTypeItem.usagePerMonth = fillTypeItem.usagePerMonth + (production.cyclesPerMonth * input.amount) * factor / (productionPoint.sharedThroughputCapacity and numActiveProductions or 1);
+					-- berechnen des yearFactor wenn notwendig
+					local yearFactor = 1
+						if mode == InGameMenuProductionInfo.MODE_YEAR then
+						if production.months ~= nil then
+							local months = string.split(production.months, " ");
+							yearFactor = yearFactor * (#months/12)
+						end
+						if production.seasons ~= nil then
+							local seasons = string.split(production.seasons, " ");
+							yearFactor = yearFactor * (#seasons/4)
 						end
 					end
+				
+					for _, input in pairs(production.inputs) do
+						if input.type == fillTypeId then
+							fillTypeItem.usagePerMonth = fillTypeItem.usagePerMonth + (production.cyclesPerMonth * input.amount) * factor / (productionPoint.sharedThroughputCapacity and numActiveProductions or 1) * yearFactor;
+						end
+					end
+					
 					for _, output in pairs(production.outputs) do
 						local outputMode = productionPoint:getOutputDistributionMode(fillTypeId)
 						
 						if output.type == fillTypeId then
-							local producedPerMonth = production.cyclesPerMonth * output.amount * factor / (productionPoint.sharedThroughputCapacity and numActiveProductions or 1);
+							local producedPerMonth = production.cyclesPerMonth * output.amount * factor / (productionPoint.sharedThroughputCapacity and numActiveProductions or 1) * yearFactor;
 							
 							-- aktive Booster berechnen
 							local boostFactor = 1;
