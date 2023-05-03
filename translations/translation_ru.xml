@@ -38,7 +38,7 @@
 		<text name="pih_MaxLinesElement_title" text="Количество строк"/>
 		<text name="pih_tooltip_maxLines" text="Максимум строк о производствах. Если их больше, добавляется информационная строка."/>
 		<text name="pih_showBooster_title" text="Показывать Booster"/>
-		<text name="pih_showBooster_tooltip" text="Должны ли отображаться Booster(Ускорители/увеличители) из Revamp."/>
+		<text name="pih_showBooster_tooltip" text="Должны ли отображаться Booster (Ускорители/увеличители) из Revamp."/>
 		<text name="pih_price_settings_title" text="Production Info Hud - Цены"/>
 		<text name="pih_MaxSellingLinesElement_title" text="Количество строк"/>
 		<text name="pih_tooltip_maxSellingLines" text="Максимум строк о продажах. Если их больше, добавляется информационная строка."/>
