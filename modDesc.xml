@@ -2,7 +2,7 @@
 <modDesc descVersion="74">
 	<author>Achimobil</author>
 	<contributor>Rodberaht, HappyLooser</contributor>
-	<version>1.2.0.0 beta 2</version>
+	<version>1.2.0.0 beta 3</version>
 	<title>
 		<de>Produktionen Info Hud</de>
 		<en>Production Info Hud</en>
@@ -44,9 +44,7 @@ MultiOverlayV4 Hud Hilfe:
 - Rechtsklick auf die Restzeit schaltet um auf Anzeige der freien Kapazität
 - Linksklick auf den Produktionsnamen öffnet die Produktion im Menü (nur bei Produktionen)
 
-Wünsche, Verbesserungsvorschläge sowie Fehlermeldungen sind immer willkommen.
-Diese können am besten auf meinem Discord im Kanal des jeweiligen Mods gemacht werden.
-Adresse findet im gleichnamigen User im Giants Forum.
+Fehler oder Verbesserungsvorschläge bitte auf <a href="https://github.com/Achimobil/FS22_ProductionInfoHud/issues">Github</a> melden.
 
 Upload auf anderen Seiten nur durch mich selbst, Verlinkung nur mit Original Downloadlink. KEIN Ersatzlink!
 Das verändern oder erneutes hochladen, ob ganz oder in Teilen ist nicht gestattet!
@@ -71,9 +69,6 @@ Changelog
 - Anpassung an geänderte l10n texte vom Basegame
 - Misthaufen an Tierställen werden jetzt auch angezeigt, wenn diese voll bzw. fast voll sind
 - Der Host beim Hosted MP kann die Anzeige jetzt auch aktivieren
-
-1.0.0.1
-- Fix für Pumps N' Hoses Kompatibilität
 ]]></de>
 		<en>
 			<![CDATA[HUD display for productions that need attention.
@@ -110,9 +105,7 @@ MultiOverlayV4 Hud Help:
 - right click on remaining time switches to display of free capacity
 - Left click on the production name opens the production in the menu (only for productions)
 
-Wishes and suggestions for improvement as well as error messages are always welcome.
-These can best be made on my Discord in the channel of the respective mod.
-Address can be found in the user of the same name in the Giants Forum.
+Please report bugs or suggestions for improvement on <a href="https://github.com/Achimobil/FS22_ProductionInfoHud/issues">Github</a>.
 
 Upload on other sites only by myself, linking only with original download link. NO substitute link!
 Modifying and re-uploading in whole or in part is not allowed!
@@ -121,6 +114,7 @@ Changelog
 1.2.0.0
 - For productions with opening hours, the remaining time is displayed during the opening and therefore these are now already hidden earlier than 2 days
 - Unterstützung einer ungefilterten Anzeige der Produktionsdaten im MultiOverlayV4 Hud (HappyLooser)
+- In the production overview, the yearly view now takes into account if a production only runs seasonally or monthly.
 
 1.1.1.0
 - Fixed bug with revamp 1.3.5.5
@@ -136,9 +130,6 @@ Changelog
 - Adaptation to changed l10n texts of the base game
 - Dung heaps at animal stables are now also displayed when they are full or almost full.
 - The host of the Hosted MP can now also activate the display.
-
-1.0.0.1
-- Fix for Pumps N' Hoses compatibility
 ]]></en>
 	</description>
 	<iconFilename>icon_prodcutionInfoHud.dds</iconFilename>

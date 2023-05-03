@@ -1,5 +1,7 @@
---- Anzeige für Produktionen in einem HUD by achimobil@hotmail.com
---- Fehlermeldungen und Verbesserungsvorschläge gerne im Discord Kanal des Mods: https://discord.gg/Va7JNnEkcW
+--- Anzeige für Produktionen in einem HUD by achimobil
+--- It is not allowed to copy my code complete or in Parts into other mods.
+--- Publishing only by myself, rehosting is forbidden in any way. Only links to my published mod version is allowed.
+--- If you have any issues please report them in GitHub: https://github.com/Achimobil/FS22_ProductionInfoHud
 
 ProductionInfoHud = {}
 
