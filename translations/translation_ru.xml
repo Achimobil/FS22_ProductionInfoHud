@@ -38,7 +38,7 @@
 		<text name="pih_MaxLinesElement_title" text="Количество строк"/>
 		<text name="pih_tooltip_maxLines" text="Максимум строк о производствах. Если их больше, добавляется информационная строка."/>
 		<text name="pih_showBooster_title" text="Показывать Booster"/>
-		<text name="pih_showBooster_tooltip" text="Должны ли отображаться Booster из Revamp."/>
+		<text name="pih_showBooster_tooltip" text="Должны ли отображаться Booster (Ускорители/увеличители) из Revamp."/>
 		<text name="pih_price_settings_title" text="Production Info Hud - Цены"/>
 		<text name="pih_MaxSellingLinesElement_title" text="Количество строк"/>
 		<text name="pih_tooltip_maxSellingLines" text="Максимум строк о продажах. Если их больше, добавляется информационная строка."/>
@@ -50,14 +50,14 @@
 		<text name="pih_setFilltypeToIgnore" text="PIH: Скрывать в требуемых"/>
 		<text name="pih_setFilltypeToNotIgnore" text="PIH: Показывать в требуемых"/>
 		<!-- MultiOverlay V4 translations -->
-		<text name="pih_moh_headline" text="Информация о производстве"/>
-		<text name="pih_moh_infoTextDaysSetting" text="Фильтр дней. Щелкните левой кнопкой мыши, чтобы уменьшить, правой кнопкой мыши, чтобы увеличить"/>
-		<text name="pih_moh_infoTextCapacitySetting" text="Фильтр мощностей. Левый клик для уменьшения, правый клик для увеличения"/>
-		<text name="pih_moh_leftClickToOpenRightClickForFilterProduction" text="Левый клик для открытия производства или правый клик для фильтрации по производству"/>
-		<text name="pih_moh_rightClickForFilterProduction" text="Правый клик для фильтрации по производству"/>
-		<text name="pih_moh_rightClickForFilterFillType" text="Нажмите правой кнопкой мыши для фильтрации по типу заполнения"/>
-		<text name="pih_moh_rightClickForSwitchTimeAndFreeSpace" text="Нажмите правой кнопкой мыши для переключения между оставшимся временем и свободным пространством"/>
-		<text name="pih_moh_help_title" text="Справка по производственной информации"/>
-		<text name="pih_moh_help_text" text="Нажмите левой кнопкой мыши на Название производства или Тип заполнения, чтобы отфильтровать список. Нажмите еще раз, чтобы удалить фильтр\nПравый щелчок на названии производства, чтобы открыть меню производства\nЛевый щелчок на оставшемся времени для переключения между оставшимся временем и свободной доступной мощностью"/>
+		<text name="pih_moh_headline" text="Production Info Hud"/>
+		<text name="pih_moh_infoTextDaysSetting" text="Фильтр дней. Щёлкните левой кнопкой мыши, чтобы уменьшить, правой, чтобы увеличить"/>
+		<text name="pih_moh_infoTextCapacitySetting" text="Фильтр по вместимости. Щёлкните левой кнопкой мыши, чтобы уменьшить, правой, чтобы увеличить"/>
+		<text name="pih_moh_leftClickToOpenRightClickForFilterProduction" text="Щёлкните левой кнопкой мыши для открытия производства или правой для фильтрации по производствам"/>
+		<text name="pih_moh_rightClickForFilterProduction" text="Правый клик мыши для фильтрации по производствам"/>
+		<text name="pih_moh_rightClickForFilterFillType" text="Щёлкните правой кнопкой мыши для фильтрации по типу заполнения"/>
+		<text name="pih_moh_rightClickForSwitchTimeAndFreeSpace" text="Щёлкните правой кнопкой мыши для переключения между оставшимся временем и свободным пространством"/>
+		<text name="pih_moh_help_title" text="Справка по Production Info Hud"/>
+		<text name="pih_moh_help_text" text="Щёлкните левой кнопкой мыши на Название производства или Тип заполнения, чтобы отфильтровать список. Нажмите ещё раз, чтобы удалить фильтр\nЩёлкните правой кнопкой мыши на названии производства, чтобы открыть меню производства\nЩёлкните левой кнопкой мыши на оставшемся времени для переключения между оставшимся временем и свободной вместимостью"/>
 	</texts>
 </l10n>
