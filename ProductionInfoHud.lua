@@ -1020,7 +1020,7 @@ function ProductionInfoHud:draw()
 		for _, productionData in pairs(ProductionInfoHud.productionDataSorted) do
 			-- new place to filter the data
 			local skip = false
-			if productionData.capacityLevel ~= nil and productionData.capacityLevel > 0.5 then
+			if productionData.capacityLevel ~= nil and productionData.capacityLevel > 0.5 and productionData.isInput == true then
 				skip = true;
 			end
 			if productionData.hoursLeft ~= nil then
