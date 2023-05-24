@@ -6,6 +6,7 @@
 	<title>
 		<de>Produktionen Info Hud</de>
 		<en>Production Info Hud</en>
+		<fr>Production Info Hud</fr>
 	</title>
 	<description>
 		<de>
@@ -131,6 +132,67 @@ Changelog
 - Dung heaps at animal stables are now also displayed when they are full or almost full.
 - The host of the Hosted MP can now also activate the display.
 ]]></en>
+		<fr>
+			<![CDATA[Affichage dans l'ATH des productions nécessitant votre attention.
+
+Caractéristiques de la version actuelle :
+- Affichage des productions et stabulations (avec besoin en nourriture, eau et paille) actives avec le temps restant de production par ressources. Support du mod Revamp si actif.
+- Une production est affichée seulement si ...
+-- elle dispose de moins de 2 mois de ressources pour fonctionner.
+-- elle descend sous les 50% de stockage en entrée. (Sauf pour les Mix du mod Revamp).
+-- elle est activée.
+- L'affichage est trié par temps restant de fonctionnement. Les productions vides ou en passe de l'être étant affichées en premier.
+- Les productions complètes ou presque (à partir de 95%) sont également affichées. Cela vous permet d'agir avant qu'elles ne saturent.
+- L'affichage des stabulations complètes peut être désactivé dans les options.
+- Le nombre de productions affichées peut être réglé dans les options.
+- La taille de la police de caractère est réglable.
+- La position de l'affichage peut être choisi entre le milieu haut, sous l'aide F1 ou sous le mod Vehicle Inspector Mod (si actif).
+- Les entrées peuvent être masquées de l'affichage des productions. Utile par exemple pour les boosters du mod Revamp qui ne seraient pas livrés ou actifs.
+- Les boosters du mod Revamp peuvent être désactivés dans les options.
+- La liste est mise à jour toutes les 5 secondes.
+
+Synthèse des productions:
+- Affichage de toutes les ressources requises en entrées ainsi que leur quantité.
+- Affichage par année, mois ou heure.
+- L'affichage par an vous renseigne également sur l'estimation de la superficie cultivée nécessaire pour les cultures requises (hors bonus ou Precision Farming).
+
+Ventes optimisées:
+- Si le mod Sales price trigger est installé, une ligne apparaîtra si le prix de vente est bon et que les produits sont disponibles. Quelques précisions :
+-- Un prix de vente doit être défini dans le mod et le prix actuel doit le dépasser.
+-- La quantité sélectionnée dans les options doit être disponible dans un silo ou dans la production (hors stabulations).
+- L'affichage montre ce qui peut être prélevé et où afin de le vendre à l'endroit également indiqué.
+
+Aide pour le MultiOverlayV4 Hud:
+- Clic droit sur le nom de la production et/ou la ressource pour filtrer la liste
+- Clic droit sur le temps restant de production pour basculer sur la capacité restante
+- Clic gauche sur le nom de la production pour ouvrir son menu
+
+Pour des suggestions ou une demande de support, reportez-vous au <a href="https://github.com/Achimobil/FS22_ProductionInfoHud/issues">Github</a>.
+
+Le chargement vers d'autres sites n'est pas autorisé.
+La modification puis la mise à disposition du mod sans l'autorisation de son auteur est interdite ! 
+
+Changelog
+1.2.0.0
+- Pour les productions avec des heures d'ouverture, le temps restant est affiché pendant l'ouverture et donc celles-ci sont cachées avant 2 jours/mois.
+- Prise en charge d'un affichage non filtré des données de production dans le Hud MultiOverlayV4 (HappyLooser)
+- Dans l'aperçu de la production, la vue annuelle tient désormais compte du fait qu'une production ne fonctionne que de manière saisonnière ou mensuelle.
+
+1.1.1.0
+- Correction d'un bug avec la refonte 1.3.5.5
+- Ajout des traductions BR
+- Les lignes de production fractionnées sont désormais calculées correctement dans la vue d'ensemble de la production.
+- L'aperçu de la production affiche désormais la quantité sans boosters et, entre parenthèses, la quantité avec tous les boosters. (Mod Revamp)
+- Correction d'un problème qui faisait que rien ne s'affichait lors du chargement de la sauvegarde si seules les données de vente étaient sélectionnées en dernier.
+
+1.1.0.0
+- Les quantités de production dans la vue d'ensemble sont maintenant affichées avec le booster actif (le nombre est orange)
+- Afficher les sorties pleines uniquement lorsque la production est active
+- Les sorties peuvent maintenant être presque pleines (>95%) ou pleines (>99%)
+- Adaptation aux textes l10n modifiés du jeu de base
+- Les tas de fumier des étables sont désormais également affichés lorsqu'ils sont pleins ou presque pleins.
+- En Multijoueur, l'hôte qui héberge peut maintenant aussi activer l'affichage.
+]]></fr>
 	</description>
 	<iconFilename>icon_prodcutionInfoHud.dds</iconFilename>
 	<multiplayer supported="true"/>
