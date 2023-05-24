@@ -1,5 +1,8 @@
 # FS22_ProductionInfoHud
 
+# ModHub
+https://www.farming-simulator.com/mod.php?mod_id=255331&title=fs2022
+
 # General
 ## DE
 Alles in meinen Mods darf weder komplett noch in Teilen in eigene Mods kopiert oder in irgendeiner anderen Form weiterveröffentlicht werden, es sei denn es wird ausdrücklich erlaubt.
