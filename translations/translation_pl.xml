@@ -57,5 +57,6 @@
 		<text name="pih_moh_rightClickForSwitchTimeAndFreeSpace" text="Kliknij prawym przyciskiem myszy, aby przełączyć pomiędzy pozostałym czasem i wolnym miejscem"/>.
 		<text name="pih_moh_help_title" text="Pomoc zestawu informacji o produkcji"/>
 		<text name="pih_moh_help_text" text="Kliknij lewym przyciskiem myszy na nazwie produkcji lub rodzaju wypełnienia, aby przefiltrować listę. Kliknij ponownie, aby usunąć filtr Kliknij prawym przyciskiem myszy na nazwie produkcji, aby otworzyć menu produkcji Kliknij lewym przyciskiem myszy na pozostałym czasie, aby przełączyć między pozostałym czasem a wolną dostępną pojemnością"/>
+		<text name="pih_moh_colapseEntry" text="open/close"/>
 	</texts>
 </l10n>

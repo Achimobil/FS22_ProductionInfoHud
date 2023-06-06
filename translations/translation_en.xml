@@ -57,5 +57,6 @@
 		<text name="pih_moh_rightClickForSwitchTimeAndFreeSpace" text="Right click to switch between remaining time and free space"/>
 		<text name="pih_moh_help_title" text="Production Info Hud Help"/>
 		<text name="pih_moh_help_text" text="Left click on Production Name or Filltype to filter the list. Press again to remove the filter\nRight click on the production name to open the production menu\nLeft click on the remaining time to toggle between the remaining time and the free available capacity."/>
+		<text name="pih_moh_colapseEntry" text="open/close"/>
 	</texts>
 </l10n>

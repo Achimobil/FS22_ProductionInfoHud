@@ -57,5 +57,6 @@
 		<text name="pih_moh_rightClickForSwitchTimeAndFreeSpace" text="Rechtsklick zum wechseln zwischen verbleibender Zeit und Freier Kapazität"/>
 		<text name="pih_moh_help_titel" text="Produktionen Info Hud Hilfe"/>
 		<text name="pih_moh_help_text" text="Klicken Sie mit der linken Maustaste auf Produktionsname oder Filltype, um die Liste zu filtern. Drücken Sie erneut, um den Filter zu entfernen\nKlicken Sie mit der rechten Maustaste auf den Produktionsnamen, um das Produktionsmenü zu öffnen\nKlicken Sie mit der linken Maustaste auf die verbleibende Zeit, um zwischen der verbleibenden Zeit und der freien verfügbaren Kapazität zu wechseln"/>
+		<text name="pih_moh_colapseEntry" text="öffnen/schließen"/>
 	</texts>
 </l10n>
