@@ -382,6 +382,10 @@ function ProductionInfoHud:refreshProductionsTable()
 		if g_currentMission.productionChainManager.farmIds[farmId] ~= nil and g_currentMission.productionChainManager.farmIds[farmId].productionPoints ~= nil then
 			for _, productionPoint in pairs(g_currentMission.productionChainManager.farmIds[farmId].productionPoints) do
 				
+				if productionPoint.hiddenOnUI ~= nil and productionPoint.hiddenOnUI == true then
+					goto ignoreProduction
+				end
+				
 				-- nicht mix zutaten werden hier summiert
 				for fillTypeId, fillLevel in pairs(productionPoint.storage.fillLevels) do
 					local fillType = g_currentMission.fillTypeManager.fillTypes[fillTypeId];
@@ -562,6 +566,8 @@ function ProductionInfoHud:refreshProductionsTable()
 						end
 					end
 				end
+				
+				::ignoreProduction::
 			end
 		end
 		
