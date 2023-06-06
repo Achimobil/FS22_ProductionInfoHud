@@ -53,6 +53,7 @@ Changelog
 1.2.1.0_beta_1
 - Fix für Inputs die auch Outputs sind
 - Unsichtbare Produktionen aus dem Produktionsskript von GTX werden nicht mehr angezeigt
+- Französische Übersetzungen hinzugefügt
 
 1.2.0.0
 - Bei Produktionen mit Öffnungszeiten wird die Restlaufzeit während der Öffnung angezeigt und deshalb werden diese jetzt früher als 2 Tage schon ausgeblendet
