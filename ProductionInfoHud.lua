@@ -452,7 +452,7 @@ function ProductionInfoHud:refreshProductionsTable()
 						productionItem.hoursLeft = productionItem.fillLevel / productionItem.needPerHour * g_currentMission.environment.daysPerPeriod;
 					end
 					
-					if (not ignoreInput and productionItem.needPerHour > 0) then 
+					if (not ignoreInput and productionItem.needPerHour > 0 and not productionItem.isOutput) then 
 						table.insert(myProductions, productionItem)
 					end
 					
@@ -488,6 +488,7 @@ function ProductionInfoHud:refreshProductionsTable()
 						productionItem.hoursLeft = 0
 						productionItem.timeAdjustment = 1;
 						productionItem.productionPoint = productionPoint;
+						productionItem.isInput = true;
 						if production.activeHours ~= nil then
 							productionItem.timeAdjustment = productionItem.timeAdjustment * (production.activeHours / 24)
 						end
@@ -1026,7 +1027,7 @@ function ProductionInfoHud:draw()
 		for _, productionData in pairs(ProductionInfoHud.productionDataSorted) do
 			-- new place to filter the data
 			local skip = false
-			if productionData.capacityLevel ~= nil and productionData.capacityLevel > 0.5 and productionData.isInput == true then
+			if productionData.capacityLevel ~= nil and productionData.capacityLevel > 0.5 and productionData.isInput == true and productionData.isOutput == false then
 				skip = true;
 			end
 			if productionData.hoursLeft ~= nil then
