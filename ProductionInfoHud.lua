@@ -23,7 +23,7 @@ ProductionInfoHud.colors.ORANGE =   {0.840, 0.270, 0.020, 1}
 ProductionInfoHud.colors.RED =	  {0.580, 0.040, 0.020, 1}
 ProductionInfoHud.colors.YELLOW =   {0.980, 0.420, 0.000, 1}
 ProductionInfoHud.PossiblePositions = {"TopCenter", "BelowHelp", "BelowVehicleInspector"}
-ProductionInfoHud.PossibleMaxLines = {"2", "3", "4", "5", "6", "7", "8", "9", "10"}
+ProductionInfoHud.PossibleMaxLines = {"2", "3", "4", "5", "6", "7", "8", "9", "10", "12", "15", "20", "25"}
 ProductionInfoHud.PossibleAmounts = {"5000", "10000", "50000", "100000", "200000", "250000"}
 ProductionInfoHud.PossibleTextSizes = {"8", "9", "10", "11", "12", "13", "14", "15"}
 
