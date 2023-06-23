@@ -255,6 +255,11 @@ function ProductionInfoHud:createProductionNeedingTable(mode)
 	-- productions
 	if g_currentMission.productionChainManager.farmIds[farmId] ~= nil and g_currentMission.productionChainManager.farmIds[farmId].productionPoints ~= nil then
 		for _, productionPoint in pairs(g_currentMission.productionChainManager.farmIds[farmId].productionPoints) do
+		
+			if productionPoint.hiddenOnUI ~= nil and productionPoint.hiddenOnUI == true then
+				goto ignoreProduction
+			end
+				
 			local numActiveProductions = #productionPoint.activeProductions
 			
 			for fillTypeId, fillLevel in pairs(productionPoint.storage.fillLevels) do
@@ -343,6 +348,8 @@ function ProductionInfoHud:createProductionNeedingTable(mode)
 					end
 				end
 			end
+			
+			::ignoreProduction::
 		end
 	end
 	
