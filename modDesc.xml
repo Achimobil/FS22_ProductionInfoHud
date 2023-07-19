@@ -2,7 +2,7 @@
 <modDesc descVersion="75">
 	<author>Achimobil</author>
 	<contributor>Rodberaht, HappyLooser</contributor>
-	<version>1.3.0.0_beta_3</version>
+	<version>1.3.0.0</version>
 	<title>
 		<de>Produktionen Info Hud</de>
 		<en>Production Info Hud</en>
@@ -50,17 +50,12 @@ Upload auf anderen Seiten nur durch mich selbst, Verlinkung nur mit Original Dow
 Das verändern oder erneutes hochladen, ob ganz oder in Teilen ist nicht gestattet!
 
 Changelog
-1.3.0.0_beta_3
+1.3.0.0
 - Parallele Fütterung wird jetzt einzeln angezeigt, wenn die Futtermittel nicht gleich lang reichen
 - Mehr Zeilen einstellbar 
-
-1.2.1.0_beta_2
-- Übersetzungen in ES hinzugefügt
-
-1.2.1.0_beta_1
+- Übersetzungen in spanisch und französisch hinzugefügt
 - Fix für Inputs die auch Outputs sind
 - Unsichtbare Produktionen aus dem Produktionsskript von GTX werden nicht mehr angezeigt
-- Französische Übersetzungen hinzugefügt
 
 1.2.0.0
 - Bei Produktionen mit Öffnungszeiten wird die Restlaufzeit während der Öffnung angezeigt und deshalb werden diese jetzt früher als 2 Tage schon ausgeblendet
@@ -73,14 +68,6 @@ Changelog
 - Geteilte Produktionslinen werden jetzt korrekt berechnet in der Produktionsübersicht
 - Produktionsübersicht zeigt nun bei Boostern die Menge ohne Booster und in Klammern dahinter die Menge mit allen Boostern an
 - Fehler behoben dass bei laden des Savegames nichts angezeigt wurde, wenn nur Verkaufsdaten zuletzt ausgewählt waren
-
-1.1.0.0
-- Produktionsmengen in der Übersicht werden jetzt mit aktivem Booster angezeigt (Zahl ist orange)
-- Ausgang voll nur anzeigen, wenn Produktion aktiv ist
-- Ausgänge können sind jetzt fast voll (>95%) oder voll (>99%)
-- Anpassung an geänderte l10n texte vom Basegame
-- Misthaufen an Tierställen werden jetzt auch angezeigt, wenn diese voll bzw. fast voll sind
-- Der Host beim Hosted MP kann die Anzeige jetzt auch aktivieren
 ]]></de>
 		<en>
 			<![CDATA[HUD display for productions that need attention.
@@ -123,6 +110,14 @@ Upload on other sites only by myself, linking only with original download link. 
 Modifying and re-uploading in whole or in part is not allowed!
 
 Changelog
+
+1.3.0.0
+- Parallel feeding is now displayed individually if the feeds do not reach the same length
+- More lines adjustable 
+- Translations in spanish and french added
+- Fix for inputs that are also outputs
+- Invisible productions from GTX production script are no longer displayed
+
 1.2.0.0
 - For productions with opening hours, the remaining time is displayed during the opening and therefore these are now already hidden earlier than 2 days
 - Unterstützung einer ungefilterten Anzeige der Produktionsdaten im MultiOverlayV4 Hud (HappyLooser)
@@ -134,14 +129,6 @@ Changelog
 - Split production lines are now calculated correctly in the production overview
 - Production overview now shows the quantity without boosters and in brackets behind the quantity with all boosters
 - Fixed a bug that nothing was shown when loading the savegame if only sales data were selected last
-
-1.1.0.0
-- Production quantities in the overview are now displayed with active booster (number is orange)
-- Show output full only when production is active
-- Outputs can now be almost full (>95%) or full (>99%)
-- Adaptation to changed l10n texts of the base game
-- Dung heaps at animal stables are now also displayed when they are full or almost full.
-- The host of the Hosted MP can now also activate the display.
 ]]></en>
 	</description>
 	<iconFilename>icon_prodcutionInfoHud.dds</iconFilename>
