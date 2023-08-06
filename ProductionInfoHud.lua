@@ -694,7 +694,8 @@ function ProductionInfoHud:refreshProductionsTable()
 						end
 						
 						local producableWithThisIngredient = fillLevel / ingredient.ratio;
-						local hoursLeft = producableWithThisIngredient / placeable.spec_husbandryFood.litersPerHour
+						local hoursLeft = producableWithThisIngredient / placeable.spec_husbandryFood.litersPerHour * g_currentMission.environment.daysPerPeriod;
+						
 						local spot = feedingRobot.fillTypeToUnloadingSpot[ingredient.fillTypes[1]]
 
 						local productionItem = {}
