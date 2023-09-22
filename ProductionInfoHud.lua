@@ -880,23 +880,62 @@ function ProductionInfoHud:refreshProductionsTable()
 				end
 				
 				-- Tiere voll, also muss was verkauft werden
-				if ProductionInfoHud.settings["display"]["showFullAnimals"] and placeable:getNumOfFreeAnimalSlots() == 0 then
-					local productionItem = {}
-					productionItem.name = placeable:getName();
-					-- productionItem.fillTypeId = fillTypeId
-					productionItem.needPerHour = 0;
-					productionItem.hoursLeft = 0
-					productionItem.fillLevel = 0;
-					productionItem.capacity = 0;
-					productionItem.isInput = false;
-					if (placeable.spec_husbandryPallets ~= nil) then
-						productionItem.fillTypeTitle =  placeable.spec_husbandryPallets.animalTypeName
-					else
-						productionItem.fillTypeTitle = g_i18n:getText("helpLine_Animals") 
+				if ProductionInfoHud.settings["display"]["showFullAnimals"] then
+					local added = false;
+					
+					-- mit eas überbelegung anders auslesen und das gleiche anzeigen
+					local husbandrySpec = placeable.spec_husbandryAnimals
+					if husbandrySpec ~= nil and husbandrySpec.allowOvercrowding == true then
+						local totalNumAnimals = husbandrySpec:getNumOfAnimals()
+						if husbandrySpec.maxNumAnimals < totalNumAnimals then
+							local productionItem = {}
+							productionItem.name = placeable:getName();
+							-- productionItem.fillTypeId = fillTypeId
+							productionItem.needPerHour = 0;
+							productionItem.hoursLeft = 0
+							productionItem.fillLevel = 0;
+							productionItem.capacity = 0;
+							productionItem.isInput = false;
+							if (placeable.spec_husbandryPallets ~= nil) then
+								productionItem.fillTypeTitle =  placeable.spec_husbandryPallets.animalTypeName
+							else
+								productionItem.fillTypeTitle = g_i18n:getText("helpLine_Animals") 
+							end
+
+							if placeable.eas_numOvercrowdingHours ~= nil and FS22_EnhancedAnimalSystem ~= nil and FS22_EnhancedAnimalSystem.EnhancedAnimalSystem ~= nil and FS22_EnhancedAnimalSystem.EnhancedAnimalSystem.Settings ~= nil and FS22_EnhancedAnimalSystem.EnhancedAnimalSystem.Settings.NumHoursOfOvercrowdingBeforReduceHealth ~= nil then
+								productionItem.hoursLeft = FS22_EnhancedAnimalSystem.EnhancedAnimalSystem.Settings.NumHoursOfOvercrowdingBeforReduceHealth - placeable.eas_numOvercrowdingHours;
+								if productionItem.hoursLeft < 1 then
+									productionItem.hoursLeft = -3
+								else
+									productionItem.fillTypeTitle = productionItem.fillTypeTitle .. "(" .. g_i18n:getText("Overcrowded") .. ")"
+								end
+							else
+								productionItem.hoursLeft = -3;
+							end
+							productionItem.capacityLevel = 0;
+							table.insert(myProductions, productionItem)
+							added = true
+						end
 					end
-					productionItem.capacityLevel = 0;
-					productionItem.hoursLeft = -2;
-					table.insert(myProductions, productionItem)
+					
+					-- hier das normale einfach nur voll sein
+					if placeable:getNumOfFreeAnimalSlots() == 0 and added == false then
+						local productionItem = {}
+						productionItem.name = placeable:getName();
+						productionItem.needPerHour = 0;
+						productionItem.hoursLeft = 0
+						productionItem.fillLevel = 0;
+						productionItem.capacity = 0;
+						productionItem.isInput = false;
+						if (placeable.spec_husbandryPallets ~= nil) then
+							productionItem.fillTypeTitle =  placeable.spec_husbandryPallets.animalTypeName
+						else
+							productionItem.fillTypeTitle = g_i18n:getText("helpLine_Animals") 
+						end
+						productionItem.capacityLevel = 0;
+						productionItem.hoursLeft = -2;
+						table.insert(myProductions, productionItem)
+					end
 				end
 			end
 		end
@@ -1134,7 +1173,10 @@ function ProductionInfoHud:draw()
 				productionOutputItem.fillTypeTitle = productionData.fillTypeTitle
 				productionOutputItem.TextColor = ProductionInfoHud.colors.WHITE;
 				
-				if productionData.hoursLeft == -2 then
+				if productionData.hoursLeft == -3 then
+					productionOutputItem.TimeLeftString = g_i18n:getText("Overcrowded");
+					productionOutputItem.TextColor = ProductionInfoHud.colors.RED;
+				elseif productionData.hoursLeft == -2 then
 					productionOutputItem.TimeLeftString = g_i18n:getText("Full");
 					productionOutputItem.TextColor = ProductionInfoHud.colors.RED;
 				elseif productionData.hoursLeft == -1 then
@@ -1555,5 +1597,5 @@ addModEventListener(ProductionInfoHud);
 -- local rX, rY, rZ = getRotation(place.node);
 -- print("place.node rX:"..rX.." rY:"..rY.." rZ:"..rZ);
 
--- print("loadingPattern")
--- DebugUtil.printTableRecursively(loadingPattern,"_",0,2)
+-- print("FS22_EnhancedAnimalSystem")
+-- DebugUtil.printTableRecursively(FS22_EnhancedAnimalSystem,"_",0,2)

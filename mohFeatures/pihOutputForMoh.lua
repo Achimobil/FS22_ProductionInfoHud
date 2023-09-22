@@ -187,6 +187,9 @@ function pihOutputForMoh.CreateLineTable(cmdTable, slotTable, lineTable, product
 			else
 				timeLeftString = "";
 			end
+		elseif productionData.hoursLeft == -3 then
+			timeLeftString = g_i18n:getText("Overcrowded");
+			timeColor = 7;
 		elseif productionData.hoursLeft == -2 then
 			timeLeftString = g_i18n:getText("Full");
 			timeColor = 7;

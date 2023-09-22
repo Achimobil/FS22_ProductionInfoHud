@@ -6,6 +6,7 @@
 		<text name="Empty" text="Leer"/>
 		<text name="Full" text="Voll"/>
 		<text name="NearlyFull" text="Fast voll"/>
+		<text name="Overcrowded" text="Überbelegt"/>
 		<text name="AllProductsOperativ" text="Alle Produktionen versorgt"/>
 		<text name="pih_Zeilen" text="Zeilen"/>
 		<text name="MoreAvailable" text="weitere"/>
