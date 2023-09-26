@@ -881,11 +881,13 @@ function ProductionInfoHud:refreshProductionsTable()
 				
 				-- Tiere voll, also muss was verkauft werden
 				if ProductionInfoHud.settings["display"]["showFullAnimals"] then
+					-- true, wenn überbelegung zugelassen ist und somit zeigen wir voll nicht mehr an
 					local added = false;
 					
 					-- mit eas überbelegung anders auslesen und das gleiche anzeigen
 					local husbandrySpec = placeable.spec_husbandryAnimals
 					if husbandrySpec ~= nil and husbandrySpec.allowOvercrowding == true then
+						added = true
 						local totalNumAnimals = husbandrySpec:getNumOfAnimals()
 						if husbandrySpec.maxNumAnimals < totalNumAnimals then
 							local productionItem = {}
