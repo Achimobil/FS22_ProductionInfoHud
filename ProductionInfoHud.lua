@@ -652,15 +652,21 @@ function ProductionInfoHud:refreshProductionsTable()
 					
 					-- Wenn alle gleich sind nur ein eintrag machen
 					local allSame = nil;
+					local fillLevelTotal = 0;
+					local capacityTotal = 0;
 					local compareValue = nil;
 					for _, item in pairs(groupItems) do
 						if compareValue == nil then
 							compareValue = item.timeInMinutes
 							allSame = true;
+							fillLevelTotal = item.fillLevel;
+							capacityTotal = item.capacity;
 						else
 							if compareValue ~= item.timeInMinutes then
 								allSame = false;
 							end
+							fillLevelTotal = fillLevelTotal + item.fillLevel;
+							capacityTotal = capacityTotal + item.capacity;
 						end
 					end
 					
@@ -668,6 +674,8 @@ function ProductionInfoHud:refreshProductionsTable()
 						if  allSame then
 							local productionItem = groupItems[1]
 							productionItem.fillTypeTitle = placeable.spec_husbandryFood.info.title;
+							productionItem.capacity = capacityTotal;
+							productionItem.fillLevel = fillLevelTotal;
 							table.insert(myProductions, productionItem)
 						else
 							for _, item in pairs(groupItems) do
