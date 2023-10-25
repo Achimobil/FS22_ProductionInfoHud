@@ -6,6 +6,7 @@
 		<text name="Empty" text="Всё использовано"/>
 		<text name="Full" text="Нет места"/>
 		<text name="NearlyFull" text="Почти нет места"/>
+		<text name="Overcrowded" text="Переполнено"/>
 		<text name="AllProductsOperativ" text="Все ресурсы доставлены"/>
 		<text name="pih_Zeilen" text="Строк(и)"/>
 		<text name="MoreAvailable" text="ещё"/>
