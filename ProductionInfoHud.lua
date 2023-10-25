@@ -256,9 +256,20 @@ function ProductionInfoHud:createProductionNeedingTable(mode)
 	if g_currentMission.productionChainManager.farmIds[farmId] ~= nil and g_currentMission.productionChainManager.farmIds[farmId].productionPoints ~= nil then
 		for _, productionPoint in pairs(g_currentMission.productionChainManager.farmIds[farmId].productionPoints) do
 		
+			-- hidden stuff from GTX production script
 			if productionPoint.hiddenOnUI ~= nil and productionPoint.hiddenOnUI == true then
 				goto ignoreProduction
 			end
+			
+			-- hidden stuff from revamp production script
+			for i = 1, #productionPoint.activeProductions do
+				activeProduction = self.activeProductions[i];
+				
+				if activeProduction.hideComplete ~= nil and activeProduction.hideComplete == true then
+					goto ignoreProduction
+				end
+			end
+			
 				
 			local numActiveProductions = #productionPoint.activeProductions
 			
