@@ -263,7 +263,7 @@ function ProductionInfoHud:createProductionNeedingTable(mode)
 			
 			-- hidden stuff from revamp production script
 			for i = 1, #productionPoint.activeProductions do
-				activeProduction = self.activeProductions[i];
+				activeProduction = productionPoint.activeProductions[i];
 				
 				if activeProduction.hideComplete ~= nil and activeProduction.hideComplete == true then
 					goto ignoreProduction
