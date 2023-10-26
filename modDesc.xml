@@ -2,7 +2,7 @@
 <modDesc descVersion="77">
 	<author>Achimobil</author>
 	<contributor>Rodberaht, HappyLooser</contributor>
-	<version>1.3.0.5</version>
+	<version>1.3.0.6</version>
 	<title>
 		<de>Produktionen Info Hud</de>
 		<en>Production Info Hud</en>
@@ -50,6 +50,7 @@ Upload auf anderen Seiten nur durch mich selbst, Verlinkung nur mit Original Dow
 Das verändern oder erneutes hochladen, ob ganz oder in Teilen ist nicht gestattet!
 
 Changelog
+1.3.0.6 - Komplett versteckte Produktionen mit Revamp werden jetzt auch in Hud ausgeblendet und nicht nur im der Produktionsübersicht
 1.3.0.5 - lua fix
 1.3.0.4 - Komplett versteckte Produktionen mit Revamp werden nicht mehr angezeigt
 1.3.0.3 - Menge bei Guppierter Nahrung wird jetzt auch korrekt summiert

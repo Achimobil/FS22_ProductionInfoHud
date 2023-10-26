@@ -263,7 +263,7 @@ function ProductionInfoHud:createProductionNeedingTable(mode)
 			
 			-- hidden stuff from revamp production script
 			for i = 1, #productionPoint.activeProductions do
-				activeProduction = productionPoint.activeProductions[i];
+				local activeProduction = productionPoint.activeProductions[i];
 				
 				if activeProduction.hideComplete ~= nil and activeProduction.hideComplete == true then
 					goto ignoreProduction
@@ -402,6 +402,15 @@ function ProductionInfoHud:refreshProductionsTable()
 				
 				if productionPoint.hiddenOnUI ~= nil and productionPoint.hiddenOnUI == true then
 					goto ignoreProduction
+				end
+			
+				-- hidden stuff from revamp production script
+				for i = 1, #productionPoint.activeProductions do
+					local activeProduction = productionPoint.activeProductions[i];
+					
+					if activeProduction.hideComplete ~= nil and activeProduction.hideComplete == true then
+						goto ignoreProduction
+					end
 				end
 				
 				-- nicht mix zutaten werden hier summiert
