@@ -322,6 +322,36 @@ function ProductionInfoHud:createProductionNeedingTable(mode)
 						if input.type == fillTypeId then
 							fillTypeItem.usagePerMonth = fillTypeItem.usagePerMonth + (production.cyclesPerMonth * input.amount) * factor / (productionPoint.sharedThroughputCapacity and numActiveProductions or 1) * yearFactor;
 						end
+						
+						-- outputConditional von Revamp könnte im Input stehen
+						if input.outputConditional ~= nil and not input.outputConditional == false then
+												
+							local outputMode = productionPoint:getOutputDistributionMode(fillTypeId)
+						
+							-- wenn es dieser filltype ist der gerade durchläuft und wenn wenn davo auch was drin ist, wird berechnet
+							if input.outputConditional == fillTypeId and productionPoint:getFillLevel(fillTypeId) > 1 then
+								local producedPerMonth = production.cyclesPerMonth * input.outputAmount * factor / (productionPoint.sharedThroughputCapacity and numActiveProductions or 1) * yearFactor;
+								
+								-- outputConditional hat keine Booster
+								local boostFactor = 1;
+								
+								local producedPerMonthWithBooster = (producedPerMonth*boostFactor);
+								fillTypeItem.producedPerMonth = fillTypeItem.producedPerMonth + producedPerMonth
+								fillTypeItem.producedPerMonthWithBooster = fillTypeItem.producedPerMonthWithBooster + producedPerMonthWithBooster
+								
+								if outputMode == ProductionPoint.OUTPUT_MODE.DIRECT_SELL then
+									fillTypeItem.sellPerMonth = fillTypeItem.sellPerMonth + producedPerMonth;
+									fillTypeItem.sellPerMonthWithBooster = fillTypeItem.sellPerMonthWithBooster + producedPerMonthWithBooster;
+								elseif outputMode == ProductionPoint.OUTPUT_MODE.AUTO_DELIVER then
+									fillTypeItem.distributePerMonth = fillTypeItem.distributePerMonth + producedPerMonth;
+									fillTypeItem.distributePerMonthWithBooster = fillTypeItem.distributePerMonthWithBooster + producedPerMonthWithBooster;
+								else
+									fillTypeItem.keepPerMonth = fillTypeItem.keepPerMonth + producedPerMonth;
+									fillTypeItem.keepPerMonthWithBooster = fillTypeItem.keepPerMonthWithBooster + producedPerMonthWithBooster;
+								end
+							end
+						
+						end
 					end
 					
 					for _, output in pairs(production.outputs) do
