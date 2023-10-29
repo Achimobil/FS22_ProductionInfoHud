@@ -91,7 +91,7 @@ function ProductionInfoHud:init()
 	local productionFrame = InGameMenuProductionInfo.new(ProductionInfoHud, ProductionInfoHud.i18n, ProductionInfoHud.messageCenter)
 	g_gui:loadGui(ProductionInfoHud.modDir .. "Gui/InGameMenuProductionInfo.xml", "InGameMenuProductionInfo", productionFrame, true)
 	
-	ProductionInfoHud.fixInGameMenu(productionFrame,"InGameMenuProductionInfo", {0,0,1024,1024}, 13, ProductionInfoHud:makeIsProductionInfoEnabledPredicate())
+	ProductionInfoHud.fixInGameMenu(productionFrame,"InGameMenuProductionInfo", {0,0,1024,1024}, ProductionInfoHud:makeIsProductionInfoEnabledPredicate())
 	productionFrame:initialize()
 end
 
@@ -100,7 +100,7 @@ function ProductionInfoHud:makeIsProductionInfoEnabledPredicate()
 end
 
 -- from Courseplay
-function ProductionInfoHud.fixInGameMenu(frame,pageName,uvs,position,predicateFunc)
+function ProductionInfoHud.fixInGameMenu(frame, pageName, uvs, predicateFunc)
 	local inGameMenu = g_gui.screenControllers[InGameMenu]
 
 	-- remove all to avoid warnings
@@ -115,7 +115,20 @@ function ProductionInfoHud.fixInGameMenu(frame,pageName,uvs,position,predicateFu
 	inGameMenu.pagingElement:addElement(inGameMenu[pageName])
 
 	inGameMenu:exposeControlsAsFields(pageName)
+	
+	-- position bestimmen anhand des produktions menues, den da soll es drüber stehen
+	local position = 13;
+	-- find original production page
+	for i = 1, #inGameMenu.pagingElement.elements do
+		local child = inGameMenu.pagingElement.elements[i];
 
+		if child == inGameMenu.pageProduction then
+			position = i;
+			break
+		end
+	end	
+
+	-- alles was 
 	for i = 1, #inGameMenu.pagingElement.elements do
 		local child = inGameMenu.pagingElement.elements[i]
 		if child == inGameMenu[pageName] then

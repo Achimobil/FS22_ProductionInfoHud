@@ -2,7 +2,7 @@
 <modDesc descVersion="77">
 	<author>Achimobil</author>
 	<contributor>Rodberaht, HappyLooser</contributor>
-	<version>1.3.0.7</version>
+	<version>1.3.0.8</version>
 	<title>
 		<de>Produktionen Info Hud</de>
 		<en>Production Info Hud</en>
@@ -50,6 +50,7 @@ Upload auf anderen Seiten nur durch mich selbst, Verlinkung nur mit Original Dow
 Das verändern oder erneutes hochladen, ob ganz oder in Teilen ist nicht gestattet!
 
 Changelog
+1.3.0.8 - Menüposition der Produktionsübersicht sollte jetzt immer wie ursprünglich geplant über dem Produktionen Menüpunkt sein, egal ob andere Mods noch Seiten einfügen oder nicht.
 1.3.0.7 - Revamp optionale outputs werden jetzt auch in der Produktionsübersicht angezeigt
 1.3.0.6 - Komplett versteckte Produktionen mit Revamp werden jetzt auch in Hud ausgeblendet und nicht nur im der Produktionsübersicht
 1.3.0.5 - lua fix
