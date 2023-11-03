@@ -272,17 +272,7 @@ function ProductionInfoHud:createProductionNeedingTable(mode)
 			-- hidden stuff from GTX production script
 			if productionPoint.hiddenOnUI ~= nil and productionPoint.hiddenOnUI == true then
 				goto ignoreProduction
-			end
-			
-			-- hidden stuff from revamp production script
-			for i = 1, #productionPoint.activeProductions do
-				local activeProduction = productionPoint.activeProductions[i];
-				
-				if activeProduction.hideComplete ~= nil and activeProduction.hideComplete == true then
-					goto ignoreProduction
-				end
-			end
-			
+			end			
 				
 			local numActiveProductions = #productionPoint.activeProductions
 			
@@ -318,9 +308,15 @@ function ProductionInfoHud:createProductionNeedingTable(mode)
 				local fillTypeItem = myFillTypes[fillTypeId];
 				
 				for _, production in pairs(productionPoint.activeProductions) do
+					
+					-- skip productions of the production point when needed
+					if production.hideFromMenu ~= nil and production.hideFromMenu == true then
+						goto skipProductionInputInCreateProductionNeedingTable
+					end
+						
 					-- berechnen des yearFactor wenn notwendig
 					local yearFactor = 1
-						if mode == InGameMenuProductionInfo.MODE_YEAR then
+					if mode == InGameMenuProductionInfo.MODE_YEAR then
 						if production.months ~= nil then
 							local months = string.split(production.months, " ");
 							yearFactor = yearFactor * (#months/12)
@@ -400,6 +396,8 @@ function ProductionInfoHud:createProductionNeedingTable(mode)
 							end
 						end
 					end
+				
+					::skipProductionInputInCreateProductionNeedingTable::
 				end
 			end
 			
@@ -446,15 +444,6 @@ function ProductionInfoHud:refreshProductionsTable()
 				if productionPoint.hiddenOnUI ~= nil and productionPoint.hiddenOnUI == true then
 					goto ignoreProduction
 				end
-			
-				-- hidden stuff from revamp production script
-				for i = 1, #productionPoint.activeProductions do
-					local activeProduction = productionPoint.activeProductions[i];
-					
-					if activeProduction.hideComplete ~= nil and activeProduction.hideComplete == true then
-						goto ignoreProduction
-					end
-				end
 				
 				-- nicht mix zutaten werden hier summiert
 				for fillTypeId, fillLevel in pairs(productionPoint.storage.fillLevels) do
@@ -496,6 +485,12 @@ function ProductionInfoHud:refreshProductionsTable()
 					productionItem.fillTypeTitle = fillType.title;
 					
 					for _, production in pairs(productionPoint.activeProductions) do
+					
+						-- skip productions of the production point when needed
+						if production.hideFromMenu ~= nil and production.hideFromMenu == true then
+							goto skipProductionInputInRefreshProductionsTable
+						end
+						
 						for _, input in pairs(production.inputs) do
 							-- status 3 = läuft nicht weil ausgang voll
 							if input.type == fillTypeId then
@@ -513,6 +508,8 @@ function ProductionInfoHud:refreshProductionsTable()
 						if production.activeHours ~= nil then
 							productionItem.timeAdjustment = productionItem.timeAdjustment * (production.activeHours / 24)
 						end
+						
+						::skipProductionInputInRefreshProductionsTable::
 					end
 					
 					
@@ -551,6 +548,12 @@ function ProductionInfoHud:refreshProductionsTable()
 				
 				-- jetzt noch mal alle mix gruppen die restlaufzeit aller berechnen
 				for _, production in pairs(productionPoint.activeProductions) do
+					
+					-- skip productions of the production point when needed
+					if production.hideFromMenu ~= nil and production.hideFromMenu == true then
+						goto skipProductionMixInRefreshProductionsTable
+					end
+						
 					for n = 1, 5 do
 						local productionItem = {}
 						productionItem.name = productionPoint.owningPlaceable:getName();
@@ -636,6 +639,8 @@ function ProductionInfoHud:refreshProductionsTable()
 							end
 						end
 					end
+					
+					::skipProductionMixInRefreshProductionsTable::
 				end
 				
 				::ignoreProduction::
