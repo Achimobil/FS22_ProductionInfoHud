@@ -1018,6 +1018,51 @@ function ProductionInfoHud:refreshProductionsTable()
 			end
 		end
 
+		-- opentime script erweiterung hier, damit das nicht pro frame ausgewertet wird
+		for _, productionData in pairs(myProductions) do
+			if productionData.productionPoint ~= nil and productionData.productionPoint.votOpeningTime ~= nil then
+				if productionData.productionPoint.votIsOpening then
+					-- is open, but when close?
+					for a = 1, #productionData.productionPoint.votOpeningTime do
+						local openingTime = productionData.productionPoint.votOpeningTime[a];
+						if g_currentMission.environment.currentHour >= openingTime.startTime and g_currentMission.environment.currentHour < openingTime.endTime then
+							
+							productionData.name = productionData.name .. " (~" .. openingTime.endTime .. ")";
+						end
+					end
+				else
+					-- is closed, but when open?
+					local nextOpening = nil;
+					local firstOpening = nil;
+					for a = 1, #productionData.productionPoint.votOpeningTime do
+						local openingTime = productionData.productionPoint.votOpeningTime[a];
+						if openingTime.startTime > g_currentMission.environment.currentHour then
+							if nextOpening == nil then
+								nextOpening = openingTime;
+							else
+								if openingTime.startTime < nextOpening.startTime then
+									nextOpening = openingTime;
+								end
+							end
+						end
+						if firstOpening == nil then
+							firstOpening = openingTime;
+						else
+							if openingTime.startTime < firstOpening.startTime then
+								firstOpening = openingTime;
+							end
+						end
+					end
+					if nextOpening ~= nil then
+						productionData.name = productionData.name .. " (" .. nextOpening.startTime .. "~)";
+					elseif firstOpening ~= nil then
+						productionData.name = productionData.name .. " (" .. firstOpening.startTime .. "~)";
+					end
+				end
+			end
+		end
+				
+
 		table.sort(myProductions, compPrductionTable)
 		
 		ProductionInfoHud.productionDataSorted = myProductions;
@@ -1247,7 +1292,7 @@ function ProductionInfoHud:draw()
 				lineCount = lineCount + 1;
 			
 				local productionOutputItem = {}
-				productionOutputItem.productionPointName = productionData.name
+				productionOutputItem.productionPointName = productionData.name;
 				productionOutputItem.fillTypeTitle = productionData.fillTypeTitle
 				productionOutputItem.TextColor = ProductionInfoHud.colors.WHITE;
 				
