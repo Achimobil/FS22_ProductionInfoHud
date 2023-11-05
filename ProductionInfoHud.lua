@@ -530,7 +530,10 @@ function ProductionInfoHud:refreshProductionsTable()
 						for _, production in pairs(productionPoint.productions) do
 							for _, output in pairs(production.outputs) do
 								if output.type == fillTypeId and production.status ~= ProductionPoint.PROD_STATUS.INACTIVE then
-									oneProductionWithOutputActive = true;
+									local isHiddenProduction = production.hideFromMenu ~= nil and production.hideFromMenu == true;
+									if not isHiddenProduction then
+										oneProductionWithOutputActive = true;
+									end
 								end
 							end
 						end
