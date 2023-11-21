@@ -27,6 +27,10 @@ ProductionInfoHud.PossibleMaxLines = {"2", "3", "4", "5", "6", "7", "8", "9", "1
 ProductionInfoHud.PossibleAmounts = {"5000", "10000", "50000", "100000", "200000", "250000"}
 ProductionInfoHud.PossibleTextSizes = {"8", "9", "10", "11", "12", "13", "14", "15"}
 
+function ProductionInfoHud.print(text, ...)
+	print("ProductionInfoHud Debug: " .. string.format(text, ...));
+end
+
 local function isDedi()
   local result = g_currentMission:getIsServer() and g_currentMission.connectedToDedicatedServer == true;
   -- print("isDedi: " .. tostring(result));
@@ -1213,8 +1217,11 @@ end
 
 function ProductionInfoHud:draw()
 		
-	if not ProductionInfoHud.isClient then return end	
+	if not ProductionInfoHud.isClient then return end
 	
+	-- ProductionInfoHud.print("g_noHudModeEnabled: %s", g_noHudModeEnabled)
+	if g_noHudModeEnabled then return end
+		
 	if ProductionInfoHud.productionDataSorted == nil then return end
 	
 	if ProductionInfoHud.settings["display"]["showType"] == "NONE" then 
