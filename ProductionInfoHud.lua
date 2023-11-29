@@ -1221,6 +1221,7 @@ function ProductionInfoHud:draw()
 	
 	-- ProductionInfoHud.print("g_noHudModeEnabled: %s", g_noHudModeEnabled)
 	if g_noHudModeEnabled then return end
+	if not g_currentMission.hud.isVisible then return end
 		
 	if ProductionInfoHud.productionDataSorted == nil then return end
 	

@@ -2,7 +2,7 @@
 <modDesc descVersion="79">
 	<author>Achimobil</author>
 	<contributor>Rodberaht, HappyLooser</contributor>
-	<version>1.3.0.13</version>
+	<version>1.3.0.14</version>
 	<title>
 		<de>Produktionen Info Hud</de>
 		<en>Production Info Hud</en>
@@ -50,6 +50,7 @@ Upload auf anderen Seiten nur durch mich selbst, Verlinkung nur mit Original Dow
 Das verändern oder erneutes hochladen, ob ganz oder in Teilen ist nicht gestattet!
 
 Changelog
+1.3.0.14 - Anzeige wird jetzt auch beim Schlafen ausgeblendet
 1.3.0.13 - Production Info Hud eigene Anzeige wird jetzt ausgeblendet, wenn das Hud ausgeblendet wird
 1.3.0.12 - Versteckte Produktionslinien jetzt auch volle Ausgangslager entfernt
 1.3.0.11 - Verbessertes Icon
