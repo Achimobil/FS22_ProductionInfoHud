@@ -508,6 +508,18 @@ function ProductionInfoHud:refreshProductionsTable()
 									-- mix type hier ignorieren. müssen separat gerechnet werden
 								end
 							end
+							
+							-- wenn booster könnte ein conditional outputConditional dran hängen und den dann wieder abziehen von den needPerHour
+							if input.mix == 6 then 
+								if input.outputConditional ~= nil and not input.outputConditional == false then
+									if input.outputConditional == fillTypeId and productionPoint:getFillLevel(fillTypeId) > 1 then
+										productionItem.isOutput = true;
+										if production.status ~= 3 then
+											productionItem.needPerHour = productionItem.needPerHour - (production.cyclesPerHour * input.outputAmount)
+										end
+									end
+								end
+							end
 						end
 						if production.activeHours ~= nil then
 							productionItem.timeAdjustment = productionItem.timeAdjustment * (production.activeHours / 24)
@@ -522,14 +534,10 @@ function ProductionInfoHud:refreshProductionsTable()
 									productionItem.needPerHour = productionItem.needPerHour - (production.cyclesPerHour * output.amount)
 								end
 							end
-							
-							-- outputConditional von boostern sollte ich hier noch einbeziehen
 						end
 						
 						::skipProductionInputInRefreshProductionsTable::
 					end
-					
-					
 
 					if (productionItem.fillLevel ~= 0) and (productionItem.needPerHour ~= 0) then
 						-- hier die anzahl der Tage pro Monat berücksichtigen
