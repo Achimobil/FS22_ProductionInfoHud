@@ -513,6 +513,19 @@ function ProductionInfoHud:refreshProductionsTable()
 							productionItem.timeAdjustment = productionItem.timeAdjustment * (production.activeHours / 24)
 						end
 						
+						-- hier die outputs vom gleichen type wieder abziehen, damit sollten dann auch input/output nutzbar werden
+						for _, output in pairs(production.outputs) do
+							-- status 3 = läuft nicht weil ausgang voll
+							if output.type == fillTypeId then
+								productionItem.isOutput = true;
+								if production.status ~= 3 then
+									productionItem.needPerHour = productionItem.needPerHour - (production.cyclesPerHour * output.amount)
+								end
+							end
+							
+							-- outputConditional von boostern sollte ich hier noch einbeziehen
+						end
+						
 						::skipProductionInputInRefreshProductionsTable::
 					end
 					
@@ -523,7 +536,11 @@ function ProductionInfoHud:refreshProductionsTable()
 						productionItem.hoursLeft = productionItem.fillLevel / productionItem.needPerHour * g_currentMission.environment.daysPerPeriod;
 					end
 					
-					if (not ignoreInput and productionItem.needPerHour > 0 and not productionItem.isOutput) then 
+		
+-- print("productionItem")
+-- DebugUtil.printTableRecursively(productionItem,"_",0,2)
+
+					if (not ignoreInput and productionItem.needPerHour > 0 and productionItem.isInput) then 
 						table.insert(myProductions, productionItem)
 					end
 					
