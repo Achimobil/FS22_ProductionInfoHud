@@ -2,7 +2,7 @@
 <modDesc descVersion="79">
 	<author>Achimobil</author>
 	<contributor>Rodberaht, HappyLooser</contributor>
-	<version>1.3.0.16</version>
+	<version>1.3.0.17</version>
 	<title>
 		<de>Produktionen Info Hud</de>
 		<en>Production Info Hud</en>
@@ -50,6 +50,7 @@ Upload auf anderen Seiten nur durch mich selbst, Verlinkung nur mit Original Dow
 Das verändern oder erneutes hochladen, ob ganz oder in Teilen ist nicht gestattet!
 
 Changelog
+1.3.0.17 - Die Anzeige der Überbelegung zeigt im MultiOverlayV4 Hud bei Anzeige der Mengen an wie viele Tiere zuviel sind
 1.3.0.16 - Conditional Outputs von Boostern werden jetzt mit einberechnet wenn diese auch Input sind bei der Restzeitberechnung
 1.3.0.15 - Inputs die auch Outputs sind sollten jetzt korrekt berechnet und auch angezeigt werden im Hud
 1.3.0.14 - Anzeige wird jetzt auch beim Schlafen ausgeblendet

@@ -1003,8 +1003,8 @@ function ProductionInfoHud:refreshProductionsTable()
 							-- productionItem.fillTypeId = fillTypeId
 							productionItem.needPerHour = 0;
 							productionItem.hoursLeft = 0
-							productionItem.fillLevel = 0;
-							productionItem.capacity = 0;
+							productionItem.fillLevel = totalNumAnimals;
+							productionItem.capacity = husbandrySpec.maxNumAnimals;
 							productionItem.isInput = false;
 							if (placeable.spec_husbandryPallets ~= nil) then
 								productionItem.fillTypeTitle =  placeable.spec_husbandryPallets.animalTypeName
