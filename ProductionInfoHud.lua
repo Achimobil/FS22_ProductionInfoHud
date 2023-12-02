@@ -692,6 +692,7 @@ function ProductionInfoHud:refreshProductionsTable()
 					productionItem.fillLevel = placeable:getTotalFood();
 					productionItem.capacity = placeable:getFoodCapacity();
 					productionItem.isInput = true;
+					productionItem.isOutput = false;
 					
 					if productionItem.capacity == 0 then 
 						productionItem.capacityLevel = 0
@@ -727,6 +728,7 @@ function ProductionInfoHud:refreshProductionsTable()
 						productionItem.hoursLeft = 0
 						productionItem.capacity = capacityTotal * foodGroup.eatWeight
 						productionItem.isInput = true;
+						productionItem.isOutput = false;
 					
 						if productionItem.capacity == 0 then 
 							productionItem.capacityLevel = 0
@@ -813,6 +815,7 @@ function ProductionInfoHud:refreshProductionsTable()
 						productionItem.fillLevel = fillLevel;
 						productionItem.capacity = spot.capacity;
 						productionItem.isInput = true;
+						productionItem.isOutput = false;
 						
 						if productionItem.capacity == 0 then 
 							productionItem.capacityLevel = 0
@@ -844,6 +847,7 @@ function ProductionInfoHud:refreshProductionsTable()
 						productionItem.fillLevel = placeable.spec_husbandryWater:getHusbandryFillLevel(FillType.WATER)
 						productionItem.capacity = placeable.spec_husbandryWater:getHusbandryCapacity(FillType.WATER)
 						productionItem.isInput = true;
+						productionItem.isOutput = false;
 
 						if productionItem.capacity == 0 then 
 							productionItem.capacityLevel = 0
@@ -876,6 +880,7 @@ function ProductionInfoHud:refreshProductionsTable()
 					productionItem.fillLevel = placeable.spec_husbandryStraw:getHusbandryFillLevel(FillType.STRAW)
 					productionItem.capacity = placeable.spec_husbandryStraw:getHusbandryCapacity(FillType.STRAW)
 					productionItem.isInput = true;
+					productionItem.isOutput = false;
 					
 					if productionItem.capacity == 0 then 
 						productionItem.capacityLevel = 0
@@ -907,6 +912,7 @@ function ProductionInfoHud:refreshProductionsTable()
 					productionItem.fillLevel = placeable.spec_husbandryStraw:getHusbandryFillLevel(FillType.MANURE)
 					productionItem.capacity = placeable.spec_husbandryStraw:getHusbandryCapacity(FillType.MANURE)
 					productionItem.isInput = false;
+					productionItem.isOutput = false;
 					
 					if productionItem.capacity == 0 then 
 						productionItem.capacityLevel = 0
@@ -941,6 +947,7 @@ function ProductionInfoHud:refreshProductionsTable()
 					productionItem.fillLevel = placeable.spec_husbandryMilk:getHusbandryFillLevel(FillType.MILK)
 					productionItem.capacity = placeable.spec_husbandryMilk:getHusbandryCapacity(FillType.MILK)
 					productionItem.isInput = false;
+					productionItem.isOutput = true;
 					
 					if productionItem.capacity == 0 then 
 						productionItem.capacityLevel = 0
@@ -969,6 +976,7 @@ function ProductionInfoHud:refreshProductionsTable()
 					productionItem.fillLevel = placeable.spec_husbandryLiquidManure:getHusbandryFillLevel(FillType.LIQUIDMANURE)
 					productionItem.capacity = placeable.spec_husbandryLiquidManure:getHusbandryCapacity(FillType.LIQUIDMANURE)
 					productionItem.isInput = false;
+					productionItem.isOutput = true;
 					
 					if productionItem.capacity == 0 then 
 						productionItem.capacityLevel = 0
