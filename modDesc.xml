@@ -2,7 +2,7 @@
 <modDesc descVersion="79">
 	<author>Achimobil</author>
 	<contributor>Rodberaht, HappyLooser</contributor>
-	<version>1.3.0.18</version>
+	<version>1.3.0.19</version>
 	<title>
 		<de>Produktionen Info Hud</de>
 		<en>Production Info Hud</en>
@@ -50,6 +50,7 @@ Upload auf anderen Seiten nur durch mich selbst, Verlinkung nur mit Original Dow
 Das verändern oder erneutes hochladen, ob ganz oder in Teilen ist nicht gestattet!
 
 Changelog
+1.3.0.19 - Produktionen die nach GTX immer an sind und somit nicht abgeschaltet werden können werden nicht mehr angezeigt, wenn sie voll sind
 1.3.0.18 - Einen Fehler behoben der Tierställe in der eigenen Anzeige darstellte obwohl die Füllmenge noch über 50% lag 
 1.3.0.17 - Die Anzeige der Überbelegung zeigt im MultiOverlayV4 Hud bei Anzeige der Mengen an wie viele Tiere zuviel sind
 1.3.0.16 - Conditional Outputs von Boostern werden jetzt mit einberechnet wenn diese auch Input sind bei der Restzeitberechnung

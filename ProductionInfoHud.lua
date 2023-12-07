@@ -566,6 +566,11 @@ function ProductionInfoHud:refreshProductionsTable()
 								end
 							end
 						end
+					
+						-- always on stuff from GTX production script do not show when full.
+						if productionPoint.extendedFeaturesAlwaysActive ~= nil and productionPoint.extendedFeaturesAlwaysActive == true then
+							oneProductionWithOutputActive = false;
+						end
 						
 						if oneProductionWithOutputActive then
 							if productionItem.capacityLevel >= 0.99 then
