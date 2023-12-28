@@ -2,7 +2,7 @@
 <modDesc descVersion="79">
 	<author>Achimobil</author>
 	<contributor>Rodberaht, HappyLooser</contributor>
-	<version>1.3.0.19</version>
+	<version>1.4.0.0</version>
 	<title>
 		<de>Produktionen Info Hud</de>
 		<en>Production Info Hud</en>
@@ -50,26 +50,25 @@ Upload auf anderen Seiten nur durch mich selbst, Verlinkung nur mit Original Dow
 Das verändern oder erneutes hochladen, ob ganz oder in Teilen ist nicht gestattet!
 
 Changelog
-1.3.0.19 - Produktionen die nach GTX immer an sind und somit nicht abgeschaltet werden können werden nicht mehr angezeigt, wenn sie voll sind
-1.3.0.18 - Einen Fehler behoben der Tierställe in der eigenen Anzeige darstellte obwohl die Füllmenge noch über 50% lag 
-1.3.0.17 - Die Anzeige der Überbelegung zeigt im MultiOverlayV4 Hud bei Anzeige der Mengen an wie viele Tiere zuviel sind
-1.3.0.16 - Conditional Outputs von Boostern werden jetzt mit einberechnet wenn diese auch Input sind bei der Restzeitberechnung
-1.3.0.15 - Inputs die auch Outputs sind sollten jetzt korrekt berechnet und auch angezeigt werden im Hud
-1.3.0.14 - Anzeige wird jetzt auch beim Schlafen ausgeblendet
-1.3.0.13 - Production Info Hud eigene Anzeige wird jetzt ausgeblendet, wenn das Hud ausgeblendet wird
-1.3.0.12 - Versteckte Produktionslinien jetzt auch volle Ausgangslager entfernt
-1.3.0.11 - Verbessertes Icon
-1.3.0.10 - Unterstützung des VariableOpeningTime Mods durch anzeige der nächsten Öffnungszeit oder Schließungszeit.
-1.3.0.9 - Code zum entfernen der durch Revamp versteckten Produktionen noch mal überarbeitet
-1.3.0.8 - Menüposition der Produktionsübersicht sollte jetzt immer wie ursprünglich geplant über dem Produktionen Menüpunkt sein, egal ob andere Mods noch Seiten einfügen oder nicht.
-1.3.0.7 - Revamp optionale outputs werden jetzt auch in der Produktionsübersicht angezeigt
-1.3.0.6 - Komplett versteckte Produktionen mit Revamp werden jetzt auch in Hud ausgeblendet und nicht nur im der Produktionsübersicht
-1.3.0.5 - lua fix
-1.3.0.4 - Komplett versteckte Produktionen mit Revamp werden nicht mehr angezeigt
-1.3.0.3 - Menge bei Guppierter Nahrung wird jetzt auch korrekt summiert
-1.3.0.2 - Voll wird nicht mehr angezeigt, wenn überbelegung im EAS aktiviert ist
-1.3.0.1 - Überbelegung vom Erweiterten Tiersystem mod wird nun angezeigt mit restzeit bis wann die Gesundheit im Stall sinkt
 
+1.4.0.0
+* Erweiterten Tiersystem Mod Kompatibilität
+ - Überbelegung wird nun angezeigt mit restzeit bis wann die Gesundheit im Stall sinkt (Mengenanzeige im MultiOverlayV4 Hud zeigt die Überbelegungsanzahl als negative Menge)
+ - Voll wird nicht mehr angezeigt, wenn Überbelegung im Stall zugelassen ist
+* Production Revamp Kompatibilität
+ - Komplett versteckte Produktionen und versteckte Produktionslinien werden nicht mehr angezeigt im Hud und in der Produktionsübersicht
+ - Optionale Outputs werden jetzt auch in der Produktionsübersicht angezeigt, wenn diese korrekt bei Boostern eingetragen sind
+ - Optionale Outputs von Boostern werden jetzt mit einberechnet, wenn diese auch Input sind bei der Restzeitberechnung
+* Sonstiges
+ - Menge bei Gruppierter Nahrung wird jetzt auch korrekt summiert
+ - Menüposition der Produktionsübersicht sollte jetzt immer wie ursprünglich geplant über dem Produktionen Menüpunkt sein, egal ob andere Mods noch Seiten einfügen oder nicht.
+ - Unterstützung des VariableOpeningTime Mods durch Anzeige der nächsten Öffnungszeit oder Schließungszeit.
+ - Verbessertes Icon
+ - Produktion Info Hud eigene Anzeige wird jetzt ausgeblendet, wenn das Hud ausgeblendet wird
+ - Inputs die auch Outputs sind sollten jetzt korrekt berechnet und auch angezeigt werden im Hud
+ - Einen Fehler behoben der Tierställe in der eigenen Anzeige darstellte, obwohl die Füllmenge noch über 50% lag 
+ - Produktionen, die nach GTX Produktions-Skript immer an sind und somit nicht abgeschaltet werden können, werden nicht mehr angezeigt, wenn sie voll sind
+ 
 1.3.0.0
 - Parallele Fütterung wird jetzt einzeln angezeigt, wenn die Futtermittel nicht gleich lang reichen
 - Mehr Zeilen einstellbar 
@@ -81,13 +80,6 @@ Changelog
 - Bei Produktionen mit Öffnungszeiten wird die Restlaufzeit während der Öffnung angezeigt und deshalb werden diese jetzt früher als 2 Tage schon ausgeblendet
 - Unterstützung einer ungefilterten Anzeige der Produktionsdaten im MultiOverlayV4 Hud (HappyLooser)
 - In der Produktionsübersicht wird nun bei der Jahresansicht berücksichtigt, wenn eine Produktion nur Seasonal oder Monatsweise läuft
-
-1.1.1.0
-- Fehler mit revamp 1.3.5.5 behoben
-- BR Übersetzungen eingefügt
-- Geteilte Produktionslinen werden jetzt korrekt berechnet in der Produktionsübersicht
-- Produktionsübersicht zeigt nun bei Boostern die Menge ohne Booster und in Klammern dahinter die Menge mit allen Boostern an
-- Fehler behoben dass bei laden des Savegames nichts angezeigt wurde, wenn nur Verkaufsdaten zuletzt ausgewählt waren
 ]]></de>
 		<en>
 			<![CDATA[HUD display for productions that need attention.
@@ -131,6 +123,24 @@ Modifying and re-uploading in whole or in part is not allowed!
 
 Changelog
 
+1.4.0.0
+* Enhanced animal system mod compatibility
+ - Overcrowding is now displayed with remaining time until the health in the shed decreases (quantity display in MultiOverlayV4 Hud shows the overcrowding number as negative quantity)
+ - Full is no longer displayed when overcrowding is allowed in the shed
+* Production revamp compatibility
+ - Completely hidden productions and hidden production lines are no longer displayed in the hud and in the production overview
+ - Optional outputs are now also displayed in the production overview if they are entered correctly for boosters
+ - Optional outputs of boosters are now included if they are also input in the remaining time calculation
+* Other
+ - Quantity for grouped food is now also totalled correctly
+ - Menu position of the production overview should now always be above the production menu item as originally planned, regardless of whether other mods add pages or not.
+ - Support of the VariableOpeningTime mod by displaying the next opening time or closing time.
+ - Improved icon
+ - Production Info Hud own display is now hidden when the Hud is hidden
+ - Inputs that are also outputs should now be calculated correctly and also displayed in the hud
+ - Fixed a bug that displayed animal sheds in the own display even though the fill level was still above 50% 
+ - Productions that are always on according to the GTX production script and therefore cannot be switched off are no longer displayed when they are full
+
 1.3.0.0
 - Parallel feeding is now displayed individually if the feeds do not reach the same length
 - More lines adjustable 
@@ -142,13 +152,6 @@ Changelog
 - For productions with opening hours, the remaining time is displayed during the opening and therefore these are now already hidden earlier than 2 days
 - Unterstützung einer ungefilterten Anzeige der Produktionsdaten im MultiOverlayV4 Hud (HappyLooser)
 - In the production overview, the yearly view now takes into account if a production only runs seasonally or monthly.
-
-1.1.1.0
-- Fixed bug with revamp 1.3.5.5
-- BR translations added
-- Split production lines are now calculated correctly in the production overview
-- Production overview now shows the quantity without boosters and in brackets behind the quantity with all boosters
-- Fixed a bug that nothing was shown when loading the savegame if only sales data were selected last
 ]]></en>
 	</description>
 	<iconFilename>icon_prodcutionInfoHud.dds</iconFilename>
