@@ -2,7 +2,7 @@
 <modDesc descVersion="79">
 	<author>Achimobil</author>
 	<contributor>Rodberaht, HappyLooser</contributor>
-	<version>1.4.0.1</version>
+	<version>1.4.0.2</version>
 	<title>
 		<de>Produktionen Info Hud</de>
 		<en>Production Info Hud</en>
@@ -52,6 +52,7 @@ Das verändern oder erneutes hochladen, ob ganz oder in Teilen ist nicht gestatt
 Changelog
 
 1.4.0.1 - Fix für "attempt to index field 'spec_husbandryFood' (a nil value)"
+1.4.0.2 - MOH zeigt jetzt auch volle und fast volle an, wenn diese Eingangs und Ausgangprodukte sind
 
 1.4.0.0
 * Erweiterten Tiersystem Mod Kompatibilität

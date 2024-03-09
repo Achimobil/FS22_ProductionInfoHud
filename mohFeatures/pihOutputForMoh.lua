@@ -83,7 +83,7 @@ function pihOutputForMoh:load(cmdTable, slotTable) --cmdTable ist dein hinterleg
 	else
 		for _, productionData in ipairs(ProductionInfoHud.productionDataSorted) do
 			local productionName = tostring(productionData.name);
-			if productionData.capacityLevel ~= nil and productionData.capacityLevel > pihConfigForMoh.values.capacityLevelFilter and productionData.isInput == true then
+			if productionData.capacityLevel ~= nil and productionData.capacityLevel > pihConfigForMoh.values.capacityLevelFilter and productionData.hoursLeft ~= nil and productionData.hoursLeft >= 0 then
 				goto skipProductionData;
 			end
 			
