@@ -686,7 +686,7 @@ function ProductionInfoHud:refreshProductionsTable()
 		
 		-- Tiere
 		for _, placeable in pairs(g_currentMission.husbandrySystem.placeables) do
-			if placeable.ownerFarmId == farmId and placeable.spec_husbandryFood.litersPerHour ~= 0 then
+			if placeable.ownerFarmId == farmId and placeable.spec_husbandryFood ~= nil and placeable.spec_husbandryFood.litersPerHour ~= 0 then
 				-- Futter der Tiere als gesamtes pro Stall
 				local animalFood = g_currentMission.animalFoodSystem:getAnimalFood(placeable.spec_husbandryFood.animalTypeIndex)
 				if animalFood.consumptionType == AnimalFoodSystem.FOOD_CONSUME_TYPE_SERIAL then
