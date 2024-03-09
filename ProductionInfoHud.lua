@@ -1107,6 +1107,12 @@ function ProductionInfoHud:refreshProductionsTable()
 			end
 		end
 				
+		-- zu kleine Zeiten mal auf 0 setzen
+		for _, productionData in pairs(myProductions) do
+			if productionData.hoursLeft > 0 and productionData.hoursLeft < 0.02 then
+				productionData.hoursLeft = 0;
+			end
+		end
 
 		table.sort(myProductions, compPrductionTable)
 		
