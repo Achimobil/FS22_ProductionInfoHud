@@ -463,8 +463,8 @@ function ProductionInfoHud:refreshProductionsTable()
 					productionItem.fillTypeId = fillTypeId
 					productionItem.needPerHour = 0
 					productionItem.hoursLeft = 0
-					productionItem.fillLevel = fillLevel
-					productionItem.capacity = productionPoint.storage.capacities[fillTypeId]
+					productionItem.fillLevel = productionPoint:getFillLevel(fillTypeId)
+					productionItem.capacity = productionPoint:getCapacity(fillTypeId)
 					productionItem.isInput = false;
 					productionItem.isOutput = false;
 					productionItem.timeAdjustment = 1;
