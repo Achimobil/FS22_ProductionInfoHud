@@ -31,6 +31,15 @@ function ProductionInfoHud.print(text, ...)
 	print("ProductionInfoHud Debug: " .. string.format(text, ...));
 end
 
+function ProductionInfoHud.printTable(text, myTable)
+	print("ProductionInfoHud Debug: " .. text);
+	if myTable == nil then 
+		print("is nil")
+	else
+		DebugUtil.printTableRecursively(myTable,"_",0,2)
+	end
+end
+
 local function isDedi()
   local result = g_currentMission:getIsServer() and g_currentMission.connectedToDedicatedServer == true;
   -- print("isDedi: " .. tostring(result));
@@ -444,6 +453,8 @@ function ProductionInfoHud:refreshProductionsTable()
 		
 		if g_currentMission.productionChainManager.farmIds[farmId] ~= nil and g_currentMission.productionChainManager.farmIds[farmId].productionPoints ~= nil then
 			for _, productionPoint in pairs(g_currentMission.productionChainManager.farmIds[farmId].productionPoints) do
+			
+				-- ProductionInfoHud.printTable("productionPoint", productionPoint)
 				
 				if productionPoint.hiddenOnUI ~= nil and productionPoint.hiddenOnUI == true then
 					goto ignoreProduction
@@ -590,11 +601,13 @@ function ProductionInfoHud:refreshProductionsTable()
 					if production.hideFromMenu ~= nil and production.hideFromMenu == true then
 						goto skipProductionMixInRefreshProductionsTable
 					end
+					
+					--ProductionInfoHud.printTable("productionPoint.owningPlaceable", productionPoint.owningPlaceable)
 						
 					for n = 1, 5 do
 						local productionItem = {}
 						productionItem.name = productionPoint.owningPlaceable:getName();
-						productionItem.fillTypeTitle = production.name .. " (Mix " .. n .. ")";
+						productionItem.fillTypeTitle = (production.name or production.id) .. " (Mix " .. n .. ")";
 						productionItem.hoursLeft = 0
 						productionItem.timeAdjustment = 1;
 						productionItem.productionPoint = productionPoint;
