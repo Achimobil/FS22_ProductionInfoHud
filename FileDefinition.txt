@@ -1,8 +1,9 @@
-*.dds
-*.i3d
-*.lua
-*.xml
-*.shapes
-translations/*.*
-Gui/*.*
-mohFeatures/*.*
+*.cmd
+*.txt
+.git*
+*.xcf
+*.png
+store/*.png
+images
+*.md
+sourceModels
