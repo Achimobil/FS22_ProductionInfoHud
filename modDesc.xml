@@ -2,7 +2,7 @@
 <modDesc descVersion="79">
 	<author>Achimobil</author>
 	<contributor>Rodberaht, HappyLooser</contributor>
-	<version>1.4.0.4</version>
+	<version>1.4.0.6</version>
 	<title>
 		<de>Produktionen Info Hud</de>
 		<en>Production Info Hud</en>
@@ -55,6 +55,8 @@ Changelog
 1.4.0.2 - MOH zeigt jetzt auch volle und fast volle an, wenn diese Eingangs und Ausgangprodukte sind
 1.4.0.3 - 0:00 sollte jetzt immer als leer angezeigt werden
 1.4.0.4 - Extensions werden bei Produktionen jetzt mit eingerechnet in der Restlaufzeit
+1.4.0.5 - Lua Fehler mit Farm Production DLC behoben
+1.4.0.6 - Anzeige Farben Rot/Orange/Gelb verbessert
 
 1.4.0.0
 * Erweiterten Tiersystem Mod Kompatibilität
