@@ -1748,8 +1748,17 @@ function ProductionInfoHud:onStartMission() --new by HappyLooser
 		source(ProductionInfoHud.modDir.."mohFeatures/pihConfigForMoh.lua");
 		source(ProductionInfoHud.modDir.."mohFeatures/pihSetGetForMoh.lua");
 		source(ProductionInfoHud.modDir.."mohFeatures/pihOutputForMoh.lua");
-		pihSetGetForMoh:onStartLoad();
-	end;	
+		pihSetGetForMoh:onStartLoad();	
+	end;
+	if g_currentMission.hlHudSystem ~= nil and g_currentMission.hlHudSystem.hlHud ~= nil and g_currentMission.hlHudSystem.hlHud.generate ~= nil then --check is HL Hud System ready !
+		source(ProductionInfoHud.modDir.."scripte_pihdisplay/pih_SetGet.lua");
+		source(ProductionInfoHud.modDir.."scripte_pihdisplay/xml/pih_XMLBox.lua");
+		source(ProductionInfoHud.modDir.."scripte_pihdisplay/mouseKeyEvents/pih_MouseKeyEventsBox.lua");
+		source(ProductionInfoHud.modDir.."scripte_pihdisplay/draw/pih_DrawBox.lua");
+		g_currentMission.hlUtils.modLoad("FS22_ProductionInfoHud");
+		pih_SetGet:loadFillTypesIcons(); --optional
+		pih_XmlBox:loadBox("Pih_Display_Box", g_currentMission.hlHudSystem.isAlreadyExistsXml("box", "Pih_Display_Box"));
+	end;
 end;
 
 function ProductionInfoHud:searchOtherMods() 

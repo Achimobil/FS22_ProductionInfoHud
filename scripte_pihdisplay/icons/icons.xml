@@ -1,0 +1,24 @@
+﻿<pih_display>	
+	<boxIcons load="20">
+		<icon name="viewDetails" type="2" setStateInArea="true" placeB="2" />
+		<icon name="viewDetailsBlank" type="2" color="darkGray" setStateInArea="true" placeB="32" />
+		<icon name="right" type="2" setStateInArea="true" placeB="4" />
+		<icon name="daysMinusUpDown" type="2" color="white" setStateInArea="true" placeB="5" />
+		<icon name="capacityLevelMinusUpDown" type="2" color="white" setStateInArea="true" placeB="5" />
+		<icon name="lineHorizontalUpDown" type="2" color="white" setStateInArea="true" placeB="24" />		
+		<icon name="infos" type="2" color="ls22" setStateInArea="true" placeB="30" />
+		<icon name="autoAlign" type="2" color="darkGray" setStateInArea="true" placeB="33" />
+		<icon name="flip" type="2" color="darkGray" setStateInArea="true" placeB="52" />
+		<icon name="fillLevelAmountFull" type="2" color="green" setStateInArea="true" placeB="87"/>
+		<icon name="fillLevelAmountEmpty" type="2" color="green" setStateInArea="true" placeB="88"/>
+		<icon name="showMissingAmount" type="2" color="darkGray" setStateInArea="true" placeB="88"/>
+		<icon name="clock" type="2" color="darkGray" setStateInArea="true" placeB="91"/>
+		<icon name="production" type="2" color="darkGray" setStateInArea="true" placeB="92"/>
+		<icon name="wheat" type="2" color="darkGray" setStateInArea="true" placeB="93"/>		
+		<icon name="animal" type="2" color="darkGray" setStateInArea="true" placeB="95"/>		
+		<icon name="closeLines" type="2" color="darkGray" setStateInArea="true" placeB="100"/>			
+		<icon name="daysMinus" type="2" color="darkGray" setStateInArea="true" placeB="103"/>		
+		<icon name="capacityLevelMinus" type="2" color="white" setStateInArea="true" placeB="104" />		
+		<icon name="markedLine" type="2" color="blackInactive" placeB="120"/>
+	</boxIcons>
+</pih_display>

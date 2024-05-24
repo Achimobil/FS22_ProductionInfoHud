@@ -161,6 +161,8 @@ Changelog
 	<iconFilename>icon_prodcutionInfoHud.dds</iconFilename>
 	<multiplayer supported="true"/>
 	<extraSourceFiles>
+		<sourceFile filename="hlUtils\_hlUtils.lua"/>		
+		<sourceFile filename="hlHudSystem\hlHudSystem.lua"/>
 		<sourceFile filename="ProductionPointInputIgnorePihEvent.lua"/>
 		<sourceFile filename="ProductionInfoHud.lua"/>
 		<sourceFile filename="ProductionInfoHudSettings.lua"/>

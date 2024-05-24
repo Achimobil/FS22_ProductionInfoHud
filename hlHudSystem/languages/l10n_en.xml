@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<l10n version="1">
+	<texts>
+		<text name="hl_infoDisplay_settingAllRoundExtension" text="*AllRound Extension Mod Setting* ON/OFF (MouseClick Right))" />
+		<text name="hl_infoDisplay_notFoundHud" text="! Not found setting HUD !" />
+		<text name="hl_infoDisplay_viewMpOff" text="*GLOBAL HUD/PDA/BOX* Displays ON/OFF/n/Deaktiviert ALL Displays (only Activ in Multiplayer)" />
+		<text name="hl_infoDisplay_viewNotAllIcons" text="! Attention to see not all Icons !/n/Edit Width in %s (bottom right)" />
+		<text name="hl_infoDisplay_displayTypSwitch" text="%s Display Typ Switch (MouseClick Left)" />
+		<text name="hl_infoDisplay_displayChangeSize" text="%s Display Typ %s = %s Size (MouseScroll Up/Down)" />		
+		<text name="hl_infoDisplay_lineDistance" text="*Line Distance Up/Down* %s (MouseClick Left/Right)" />		
+		<text name="hl_infoDisplay_textSize" text="*TEXT SIZE* %s (MouseScroll Up/Down)" />
+		<text name="hl_infoDisplay_autoSaveOnOff" text="*GLOBAL HUD/PDA/BOX AUTO SAVE ON/OFF* (MouseClick Right)" />
+		<text name="hl_infoDisplay_autoSaveOn" text="Automatic save is ON" />
+		<text name="hl_infoDisplay_autoSaveOff" text="Automatic save is OFF" />
+		<text name="hl_infoDisplay_autoSaveTypOff" text="Automatic save is for this %s Disabled by Creator Mod" />
+		<text name="hl_infoDisplay_autoSaveTimer" text="Save Intervall all %s sec./n/-Edit ...modSettings/HL/HudSystem/hlHudSystem.xml/n/*autoSaveTimer* in second (Default %s)/n/Exit Game(regular) is forever automatic save" />
+		<text name="hl_infoDisplay_firstStart" text="-Du kannst in allen 4 Ecken des Hud/Pda oder Box Standart Mause Aktionen ausführen/n/-Activate MouseControl (HlOnOffMouseCursor: Default F9 Key-Player Interaction)/n/-Innerhalb der Hud/Pda oder Box stehen dir weiter Maus Aktionen zu Verfügung/n/-Diese können Unterschiedlich sein und werden vom Mod Ersteller gesetzt/n/-Dafür muss sich der Mauszeiger(in der Regel) in diesem Bereich befinden" />
+        <text name="hl_infoDisplay_on" text="*HUD/PDA/BOX DEFAULT INFO ON* all (MouseClick Middle)" />
+		<text name="hl_infoDisplay_off" text="*HUD/PDA/BOX DEFAULT INFO DISABLED*" />
+		<text name="hl_infoDisplay_onOff" text="*HUD/PDA/BOX DEFAULT INFO ON/OFF* (MouseClick Middle)" />		
+		<text name="hl_infoDisplay_separator" text="*%s SEPARATOR LINE ON/OFF* (MouseClick Left)" />		
+		<text name="hl_infoDisplay_saveAll" text="*HUD/PDA/BOX SAVE* all (MouseClick Left)" />		
+		<text name="hl_infoDisplay_save" text="*%s SAVE* (MouseClick Left)" />		
+		<text name="hl_infoDisplay_close" text="*%s CLOSE* (MouseClick Left)" />		
+		<text name="hl_infoDisplay_dragDropHudsWH" text="*HEIGHT* All HUDS/n/*WIDTH* only this HUD (MouseClick Left/Move/Left)/n/-The HEIGHT has a Max/Min. limit/n/-The WIDTH has a Min. limit" />		
+		<text name="hl_infoDisplay_dragDrop" text="*%s DRAGDROP POSITION* (MouseClick Left/%s move/Left)" />		
+		<text name="hl_infoDisplay_dragDropWH" text="*%s WIDTH/HEIGHT* (MouseClick Left/Move/Left)/n/-The WIDTH/HEIGHT has a Min. Limit" />		
+		<text name="hl_infoDisplay_positionHud" text="*HUD POSITION* this HUD (MouseClick Left/Right |--H--|)" />		
+		<text name="hl_infoDisplay_settingGlobal" text="*GLOBAL HUDS SETTINGS ON/OFF* (MouseClick Left/Move in HUD Area)" />		
+		<text name="hl_infoDisplay_setting" text="*%s SETTINGS ON/OFF* (MouseClick Left)/n/-Settings depend on the Creator Mod" />		
+		<text name="hl_infoDisplay_zoomOutIn" text="*ZOOM* Text/Icon in %s (MouseScroll Up/Down)/n/-If this %s Setting On" />		
+		<text name="hl_infoDisplay_dragDropWarningMinW" text="Min. WIDTH this %s reached" />		
+		<text name="hl_infoDisplay_dragDropWarningMinH" text="Min. HEIGHT this %s reached" />
+		<text name="hl_infoDisplay_dragDropWarningMaxH" text="Max HEIGHT this %s reached" />
+		<text name="hl_infoDisplay_dragDropWarningMinWH" text="Min. WIDTH/HEIGHT this %s reached" />
+		<text name="hl_infoDisplay_help" text="*%s HELP ON/OFF* (MouseClick Left)/n/-Help depend on the Creator Mod" />		
+		<text name="hl_infoDisplay_extraLine" text="*%s MENU ON/OFF* (MouseClick Left)/n/-MENU depend on the Creator Mod" />		
+		<text name="hl_infoDisplay_search" text="*SEARCHFILTER* Activate/Use/n/-FILTER depend on the Creator Mod" />
+		<text name="hl_infoDisplay_autoClose" text="*Display Automatic Open/Close* (MouseClick Left)/n/-Opens/Closes this Display is MouseCursor On/Off/n/-Display must be On" />
+	</texts>
+</l10n>

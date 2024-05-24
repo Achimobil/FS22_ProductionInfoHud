@@ -1,0 +1,114 @@
+﻿<hlHudSystem>	
+	<background load="1">
+		<icon name="bg" type="2" color="blackDisabled" placeB="120"/>
+	</background>
+	<backgroundIcons load="7">
+		<icon name="blank" type="1" placeB="127"/>
+		<icon name="bg" type="2" color="blackDisabled" placeB="120"/>		
+		<icon name="bgRound" type="2" color="blackDisabled" placeB="119"/>
+		<icon name="bgHalfRoundUp" type="2" color="blackDisabled" placeB="118"/>
+		<icon name="bgHalfRoundDown" type="2" color="blackDisabled" placeB="117"/>
+		<icon name="bgHalfRoundRight" type="2" color="blackDisabled" placeB="116"/>
+		<icon name="bgHalfRoundLeft" type="2" color="blackDisabled" placeB="115"/>
+	</backgroundIcons>
+	<mouseIcons load="6">
+		<icon name="mouse" type="2" color="khaki" placeB="126"/>
+		<icon name="mouseClickRight" type="2" color="khaki" placeB="125"/>
+		<icon name="mouseClickMiddle" type="2" color="khaki" placeB="124"/>
+		<icon name="mouseClickLeft" type="2" color="khaki" placeB="123"/>
+		<icon name="mouseClickSideRight" type="2" color="khaki" placeB="122"/>
+		<icon name="mouseClickSideLeft" type="2" color="khaki" placeB="121"/>		
+	</mouseIcons>	
+	<loadIcons load="90">
+		<icon name="left" type="2" color="white"/>
+		<icon name="down" type="2" color="white"/>
+		<icon name="up" type="2" color="white"/>
+		<icon name="right" type="2" color="white"/>
+		<icon name="upDown" type="2" color="white"/>
+		<icon name="leftRight" type="2" color="white"/>
+		<icon name="plusRound" type="2" color="white"/>
+		<icon name="minusRound" type="2" color="white"/>
+		<icon name="plus" type="2" color="white"/>
+		<icon name="minus" type="2" color="white"/>
+		<icon name="okay" type="2" color="green"/>
+		<icon name="notOkay" type="2" color="red"/>
+		<icon name="help" type="2" color="darkGray"/>
+		<icon name="edit" type="2" color="green"/>
+		<icon name="notice" type="2" color="red"/>
+		<icon name="load" type="2" color="ls22"/>
+		<icon name="save" type="2" color="green"/>
+		<icon name="smallView" type="2" color="darkGray"/>
+		<icon name="warning" type="2" color="yellow"/>
+		<icon name="setting" type="2" color="green"/>
+		<icon name="cmd" type="2" color="white"/>
+		<icon name="textUp" type="2" color="white"/>
+		<icon name="textDown" type="2" color="white"/>
+		<icon name="lineHorizontalUpDown" type="2" color="white"/>
+		<icon name="lineHorizontalDownUp" type="2" color="white"/>
+		<icon name="textPlus" type="2" color="white"/>
+		<icon name="textMinus" type="2" color="white"/>
+		<icon name="cloneHud" type="2" color="darkGray"/>
+		<icon name="delete" type="2" color="yellow"/>
+		<icon name="info" type="2" color="yellow"/>
+		<icon name="lineVertical" type="2" color="white"/>
+		<icon name="lineHorizontal" type="2" color="white"/>
+		<icon name="switchView" type="2" color="darkGray"/>
+		<icon name="settingExtension" type="2" color="darkGray"/>
+		<icon name="view" type="2" color="darkGray"/>
+		<icon name="lineHorizontalUp" type="2" color="white"/>
+		<icon name="lineHorizontalDown" type="2" color="white"/>
+		<icon name="cmdView" type="2" color="white"/>
+		<icon name="lineVerticelLeftRight" type="2" color="white"/>
+		<icon name="lineVerticelRightLeft" type="2" color="white"/>
+		<icon name="unlock" type="2" color="darkGray"/>
+		<icon name="lock" type="2" color="darkGray"/>
+		<icon name="lockout" type="2" color="darkGray"/>
+		<icon name="hudPlus" type="2" color="darkGray"/>
+		<icon name="hudMinus" type="2" color="darkGray"/>
+		<icon name="plusWhat" type="2" color="darkGray"/>
+		<icon name="editWhat" type="2" color="darkGray"/>
+		<icon name="dragDropWhat" type="2" color="darkGray"/>
+		<icon name="waypoint" type="2" color="darkGray"/>
+		<icon name="close" type="2" color="darkGray"/>
+		<icon name="border" type="2" color="darkGray"/>
+		<icon name="flip" type="2" color="darkGray"/>
+		<icon name="markerSizeWidthHeight" type="2" color="darkGray"/>
+		<icon name="sizeWidthHeight" type="2" color="green"/>
+		<icon name="dragDrop" type="2" color="green"/>
+		<icon name="leftRightSmall" type="2" color="white"/>
+		<icon name="upDownSmall" type="2" color="white"/>
+		<icon name="settingOther" type="2" color="darkGray"/>		
+		<icon name="search" type="2" color="darkGray"/>
+		<icon name="priceTrendNormal" type="2" color="darkGray" placeB="81"/>
+		<icon name="priceTrendGreatDemand" type="2" color="ls15" placeB="81"/>
+		<icon name="priceTrendUp" type="2" color="darkGreen" placeB="82"/>
+		<icon name="priceTrendDown" type="2" color="darkRed" placeB="83"/>
+		<icon name="priceTrend" type="2" color="darkGray" placeB="84"/>
+		<icon name="female" type="2" color="darkGray" placeB="85"/>
+		<icon name="male" type="2" color="darkGray" placeB="86"/>
+		<icon name="fillAmount" type="2" color="darkGray" placeB="87"/>
+		<icon name="emptyAmount" type="2" color="darkGray" placeB="88"/>
+		<icon name="bale" type="2" color="darkGray" placeB="89"/>
+		<icon name="pallete" type="2" color="darkGray" placeB="90"/>
+		<icon name="clock" type="2" color="darkGray" placeB="91"/>
+		<icon name="production" type="2" color="darkGray" placeB="92"/>
+		<icon name="wheat" type="2" color="darkGray" placeB="93"/>
+		<icon name="animal" type="2" color="darkGray" placeB="94"/>
+		<icon name="animals" type="2" color="darkGray" placeB="95"/>
+		<icon name="moneyEuro" type="2" color="darkGray" placeB="96"/>
+		<icon name="tree" type="2" color="darkGray" placeB="97"/>
+		<icon name="productionDirectDeliver" type="2" color="green" placeB="98"/>
+		<icon name="productionDirectSell" type="2" color="green" placeB="99"/>
+		<icon name="closeLines" type="2" color="green" placeB="100"/>
+		<icon name="openLines" type="2" color="green" placeB="101"/>
+		<icon name="emptyCalendar" type="2" color="white" placeB="102"/>
+		<icon name="calendar" type="2" color="yellowGreen" placeB="103"/>
+		<icon name="fermenting" type="2" color="orangeRed" placeB="104"/>
+		<icon name="contractor" type="2" color="darkGray" placeB="105"/>
+		<icon name="note" type="2" color="darkGray" placeB="106"/>
+		<icon name="noteView" type="2" color="darkGray" placeB="107"/>
+		<icon name="pageLeftRight" type="2" color="darkGray" placeB="108"/>
+		<icon name="state" type="2" color="blackDisabled" placeB="114"/>
+		<icon name="statePercent" type="2" color="blackDisabled" placeB="113"/>
+	</loadIcons>
+</hlHudSystem>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<l10n version="1">
+	<texts>
+       	<text name="object_maphotspot" text="View Object MapHotspot(s) (MouseClick Middle)" />
+		<text name="object_teleport" text="Teleport to Object (MouseClick Right) *if available*" />
+		<text name="box_closeDetailsLines" text="Closed all open Object Details *Days,Amounts etc.* (MouseClick Left)" />
+		<text name="box_clickInfos" text="*Name/Num/Days* Details On/Off (MouseClick Left)/n/*Teleport* (MouseClick Right)/n/*MapHotspot(s)* (MouseClick Middle)/n/*???* (MouseClick Left)" />
+		<text name="box_autoAlign" text="*Display automatic align On/Off* Status: %s %s (MouseClick Left)" />
+	</texts>
+</l10n>
