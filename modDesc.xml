@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8" standalone="no" ?>
-<modDesc descVersion="79">
+<modDesc descVersion="80">
 	<author>Achimobil</author>
 	<contributor>Rodberaht, HappyLooser</contributor>
-	<version>1.4.0.6</version>
+	<version>1.4.1.0</version>
 	<title>
 		<de>Produktionen Info Hud</de>
 		<en>Production Info Hud</en>
@@ -50,13 +50,13 @@ Upload auf anderen Seiten nur durch mich selbst, Verlinkung nur mit Original Dow
 Das verändern oder erneutes hochladen, ob ganz oder in Teilen ist nicht gestattet!
 
 Changelog
-
-1.4.0.1 - Fix für "attempt to index field 'spec_husbandryFood' (a nil value)"
-1.4.0.2 - MOH zeigt jetzt auch volle und fast volle an, wenn diese Eingangs und Ausgangprodukte sind
-1.4.0.3 - 0:00 sollte jetzt immer als leer angezeigt werden
-1.4.0.4 - Extensions werden bei Produktionen jetzt mit eingerechnet in der Restlaufzeit
-1.4.0.5 - Lua Fehler mit Farm Production DLC behoben
-1.4.0.6 - Anzeige Farben Rot/Orange/Gelb verbessert
+1.4.1.0
+- Fix für "attempt to index field 'spec_husbandryFood' (a nil value)"
+- MOH zeigt jetzt auch volle und fast volle an, wenn diese Eingangs und Ausgangprodukte sind
+- 0:00 sollte jetzt immer als leer angezeigt werden
+- Extensions werden bei Produktionen jetzt mit eingerechnet in der Restlaufzeit
+- Lua Fehler mit Farm Production DLC behoben
+- Anzeige Farben Rot/Orange/Gelb verbessert
 
 1.4.0.0
 * Erweiterten Tiersystem Mod Kompatibilität
@@ -82,11 +82,6 @@ Changelog
 - Übersetzungen in spanisch und französisch hinzugefügt
 - Fix für Inputs die auch Outputs sind
 - Unsichtbare Produktionen aus dem Produktionsskript von GTX werden nicht mehr angezeigt
-
-1.2.0.0
-- Bei Produktionen mit Öffnungszeiten wird die Restlaufzeit während der Öffnung angezeigt und deshalb werden diese jetzt früher als 2 Tage schon ausgeblendet
-- Unterstützung einer ungefilterten Anzeige der Produktionsdaten im MultiOverlayV4 Hud (HappyLooser)
-- In der Produktionsübersicht wird nun bei der Jahresansicht berücksichtigt, wenn eine Produktion nur Seasonal oder Monatsweise läuft
 ]]></de>
 		<en>
 			<![CDATA[HUD display for productions that need attention.
@@ -129,6 +124,13 @@ Upload on other sites only by myself, linking only with original download link. 
 Modifying and re-uploading in whole or in part is not allowed!
 
 Changelog
+1.4.1.0
+- Fix for "attempt to index field 'spec_husbandryFood' (a nil value)"
+- MOH now also shows full and almost full when these are input and output products
+- 0:00 should now always be displayed as empty
+- Extensions are now included in the remaining time for productions
+- Lua error with Farm Production DLC fixed
+- Display colours red/orange/yellow improved
 
 1.4.0.0
 * Enhanced animal system mod compatibility
@@ -154,11 +156,6 @@ Changelog
 - Translations in spanish and french added
 - Fix for inputs that are also outputs
 - Invisible productions from GTX production script are no longer displayed
-
-1.2.0.0
-- For productions with opening hours, the remaining time is displayed during the opening and therefore these are now already hidden earlier than 2 days
-- Unterstützung einer ungefilterten Anzeige der Produktionsdaten im MultiOverlayV4 Hud (HappyLooser)
-- In the production overview, the yearly view now takes into account if a production only runs seasonally or monthly.
 ]]></en>
 	</description>
 	<iconFilename>icon_prodcutionInfoHud.dds</iconFilename>
