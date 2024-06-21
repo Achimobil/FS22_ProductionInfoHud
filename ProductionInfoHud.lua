@@ -60,6 +60,7 @@ function ProductionInfoHud:init()
 	ProductionInfoHud.inputManager = g_gui.inputManager;
 	ProductionInfoHud.sellPriceDataSorted = {};
 	ProductionInfoHud.productionDataSorted = {};
+	ProductionInfoHud.IsTerraLifePlus = false;
 	
 	-- default settings einstellen
 	ProductionInfoHud.settings = {};
@@ -96,6 +97,13 @@ function ProductionInfoHud:init()
 			setTextBold(false)
 			setTextColor(unpack(ProductionInfoHud.InfoMessageHUD.Colors[1][2])) --Back to default color which is white
 			setTextAlignment(RenderText.ALIGN_LEFT)
+		end
+	end
+	
+	local TLP = g_modManager:getModByName("FS22_TerraLifePlus")
+	if TLP ~= nil then
+		if g_modIsLoaded[TLP.modName] then
+			ProductionInfoHud.IsTerraLifePlus = true
 		end
 	end
 	   
@@ -552,6 +560,120 @@ function ProductionInfoHud:AddVanillaHusbandryFood(myProductions, placeable)
 		end
 	end
 end
+
+function ProductionInfoHud:AddTerraLifeHusbandryFood(myProductions, placeable)
+
+	-- ProductionInfoHud.print("timeAdjustment: %s daysPerPeriod: %s", g_currentMission.environment.timeAdjustment, g_currentMission.environment.daysPerPeriod);
+			
+	-- futter mit TLP ist pro Cluster unterschiedlich, also müssen wir erst mal alles sammeln in productionItems
+	-- liste mit den title als key und den productionItem als daten so dass es direkt eingetragen werden könnte
+	local productionItems = {};
+	
+	local clusters = placeable.spec_husbandryAnimals.clusterSystem:getClusters();
+	for _, cluster in ipairs(clusters) do
+		local animalFood = g_currentMission.animalFoodSystem:getAnimalFood(placeable.spec_husbandryFood.animalTypeIndex, cluster);
+				
+		-- berechnen wie viel dieser cluster pro stunde braucht nur ein mal pro cluster für spätere verwendung
+		local litersPerHour = 0;
+		local subType = g_currentMission.animalSystem:getSubTypeByIndex(cluster.subTypeIndex);
+		if subType ~= nil then
+			local food = subType.input.food;
+
+			if food ~= nil then
+				local age = cluster:getAge();
+				local litersPerAnimal = food:get(age);
+				local litersPerDay = litersPerAnimal * cluster:getNumAnimals();
+				local lactationFactor = cluster:getLactationFoodFactor();
+				litersPerHour = litersPerHour + litersPerDay / 24;
+				litersPerHour = litersPerHour * lactationFactor;
+			end
+		end
+		
+		if animalFood.consumptionType == AnimalFoodSystem.FOOD_CONSUME_TYPE_SERIAL then
+			-- later 
+		elseif animalFood.consumptionType == AnimalFoodSystem.FOOD_CONSUME_TYPE_PARALLEL then
+			for _, foodGroup in pairs(animalFood.groups) do
+			
+				local productionItem = productionItems[foodGroup.title];
+				if productionItem == nil then
+					productionItem = {}
+					productionItem.name = placeable:getName();
+					productionItem.fillLevel = g_currentMission.animalFoodSystem:getTotalFillLevelInGroup(foodGroup, placeable.spec_husbandryFood.fillLevels);
+					productionItem.isInput = true;
+					productionItem.isOutput = false;
+					productionItem.fillTypeTitle = foodGroup.title;
+					
+					-- Diese hier müssen am ende berechnet werden aus summenwerten
+					productionItem.needPerHour = 0;
+					productionItem.hoursLeft = 0;
+					productionItem.capacity = 0;
+					productionItem.timeInMinutes = 0;
+					
+					productionItems[foodGroup.title] = productionItem;
+				end
+				
+				-- verbrauch abhängig von cluster litersPerHour und der foodGroup eatweight aufsummieren
+				productionItem.needPerHour = productionItem.needPerHour + litersPerHour * foodGroup.eatWeight;
+			end
+		end
+	end
+	
+	-- jetzt die restzeiten berechnen
+	for _, productionItem in pairs(productionItems) do
+		if (productionItem.fillLevel ~= 0) and (productionItem.needPerHour ~= 0) then
+			-- hier die anzahl der Tage pro Monat berücksichtigen, ist das den korrekt so in TLP?
+			productionItem.hoursLeft = productionItem.fillLevel / (productionItem.needPerHour * g_currentMission.environment.timeAdjustment);
+		end
+		
+		if (productionItem.needPerHour > 0) then 
+			productionItem.timeInMinutes = Utils.formatTime(productionItem.hoursLeft * 60)
+		end
+	end
+	
+	-- ProductionInfoHud.printTable("productionItems", productionItems)
+	
+	-- Wenn alle gleich sind nur ein eintrag machen aber nur bei denen die auch einen verbrauch haben, der rest interessiert nicht
+	local allSame = nil;
+	local fillLevelTotal = 0;
+	local capacityTotal = 0;
+	local compareValue = nil;
+	local firstItem = nil;
+	for _, productionItem in pairs(productionItems) do
+		if (productionItem.needPerHour > 0) then 
+			if compareValue == nil then
+				compareValue = productionItem.timeInMinutes
+				allSame = true;
+				fillLevelTotal = productionItem.fillLevel;
+				capacityTotal = productionItem.capacity;
+				firstItem = productionItem;
+			else
+				if compareValue ~= productionItem.timeInMinutes then
+					allSame = false;
+				end
+				fillLevelTotal = fillLevelTotal + productionItem.fillLevel;
+				capacityTotal = capacityTotal + productionItem.capacity;
+			end
+		end
+	end
+	
+	if allSame ~= nil then
+		if allSame then
+			local productionItem = firstItem;
+			productionItem.fillTypeTitle = placeable.spec_husbandryFood.info.title;
+			productionItem.capacity = capacityTotal;
+			productionItem.fillLevel = fillLevelTotal;
+			table.insert(myProductions, productionItem)
+		else
+			for _, productionItem in pairs(productionItems) do
+				if (productionItem.needPerHour > 0) then 
+					table.insert(myProductions, productionItem)
+				end
+			end
+		end
+	end
+	
+	-- ProductionInfoHud.printTable("myProductions", myProductions)
+end
 		
 function ProductionInfoHud:refreshProductionsTable()
 		
@@ -808,7 +930,12 @@ function ProductionInfoHud:refreshProductionsTable()
 		for _, placeable in pairs(g_currentMission.husbandrySystem.placeables) do
 			if placeable.ownerFarmId == farmId and placeable.spec_husbandryFood ~= nil and placeable.spec_husbandryFood.litersPerHour ~= 0 then
 			
-				self:AddVanillaHusbandryFood(myProductions, placeable);					
+				-- Futter Auswerten und einfügen
+				if ProductionInfoHud.IsTerraLifePlus then
+					self:AddTerraLifeHusbandryFood(myProductions, placeable);
+				else
+					self:AddVanillaHusbandryFood(myProductions, placeable);
+				end
 				
 				-- Fütterungsroboter vorhanden, dann anders die werte berechnen
 				if placeable.spec_husbandryFeedingRobot ~= nil and placeable.spec_husbandryFeedingRobot.feedingRobot ~= nil then
