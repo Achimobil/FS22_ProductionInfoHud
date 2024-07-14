@@ -334,6 +334,12 @@ function ProductionInfoHud:createProductionNeedingTable(mode)
 					if production.hideFromMenu ~= nil and production.hideFromMenu == true then
 						goto skipProductionInputInCreateProductionNeedingTable
 					end
+					
+					-- im revamp ab 1.5 kann boost auch anders sein als 6, deshalb auslesen mit fallback
+					local boostNumber = 6;
+					if production.boostNumber ~= nil then
+						boostNumber = production.boostNumber;
+					end
 						
 					-- berechnen des yearFactor wenn notwendig
 					local yearFactor = 1
@@ -393,7 +399,7 @@ function ProductionInfoHud:createProductionNeedingTable(mode)
 							-- aktive Booster berechnen
 							local boostFactor = 1;
 							for _, input in pairs(production.inputs) do
-								if input.mix ~= nil and input.mix == 6 then
+								if input.mix ~= nil and input.mix == boostNumber then
 									-- ist ein booster
 									if productionPoint:getFillLevel(fillTypeId) > 1 then
 										boostFactor = boostFactor + Utils.getNoNil(input.boostfactor, input.boostFactor);
@@ -734,6 +740,12 @@ function ProductionInfoHud:refreshProductionsTable()
 						if production.hideFromMenu ~= nil and production.hideFromMenu == true then
 							goto skipProductionInputInRefreshProductionsTable
 						end
+					
+						-- im revamp ab 1.5 kann boost auch anders sein als 6, deshalb auslesen mit fallback
+						local boostNumber = 6;
+						if production.boostNumber ~= nil then
+							boostNumber = production.boostNumber;
+						end
 						
 						for _, input in pairs(production.inputs) do
 							-- status 3 = läuft nicht weil ausgang voll
@@ -750,7 +762,7 @@ function ProductionInfoHud:refreshProductionsTable()
 							end
 							
 							-- wenn booster könnte ein conditional outputConditional dran hängen und den dann wieder abziehen von den needPerHour
-							if input.mix == 6 then 
+							if input.mix == boostNumber then 
 								if input.outputConditional ~= nil and not input.outputConditional == false then
 									if input.outputConditional == fillTypeId and productionPoint:getFillLevel(fillTypeId) > 1 then
 										productionItem.isOutput = true;
@@ -831,9 +843,15 @@ function ProductionInfoHud:refreshProductionsTable()
 						goto skipProductionMixInRefreshProductionsTable
 					end
 					
+					-- im revamp ab 1.5 kann boost auch anders sein als 6, deshalb auslesen mit fallback
+					local boostNumber = 6;
+					if production.boostNumber ~= nil then
+						boostNumber = production.boostNumber;
+					end
+					
 					--ProductionInfoHud.printTable("productionPoint.owningPlaceable", productionPoint.owningPlaceable)
 						
-					for n = 1, 5 do
+					for n = 1, (boostNumber - 1) do
 						local productionItem = {}
 						productionItem.name = productionPoint.owningPlaceable:getName();
 						productionItem.fillTypeTitle = (production.name or production.id) .. " (Mix " .. n .. ")";
@@ -849,7 +867,7 @@ function ProductionInfoHud:refreshProductionsTable()
 						
 						for _, input in pairs(production.inputs) do
 							-- status 3 = läuft nicht weil ausgang voll
-							if input.mix == n then 
+							if input.mix == (boostNumber - 1) then 
 					
 								local ignoreInput = false;
 								if productionPoint.inputFillTypeIdsIgnorePih ~= nil and productionPoint.inputFillTypeIdsIgnorePih[input.type] ~= nil then
@@ -877,7 +895,7 @@ function ProductionInfoHud:refreshProductionsTable()
 						-- jeden booster separat
 						for _, input in pairs(production.inputs) do
 							-- status 3 = läuft nicht weil ausgang voll
-							if input.mix == 6 then 
+							if input.mix == boostNumber then 
 					
 								local ignoreInput = false;
 								if productionPoint.inputFillTypeIdsIgnorePih ~= nil and productionPoint.inputFillTypeIdsIgnorePih[input.type] ~= nil then
