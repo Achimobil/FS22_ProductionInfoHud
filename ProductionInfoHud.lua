@@ -291,7 +291,7 @@ function ProductionInfoHud:createProductionNeedingTable(mode)
 		for _, productionPoint in pairs(g_currentMission.productionChainManager.farmIds[farmId].productionPoints) do
 		
 			-- hidden stuff from GTX production script
-			if productionPoint.hiddenOnUI ~= nil and productionPoint.hiddenOnUI == true then
+			if productionPoint.hiddenOnUI ~= nil and productionPoint.hiddenOnUI == true or production.feedMixer ~= nil then
 				goto ignoreProduction
 			end			
 				
@@ -737,7 +737,7 @@ function ProductionInfoHud:refreshProductionsTable()
 					for _, production in pairs(productionPoint.activeProductions) do
 					
 						-- skip productions of the production point when needed
-						if production.hideFromMenu ~= nil and production.hideFromMenu == true then
+						if production.hideFromMenu ~= nil and production.hideFromMenu == true or production.feedMixer ~= nil then
 							goto skipProductionInputInRefreshProductionsTable
 						end
 					
@@ -839,7 +839,7 @@ function ProductionInfoHud:refreshProductionsTable()
 				for _, production in pairs(productionPoint.activeProductions) do
 					
 					-- skip productions of the production point when needed
-					if production.hideFromMenu ~= nil and production.hideFromMenu == true then
+					if production.hideFromMenu ~= nil and production.hideFromMenu == true or production.feedMixer ~= nil then
 						goto skipProductionMixInRefreshProductionsTable
 					end
 					
@@ -938,6 +938,23 @@ function ProductionInfoHud:refreshProductionsTable()
 					end
 					
 					::skipProductionMixInRefreshProductionsTable::
+				end
+				
+				-- jetzt noch die feedmixer separat
+				for _, production in pairs(productionPoint.activeProductions) do
+					if production.feedMixer ~= nil and production.status ~= 1 then
+						local productionItem = {}
+						productionItem.name = productionPoint.owningPlaceable:getName();
+						productionItem.fillTypeTitle = (production.name or production.id) .. " (Mixer)" .. production.status;
+						productionItem.hoursLeft = 0
+						productionItem.timeAdjustment = 1;
+						productionItem.productionPoint = productionPoint;
+						productionItem.isInput = true;
+						if production.activeHours ~= nil then
+							productionItem.timeAdjustment = productionItem.timeAdjustment * (production.activeHours / 24)
+						end
+						table.insert(myProductions, productionItem)
+					end
 				end
 				
 				::ignoreProduction::
