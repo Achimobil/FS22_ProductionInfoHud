@@ -291,7 +291,7 @@ function ProductionInfoHud:createProductionNeedingTable(mode)
 		for _, productionPoint in pairs(g_currentMission.productionChainManager.farmIds[farmId].productionPoints) do
 		
 			-- hidden stuff from GTX production script
-			if productionPoint.hiddenOnUI ~= nil and productionPoint.hiddenOnUI == true or production.feedMixer ~= nil then
+			if productionPoint.hiddenOnUI ~= nil and productionPoint.hiddenOnUI == true then
 				goto ignoreProduction
 			end			
 				
@@ -331,7 +331,7 @@ function ProductionInfoHud:createProductionNeedingTable(mode)
 				for _, production in pairs(productionPoint.activeProductions) do
 					
 					-- skip productions of the production point when needed
-					if production.hideFromMenu ~= nil and production.hideFromMenu == true then
+					if production.hideFromMenu ~= nil and production.hideFromMenu == true or production.feedMixer ~= nil then
 						goto skipProductionInputInCreateProductionNeedingTable
 					end
 					
