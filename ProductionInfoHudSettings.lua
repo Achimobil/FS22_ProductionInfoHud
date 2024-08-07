@@ -41,6 +41,12 @@ function ProductionInfoHudSettings.initGuiElements(self)
             table.insert(possibleMaxLines, position .. " " .. ProductionInfoHudSettings:getText("pih_Zeilen"));
         end
         ProductionInfoHudSettings:AddMultiElement(self, target, "maxLines", possibleMaxLines, "pih_MaxLinesElement_title", "pih_tooltip_maxLines", ProductionInfoHud.settings["display"]["maxLines"]);
+		
+        local possibleMaxDays = {};
+        for i = 1, 24 do
+            table.insert(possibleMaxDays, i .. " " .. ProductionInfoHudSettings:getText("pih_Days"));
+        end
+        ProductionInfoHudSettings:AddMultiElement(self, target, "maxDays", possibleMaxDays, "pih_MaxDaysElement_title", "pih_tooltip_maxDays", ProductionInfoHud.settings["display"]["maxDays"]);
         
         ProductionInfoHudSettings:AddCheckElement(self, target, "showFullAnimals", "pih_showFullAnimals_title", "pih_tooltip_showFullAnimals", ProductionInfoHud.settings["display"]["showFullAnimals"]);
         

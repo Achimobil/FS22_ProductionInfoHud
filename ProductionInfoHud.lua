@@ -73,6 +73,7 @@ function ProductionInfoHud:init()
 	ProductionInfoHud.settings["display"]["minSellAmount"] = 1;
 	ProductionInfoHud.settings["display"]["showBooster"] = true;
 	ProductionInfoHud.settings["display"]["textSize"] = 5;
+	ProductionInfoHud.settings["display"]["maxDays"] = 2 * g_currentMission.environment.daysPerPeriod or 1;
 	
 	ProductionInfoHud:LoadSettings();
 	   
@@ -1501,7 +1502,7 @@ function ProductionInfoHud:draw()
 				skip = true;
 			end
 			if productionData.hoursLeft ~= nil then
-				local compareValue = 48 * g_currentMission.environment.daysPerPeriod;
+				local compareValue = ProductionInfoHud.settings["display"]["maxDays"] * 24;
 				if productionData.timeAdjustment ~= nil then
 					compareValue = compareValue * productionData.timeAdjustment
 				end
@@ -1737,6 +1738,9 @@ function ProductionInfoHud:SaveSettings()
 	local xmlTag = ("ProductionInfoHudSettings.display.maxLines(%d)"):format(0);
 	setXMLInt(XML, xmlTag.."#int", ProductionInfoHud.settings["display"]["maxLines"])
 
+	local xmlTag = ("ProductionInfoHudSettings.display.maxDays(%d)"):format(0);
+	setXMLInt(XML, xmlTag.."#int", ProductionInfoHud.settings["display"]["maxDays"])
+
 	local xmlTag = ("ProductionInfoHudSettings.display.maxSellingLines(%d)"):format(0);
 	setXMLInt(XML, xmlTag.."#int", ProductionInfoHud.settings["display"]["maxSellingLines"])
 
@@ -1781,6 +1785,10 @@ function ProductionInfoHud:LoadSettings()
 	xmlTag = ("ProductionInfoHudSettings.display.maxLines(%d)"):format(0); 
 	value = getXMLInt(XML, xmlTag.. "#int");
 	if value ~= nil then ProductionInfoHud.settings["display"]["maxLines"] = value;end;
+
+	xmlTag = ("ProductionInfoHudSettings.display.maxDays(%d)"):format(0); 
+	value = getXMLInt(XML, xmlTag.. "#int");
+	if value ~= nil then ProductionInfoHud.settings["display"]["maxDays"] = value;end;
 
 	xmlTag = ("ProductionInfoHudSettings.display.maxSellingLines(%d)"):format(0); 
 	value = getXMLInt(XML, xmlTag.. "#int");

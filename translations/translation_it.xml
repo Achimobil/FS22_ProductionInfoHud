@@ -44,6 +44,9 @@
 		<text name="pih_tooltip_minSellAmount" text="Questa quantità deve essere almeno in stock per essere visualizzata."/>
 		<text name="pih_textSize_title" text="Dimensione del carattere"/>
 		<text name="pih_textSize_tooltip" text="La dimensione del carattere"/>
+		<text name="pih_Days" text="Days"/>
+		<text name="pih_MaxDaysElement_title" text="Visible Days"/>
+		<text name="pih_tooltip_maxDays" text="Number of days the info is shown ahead"/>
 		<!-- In Produktionsmenü -->
 		<text name="pih_setFilltypeToIgnore" text="PIH: Nascondi input"/>
 		<text name="pih_setFilltypeToNotIgnore" text="PIH: Mostra input"/>

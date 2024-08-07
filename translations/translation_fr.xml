@@ -44,6 +44,9 @@
 		<text name="pih_tooltip_minSellAmount" text="Calculé selon les quantités présentes en stock dans les productions."/>
 		<text name="pih_textSize_title" text="Taille de la police"/>
 		<text name="pih_textSize_tooltip" text="Taille de la police de caractère."/>
+		<text name="pih_Days" text="Days"/>
+		<text name="pih_MaxDaysElement_title" text="Visible Days"/>
+		<text name="pih_tooltip_maxDays" text="Number of days the info is shown ahead"/>
 		<!-- In Produktionsmenü -->
 		<text name="pih_setFilltypeToIgnore" text="PIH: Masquer entrées"/>
 		<text name="pih_setFilltypeToNotIgnore" text="PIH: Afficher entrées"/>
