@@ -279,7 +279,7 @@ function ProductionInfoHud:createProductionNeedingTable(mode)
 	if mode == InGameMenuProductionInfo.MODE_MONTH then
 		factor = 1;
 	elseif mode == InGameMenuProductionInfo.MODE_HOUR then
-		factor = 1 / (24 * g_currentMission.environment.timeAdjustment); -- tage einstellungen auslesen!!!
+		factor = 1 / (24 * (1 / g_currentMission.environment.daysPerPeriod)); -- tage einstellungen auslesen!!!
 	else
 		factor = 12;
 	end
@@ -486,7 +486,7 @@ function ProductionInfoHud:AddVanillaHusbandryFood(myProductions, placeable)
 
 		if (productionItem.fillLevel ~= 0) and (productionItem.needPerHour ~= 0) then
 			-- hier die anzahl der Tage pro Monat berücksichtigen
-			productionItem.hoursLeft = productionItem.fillLevel / (productionItem.needPerHour * g_currentMission.environment.timeAdjustment);
+			productionItem.hoursLeft = productionItem.fillLevel / (productionItem.needPerHour * (1 / g_currentMission.environment.daysPerPeriod));
 		end
 			
 		if (productionItem.needPerHour > 0) then 
@@ -522,7 +522,7 @@ function ProductionInfoHud:AddVanillaHusbandryFood(myProductions, placeable)
 
 			if (productionItem.fillLevel ~= 0) and (productionItem.needPerHour ~= 0) then
 				-- hier die anzahl der Tage pro Monat berücksichtigen
-				productionItem.hoursLeft = productionItem.fillLevel / (productionItem.needPerHour * g_currentMission.environment.timeAdjustment);
+				productionItem.hoursLeft = productionItem.fillLevel / (productionItem.needPerHour * (1 / g_currentMission.environment.daysPerPeriod));
 			end
 			
 				
@@ -570,7 +570,7 @@ end
 
 function ProductionInfoHud:AddTerraLifeHusbandryFood(myProductions, placeable)
 
-	-- ProductionInfoHud.print("timeAdjustment: %s daysPerPeriod: %s", g_currentMission.environment.timeAdjustment, g_currentMission.environment.daysPerPeriod);
+	-- ProductionInfoHud.print("timeAdjustment: %s daysPerPeriod: %s", (1 / g_currentMission.environment.daysPerPeriod), g_currentMission.environment.daysPerPeriod);
 			
 	-- futter mit TLP ist pro Cluster unterschiedlich, also müssen wir erst mal alles sammeln in productionItems
 	-- liste mit den title als key und den productionItem als daten so dass es direkt eingetragen werden könnte
@@ -629,7 +629,7 @@ function ProductionInfoHud:AddTerraLifeHusbandryFood(myProductions, placeable)
 	for _, productionItem in pairs(productionItems) do
 		if (productionItem.fillLevel ~= 0) and (productionItem.needPerHour ~= 0) then
 			-- hier die anzahl der Tage pro Monat berücksichtigen, ist das den korrekt so in TLP?
-			productionItem.hoursLeft = productionItem.fillLevel / (productionItem.needPerHour * g_currentMission.environment.timeAdjustment);
+			productionItem.hoursLeft = productionItem.fillLevel / (productionItem.needPerHour * (1 / g_currentMission.environment.daysPerPeriod));
 		end
 		
 		if (productionItem.needPerHour > 0) then 
@@ -794,7 +794,7 @@ function ProductionInfoHud:refreshProductionsTable()
 
 					if (productionItem.fillLevel ~= 0) and (productionItem.needPerHour ~= 0) then
 						-- hier die anzahl der Tage pro Monat berücksichtigen
-						productionItem.hoursLeft = productionItem.fillLevel / (productionItem.needPerHour * g_currentMission.environment.timeAdjustment);
+						productionItem.hoursLeft = productionItem.fillLevel / (productionItem.needPerHour * (1 / g_currentMission.environment.daysPerPeriod));
 					end
 					
 		
@@ -881,7 +881,7 @@ function ProductionInfoHud:refreshProductionsTable()
 									needed = true;
 									local fillLevel = productionPoint:getFillLevel(input.type);
 									local needPerHour = (production.cyclesPerHour * input.amount);
-									local hoursLeft = fillLevel / (needPerHour * g_currentMission.environment.timeAdjustment);
+									local hoursLeft = fillLevel / (needPerHour * (1 / g_currentMission.environment.daysPerPeriod));
 									productionItem.hoursLeft = productionItem.hoursLeft + hoursLeft;
 								end
 							end
@@ -928,7 +928,7 @@ function ProductionInfoHud:refreshProductionsTable()
 									if production.activeHours ~= nil then
 										productionItem.timeAdjustment = productionItem.timeAdjustment * (production.activeHours / 24)
 									end
-									productionItem.hoursLeft = productionItem.fillLevel / (needPerHour * g_currentMission.environment.timeAdjustment);
+									productionItem.hoursLeft = productionItem.fillLevel / (needPerHour * (1 / g_currentMission.environment.daysPerPeriod));
 									
 									if (needPerHour > 0) then 
 										table.insert(myProductions, productionItem)
@@ -987,7 +987,7 @@ function ProductionInfoHud:refreshProductionsTable()
 						end
 						
 						local producableWithThisIngredient = fillLevel / ingredient.ratio;
-						local hoursLeft = producableWithThisIngredient / (placeable.spec_husbandryFood.litersPerHour * g_currentMission.environment.timeAdjustment);
+						local hoursLeft = producableWithThisIngredient / (placeable.spec_husbandryFood.litersPerHour * (1 / g_currentMission.environment.daysPerPeriod));
 						
 						local spot = feedingRobot.fillTypeToUnloadingSpot[ingredient.fillTypes[1]]
 
@@ -1044,7 +1044,7 @@ function ProductionInfoHud:refreshProductionsTable()
 
 						if (productionItem.fillLevel ~= 0) and (productionItem.needPerHour ~= 0) then
 							-- hier die anzahl der Tage pro Monat berücksichtigen
-							productionItem.hoursLeft = productionItem.fillLevel / (productionItem.needPerHour * g_currentMission.environment.timeAdjustment);
+							productionItem.hoursLeft = productionItem.fillLevel / (productionItem.needPerHour * (1 / g_currentMission.environment.daysPerPeriod));
 						end
 							
 						if (productionItem.needPerHour > 0) then 
@@ -1077,7 +1077,7 @@ function ProductionInfoHud:refreshProductionsTable()
 
 					if (productionItem.fillLevel ~= 0) and (productionItem.needPerHour ~= 0) then
 						-- hier die anzahl der Tage pro Monat berücksichtigen
-						productionItem.hoursLeft = productionItem.fillLevel / (productionItem.needPerHour * g_currentMission.environment.timeAdjustment);
+						productionItem.hoursLeft = productionItem.fillLevel / (productionItem.needPerHour * (1 / g_currentMission.environment.daysPerPeriod));
 					end
 						
 					if (productionItem.needPerHour > 0) then 
