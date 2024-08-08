@@ -2,7 +2,7 @@
 <modDesc descVersion="80">
 	<author>Achimobil</author>
 	<contributor>Rodberaht, HappyLooser</contributor>
-	<version>1.4.1.7</version>
+	<version>1.4.1.8</version>
 	<title>
 		<de>Produktionen Info Hud</de>
 		<en>Production Info Hud</en>
@@ -50,6 +50,7 @@ Upload auf anderen Seiten nur durch mich selbst, Verlinkung nur mit Original Dow
 Das verändern oder erneutes hochladen, ob ganz oder in Teilen ist nicht gestattet!
 
 Changelog
+1.4.1.8 - Berechnung für geteilte Produktionslinien korrigiert
 1.4.1.7 - Berechnungen für Server korrigiert
 1.4.1.6 - Anzahl der Tage für die eigene Anzeige ist nun einstellbar
 1.4.1.5 - Anpassungen aller Berechnungen an die 4 Wochen von TL+

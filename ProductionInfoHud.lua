@@ -629,7 +629,7 @@ function ProductionInfoHud:AddTerraLifeHusbandryFood(myProductions, placeable)
 	for _, productionItem in pairs(productionItems) do
 		if (productionItem.fillLevel ~= 0) and (productionItem.needPerHour ~= 0) then
 			-- hier die anzahl der Tage pro Monat berücksichtigen, ist das den korrekt so in TLP?
-			productionItem.hoursLeft = productionItem.fillLevel / (productionItem.needPerHour * (1 / g_currentMission.environment.daysPerPeriod));
+			productionItem.hoursLeft = productionItem.fillLevel / (productionItem.needPerHour * (1 / g_currentMission.environment.daysPerPeriod) * 4);
 		end
 		
 		if (productionItem.needPerHour > 0) then 
@@ -791,8 +791,13 @@ function ProductionInfoHud:refreshProductionsTable()
 						
 						::skipProductionInputInRefreshProductionsTable::
 					end
+					
 
 					if (productionItem.fillLevel ~= 0) and (productionItem.needPerHour ~= 0) then
+						-- wenn geteilte produktion, bedarf durch die anzahl der laufenden Produktionen Teilen
+						if productionPoint.sharedThroughputCapacity then
+							productionItem.needPerHour = productionItem.needPerHour / #productionPoint.activeProductions;
+						end
 						-- hier die anzahl der Tage pro Monat berücksichtigen
 						productionItem.hoursLeft = productionItem.fillLevel / (productionItem.needPerHour * (1 / g_currentMission.environment.daysPerPeriod));
 					end
