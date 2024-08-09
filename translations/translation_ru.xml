@@ -47,9 +47,9 @@
 		<text name="pih_tooltip_minSellAmount" text="Такой, минимальный, объём должен быть на складе для отображения."/>
 		<text name="pih_textSize_title" text="Размер шрифта"/>
 		<text name="pih_textSize_tooltip" text="Размер шрифта."/>
-		<text name="pih_Days" text="Days"/>
-		<text name="pih_MaxDaysElement_title" text="Visible Days"/>
-		<text name="pih_tooltip_maxDays" text="Number of days the info is shown ahead"/>
+		<text name="pih_Days" text=""/>
+		<text name="pih_MaxDaysElement_title" text="Дней для отображения"/>
+		<text name="pih_tooltip_maxDays" text="Количество дней для начала отображения."/>
 		<!-- In Produktionsmenü -->
 		<text name="pih_setFilltypeToIgnore" text="PIH: Скрывать в требуемых"/>
 		<text name="pih_setFilltypeToNotIgnore" text="PIH: Показывать в требуемых"/>
