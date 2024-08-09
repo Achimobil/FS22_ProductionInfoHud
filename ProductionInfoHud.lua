@@ -873,7 +873,7 @@ function ProductionInfoHud:refreshProductionsTable()
 						
 						for _, input in pairs(production.inputs) do
 							-- status 3 = läuft nicht weil ausgang voll
-							if input.mix == (boostNumber - 1) then 
+							if input.mix == n then 
 					
 								local ignoreInput = false;
 								if productionPoint.inputFillTypeIdsIgnorePih ~= nil and productionPoint.inputFillTypeIdsIgnorePih[input.type] ~= nil then
