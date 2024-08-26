@@ -591,7 +591,7 @@ function ProductionInfoHud:AddTerraLifeHusbandryFood(myProductions, placeable)
 				local litersPerAnimal = food:get(age);
 				local litersPerDay = litersPerAnimal * cluster:getNumAnimals();
 				local lactationFactor = cluster:getLactationFoodFactor();
-				litersPerHour = litersPerHour + litersPerDay / 24;
+				litersPerHour = litersPerHour + litersPerDay / 24 /4;
 				litersPerHour = litersPerHour * lactationFactor;
 			end
 		end
@@ -629,7 +629,8 @@ function ProductionInfoHud:AddTerraLifeHusbandryFood(myProductions, placeable)
 	for _, productionItem in pairs(productionItems) do
 		if (productionItem.fillLevel ~= 0) and (productionItem.needPerHour ~= 0) then
 			-- hier die anzahl der Tage pro Monat berücksichtigen, ist das den korrekt so in TLP?
-			productionItem.hoursLeft = productionItem.fillLevel / (productionItem.needPerHour * (1 / g_currentMission.environment.daysPerPeriod) * 4);
+			productionItem.hoursLeft = productionItem.fillLevel / (productionItem.needPerHour * (1 / g_currentMission.environment.daysPerPeriod));
+			-- ProductionInfoHud.print("productionItem.fillLevel: %s productionItem.needPerHour: %s", productionItem.fillLevel, productionItem.needPerHour);
 		end
 		
 		if (productionItem.needPerHour > 0) then 
