@@ -2,7 +2,7 @@
 <modDesc descVersion="80">
 	<author>Achimobil</author>
 	<contributor>Rodberaht, HappyLooser</contributor>
-	<version>1.4.1.11</version>
+	<version>1.5.0.0</version>
 	<title>
 		<de>Produktionen Info Hud</de>
 		<en>Production Info Hud</en>
@@ -14,57 +14,56 @@
 Die aktuelle Version hat folgende Möglichkeiten:
 - Anzeige der aktiven Produktionen und der Tierställe mit deren Restlaufzeit pro Rohstoff. Inklusive der Tierställe für Futter, Wasser und Stroh. Revamp Mix wird auch als solcher angezeigt.
 - Angezeigt wird eine Produktion nur, wenn...
-- - sie weniger als 2 Monate Restlaufzeit hat.
+- - sie weniger als 2 Tage Restlaufzeit hat (Einstellbar).
 - - sie weniger als 50% Füllstand hat. (Außer bei Revamp Mix Eingängen, da wird das ignoriert)
 - - Die Produktionslinie auch aktiviert ist.
-- Die Anzeige ist sortiert nach Restlaufzeit, was zuerst leer läuft oder leer ist steht oben.
-- Produktionen die Voll sind stehen noch darüber. Diese werden ab einem Füllstand von 95% angezeigt damit man diese Abfahren kann bevor die Produktion zum stehen kommt.
+- Die Anzeige ist sortiert nach Restlaufzeit, was zuerst leerläuft oder leer ist steht oben.
+- Produktionen die Voll sind stehen noch darüber. Diese werden ab einem Füllstand von 95% angezeigt damit man dieses Abfahren kann, bevor die Produktion zum Stehen kommt.
 - Volle Tierställe können in den Optionen abgeschaltet werden.
 - Wie viele Produktionen angezeigt werden ist einstellbar.
-- Die Schriftgröße ist Einstellbar.
-- Die Position ist Einstellbar auf oben mittig, Unter F1 Menü oder unter Vehicle Inspector Mod Anzeige.
+- Die Schriftgröße ist einstellbar.
+- Die Position ist einstellbar auf oben mittig, Unter F1 Menü oder unter Vehicle Inspector Mod Anzeige.
 - In den Produktionen können Input Filltypes für die Anzeige deaktiviert werden. Nützlich für Revamp Booster die man nicht anliefern will.
-- Revamp Booster können in den Einstellung auch komplett deaktiviert werden.
+- Revamp Booster können in den Einstellungen auch komplett deaktiviert werden.
 - Die Liste wird alle 5 Sekunden aktualisiert.
 
 Produktionsübersicht:
 - In dieser werden alle Filltypes angezeigt und wieviel davon benötigt wird.
 - Die Übersicht kann umgestellt werden auf pro Jahr, Monat oder Stunde
-- Bei der Jahresansicht wird die geschätzte Anbaufläche angezeigt, die für Feldfrüchte benötigt wird (ohne PF oder Bonis)
+- Bei der Jahresansicht wird die geschätzte Anbaufläche angezeigt, die für Feldfrüchte benötigt wird (ohne PF oder Bonus)
 
 Verkaufshilfe:
 - Wenn der Verkaufspreis-Trigger-Mod installiert ist, wird er angezeigt, wenn der Preis gut ist und die Produkte zum Verkauf angeboten werden.
 Hierbei gilt:
-- - Im Verkaufspreis-Trigger muss ein VK Preis eingestellt und dieser muss überschritten sein
-- - Die Menge die in den Einstellungen eingetragen ist muss in einem Lager oder einer Produktion vorhanden sein (Keine Tierställe)
+- - Im Verkaufspreis-Trigger muss ein VK-Preis eingestellt und dieser muss überschritten sein
+- - Die Menge, die in den Einstellungen eingetragen ist muss in einem Lager oder einer Produktion vorhanden sein (Keine Tierställe)
 - Die Anzeige zeigt einem was von wo geholt und nach wo verkauft werden kann.
 
 MultiOverlayV4 Hud Hilfe:
-- Rechtsklick auf Produktionsnamen und/oder Filltyp filtert die Liste auf das geklickte
+- Rechtsklick auf Produktionsnamen und/oder Filltype filtert die Liste auf das geklickte
 - Rechtsklick auf die Restzeit schaltet um auf Anzeige der freien Kapazität
 - Linksklick auf den Produktionsnamen öffnet die Produktion im Menü (nur bei Produktionen)
 
 Fehler oder Verbesserungsvorschläge bitte auf <a href="https://github.com/Achimobil/FS22_ProductionInfoHud/issues">Github</a> melden.
 
-Upload auf anderen Seiten nur durch mich selbst, Verlinkung nur mit Original Downloadlink. KEIN Ersatzlink!
-Das verändern oder erneutes hochladen, ob ganz oder in Teilen ist nicht gestattet!
+Upload auf anderen Seiten nur durch mich selbst, Verlinkung nur mit Original-Downloadlink. KEIN Ersatzlink!
+Das Verändern oder erneutes hochladen, ob ganz oder in Teilen ist nicht gestattet!
 
 Changelog
-1.4.1.11 - Alle Tierberechnungen und Produktionsberechnungen überarbeitet für mit und ohne TL+. Futterberechnung wird nun auch bei etwas größeren Abweichungen zusammengefasst.
-1.4.1.10 - TL+ Food Berechnung korrigiert
-1.4.1.9 - Fehler aus 1.4.1.2 behoben das Mix inputs nicht mehr berechnet werden
-1.4.1.8 - Berechnung für geteilte Produktionslinien korrigiert
-1.4.1.7 - Berechnungen für Server korrigiert
-1.4.1.6 - Anzahl der Tage für die eigene Anzeige ist nun einstellbar
-1.4.1.5 - Anpassungen aller Berechnungen an die 4 Wochen von TL+
-1.4.1.4 - Lua fehler fix
-1.4.1.3 - Anpassung an Revamp 1.5: Feedmixer Restlaufzeit wegen ständig neu berechneter Zusammenstellung nicht möglich. Deshalb wird er nur als leer oder (fast) voll angezeigt.
-1.4.1.2 - Anpassung an Revamp 1.5: Mehr Mix Gruppen
-1.4.1.1 - Tierfutteranzeige für TL+ angepasst
+1.5.0.0
+* Anpassungen für Revamp 1.5
+ - Mehr Mix Gruppen werden jetzt korrekt angezeigt
+ - Feed Mixer Restlaufzeit wegen ständig neu berechneter Zusammenstellung nicht möglich. Deshalb wird er nur leer oder (fast) voll angezeigt.
+* Sonstiges
+ - Berechnungen für TerraLife+ angepasst
+ - Anzahl der anzuzeigenden Tage ist nun einstellbar
+ - Berechnungsfehler auf Server korrigiert
+ - Berechnungen bei geteilten Produktionslinien verbessert
+ - Tierfutterrestzeitenberechnung komplett überarbeitet und diese werden nun zusammengefasst, wenn sie innerhalb einer Stunde liegen.
 
 1.4.1.0
 - Fix für "attempt to index field 'spec_husbandryFood' (a nil value)"
-- MOH zeigt jetzt auch volle und fast volle an, wenn diese Eingangs und Ausgangprodukte sind
+- MOH zeigt jetzt auch volle und fast volle an, wenn diese Eingangs- und Ausgangprodukte sind
 - 0:00 sollte jetzt immer als leer angezeigt werden
 - Extensions werden bei Produktionen jetzt mit eingerechnet in der Restlaufzeit
 - Lua Fehler mit Farm Production DLC behoben
@@ -72,7 +71,7 @@ Changelog
 
 1.4.0.0
 * Erweiterten Tiersystem Mod Kompatibilität
- - Überbelegung wird nun angezeigt mit restzeit bis wann die Gesundheit im Stall sinkt (Mengenanzeige im MultiOverlayV4 Hud zeigt die Überbelegungsanzahl als negative Menge)
+ - Überbelegung wird nun angezeigt mit Restzeit, bis wann die Gesundheit im Stall sinkt (Mengenanzeige im MultiOverlayV4 Hud zeigt die Überbelegungsanzahl als negative Menge)
  - Voll wird nicht mehr angezeigt, wenn Überbelegung im Stall zugelassen ist
 * Production Revamp Kompatibilität
  - Komplett versteckte Produktionen und versteckte Produktionslinien werden nicht mehr angezeigt im Hud und in der Produktionsübersicht
@@ -91,7 +90,7 @@ Changelog
 1.3.0.0
 - Parallele Fütterung wird jetzt einzeln angezeigt, wenn die Futtermittel nicht gleich lang reichen
 - Mehr Zeilen einstellbar 
-- Übersetzungen in spanisch und französisch hinzugefügt
+- Übersetzungen in Spanisch und Französisch hinzugefügt
 - Fix für Inputs die auch Outputs sind
 - Unsichtbare Produktionen aus dem Produktionsskript von GTX werden nicht mehr angezeigt
 ]]></de>
@@ -101,7 +100,7 @@ Changelog
 The current version has the following possibilities:
 - Display of active productions and animal sheds with their remaining time per resource. Including the animal sheds for feed, water and straw. Revamp Mix is also displayed as such.
 - A production is only displayed if...
--- it has less than 2 months remaining runtime.
+-- it has less than 2 days remaining runtime (Configurable).
 -- it has less than 50% fill level. (Except for Revamp Mix inputs, where this is ignored).
 -- The production line is activated.
 - The display is sorted by remaining runtime, whichever runs empty or is empty first is at the top.
@@ -136,6 +135,17 @@ Upload on other sites only by myself, linking only with original download link. 
 Modifying and re-uploading in whole or in part is not allowed!
 
 Changelog
+1.5.0.0
+* Adjustments for Revamp 1.5
+ - More mix groups are now displayed correctly
+ - Feed Mixer remaining time not possible due to constantly recalculated composition. Therefore it is only displayed empty or (almost) full.
+* Miscellaneous
+ - Calculations for TerraLife+ adjusted
+ - Number of days to be displayed is now adjustable
+ - Calculation error on server corrected
+ - Calculations for split production lines improved
+ - Animal feed remaining times calculation completely revised and these are now summarized if they are within one hour.
+
 1.4.1.0
 - Fix for "attempt to index field 'spec_husbandryFood' (a nil value)"
 - MOH now also shows full and almost full when these are input and output products
