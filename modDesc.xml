@@ -2,7 +2,7 @@
 <modDesc descVersion="80">
 	<author>Achimobil</author>
 	<contributor>Rodberaht, HappyLooser</contributor>
-	<version>1.5.0.0</version>
+	<version>1.5.0.1</version>
 	<title>
 		<de>Produktionen Info Hud</de>
 		<en>Production Info Hud</en>
@@ -50,6 +50,9 @@ Upload auf anderen Seiten nur durch mich selbst, Verlinkung nur mit Original-Dow
 Das Verändern oder erneutes hochladen, ob ganz oder in Teilen ist nicht gestattet!
 
 Changelog
+
+1.5.0.1 - Fix Lua mit GEA Automat wegen fehlendem Feedspot
+
 1.5.0.0
 * Anpassungen für Revamp 1.5
  - Mehr Mix Gruppen werden jetzt korrekt angezeigt

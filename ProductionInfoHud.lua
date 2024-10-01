@@ -996,21 +996,29 @@ function ProductionInfoHud:refreshProductionsTable()
 					for _, ingredient in pairs(recipe.ingredients) do
 						local fillLevel = 0
 
+						local spot = nil;
 						for _, fillType in ipairs(ingredient.fillTypes) do
-							fillLevel = fillLevel + feedingRobot:getFillLevel(fillType)
+							fillLevel = fillLevel + feedingRobot:getFillLevel(fillType);
+							if spot == nil then
+								-- use first spot which is found for the ingredients
+								spot = feedingRobot.fillTypeToUnloadingSpot[fillType];
+							end
 						end
 						
 						local producableWithThisIngredient = fillLevel / ingredient.ratio;
 						local hoursLeft = producableWithThisIngredient / (placeable.spec_husbandryFood.litersPerHour * timeFactor);
 						
-						local spot = feedingRobot.fillTypeToUnloadingSpot[ingredient.fillTypes[1]]
 
 						local productionItem = {}
 						productionItem.name = placeable:getName();
 						productionItem.needPerHour = 0;
 						productionItem.hoursLeft = hoursLeft
 						productionItem.fillLevel = fillLevel;
-						productionItem.capacity = spot.capacity;
+						if spot ~= nil then
+							productionItem.capacity = spot.capacity;
+						else
+							ProductionInfoHud.print("No spot for %s in %s", ingredient.title, productionItem.name)
+						end
 						productionItem.isInput = true;
 						productionItem.isOutput = false;
 						
